@@ -1,0 +1,20 @@
+ {% extends 'base/ana.html' %}
+ {% block content %}
+ <title>Kişiler | FIFAVA</title>
+  </head>
+  <body>
+    <h4>Kullanıcı : {{request.user}}</h4>
+    <a href="{% url 'anasayfa' %}">Anasayfa</a>
+    {% for kisi in kisiler %}
+    <div>
+      Ad Soyad : {{kisi.oyun_ad_soyad}}   ||
+      Meslek : {{kisi.meslek}}  <br> 
+      <a href="{% url 'kisi-detay' kisi.id %}">Kişinin Detayları</a>
+      <a href="{% url 'kisi-duzenle' kisi.id %}">Kişiyi Düzenle</a>
+      <a href="{% url 'kisi-sil' kisi.id %}">Kişiyi Sil</a>
+    </div>
+    {% endfor %}
+  </body>
+</html>
+{% endblock content %}
+ 

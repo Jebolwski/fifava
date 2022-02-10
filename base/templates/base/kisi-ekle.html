@@ -1,0 +1,20 @@
+ {% extends 'base/ana.html' %}
+ {% block content %}
+ <title>Kişi Ekle | FIFAVA</title>
+  </head>
+  <body>
+    <h4>Kullanıcı : {{request.user}}</h4>
+    <form method="post">
+        {% csrf_token %}
+    <h5>Ad Soyad</h5>
+    {{form.oyun_ad_soyad}}
+    <h5>Meslek</h5>
+    {{form.meslek}}
+    <br><br>
+    <input type="submit" value="Kişi Ekle">
+    </form>
+    
+  </body>
+</html>
+{% endblock content %}
+ 

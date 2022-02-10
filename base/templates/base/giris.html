@@ -1,0 +1,15 @@
+    <title>Giriş Yapma | FIFAVA</title>
+  </head>
+  <body>
+    <form method="POST" action="{% url 'giris-yap' %}">
+      {% csrf_token %}
+      <label>Kullanıcı Adı</label>
+      <span>{{form.username}}</span>
+      <br />
+      <br />
+      <label>Şifre</label>
+      <span>{{form.password}}</span>
+      <input type="submit" value="Giriş Yap" />
+    </form>
+  </body>
+</html>

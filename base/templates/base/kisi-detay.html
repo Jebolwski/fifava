@@ -1,0 +1,16 @@
+ {% extends 'base/ana.html' %}
+ {% block content %}
+ <title>Kişi Ekle | FIFAVA</title>
+  </head>
+  <body>
+    <h4>Kullanıcı : {{request.user}}</h4>
+        {% csrf_token %}
+    <p>Ad Soyad : {{kisi.oyun_ad_soyad}}</p>
+    
+    <p>Meslek : {{kisi.meslek}}</p>
+    
+    
+  </body>
+</html>
+{% endblock content %}
+ 
