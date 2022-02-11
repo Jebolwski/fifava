@@ -4,15 +4,37 @@
   </head>
   <body>
     <h4>Kullanıcı : {{request.user}}</h4>
-    <form method="post">
-    {% csrf_token %}
-    <h5>Ad Soyad</h5>
-    {{form.oyun_ad_soyad}}
-    <h5>Meslek</h5>
-    {{form.meslek}}
-    <br><br>
-    <input type="submit" value="Kişiyi Düzenle">
-    </form>
+    <aside class="side-navbar">
+      <ul>
+        <li><a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house"></i><p class="side-navbar-hidden-title">Anasayfa</p></a></li>
+        <li><a href="{% url 'kisiler' %}"><i class="fa-solid fa-person"></i><p class="side-navbar-hidden-title">Oyuncular</p></a></li>
+        <li>
+          <a href="">
+          <i class="fa-solid fa-question"></i><p class="side-navbar-hidden-title">Nasıl Katılabilirim ?</p>
+        </a>
+        </li>
+        <li>
+        {% if user.is_authenticated %}
+        <a href="{% url 'cikis-yap' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i><p class="side-navbar-hidden-title">Çıkış Yap</p></a>
+        {% else %}
+        <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i><p class="side-navbar-hidden-title">Giriş Yap</p></a>
+        {% endif %}
+        </li>
+        
+      </ul>
+    </aside>
+    <main>
+      <form method="post">
+        <h5>Ad Soyad</h5>
+        {% csrf_token %}
+        {{form.oyun_ad_soyad}}
+        <h5>Meslek</h5>
+        {{form.meslek}}
+        <br><br>
+        <input type="submit" value="Kişiyi Düzenle">
+        </form>
+      </main>
+    
     
   </body>
 </html>

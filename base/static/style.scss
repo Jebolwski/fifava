@@ -1,0 +1,149 @@
+$navbar-background-color: rgb(73, 73, 73);
+$kisiler-main-background-color: rgb(212, 208, 208);
+
+* {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $navbar-background-color;
+  overflow-x: hidden;
+}
+
+.side-navbar {
+  overflow: hidden;
+  position: fixed;
+  background-color: $navbar-background-color;
+  width: clamp(60px, 5vw, 5%);
+  min-width: 60px;
+  height: 100vh;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    width: 14vw;
+    transition: 0.3s ease-in-out;
+    .side-navbar-hidden-title {
+      animation-name: sidenavbarhiddentitle;
+      animation-duration: 1s;
+      opacity: 1;
+    }
+  }
+
+  ul {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  ul li {
+    list-style: none;
+    transition: 0.3s ease;
+
+    &:hover {
+      transform: scale(1);
+      transform: translateX(10px);
+      transition: 0.3s ease;
+    }
+    a {
+      font-size: 1.15em;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      .side-navbar-hidden-title {
+        font-size: 14px;
+        padding-left: 10px;
+        padding-right: 10px;
+        opacity: 0;
+      }
+    }
+  }
+}
+main {
+  margin-left: 5vw;
+  #visual {
+    margin-left: 5vw;
+    z-index: -1;
+  }
+  .kisiler {
+    background: url("./kisi-arkaplan.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 95vw;
+    h4,
+    h5 {
+      color: white;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      padding-left: 10px;
+    }
+    .profil-foto {
+      width: 15vw;
+      min-width: 60px;
+      height: 25vh;
+      min-height: 90px;
+    }
+  }
+}
+
+@keyframes sidenavbarhiddentitle {
+  0% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .side-navbar {
+    &:hover {
+      .side-navbar-hidden-title {
+        opacity: 0;
+        animation: none;
+      }
+    }
+    ul {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      li {
+        transition: 0.3s ease;
+        &:hover {
+          transform: scale(1.05);
+          transform: translateX(0px);
+          transition: 0.3s ease;
+        }
+      }
+    }
+
+    ul li a:hover {
+      transform: scale(1.05);
+
+      .side-navbar-hidden-title {
+        opacity: 0;
+      }
+    }
+  }
+  main {
+    margin-left: 5vw;
+
+    .kisiler {
+      width: 95vw;
+      height: 50vh;
+      background-color: $kisiler-main-background-color;
+      .profil-foto {
+        width: 15vw;
+        min-width: 60px;
+        height: 25vh;
+        min-height: 90px;
+      }
+    }
+  }
+}
