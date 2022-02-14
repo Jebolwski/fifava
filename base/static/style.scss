@@ -43,6 +43,11 @@ main {
     text-overflow: ellipsis;
   }
   form {
+    .center {
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+
     .submit {
       margin-left: 48%;
       transform: translateX(-50%);
@@ -89,4 +94,10 @@ main {
 }
 
 @media only screen and (max-width: 1300px) {
+  .side-navbar {
+    ul li a {
+      font-size: 13px;
+      text-align: center;
+    }
+  }
 }

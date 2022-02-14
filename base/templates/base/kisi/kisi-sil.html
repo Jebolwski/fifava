@@ -1,6 +1,6 @@
  {% extends 'base/ana.html' %}
  {% block content %}
- <title>Anasayfa | FIFAVA</title>
+ <title>Kişi Sil | FIFAVA</title>
   </head>
   <body>
     <aside class="side-navbar col-2 bg-dark" >
@@ -34,8 +34,14 @@
         
       </ul>
     </aside>
-
-    <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
+    <main class="col-10 col-lg-8 offset-2">
+      <form method="post">
+        {% csrf_token %}
+        <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
+        <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">  
+      </form>  
+  </main>  
+  <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>
         {% for haber in haberler %}
@@ -51,7 +57,5 @@
         {% endfor %}
       </ul>
     </aside>
-  </body>
-</html>
 {% endblock content %}
  

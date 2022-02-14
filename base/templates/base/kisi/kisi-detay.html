@@ -3,6 +3,7 @@
  <title>Kişi Ekle | FIFAVA</title>
   </head>
   <body>
+        {% csrf_token %}
     <aside class="side-navbar col-2 bg-dark" >
       <ul class="p-0 text-center">
         <li><a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house"></i> <p>Anasayfa</p></a></li>
@@ -19,6 +20,11 @@
             </a>
           </li>
         {% endif %}
+          <li>
+            <a href="{% url 'formlar' %}">
+              <i class="fa-solid fa-file"></i> <p>Formlar</p> 
+            </a>
+          </li>
         <li>
         {% if user.is_authenticated %}
         <a href="{% url 'cikis-yap' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <p> Çıkış Yap</p></a>
@@ -29,18 +35,12 @@
         
       </ul>
     </aside>
-    <main>
-    <form method="post">
-        {% csrf_token %}
-    <h5>Ad Soyad</h5>
-    {{form.oyun_ad_soyad}}
-    <h5>Meslek</h5>
-    {{form.meslek}}
-    <br><br>
-    <input type="submit" value="Kişi Ekle">
-    </form>
-  </main>
-
+    <main class="col-8 offset-2">
+      <p>Ad Soyad : {{kisi.oyun_ad_soyad}}</p>
+    
+      <p>Meslek : {{kisi.meslek}}</p>
+    </main>
+    
     <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>

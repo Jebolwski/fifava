@@ -1,6 +1,6 @@
  {% extends 'base/ana.html' %}
  {% block content %}
- <title>Anasayfa | FIFAVA</title>
+ <title>Kişi Ekle | FIFAVA</title>
   </head>
   <body>
     <aside class="side-navbar col-2 bg-dark" >
@@ -34,8 +34,49 @@
         
       </ul>
     </aside>
+    <main class="col-8 offset-2">
+      <h4 class="text-center pt-5">Formu Düzenle</h4>
+      <form method="post">
+        {% csrf_token %}
+        <h5 class="text-center pt-5">{{form.baslik}}</h5>
+        <div class="center col-2"></div>
+        
 
-    <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
+
+        <h5 class="text-center mt-5">Soru 1</h5>
+        <div class="center col-2">{{form.soru1}}</div>
+
+        <h5 class="text-center mt-5">Soru 2</h5>
+        <div class="center col-2">{{form.soru2}}</div>
+
+        <h5 class="text-center mt-5">Soru 3</h5>
+        <div class="center col-2">{{form.soru3}}</div>
+
+        <h5 class="text-center mt-5">Soru 4</h5>
+        <div class="center col-2">{{form.soru4}}</div>
+
+        <h5 class="text-center mt-5">Soru 5</h5>
+        <div class="center col-2">{{form.soru5}}</div>
+
+        <h5 class="text-center mt-5">Soru 6</h5>
+        <div class="center col-2">{{form.soru6}}</div>
+
+        <h5 class="text-center mt-5">Soru 7</h5>
+        <div class="center col-2">{{form.soru7}}</div>
+
+        <h5 class="text-center mt-5">Soru 8</h5>
+        <div class="center col-2">{{form.soru8}}</div>
+
+        <h5 class="text-center mt-5">Soru 9</h5>
+        <div class="center col-2">{{form.soru9}}</div>
+
+        <h5 class="text-center mt-5">Soru 10</h5>
+        <div class="center col-2">{{form.soru10}}</div>
+        <input type="submit" value="Formu Düzenle" class="center btn btn-outline-dark mt-5 mb-5">
+        </form>
+      </main>
+    
+      <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>
         {% for haber in haberler %}
@@ -51,6 +92,7 @@
         {% endfor %}
       </ul>
     </aside>
+    
   </body>
 </html>
 {% endblock content %}

@@ -1,6 +1,6 @@
  {% extends 'base/ana.html' %}
  {% block content %}
- <title>Anasayfa | FIFAVA</title>
+ <title>Kişi Ekle | FIFAVA</title>
   </head>
   <body>
     <aside class="side-navbar col-2 bg-dark" >
@@ -34,8 +34,20 @@
         
       </ul>
     </aside>
-
-    <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
+    <main class="col-8 offset-2">
+      <h4 class="text-center pt-5">Oyuncuyu Düzenle</h4>
+      <form method="post">
+        {% csrf_token %}
+        <h5 class="text-center pt-5">Ad Soyad</h5>
+        <div class="center col-2">{{form.oyun_ad_soyad}}</div>
+        
+        <h5 class="text-center mt-5">Meslek</h5>
+        <div class="center col-2">{{form.meslek}}</div>
+        <input type="submit" value="Kişiyi Düzenle" class="center btn btn-outline-dark mt-5">
+        </form>
+      </main>
+    
+      <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>
         {% for haber in haberler %}
@@ -51,6 +63,7 @@
         {% endfor %}
       </ul>
     </aside>
+    
   </body>
 </html>
 {% endblock content %}

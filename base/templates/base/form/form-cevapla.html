@@ -1,0 +1,220 @@
+ {% extends 'base/ana.html' %}
+ {% block content %}
+ <title>Kişi Ekle | FIFAVA</title>
+  </head>
+  <body>
+    <aside class="side-navbar col-2 bg-dark" >
+      <ul class="p-0 text-center">
+        <li><a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house"></i> <p>Anasayfa</p></a></li>
+        <li><a href="{% url 'kisiler' %}"><i class="fa-solid fa-person"></i> <p>Oyuncular</p> </a></li>
+        <li>
+          <a href="">
+          <i class="fa-solid fa-question"></i> <p>Nasıl Katılabilirim</p> 
+        </a>
+        </li>
+        {% if user.is_superuser %}
+          <li>
+            <a href="{% url 'haberler' %}">
+              <i class="fa-solid fa-newspaper"></i> <p>Haberler</p> 
+            </a>
+          </li>
+        {% endif %}
+          <li>
+            <a href="{% url 'formlar' %}">
+              <i class="fa-solid fa-file"></i> <p>Formlar</p> 
+            </a>
+          </li>
+        <li>
+        {% if user.is_authenticated %}
+        <a href="{% url 'cikis-yap' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <p> Çıkış Yap</p></a>
+        {% else %}
+        <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> <p>Giriş Yap</p> </a>
+        {% endif %}
+        </li>
+        
+      </ul>
+    </aside>
+    <main class="col-8 offset-2">
+      <h4 class="text-center pt-5">Oyuncuyu Düzenle</h4>
+      <form method="post">
+        {% csrf_token %}
+        <h5 class="text-center pt-5">{{form.baslik}}</h5>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 1</h5>
+          <div class="center col-2">{{form.soru1}}</div>
+          <input type="radio" name="radio11">
+          <label for="1">1</label>
+          <input type="radio" name="radio12">
+          <label for="2">2</label>
+          <input type="radio" name="radio13">
+          <label for="3">3</label>
+          <input type="radio" name="radio14">
+          <label for="4">4</label>
+          <input type="radio" name="radio15">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 2</h5>
+          <div class="center col-2">{{form.soru2}}</div>
+          <input type="radio" name="radio21">
+          <label for="1">1</label>
+          <input type="radio" name="radio22">
+          <label for="2">2</label>
+          <input type="radio" name="radio23">
+          <label for="3">3</label>
+          <input type="radio" name="radio24">
+          <label for="4">4</label>
+          <input type="radio" name="radio25">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 3</h5>
+          <div class="center col-2">{{form.soru3}}</div>
+          <input type="radio" name="radio31">
+          <label for="1">1</label>
+          <input type="radio" name="radio32">
+          <label for="2">2</label>
+          <input type="radio" name="radio33">
+          <label for="3">3</label>
+          <input type="radio" name="radio34">
+          <label for="4">4</label>
+          <input type="radio" name="radio35">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 4</h5>
+          <div class="center col-2">{{form.soru4}}</div>
+          <input type="radio" name="radio41">
+          <label for="1">1</label>
+          <input type="radio" name="radio42">
+          <label for="2">2</label>
+          <input type="radio" name="radio43">
+          <label for="3">3</label>
+          <input type="radio" name="radio44">
+          <label for="4">4</label>
+          <input type="radio" name="radio45">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 5</h5>
+          <div class="center col-2">{{form.soru5}}</div>
+          <input type="radio" name="radio51">
+          <label for="1">1</label>
+          <input type="radio" name="radio52">
+          <label for="2">2</label>
+          <input type="radio" name="radio53">
+          <label for="3">3</label>
+          <input type="radio" name="radio54">
+          <label for="4">4</label>
+          <input type="radio" name="radio55">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 6</h5>
+          <div class="center col-2">{{form.soru6}}</div>
+          <input type="radio" name="radio61">
+          <label for="1">1</label>
+          <input type="radio" name="radio62">
+          <label for="2">2</label>
+          <input type="radio" name="radio63">
+          <label for="3">3</label>
+          <input type="radio" name="radio64">
+          <label for="4">4</label>
+          <input type="radio" name="radio65">
+          <label for="5">5</label>
+        </div>
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 7</h5>
+          <div class="center col-2">{{form.soru7}}</div>
+          <input type="radio" name="radio71">
+          <label for="1">1</label>
+          <input type="radio" name="radio72">
+          <label for="2">2</label>
+          <input type="radio" name="radio73">
+          <label for="3">3</label>
+          <input type="radio" name="radio74">
+          <label for="4">4</label>
+          <input type="radio" name="radio75">
+          <label for="5">5</label>
+        </div>
+
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 8</h5>
+          <div class="center col-2">{{form.soru8}}</div>
+          <input type="radio" name="radio81">
+          <label for="1">1</label>
+          <input type="radio" name="radio82">
+          <label for="2">2</label>
+          <input type="radio" name="radio83">
+          <label for="3">3</label>
+          <input type="radio" name="radio84">
+          <label for="4">4</label>
+          <input type="radio" name="radio85">
+          <label for="5">5</label>
+        </div>
+
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 9</h5>
+          <div class="center col-2">{{form.soru9}}</div>
+          <input type="radio" name="radio91">
+          <label for="1">1</label>
+          <input type="radio" name="radio92">
+          <label for="2">2</label>
+          <input type="radio" name="radio93">
+          <label for="3">3</label>
+          <input type="radio" name="radio94">
+          <label for="4">4</label>
+          <input type="radio" name="radio95">
+          <label for="5">5</label>
+        </div>
+
+
+        <div class="soru center">
+          <h5 class="text-center mt-5">Soru 10</h5>
+          <div class="center col-2">{{form.soru10}}</div>
+          <input type="radio" name="radio101">
+          <label for="1">1</label>
+          <input type="radio" name="radio102">
+          <label for="2">2</label>
+          <input type="radio" name="radio103">
+          <label for="3">3</label>
+          <input type="radio" name="radio104">
+          <label for="4">4</label>
+          <input type="radio" name="radio105">
+          <label for="5">5</label>
+        </div>
+
+        <input type="submit" value="Kişiyi Düzenle" class="center btn btn-outline-dark mt-5">
+        </form>
+      </main>
+    
+      <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
+      <ul>
+          <p class="text-center h5">Haberler</p>
+        {% for haber in haberler %}
+        <li>
+            
+            <table>
+                <tr>
+                    <td>{{haber.baslik}}</td>
+                    <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                </tr>
+            </table>
+        </li>
+        {% endfor %}
+      </ul>
+    </aside>
+    
+  </body>
+</html>
+{% endblock content %}
+ 
