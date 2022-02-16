@@ -4,16 +4,49 @@ from pyexpat import model
 from re import template
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
+from django.contrib.auth import authenticate, login, logout
 
-from .forms import FormForm
+from django.contrib.auth.forms import UserCreationForm
+from .forms import FormForm,SorularForm,KayitForm
+
+
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib import messages
+
 
 #?CLASS BASED VIEWS
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+
+def KayitOlma(request):
+    form = KayitForm()
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect('giris-yap')
+    context = {'form':form}
+    return render(request,"base/kayit.html",context)
+
+
+def GirisYap(request):
+    if request.method=="POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        person = authenticate(
+            request, username=username, password=password)
+
+        if person is not None:
+            login(request,person)
+            return redirect('anasayfa')
+    return render(request,"base/giris.html")
+    
+
 def Ev(request):
     return render(request,"base/anasayfa.html")
+
 
 #?KİŞİ CRUD
 class Kisiler(ListView):
@@ -68,8 +101,6 @@ class Haberler(ListView):
     context_object_name = 'haberler'
 
 
-
-
 class HaberEkle(LoginRequiredMixin,CreateView):
     model               = Haberler
     fields              = "__all__"
@@ -97,18 +128,20 @@ class HaberSil(LoginRequiredMixin,DeleteView):
 
 #!FORM
 def Formlar(request):
-    formlar=Form.objects.all()
-    context={"formlar":formlar}
+    sorular=Sorular.objects.all().order_by('-guncellenme_tarihi')
+    cevaplananlar=Form.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
+    context={"formlar":sorular,"cevap":cevaplananlar}
     return render(request,"base/form/formlar.html",context)
 
 
 
 def FormEkle(request):
-    form = FormForm()
+    form = SorularForm()
     if request.method=="POST":
-        form = FormForm(request.POST)
+        form = SorularForm(request.POST)
         print("form valid değil")
         if form.is_valid():
+            form.instance.user=request.user
             form.save()
             print("form valid")
             return redirect("formlar")
@@ -117,10 +150,10 @@ def FormEkle(request):
 
 
 def FormDuzenle(request,pk):
-    form_instance = Form.objects.get(id=pk)
-    form = FormForm(instance=form_instance)
+    form_instance = Sorular.objects.get(id=pk)
+    form = SorularForm(instance=form_instance)
     if request.method=="POST":
-        form = FormForm(request.POST,instance=form_instance)
+        form = SorularForm(request.POST,instance=form_instance)
         if form.is_valid():
             form.save()
             return redirect("formlar")
@@ -129,8 +162,8 @@ def FormDuzenle(request,pk):
 
 
 def FormSil(request,pk):
-    form=Form.objects.get(id=pk)
-    if request.method=="POST":
+    form=Sorular.objects.get(id=pk)
+    if request.method=='POST':
         form.delete()
         return redirect("formlar")
     context={'form':form}
@@ -138,11 +171,33 @@ def FormSil(request,pk):
 
 
 def FormCevapla(request,pk):
-    form=Form.objects.get(id=pk)
+    form=FormForm()
+    sorular=Sorular.objects.get(id=pk)
     if request.method=="POST":
-        if request.POST:
-            print("var")
-        return redirect("formlar")
-    context={'form':form}
+        form_copy=request.POST.copy()
+        form_copy['kayitli']=str(request.user.id)
+        form=FormForm(form_copy)
+        print(form_copy)
+        if form.is_valid():
+            form.save()
+            return redirect('formlar')
+        else:
+            print("valid degilmis")
+    context={'form':form,'sorular':sorular}
     return render(request,"base/form/form-cevapla.html",context)
 
+
+def FormDetay(request,pk):
+    soru=Sorular.objects.get(id=pk)
+    context={'soru':soru}
+    return render(request,"base/form/form-detay.html",context)
+
+
+
+def FormAnaliz(request,pk):
+    form = Form.objects.get(id=pk)
+    # yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+
+    context = {'form':form}
+
+    return render(request,"base/form/form-analiz.html",context)

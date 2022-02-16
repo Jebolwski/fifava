@@ -10,3 +10,4 @@ class Person(admin.ModelAdmin):
 
 admin.site.register(Haberler)
 admin.site.register(Form)
+admin.site.register(Sorular)

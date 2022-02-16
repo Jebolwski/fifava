@@ -22,7 +22,7 @@
         {% endif %}
           <li>
             <a href="{% url 'formlar' %}">
-              <i class="fa-solid fa-file"></i> <p>Formlar</p> 
+              <i class="fa-solid fa-file"></i> <p>Anketler</p> 
             </a>
           </li>
         <li>
@@ -38,18 +38,18 @@
 
 
   <main class="col-10 col-lg-8 offset-2">
-    <h4 class="text-center pt-4">Giriş Yap</h4>
+    <h4 class="text-center pt-4">Kayıt Ol</h4>
       <form method="POST" action="{% url 'giris-yap' %}" >
       {% csrf_token %}
       <h5 class="text-center mt-5">Kullanıcı Adı</h5>
-      <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
+      <div class="center col-8 col-md-4">{{form.username}}</div>
+      <h5 class="text-center mt-5">Email</h5>
+      <div class="center col-8 col-md-4">{{form.email}}</div>
       <h5 class="text-center mt-4">Şifre</h5>
-      <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
+      <div class="center col-8 col-md-4">{{form.password1}}</div>
+      <h5 class="text-center mt-4">Şifre (Tekrar)</h5>
+      <div class="center col-8 col-md-4">{{form.password2}}</div>
       <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" />
-
-      <p class="text-center mt-5">Şifreni mi unuttun? Şifre Sıfırla</p>
-      <p class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
-            </a></p>
     </form>
   </main>
 

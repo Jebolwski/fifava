@@ -34,44 +34,44 @@
         
       </ul>
     </aside>
-    <main class="col-8 offset-2">
+    <main class="col-6 col-lg-6 offset-3">
       <h4 class="text-center pt-5">Formu Düzenle</h4>
       <form method="post">
         {% csrf_token %}
-        <h5 class="text-center pt-5">{{form.baslik}}</h5>
-        <div class="center col-2"></div>
+        <label class="text-center pt-5">Anket Başlığı</label>
+        <div>{{form.baslik}}</div>
         
 
 
-        <h5 class="text-center mt-5">Soru 1</h5>
-        <div class="center col-2">{{form.soru1}}</div>
+        <label class="pt-5">Soru 1</label>
+        <div>{{form.soru1}}</div>
 
-        <h5 class="text-center mt-5">Soru 2</h5>
-        <div class="center col-2">{{form.soru2}}</div>
+        <label class="pt-5">Soru 2</label>
+        <div>{{form.soru2}}</div>
 
-        <h5 class="text-center mt-5">Soru 3</h5>
-        <div class="center col-2">{{form.soru3}}</div>
+        <label class="pt-5">Soru 3</label>
+        <div>{{form.soru3}}</div>
 
-        <h5 class="text-center mt-5">Soru 4</h5>
-        <div class="center col-2">{{form.soru4}}</div>
+        <label class="pt-5">Soru 4</label>
+        <div>{{form.soru4}}</div>
 
-        <h5 class="text-center mt-5">Soru 5</h5>
-        <div class="center col-2">{{form.soru5}}</div>
+        <label class="pt-5">Soru 5</label>
+        <div>{{form.soru5}}</div>
 
-        <h5 class="text-center mt-5">Soru 6</h5>
-        <div class="center col-2">{{form.soru6}}</div>
+        <label class="pt-5">Soru 6</label>
+        <div>{{form.soru6}}</div>
 
-        <h5 class="text-center mt-5">Soru 7</h5>
-        <div class="center col-2">{{form.soru7}}</div>
+        <label class="pt-5">Soru 7</label>
+        <div>{{form.soru7}}</div>
 
-        <h5 class="text-center mt-5">Soru 8</h5>
-        <div class="center col-2">{{form.soru8}}</div>
+        <label class="pt-5">Soru 8</label>
+        <div>{{form.soru8}}</div>
 
-        <h5 class="text-center mt-5">Soru 9</h5>
-        <div class="center col-2">{{form.soru9}}</div>
+        <label class="pt-5">Soru 9</label>
+        <div>{{form.soru9}}</div>
 
-        <h5 class="text-center mt-5">Soru 10</h5>
-        <div class="center col-2">{{form.soru10}}</div>
+        <label class="pt-5">Soru 10</label>
+        <div>{{form.soru10}}</div>
         <input type="submit" value="Formu Düzenle" class="center btn btn-outline-dark mt-5 mb-5">
         </form>
       </main>

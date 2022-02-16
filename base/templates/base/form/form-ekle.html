@@ -34,19 +34,40 @@
         
       </ul>
     </aside>
-    <main class="col-10 col-lg-8 offset-2">
-      <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
-      <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label>
-    <form method="post">
+    <!-- <main class="col-10 col-lg-8 offset-2">
+    <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
+    <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
+    
+    <main class="col-6 col-lg-6 offset-3">
+      <form method="post">
         {% csrf_token %}
-    
-    
-    <div class="sorular center">
-
-    </div>
-    
-    <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-5 center">
+      <label class="pt-5">Anket Başlığı</label>
+      <div class="pb-5">{{form.baslik}}</div>
+      <label>Soru 1</label>
+      <div class="pb-5">{{ form.soru1 }}</div>
+      <label>Soru 2</label>
+      <div class="pb-5">{{ form.soru2 }}</div>
+      <label>Soru 3</label>
+      <div class="pb-5">{{ form.soru3 }}</div>
+      <label>Soru 4</label>
+      <div class="pb-5">{{ form.soru4 }}</div>
+      <label>Soru 5</label>
+      <div class="pb-5">{{ form.soru5 }}</div>
+      <label>Soru 6</label>
+      <div class="pb-5">{{ form.soru6 }}</div>
+      <label>Soru 7</label>
+      <div class="pb-5">{{ form.soru7 }}</div>
+      <label>Soru 8</label>
+      <div class="pb-5">{{ form.soru8 }}</div>
+      <label>Soru 9</label>
+      <div class="pb-5">{{ form.soru9 }}</div>
+      <label>Soru 10</label>
+      <div class="pb-5">{{ form.soru10 }}</div>
+      <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
     </form>
+    </main>
+    
+    
   </main>
 
     <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
@@ -67,17 +88,6 @@
     </aside>
 
     
-    <script>
-        const olustur=()=>{
-            let sorular = document.querySelector('.sorular');
-            let input = document.querySelector('.input')
-            console.log(input.value) 
-            for(let i=1;i<input.value+1;i++){
-                sorular.innerHTML=`<div>{{form.soru1}}</div>`
-            }
-        }
-        
-        let soru = document.createElement('div');
-    </script>
+
 {% endblock content %}
  

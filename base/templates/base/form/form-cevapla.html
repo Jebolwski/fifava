@@ -1,6 +1,6 @@
  {% extends 'base/ana.html' %}
  {% block content %}
- <title>Kişi Ekle | FIFAVA</title>
+ <title>Anketi Cevaplama | FIFAVA</title>
   </head>
   <body>
     <aside class="side-navbar col-2 bg-dark" >
@@ -34,166 +34,65 @@
         
       </ul>
     </aside>
-    <main class="col-8 offset-2">
-      <h4 class="text-center pt-5">Oyuncuyu Düzenle</h4>
+    <main class="col-6 col-lg-8 offset-2">
+      <h4 class="text-center pt-5 pb-5">Anketi Cevapla</h4>
       <form method="post">
         {% csrf_token %}
-        <h5 class="text-center pt-5">{{form.baslik}}</h5>
-
-        <div class="soru center">
+        <h5 class="text-center pt-2">{{sorular.baslik}}</h5>
+        <div class="text-center">
           <h5 class="text-center mt-5">Soru 1</h5>
-          <div class="center col-2">{{form.soru1}}</div>
-          <input type="radio" name="radio11">
-          <label for="1">1</label>
-          <input type="radio" name="radio12">
-          <label for="2">2</label>
-          <input type="radio" name="radio13">
-          <label for="3">3</label>
-          <input type="radio" name="radio14">
-          <label for="4">4</label>
-          <input type="radio" name="radio15">
-          <label for="5">5</label>
-        </div>
+          <label class="text-center">{{sorular.soru1}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru1_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 2</h5>
-          <div class="center col-2">{{form.soru2}}</div>
-          <input type="radio" name="radio21">
-          <label for="1">1</label>
-          <input type="radio" name="radio22">
-          <label for="2">2</label>
-          <input type="radio" name="radio23">
-          <label for="3">3</label>
-          <input type="radio" name="radio24">
-          <label for="4">4</label>
-          <input type="radio" name="radio25">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru2}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru2_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 3</h5>
-          <div class="center col-2">{{form.soru3}}</div>
-          <input type="radio" name="radio31">
-          <label for="1">1</label>
-          <input type="radio" name="radio32">
-          <label for="2">2</label>
-          <input type="radio" name="radio33">
-          <label for="3">3</label>
-          <input type="radio" name="radio34">
-          <label for="4">4</label>
-          <input type="radio" name="radio35">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru3}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru3_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 4</h5>
-          <div class="center col-2">{{form.soru4}}</div>
-          <input type="radio" name="radio41">
-          <label for="1">1</label>
-          <input type="radio" name="radio42">
-          <label for="2">2</label>
-          <input type="radio" name="radio43">
-          <label for="3">3</label>
-          <input type="radio" name="radio44">
-          <label for="4">4</label>
-          <input type="radio" name="radio45">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru4}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru4_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 5</h5>
-          <div class="center col-2">{{form.soru5}}</div>
-          <input type="radio" name="radio51">
-          <label for="1">1</label>
-          <input type="radio" name="radio52">
-          <label for="2">2</label>
-          <input type="radio" name="radio53">
-          <label for="3">3</label>
-          <input type="radio" name="radio54">
-          <label for="4">4</label>
-          <input type="radio" name="radio55">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru5}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru5_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 6</h5>
-          <div class="center col-2">{{form.soru6}}</div>
-          <input type="radio" name="radio61">
-          <label for="1">1</label>
-          <input type="radio" name="radio62">
-          <label for="2">2</label>
-          <input type="radio" name="radio63">
-          <label for="3">3</label>
-          <input type="radio" name="radio64">
-          <label for="4">4</label>
-          <input type="radio" name="radio65">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru6}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru6_cevap}}</div>
 
-        <div class="soru center">
+
           <h5 class="text-center mt-5">Soru 7</h5>
-          <div class="center col-2">{{form.soru7}}</div>
-          <input type="radio" name="radio71">
-          <label for="1">1</label>
-          <input type="radio" name="radio72">
-          <label for="2">2</label>
-          <input type="radio" name="radio73">
-          <label for="3">3</label>
-          <input type="radio" name="radio74">
-          <label for="4">4</label>
-          <input type="radio" name="radio75">
-          <label for="5">5</label>
-        </div>
+          <label>{{sourlar.soru7}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru7_cevap}}</div>
 
 
-        <div class="soru center">
           <h5 class="text-center mt-5">Soru 8</h5>
-          <div class="center col-2">{{form.soru8}}</div>
-          <input type="radio" name="radio81">
-          <label for="1">1</label>
-          <input type="radio" name="radio82">
-          <label for="2">2</label>
-          <input type="radio" name="radio83">
-          <label for="3">3</label>
-          <input type="radio" name="radio84">
-          <label for="4">4</label>
-          <input type="radio" name="radio85">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru8}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru8_cevap}}</div>
 
 
-        <div class="soru center">
           <h5 class="text-center mt-5">Soru 9</h5>
-          <div class="center col-2">{{form.soru9}}</div>
-          <input type="radio" name="radio91">
-          <label for="1">1</label>
-          <input type="radio" name="radio92">
-          <label for="2">2</label>
-          <input type="radio" name="radio93">
-          <label for="3">3</label>
-          <input type="radio" name="radio94">
-          <label for="4">4</label>
-          <input type="radio" name="radio95">
-          <label for="5">5</label>
-        </div>
+          <label>{{sorular.soru9}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru9_cevap}}</div>
 
 
-        <div class="soru center">
           <h5 class="text-center mt-5">Soru 10</h5>
-          <div class="center col-2">{{form.soru10}}</div>
-          <input type="radio" name="radio101">
-          <label for="1">1</label>
-          <input type="radio" name="radio102">
-          <label for="2">2</label>
-          <input type="radio" name="radio103">
-          <label for="3">3</label>
-          <input type="radio" name="radio104">
-          <label for="4">4</label>
-          <input type="radio" name="radio105">
-          <label for="5">5</label>
+          <label>{{sorular.soru10}}</label>
+          <div class="col-4 offset-4 mt-3">{{form.soru10_cevap}}</div>
+            
         </div>
 
-        <input type="submit" value="Kişiyi Düzenle" class="center btn btn-outline-dark mt-5">
+
+        <input type="submit" value="Anketi Cevapla" class="center btn btn-outline-dark mt-5 mb-5"> 
         </form>
       </main>
     

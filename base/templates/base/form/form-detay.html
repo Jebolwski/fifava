@@ -1,9 +1,8 @@
-{% extends 'base/ana.html' %}
-{% block content %}
-<title>Giriş Yapma | FIFAVA</title>
-</head>
-<body>
-    
+ {% extends 'base/ana.html' %}
+ {% block content %}
+ <title>Form Ekle | FIFAVA</title>
+  </head>
+  <body>
     <aside class="side-navbar col-2 bg-dark" >
       <ul class="p-0 text-center">
         <li><a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house"></i> <p>Anasayfa</p></a></li>
@@ -35,22 +34,40 @@
         
       </ul>
     </aside>
-
-
-  <main class="col-10 col-lg-8 offset-2">
-    <h4 class="text-center pt-4">Giriş Yap</h4>
-      <form method="POST" action="{% url 'giris-yap' %}" >
-      {% csrf_token %}
-      <h5 class="text-center mt-5">Kullanıcı Adı</h5>
-      <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
-      <h5 class="text-center mt-4">Şifre</h5>
-      <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
-      <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" />
-
-      <p class="text-center mt-5">Şifreni mi unuttun? Şifre Sıfırla</p>
-      <p class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
-            </a></p>
+    <!-- <main class="col-10 col-lg-8 offset-2">
+    <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
+    <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
+    
+    <main class="col-6 col-lg-6 offset-3">
+      <form method="post">
+        {% csrf_token %}
+      <label class="pt-5">Anket Başlığı</label>
+      <div class="pb-5">{{soru.baslik}}</div>
+      <label>Soru 1</label>
+      <div class="pb-5">{{ soru.soru1 }}</div>
+      <label>Soru 2</label>
+      <div class="pb-5">{{ soru.soru2 }}</div>
+      <label>Soru 3</label>
+      <div class="pb-5">{{ soru.soru3 }}</div>
+      <label>Soru 4</label>
+      <div class="pb-5">{{ soru.soru4 }}</div>
+      <label>Soru 5</label>
+      <div class="pb-5">{{ soru.soru5 }}</div>
+      <label>Soru 6</label>
+      <div class="pb-5">{{ soru.soru6 }}</div>
+      <label>Soru 7</label>
+      <div class="pb-5">{{ soru.soru7 }}</div>
+      <label>Soru 8</label>
+      <div class="pb-5">{{ soru.soru8 }}</div>
+      <label>Soru 9</label>
+      <div class="pb-5">{{ soru.soru9 }}</div>
+      <label>Soru 10</label>
+      <div class="pb-5">{{ soru.soru10 }}</div>
+      <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
     </form>
+    </main>
+    
+    
   </main>
 
     <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
@@ -71,8 +88,6 @@
     </aside>
 
     
-  </body>
-</html>
+
 {% endblock content %}
-  
-  
+ 
