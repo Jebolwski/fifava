@@ -56,9 +56,11 @@ class Sorular(models.Model):
 
 
         
-class Form(models.Model):
+class Cevaplar(models.Model):
     
-    sorular                = models.ManyToManyField(Sorular,null=True,blank=True)
+    baslik                 = models.CharField(max_length=30,null=True,blank=True)
+
+    sorular                = models.ForeignKey(Sorular,on_delete=models.CASCADE,null=True,blank=True)
 
     kayitli                = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     

@@ -34,4 +34,6 @@ urlpatterns = [
     path("form-cevapla/<int:pk>", views.FormCevapla, name="form-cevapla"),
     path("form-detay/<int:pk>", views.FormDetay, name="form-detay"),
     path("form-analiz/<int:pk>", views.FormAnaliz, name="form-analiz"),
+    path("cevap-sil/<int:pk>", views.CevapSil, name="cevap-sil"),
+    path("cevap-detay/<int:pk>", views.CevapDetay, name="cevap-detay"),
 ]

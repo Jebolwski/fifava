@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.forms import UserCreationForm
-from .forms import FormForm,SorularForm,KayitForm
+from .forms import CevapForm,SorularForm,KayitForm
 
 
 from .models import *
@@ -41,6 +41,8 @@ def GirisYap(request):
         if person is not None:
             login(request,person)
             return redirect('anasayfa')
+        else:
+            messages.error(request,"Kullanıcı adı veya şifre hatalı...")
     return render(request,"base/giris.html")
     
 
@@ -129,7 +131,7 @@ class HaberSil(LoginRequiredMixin,DeleteView):
 #!FORM
 def Formlar(request):
     sorular=Sorular.objects.all().order_by('-guncellenme_tarihi')
-    cevaplananlar=Form.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
+    cevaplananlar=Cevaplar.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
     context={"formlar":sorular,"cevap":cevaplananlar}
     return render(request,"base/form/formlar.html",context)
 
@@ -171,13 +173,14 @@ def FormSil(request,pk):
 
 
 def FormCevapla(request,pk):
-    form=FormForm()
+    form=CevapForm()
     sorular=Sorular.objects.get(id=pk)
     if request.method=="POST":
         form_copy=request.POST.copy()
         form_copy['kayitli']=str(request.user.id)
-        form=FormForm(form_copy)
-        print(form_copy)
+        form_copy['baslik']=sorular.baslik
+        form_copy['sorular']=sorular
+        form=CevapForm(form_copy)
         if form.is_valid():
             form.save()
             return redirect('formlar')
@@ -195,9 +198,135 @@ def FormDetay(request,pk):
 
 
 def FormAnaliz(request,pk):
-    form = Form.objects.get(id=pk)
-    # yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+    form = Sorular.objects.get(id=pk)
+    cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
+    soru1_cevap=0
+    soru2_cevap=0
+    soru3_cevap=0
+    soru4_cevap=0
+    soru5_cevap=0
+    soru6_cevap=0
+    soru7_cevap=0
+    soru8_cevap=0
+    soru9_cevap=0
+    soru10_cevap=0
+    for i in cevap:
+        # print(i.soru6_cevap)
+        if i.soru1_cevap!=None:
+            soru1_cevap+= int(i.soru1_cevap)
+        else:
+            # print("none :D")
+            pass
 
-    context = {'form':form}
+
+        if i.soru2_cevap!=None:
+            soru2_cevap += int(i.soru2_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        if i.soru3_cevap!=None:
+            soru3_cevap += int(i.soru3_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        if i.soru4_cevap!=None:
+            soru4_cevap += int(i.soru4_cevap)
+        else:
+            # print("none :D")
+            pass
+
+            
+        if i.soru5_cevap!=None:
+            soru5_cevap += int(i.soru5_cevap)
+        else:
+            # print("none :D")
+            pass
+
+        
+        if i.soru6_cevap!=None:
+            soru6_cevap += int(i.soru6_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        
+        if i.soru7_cevap!=None:
+            soru7_cevap+= int(i.soru7_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        if i.soru8_cevap!=None:
+            soru8_cevap+= int(i.soru8_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        if i.soru9_cevap!=None:
+            soru9_cevap+= int(i.soru9_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        if i.soru10_cevap!=None:
+            soru10_cevap+= int(i.soru10_cevap)
+        else:
+            # print("none :D")
+            pass
+
+
+        soru1=soru1_cevap/len(cevap)
+        soru2=soru2_cevap/len(cevap)
+        soru3=soru3_cevap/len(cevap)
+        soru4=soru4_cevap/len(cevap)
+        soru5=soru5_cevap/len(cevap)
+        soru6=soru6_cevap/len(cevap)
+        soru7=soru7_cevap/len(cevap)
+        soru8=soru8_cevap/len(cevap)
+        soru9=soru9_cevap/len(cevap)
+        soru10=soru10_cevap/len(cevap)
+
+    yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+
+    array=[]
+    array.append(soru1_cevap)
+    array.append(soru2_cevap)
+    array.append(soru3_cevap)
+    array.append(soru4_cevap)
+    array.append(soru5_cevap)
+    array.append(soru6_cevap)
+    array.append(soru7_cevap)
+    array.append(soru8_cevap)
+    array.append(soru9_cevap)
+    array.append(soru10_cevap)
+    
+    print("Genel katılma yüzdesi :",yuzde,"Ankete katılan kişi sayısı :",len(cevap))
+    for i in range(1,len(array)+1):
+        print("Soru "+str(i)+" katılma yüzdesi",array[i-1]*2,"%")
+
+    context = {'form':form,'cevap':cevap,'yuzde':yuzde}
 
     return render(request,"base/form/form-analiz.html",context)
+
+
+
+def CevapDetay(request,pk):
+    cevap = Cevaplar.objects.get(id=pk)
+    print(cevap.sorular)
+    context = {'cevap':cevap}
+    return render(request,"base/form/cevap-detay.html",context)
+
+
+
+def CevapSil(request,pk):
+    cevap=Cevaplar.objects.filter(id=pk)
+    cevap.delete()
+    return redirect("formlar")

@@ -75,7 +75,6 @@
               <td><a href="{% url 'form-analiz' form.id %}"><i class="fa-solid fa-chart-line"></i></a></td>
               {% endif %}
               <td><a href="{% url 'form-cevapla' form.id %}"><i class="fa-solid fa-reply"></i></a></td>
-              
             </tr>
             {% endfor %}
           </tbody>
@@ -89,6 +88,7 @@
             <tr>
               <th>Başlık</th>
               <th>Tarih</th>
+              <th>Detay</th>
               <th>Düzenle</th>
               <th>Sil</th>
             </tr>
@@ -98,8 +98,9 @@
             <tr class="text-center">
               <td>{{c.baslik}}</td>
               <td>{{c.guncellenme_tarihi}}</td>
+              <td><a href="{% url 'cevap-detay' c.id %}"><i class="fa-solid fa-circle-info"></i></a></td>
               <td><i class="fa-solid fa-pen"></i></td>
-              <td><i class="fa-solid fa-minus"></i></td>
+              <td><a href="{% url 'cevap-sil' c.id %}"><i class="fa-solid fa-minus"></i></a></td>
             </tr>
             {% endfor %}
           </tbody>

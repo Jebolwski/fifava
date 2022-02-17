@@ -21,10 +21,10 @@ class KayitForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class FormForm(forms.ModelForm):
+class CevapForm(forms.ModelForm):
 
     class Meta:
-        model = Form
+        model = Cevaplar
         fields="__all__"
 
 
