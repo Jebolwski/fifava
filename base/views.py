@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from msilib.schema import ListView
 from multiprocessing import context
 from pyexpat import model
@@ -200,6 +201,28 @@ def FormDetay(request,pk):
 def FormAnaliz(request,pk):
     form = Sorular.objects.get(id=pk)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
+    soru1=NULL
+    soru2=NULL
+    soru3=NULL
+    soru4=NULL
+    soru5=NULL
+    soru6=NULL
+    soru7=NULL
+    soru8=NULL
+    soru9=NULL
+    soru10=NULL
+
+
+    count1=0
+    count2=0
+    count3=0
+    count4=0
+    count5=0
+    count6=0
+    count7=0
+    count8=0
+    count9=0
+    count10=0
     soru1_cevap=0
     soru2_cevap=0
     soru3_cevap=0
@@ -214,6 +237,7 @@ def FormAnaliz(request,pk):
         # print(i.soru6_cevap)
         if i.soru1_cevap!=None:
             soru1_cevap+= int(i.soru1_cevap)
+            count1+=1
         else:
             # print("none :D")
             pass
@@ -221,6 +245,7 @@ def FormAnaliz(request,pk):
 
         if i.soru2_cevap!=None:
             soru2_cevap += int(i.soru2_cevap)
+            count2+=1
         else:
             # print("none :D")
             pass
@@ -228,6 +253,7 @@ def FormAnaliz(request,pk):
 
         if i.soru3_cevap!=None:
             soru3_cevap += int(i.soru3_cevap)
+            count3+=1
         else:
             # print("none :D")
             pass
@@ -235,6 +261,7 @@ def FormAnaliz(request,pk):
 
         if i.soru4_cevap!=None:
             soru4_cevap += int(i.soru4_cevap)
+            count4+=1
         else:
             # print("none :D")
             pass
@@ -242,6 +269,7 @@ def FormAnaliz(request,pk):
             
         if i.soru5_cevap!=None:
             soru5_cevap += int(i.soru5_cevap)
+            count5+=1
         else:
             # print("none :D")
             pass
@@ -249,6 +277,7 @@ def FormAnaliz(request,pk):
         
         if i.soru6_cevap!=None:
             soru6_cevap += int(i.soru6_cevap)
+            count6+=1
         else:
             # print("none :D")
             pass
@@ -257,6 +286,7 @@ def FormAnaliz(request,pk):
         
         if i.soru7_cevap!=None:
             soru7_cevap+= int(i.soru7_cevap)
+            count7+=1
         else:
             # print("none :D")
             pass
@@ -264,6 +294,7 @@ def FormAnaliz(request,pk):
 
         if i.soru8_cevap!=None:
             soru8_cevap+= int(i.soru8_cevap)
+            count8+=1
         else:
             # print("none :D")
             pass
@@ -271,6 +302,7 @@ def FormAnaliz(request,pk):
 
         if i.soru9_cevap!=None:
             soru9_cevap+= int(i.soru9_cevap)
+            count9+=1
         else:
             # print("none :D")
             pass
@@ -278,39 +310,65 @@ def FormAnaliz(request,pk):
 
         if i.soru10_cevap!=None:
             soru10_cevap+= int(i.soru10_cevap)
+            count10+=1
         else:
             # print("none :D")
             pass
 
+        if count1!=0:
+            soru1=soru1_cevap/count1
+        if count2!=0:
+            soru2=soru2_cevap/count2
+        if count3!=0:
+            soru3=soru3_cevap/count3
+        if count4!=0:
+            soru4=soru4_cevap/count4
+        if count5!=0:
+            soru5=soru5_cevap/count5
+        if count6!=0:
+            soru6=soru6_cevap/count6
+        if count7!=0:
+            soru7=soru7_cevap/count7
+        if count8!=0:
+            soru8=soru8_cevap/count8
+        if count9!=0:    
+            soru9=soru9_cevap/count9
+        if count10!=0:
+            soru10=soru10_cevap/count10
 
-        soru1=soru1_cevap/len(cevap)
-        soru2=soru2_cevap/len(cevap)
-        soru3=soru3_cevap/len(cevap)
-        soru4=soru4_cevap/len(cevap)
-        soru5=soru5_cevap/len(cevap)
-        soru6=soru6_cevap/len(cevap)
-        soru7=soru7_cevap/len(cevap)
-        soru8=soru8_cevap/len(cevap)
-        soru9=soru9_cevap/len(cevap)
-        soru10=soru10_cevap/len(cevap)
 
-    yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+   
 
     array=[]
-    array.append(soru1_cevap)
-    array.append(soru2_cevap)
-    array.append(soru3_cevap)
-    array.append(soru4_cevap)
-    array.append(soru5_cevap)
-    array.append(soru6_cevap)
-    array.append(soru7_cevap)
-    array.append(soru8_cevap)
-    array.append(soru9_cevap)
-    array.append(soru10_cevap)
+    array.append(soru1)
+    array.append(soru2)
+    array.append(soru3)
+    array.append(soru4)
+    array.append(soru5)
+    array.append(soru6)
+    array.append(soru7)
+    array.append(soru8)
+    array.append(soru9)
+    array.append(soru10) 
     
-    print("Genel katılma yüzdesi :",yuzde,"Ankete katılan kişi sayısı :",len(cevap))
-    for i in range(1,len(array)+1):
-        print("Soru "+str(i)+" katılma yüzdesi",array[i-1]*2,"%")
+    yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+
+    bolmesayac=0
+    for i in array:
+        if i!=NULL:
+            bolmesayac+=1
+
+    top=0
+    for i in array:
+        if i!=NULL:
+            top += i
+
+    yuzde=top/bolmesayac*20
+    
+    print("Genel katılma yüzdesi :",yuzde,"%","Ankete katılan kişi sayısı :",len(cevap))
+    for i in range(0,len(array)):
+        if array[i]!=0:
+            print("Soru "+str(i+1)+" katılma yüzdesi",array[i]*20,"%")
 
     context = {'form':form,'cevap':cevap,'yuzde':yuzde}
 

@@ -21,7 +21,7 @@
         {% endif %}
           <li>
             <a href="{% url 'formlar' %}">
-              <i class="fa-solid fa-file"></i> <p>Formlar</p> 
+              <i class="fa-solid fa-file"></i> <p>Anketler</p> 
             </a>
           </li>
         <li>
@@ -39,31 +39,41 @@
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
     
     <main class="col-6 col-lg-6 offset-3">
-      <form method="post">
+      <form method="post" class="text-center">
         {% csrf_token %}
-      <label class="pt-5">Anket Başlığı</label>
-      <div class="pb-5">{{soru.baslik}}</div>
-      <label>Soru 1</label>
-      <div class="pb-5">{{ soru.soru1 }}</div>
-      <label>Soru 2</label>
-      <div class="pb-5">{{ soru.soru2 }}</div>
-      <label>Soru 3</label>
-      <div class="pb-5">{{ soru.soru3 }}</div>
-      <label>Soru 4</label>
-      <div class="pb-5">{{ soru.soru4 }}</div>
-      <label>Soru 5</label>
-      <div class="pb-5">{{ soru.soru5 }}</div>
-      <label>Soru 6</label>
-      <div class="pb-5">{{ soru.soru6 }}</div>
-      <label>Soru 7</label>
-      <div class="pb-5">{{ soru.soru7 }}</div>
-      <label>Soru 8</label>
-      <div class="pb-5">{{ soru.soru8 }}</div>
-      <label>Soru 9</label>
-      <div class="pb-5">{{ soru.soru9 }}</div>
-      <label>Soru 10</label>
-      <div class="pb-5">{{ soru.soru10 }}</div>
-      <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
+      <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
+      <h5>Sorular</h5>
+      {% if soru.soru1 %}
+      <div class="pb-5 pt-5">{{ soru.soru1 }}</div>
+      {% endif %}
+      {% if soru.soru2 %}
+      <div class="pb-5 pt-5">{{ soru.soru2 }}</div>
+      {% endif %}
+      {% if soru.soru3 %}
+      <div class="pb-5 pt-5">{{ soru.soru3 }}</div>
+      {% endif %}
+      {% if soru.soru4 %}
+      <div class="pb-5 pt-5">{{ soru.soru4 }}</div>
+      {% endif %}
+      {% if soru.soru5 %}
+      <div class="pb-5 pt-5">{{ soru.soru5 }}</div>
+      {% endif %}
+      {% if soru.soru6 %}
+      <div class="pb-5 pt-5">{{ soru.soru6 }}</div>
+      {% endif %}
+      {% if soru.soru7 %}
+      <div class="pb-5 pt-5">{{ soru.soru7 }}</div>
+      {% endif %}
+      {% if soru.soru8 %}
+      <div class="pb-5 pt-5">{{ soru.soru8 }}</div>
+      {% endif %}
+      {% if soru.soru9 %}
+      <div class="pb-5 pt-5">{{ soru.soru9 }}</div>
+      {% endif %}
+      {% if soru.soru10 %}
+      <div class="pt-5">{{ soru.soru10 }}</div>
+      {% endif %}
+      
     </form>
     </main>
     
