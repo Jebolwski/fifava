@@ -198,16 +198,16 @@ def FormAnaliz(request,pk):
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
     
     sorucount=0
-    soru1=NULL
-    soru2=NULL
-    soru3=NULL
-    soru4=NULL
-    soru5=NULL
-    soru6=NULL
-    soru7=NULL
-    soru8=NULL
-    soru9=NULL
-    soru10=NULL
+    soru1=0
+    soru2=0
+    soru3=0
+    soru4=0
+    soru5=0
+    soru6=0
+    soru7=0
+    soru8=0
+    soru9=0
+    soru10=0
 
 
     count1=0
@@ -232,7 +232,6 @@ def FormAnaliz(request,pk):
     soru10_cevap=0
     for i in cevap:
         
-        # print(i.soru6_cevap)
         if i.soru1_cevap!=None:
             soru1_cevap+= int(i.soru1_cevap)
             count1+=1
@@ -244,74 +243,56 @@ def FormAnaliz(request,pk):
         if i.soru2_cevap!=None:
             soru2_cevap += int(i.soru2_cevap)
             count2+=1
-        else:
-            # print("none :D")
-            pass
+       
 
 
         if i.soru3_cevap!=None:
             soru3_cevap += int(i.soru3_cevap)
             count3+=1
-        else:
-            # print("none :D")
-            pass
+        
 
 
         if i.soru4_cevap!=None:
             soru4_cevap += int(i.soru4_cevap)
             count4+=1
-        else:
-            # print("none :D")
-            pass
+        
 
             
         if i.soru5_cevap!=None:
             soru5_cevap += int(i.soru5_cevap)
             count5+=1
-        else:
-            # print("none :D")
-            pass
+        
 
         
         if i.soru6_cevap!=None:
             soru6_cevap += int(i.soru6_cevap)
             count6+=1
-        else:
-            # print("none :D")
-            pass
+      
 
 
         
         if i.soru7_cevap!=None:
             soru7_cevap+= int(i.soru7_cevap)
             count7+=1
-        else:
-            # print("none :D")
-            pass
+      
 
 
         if i.soru8_cevap!=None:
             soru8_cevap+= int(i.soru8_cevap)
             count8+=1
-        else:
-            # print("none :D")
-            pass
+      
 
 
         if i.soru9_cevap!=None:
             soru9_cevap+= int(i.soru9_cevap)
             count9+=1
-        else:
-            # print("none :D")
-            pass
+       
 
 
         if i.soru10_cevap!=None:
             soru10_cevap+= int(i.soru10_cevap)
             count10+=1
-        else:
-            # print("none :D")
-            pass
+       
 
 
 
@@ -391,12 +372,12 @@ def FormAnaliz(request,pk):
 
     bolmesayac=0
     for i in array:
-        if i!=NULL:
+        if i!=None:
             bolmesayac+=1
 
     top=0
     for i in array:
-        if i!=NULL:
+        if i!=None:
             top += i
     
     array=[]
