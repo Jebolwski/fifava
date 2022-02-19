@@ -201,6 +201,8 @@ def FormDetay(request,pk):
 def FormAnaliz(request,pk):
     form = Sorular.objects.get(id=pk)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
+    
+    sorucount=0
     soru1=NULL
     soru2=NULL
     soru3=NULL
@@ -234,6 +236,7 @@ def FormAnaliz(request,pk):
     soru9_cevap=0
     soru10_cevap=0
     for i in cevap:
+        
         # print(i.soru6_cevap)
         if i.soru1_cevap!=None:
             soru1_cevap+= int(i.soru1_cevap)
@@ -315,43 +318,81 @@ def FormAnaliz(request,pk):
             # print("none :D")
             pass
 
-        if count1!=0:
-            soru1=soru1_cevap/count1
-        if count2!=0:
-            soru2=soru2_cevap/count2
-        if count3!=0:
-            soru3=soru3_cevap/count3
-        if count4!=0:
-            soru4=soru4_cevap/count4
-        if count5!=0:
-            soru5=soru5_cevap/count5
-        if count6!=0:
-            soru6=soru6_cevap/count6
-        if count7!=0:
-            soru7=soru7_cevap/count7
-        if count8!=0:
-            soru8=soru8_cevap/count8
-        if count9!=0:    
-            soru9=soru9_cevap/count9
-        if count10!=0:
-            soru10=soru10_cevap/count10
+
+
+
+    if count1!=0:
+        soru1=soru1_cevap/count1
+    if count2!=0:
+        soru2=soru2_cevap/count2
+    if count3!=0:
+        soru3=soru3_cevap/count3
+    if count4!=0:
+        soru4=soru4_cevap/count4
+    if count5!=0:
+        soru5=soru5_cevap/count5
+    if count6!=0:
+        soru6=soru6_cevap/count6
+    if count7!=0:
+        soru7=soru7_cevap/count7
+    if count8!=0:
+        soru8=soru8_cevap/count8
+    if count9!=0:    
+        soru9=soru9_cevap/count9
+    if count10!=0:
+        soru10=soru10_cevap/count10
 
 
    
 
     array=[]
-    array.append(soru1)
-    array.append(soru2)
-    array.append(soru3)
-    array.append(soru4)
-    array.append(soru5)
-    array.append(soru6)
-    array.append(soru7)
-    array.append(soru8)
-    array.append(soru9)
-    array.append(soru10) 
+    if soru1!=0:
+        array.append(soru1*20)
+    if soru2!=0:
+        array.append(soru2*20)
+    if soru3!=0:
+        array.append(soru3*20)
+    if soru4!=0:
+        array.append(soru4*20)
+    if soru5!=0:
+        array.append(soru5*20)
+    if soru6!=0:
+        array.append(soru6*20)
+    if soru7!=0:
+        array.append(soru7*20)
+    if soru8!=0:
+        array.append(soru8*20)
+    if soru9!=0:
+        array.append(soru9*20)
+    if soru10!=0:
+        array.append(soru10*20) 
     
-    yuzde = (soru1+soru2+soru3+soru4+soru5+soru6+soru7+soru8+soru9+soru10)/50*100
+
+    for i in cevap:
+        if i.soru11_cevap:
+            soru11_cevap = i.soru12_cevap
+            sorucount+=1
+        if i.soru13_cevap:
+           soru13_cevap = i.soru13_cevap
+           sorucount+=1
+        if i.soru14_cevap:
+            soru14_cevap = i.soru14_cevap
+            sorucount+=1
+        if i.soru15_cevap:
+            soru15_cevap = i.soru15_cevap
+            sorucount+=1
+        if i.soru16_cevap:
+            soru16_cevap = i.soru16_cevap
+            sorucount+=1
+        if i.soru17_cevap:
+            soru17_cevap = i.soru17_cevap
+            sorucount+=1
+        if i.soru18_cevap:
+            soru18_cevap = i.soru18_cevap
+            sorucount+=1
+
+
+
 
     bolmesayac=0
     for i in array:
@@ -362,15 +403,41 @@ def FormAnaliz(request,pk):
     for i in array:
         if i!=NULL:
             top += i
-
-    yuzde=top/bolmesayac*20
     
+    array=[]
+    if soru1!=0:
+        array.append(soru1*20)
+    if soru2!=0:
+        array.append(soru2*20)
+    if soru3!=0:
+        array.append(soru3*20)
+    if soru4!=0:
+        array.append(soru4*20)
+    if soru5!=0:
+        array.append(soru5*20)
+    if soru6!=0:
+        array.append(soru6*20)
+    if soru7!=0:
+        array.append(soru7*20)
+    if soru8!=0:
+        array.append(soru8*20)
+    if soru9!=0:
+        array.append(soru9*20)
+    if soru10!=0:
+        array.append(soru10*20) 
+
+
+
+    yuzde=top/bolmesayac
     print("Genel katılma yüzdesi :",yuzde,"%","Ankete katılan kişi sayısı :",len(cevap))
     for i in range(0,len(array)):
         if array[i]!=0:
-            print("Soru "+str(i+1)+" katılma yüzdesi",array[i]*20,"%")
+            print("Soru "+str(i+1)+" katılma yüzdesi",array[i],"%")
 
-    context = {'form':form,'cevap':cevap,'yuzde':yuzde}
+    for i in cevap:
+        print(i.soru10_cevap)
+
+    context = {'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,'dizi':array,'sorusayac':sorucount}
 
     return render(request,"base/form/form-analiz.html",context)
 
@@ -378,7 +445,7 @@ def FormAnaliz(request,pk):
 
 def CevapDetay(request,pk):
     cevap = Cevaplar.objects.get(id=pk)
-    print(cevap.sorular)
+    print(cevap.sorular.soru1)
     context = {'cevap':cevap}
     return render(request,"base/form/cevap-detay.html",context)
 

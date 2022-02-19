@@ -36,25 +36,31 @@ ANKET_SECIMLERI = (
 
 
 class Sorular(models.Model):
-    baslik                 = models.CharField(max_length=30,null=True,blank=True)
-    soru1                  = models.TextField(max_length=50,null=True,blank=True)
-    soru2                  = models.TextField(max_length=50,null=True,blank=True)
-    soru3                  = models.TextField(max_length=50,null=True,blank=True)
-    soru4                  = models.TextField(max_length=50,null=True,blank=True)
-    soru5                  = models.TextField(max_length=50,null=True,blank=True)
-    soru6                  = models.TextField(max_length=50,null=True,blank=True)
-    soru7                  = models.TextField(max_length=50,null=True,blank=True)
-    soru8                  = models.TextField(max_length=50,null=True,blank=True)
-    soru9                  = models.TextField(max_length=50,null=True,blank=True)
-    soru10                 = models.TextField(max_length=50,null=True,blank=True)
-    soru11                 = models.TextField(max_length=50,null=True,blank=True)
-    soru12                 = models.TextField(max_length=50,null=True,blank=True)
-    soru13                 = models.TextField(max_length=50,null=True,blank=True)
-    soru14                 = models.TextField(max_length=50,null=True,blank=True)
-    soru15                 = models.TextField(max_length=50,null=True,blank=True)
-    soru16                 = models.TextField(max_length=50,null=True,blank=True)
-    soru17                 = models.TextField(max_length=50,null=True,blank=True)
-    soru18                 = models.TextField(max_length=50,null=True,blank=True)
+    baslik                 = models.CharField(max_length=60,null=True,blank=True)
+    
+    soru1                  = models.TextField(max_length=200,null=True,blank=True)
+    soru2                  = models.TextField(max_length=200,null=True,blank=True)
+    soru3                  = models.TextField(max_length=200,null=True,blank=True)
+    soru4                  = models.TextField(max_length=200,null=True,blank=True)
+    soru5                  = models.TextField(max_length=200,null=True,blank=True)
+    soru6                  = models.TextField(max_length=200,null=True,blank=True)
+    soru7                  = models.TextField(max_length=200,null=True,blank=True)
+    soru8                  = models.TextField(max_length=200,null=True,blank=True)
+    soru9                  = models.TextField(max_length=200,null=True,blank=True)
+    soru10                 = models.TextField(max_length=200,null=True,blank=True)
+    soru11                 = models.TextField(max_length=200,null=True,blank=True)
+    soru12                 = models.TextField(max_length=200,null=True,blank=True)
+    soru13                 = models.TextField(max_length=200,null=True,blank=True)
+    soru14                 = models.TextField(max_length=200,null=True,blank=True)
+    soru15                 = models.TextField(max_length=200,null=True,blank=True)
+    soru16                 = models.TextField(max_length=200,null=True,blank=True)
+    soru17                 = models.TextField(max_length=200,null=True,blank=True)
+    soru18                 = models.TextField(max_length=200,null=True,blank=True)
+
+    onay1                  = models.CharField(max_length=60,null=True,blank=True)
+    onay2                  = models.CharField(max_length=60,null=True,blank=True)
+    onay3                  = models.CharField(max_length=60,null=True,blank=True)
+    onay4                  = models.CharField(max_length=60,null=True,blank=True)
     
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
@@ -67,7 +73,7 @@ class Sorular(models.Model):
         
 class Cevaplar(models.Model):
     
-    baslik                 = models.CharField(max_length=30,null=True,blank=True)
+    baslik                 = models.CharField(max_length=60,null=True,blank=True)
 
     sorular                = models.ForeignKey(Sorular,on_delete=models.CASCADE,null=True,blank=True)
 
@@ -91,6 +97,12 @@ class Cevaplar(models.Model):
     soru16_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru17_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru18_cevap           = models.TextField(max_length=200,blank=True,null=True)
+
+    onay1_cevap            = models.BooleanField(default=True)
+    onay2_cevap            = models.BooleanField(default=True)
+    onay3_cevap            = models.BooleanField(default=True)
+    onay4_cevap            = models.BooleanField(default=True)
+
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
 

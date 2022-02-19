@@ -27,6 +27,10 @@ body {
   }
 }
 main {
+  .main-wrapper-home {
+    background: url("../images/gtabackground.jpg");
+    height: 100vh;
+  }
   table a {
     color: black;
     transition: 0.3s;

@@ -33,6 +33,11 @@ body {
   text-align: center;
 }
 
+main .main-wrapper-home {
+  background: url("../images/gtabackground.jpg");
+  height: 100vh;
+}
+
 main table a {
   color: black;
   -webkit-transition: 0.3s;

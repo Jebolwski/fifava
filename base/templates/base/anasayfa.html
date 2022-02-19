@@ -1,5 +1,7 @@
  {% extends 'base/ana.html' %}
  {% block content %}
+ {% load static %}
+ <link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
  <title>Anasayfa | FIFAVA</title>
   </head>
   <body>
@@ -31,12 +33,29 @@
         <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> <p>Giriş Yap</p> </a>
         {% endif %}
         </li>
-        
       </ul>
     </aside>
+    
+    <main class="col-10 col-lg-8 offset-2">
+      <div class="main-wrapper-home">
+      <div id="particles-js">
+        <div class="btext"></div>
+      </div>
+      <div class="textcopy"></div>
+
+      <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->
+
+      </div>
+
+      <h3>FIFAVA</h3>
+      <br>
+      
+    </main>
 
     <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
       <ul>
+        
+
           <p class="text-center h5">Haberler</p>
         {% for haber in haberler %}
         <li>
@@ -51,7 +70,32 @@
         {% endfor %}
       </ul>
     </aside>
-  </body>
-</html>
+
+
+    <!-- <script>
+      var play = true;
+      var myAudio = document.getElementById("leson");
+
+      myAudio.volume = 0.2;
+
+      function onKeyDown(event) {
+        switch (event.keyCode) {
+          case 32: //SpaceBar
+            if (play) {
+              myAudio.pause();
+              play = false;
+            } else {
+              myAudio.play();
+              play = true;
+            }
+            break;
+        }
+        return false;
+      }
+      window.addEventListener("keydown", onKeyDown, false);
+    </script> -->
+    
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 {% endblock content %}
  

@@ -21,7 +21,7 @@
         {% endif %}
           <li>
             <a href="{% url 'formlar' %}">
-              <i class="fa-solid fa-file"></i> <p>Formlar</p> 
+              <i class="fa-solid fa-file"></i> <p>Anketler</p> 
             </a>
           </li>
         <li>
@@ -37,32 +37,24 @@
 
 
     <main class="col-10 col-lg-8 offset-2">
-      <h4 class="text-center pt-5 mb-4">Formlar</h4>
-      <form method="GET">
-        <div class="row pt-4 mb-5">
-          <div class="col-3 offset-4"><input type="text" class="form-control" placeholder="Aranacak Formun Başlığı" name="arama"></div>
-          <input type="submit" value="Arama" class="col-1 text-center display-4 btn btn-outline-dark font-3">
-          {% if user.is_superuser %}
-          <div class="col"><a href="{% url 'form-ekle' %}"><i class="fa-solid fa-circle-plus mt-2 pt-1 text-black"></i></a></div>
-          {% endif %}
-        </div>
-      </form>
-        <table class="table table-striped table-hover mb-3">
-          <thead class="text-center">
+      <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
+        <div class="mt-5">
+          <table class="table table-striped text-center">
             <tr>
-              <th>Başlık</th>
-              <th>Tarih</th>
+              <td>Şıklı Soru Sayısı : {{sikli_soru_sayisi}}</td>
+              <td>Şıklı Sorulara Genel Katılım Yüzdesi : {{yuzde}}%</td>
             </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center">
-              <td>{{cevap.soru1_cevap}}</td>
-              <td>{{form.guncellenme_tarihi}}</td>
-              {% if user.is_superuser %}
-              {% endif %}
+            {% for i in dizi %}
+            <tr>
+              <td colspan="2">Katılma Yüzdesi : {{i}}%</td>
             </tr>
-          </tbody>
-        </table>
+            {% endfor %}
+            <tr>
+              <td colspan="2">Metinli Soru Sayısı: {{sorusayac}}</td>
+            </tr>
+          </table>
+          
+        </div>
     </main>
 
 

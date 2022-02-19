@@ -38,33 +38,139 @@
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
     
-    <main class="col-6 col-lg-6 offset-3">
+    <main class="col-8 col-lg-6 offset-3">
       <form method="post">
         {% csrf_token %}
-    <div class="text-center pt-5">
-      <div class="pb-5">{{cevap.baslik}}</div>
-      <label>Soru 1</label>
-      <div class="pb-5">{{cevap.soru1_cevap }}</div>
-      <label>Soru 2</label>
-      <div class="pb-5">{{cevap.soru2_cevap }}</div>
-      <label>Soru 3</label>
-      <div class="pb-5">{{cevap.soru3_cevap }}</div>
-      <label>Soru 4</label>
-      <div class="pb-5">{{cevap.soru4_cevap }}</div>
-      <label>Soru 5</label>
-      <div class="pb-5">{{cevap.soru5_cevap }}</div>
-      <label>Soru 6</label>
-      <div class="pb-5">{{cevap.soru6_cevap }}</div>
-      <label>Soru 7</label>
-      <div class="pb-5">{{cevap.soru7_cevap }}</div>
-      <label>Soru 8</label>
-      <div class="pb-5">{{cevap.soru8_cevap }}</div>
-      <label>Soru 9</label>
-      <div class="pb-5">{{cevap.soru9_cevap }}</div>
-      <label>Soru 10</label>
-      <div class="pb-5">{{cevap.soru10_cevap }}</div>
+    <div class="text-center">
+      <form method="post">
+        {% csrf_token %}
+        <h5 class="text-center pt-5">{{cevap.baslik}}</h5>
+        <div class="text-center">
+          <h5 class="mt-5">Cevapların</h5>
+          {% if cevap.soru1_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru1}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru1_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru2_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru2}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru2_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru3_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru3}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru3_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru4_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru4}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru4_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru5_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru5}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru5_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru6_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru6}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru6_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru7_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru7}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru7_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru8_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru8}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru8_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru9_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru9}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru9_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru10_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru10}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru10_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru11_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru11}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru11_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru12_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru12}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru12_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru13_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru13}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru13_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru14_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru14}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru14_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru15_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru15}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru15_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru16_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru16}}</label>
+          <div class="col-4 offset-4 pb-2">{{cevap.soru16_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru17_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru17}}</label>
+          <div class="col-4 offset-4 pb-2">{{form.soru17_cevap}}</div>
+          {% endif %}
+          {% if cevap.soru18_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.soru18}}</label>
+          <div class="col-4 offset-4 pb-2">{{form.soru18_cevap}}</div>
+          {% endif %}
+        </div>
+          {% if cevap.onay1_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.onay1}}</label>
+          <br>
+          <span>
+            {% if cevap.onay1_cevap %}
+              İşaretlendi <i class="fa-solid fa-check"></i>
+            {% else %}
+              İşaretlenmedi
+            {% endif %}
+          </span>
+          <br>
+          <span class="pb-3">{{ cevap.onay1 }}</span>
+          {% endif %}
+          <br>
+          {% if cevap.onay2_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.onay2}}</label>
+          <br>
+          <span>
+            {% if cevap.onay2_cevap %}
+              İşaretlendi <i class="fa-solid fa-check"></i>
+            {% else %}
+              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+            {% endif %}
+          </span>
+          {% endif %}
+          <br>
+          {% if cevap.onay3_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.onay3}}</label>
+          <br>
+          <span>
+            {% if cevap.onay3_cevap %}
+              İşaretlendi <i class="fa-solid fa-check"></i>
+            {% else %}
+              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+            {% endif %}
+          </span>
+          {% endif %}
+          <br>
+          {% if cevap.onay4_cevap %}
+          <label class="mt-5 mb-3">{{cevap.sorular.onay4}}</label>
+          <br>
+          <span>
+            {% if cevap.onay4_cevap %}
+              İşaretlendi <i class="fa-solid fa-check"></i>
+            {% else %}
+              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+            {% endif %}
+          </span>
+          {% endif %}
+          <br><br><br>
     </div>
-      <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-3 center mb-5">
     </form>
     </main>
     

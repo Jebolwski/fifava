@@ -38,11 +38,12 @@
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
     
-    <main class="col-6 col-lg-6 offset-3">
+    <main class="col-8 col-lg-6 offset-3">
       <form method="post">
         {% csrf_token %}
       <label class="pt-5">Anket Başlığı</label>
       <div class="pb-5">{{form.baslik}}</div>
+      <h4 class="mt-4 mb-5">Şıklı Sorular</h4>
       <label>Soru 1</label>
       <div class="pb-5">{{ form.soru1 }}</div>
       <label>Soru 2</label>
@@ -63,7 +64,34 @@
       <div class="pb-5">{{ form.soru9 }}</div>
       <label>Soru 10</label>
       <div class="pb-5">{{ form.soru10 }}</div>
-      <input type="submit" value="Kişi Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
+      <h4 class="mt-4 mb-5">Metinli Sorular</h4>
+      <label>Soru 11</label>
+      <div class="pb-5">{{ form.soru11 }}</div>
+      <label>Soru 12</label>
+      <div class="pb-5">{{ form.soru12 }}</div>
+      <label>Soru 13</label>
+      <div class="pb-5">{{ form.soru13 }}</div>
+      <label>Soru 14</label>
+      <div class="pb-5">{{ form.soru14 }}</div>
+      <label>Soru 15</label>
+      <div class="pb-5">{{ form.soru15 }}</div>
+      <label>Soru 16</label>
+      <div class="pb-5">{{ form.soru16 }}</div>
+      <label>Soru 17</label>
+      <div class="pb-5">{{ form.soru17 }}</div>
+      <label>Soru 18</label>
+      <div class="pb-5">{{ form.soru18 }}</div>
+      <h4 class="mt-4 mb-5">Onay Kutuları</h4>
+      <label>Onay Kutusu 1</label>
+      <div class="pb-5">{{ form.onay1 }}</div>
+      <label>Onay Kutusu 2</label>
+      <div class="pb-5">{{ form.onay2 }}</div>
+      <label>Onay Kutusu 3</label>
+      <div class="pb-5">{{ form.onay3 }}</div>
+      <label>Onay Kutusu 4</label>
+      <div class="pb-5">{{ form.onay4 }}</div>
+      
+      <input type="submit" value="Anket Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
     </form>
     </main>
     
