@@ -117,7 +117,10 @@
           </tbody>
         </table>
         {% else %}
+        {% if user.is_authenticated%}
         <h5 class="mt-5 text-center">Cevapladığınız anket yok...</h5>
+        {% else %}
+        <h5 class="mt-5 text-center">Cevaplamak için giriş yapın...</h5>
         {% endif %}
     </main>
 
