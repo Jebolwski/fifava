@@ -1,12 +1,8 @@
-from msilib.schema import ListView
-from multiprocessing import context
-from pyexpat import model
 from re import template
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 
-from django.contrib.auth.forms import UserCreationForm
 from .forms import CevapForm,SorularForm,KayitForm
 
 
