@@ -4,7 +4,7 @@
 </head>
 <body>
     
-     <aside class="side-navbar col-2" >
+     <aside class="side-navbar col-1" >
       <ul class="p-0 text-center">
         <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
         <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
@@ -36,7 +36,7 @@
     </aside>
 
 
-  <main class="col-10 col-lg-8 offset-2">
+  <main class="col-11 col-lg-9 offset-1">
     <h4 class="text-center pt-4">Kayıt Ol</h4>
       <form method="POST" action="{% url 'giris-yap' %}" >
       {% csrf_token %}

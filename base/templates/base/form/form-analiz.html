@@ -3,7 +3,7 @@
  <title>Formlar | FIFAVA</title>
   </head>
   <body>
-     <aside class="side-navbar col-2" >
+     <aside class="side-navbar col-1" >
       <ul class="p-0 text-center">
         <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
         <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
@@ -35,7 +35,7 @@
     </aside>
 
 
-    <main class="col-10 col-lg-8 offset-2">
+    <main class="col-11 col-lg-9 offset-1">
       <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
         <div class="mt-5">
           <table class="table table-striped text-center">
@@ -52,55 +52,153 @@
               <td colspan="2">Metinli Soru Sayısı: {{sorusayac}}</td>
             </tr>
           </table>
-          <div class="cevaplar">
-            {% if cevaplar %}
-            {% for cevap in cevaplar %}
-
-             <h5>{{cevap.soru1_cevap}}</h5> 
-             <h5>{{cevap.soru2_cevap}}</h5> 
-             <h5>{{cevap.soru3_cevap}}</h5> 
-             <h5>{{cevap.soru4_cevap}}</h5> 
-             <h5>{{cevap.soru5_cevap}}</h5> 
-             <h5>{{cevap.soru6_cevap}}</h5> 
-             <h5>{{cevap.soru7_cevap}}</h5> 
-             <h5>{{cevap.soru8_cevap}}</h5> 
-             <h5>{{cevap.soru9_cevap}}</h5> 
-             <h5>{{cevap.soru10_cevap}}</h5>
-             <h5>{{cevap.soru11_cevap}}</h5>
-             <h5>{{cevap.soru12_cevap}}</h5>
-             <h5>{{cevap.soru13_cevap}}</h5>
-             <h5>{{cevap.soru14_cevap}}</h5>
-             <h5>{{cevap.soru15_cevap}}</h5>
-             <h5>{{cevap.soru16_cevap}}</h5>
-             <h5>{{cevap.soru17_cevap}}</h5>
-             <h5>{{cevap.soru18_cevap}}</h5>
-             <h5>{{cevap.onay1}}</h5>
-             <h5>{{cevap.onay2}}</h5>
-             <h5>{{cevap.onay3}}</h5>
-             <h5>{{cevap.onay4}}</h5>
-
-            {% endfor %}
-            <p class="offset-1">
-                {% if cevaplar_hepsi.has_previous%}
+          <p class="offset-1">
+                {% if cevaplar.has_previous%}
                 <a href="?page=1" style="color: black;"><i class="fas fa-angle-double-left"></i></a>
                {% endif %}
-                {% if cevaplar_hepsi.has_previous%}
-                <a href="?page={{cevaplar_hepsi.previous_page_number}}" style="color: black;"><i class="fas fa-chevron-left"></i></a> 
+                {% if cevaplar.has_previous%}
+                <a href="?page={{cevaplar.previous_page_number}}" style="color: black;"><i class="fas fa-chevron-left"></i></a> 
                 {% else %}
                 <i class="fas fa-chevron-left disabled" style="color: gray;">
                 </i> 
                 {% endif %} 
         
-                {{cevaplar_hepsi.number}} de {{cevaplar_hepsi.paginator.num_pages}} 
+                {{cevaplar.number}} de {{cevaplar.paginator.num_pages}} 
         
-                {% if cevaplar_hepsi.has_next %}
-                <a href="?page={{cevaplar_hepsi.next_page_number}}" style="color: black;"><i class="fas fa-chevron-right"></i></a>
-                <a href="?page={{cevaplar_hepsi.paginator.num_pages}}" style="color: black;"><i class="fas fa-angle-double-right"></i></a>
+                {% if cevaplar.has_next %}
+                <a href="?page={{cevaplar.next_page_number}}" style="color: black;"><i class="fas fa-chevron-right"></i></a>
+                <a href="?page={{cevaplar.paginator.num_pages}}" style="color: black;"><i class="fas fa-angle-double-right"></i></a>
                 {% else %}
                 <i class="fas fa-chevron-right" style="color: gray;"></i> 
                {% endif %}
-              </p>
-              {% endif %}
+          </p>
+          <div class="cevaplar text-center">
+            {% for cevap in cevaplar %}
+            {% if cevap.sorular.soru1 %}
+             <p>{{cevap.sorular.soru1}}</p>
+             <h5>{{cevap.soru1_cevap}}</h5>
+            {% endif %}
+            <br>
+            {% if cevap.sorular.soru2 %}
+             <p>{{cevap.sorular.soru2}}</p>
+             <h5>{{cevap.soru2_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru3 %}
+             <p>{{cevap.sorular.soru3}}</p>
+             <h5>{{cevap.soru3_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru4 %}
+             <p>{{cevap.sorular.soru4}}</p>
+             <h5>{{cevap.soru4_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru5 %}
+             <p>{{cevap.sorular.soru5}}</p>
+             <h5>{{cevap.soru5_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru6 %}
+             <p>{{cevap.sorular.soru6}}</p>
+             <h5>{{cevap.soru6_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru7 %}
+             <p>{{cevap.sorular.soru7}}</p>
+             <h5>{{cevap.soru7_cevap}}</h5> 
+            {% endif %}
+            <br>
+             
+            {% if cevap.sorular.soru8 %}
+             <p>{{cevap.sorular.soru8}}</p>
+             <h5>{{cevap.soru8_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru9 %}
+             <p>{{cevap.sorular.soru9}}</p>
+             <h5>{{cevap.soru9_cevap}}</h5> 
+            {% endif %}
+            <br>
+
+            {% if cevap.sorular.soru10 %}
+             <p>{{cevap.sorular.soru10}}</p>
+             <h5>{{cevap.soru10_cevap}}</h5>
+            {% endif %}
+
+            {% if cevap.sorular.soru11 %}
+             <p>{{cevap.sorular.soru11}}</p>
+             <h5>{{cevap.soru11_cevap}}</h5>
+            {% endif %}
+            <br>
+            
+            {% if cevap.sorular.soru12 %}
+             <p>{{cevap.sorular.soru12}}</p>
+             <h5>{{cevap.soru12_cevap}}</h5>
+            {% endif %}
+            <br>
+            
+            {% if cevap.sorular.soru13 %} 
+             <p>{{cevap.sorular.soru13}}</p>
+             <h5>{{cevap.soru13_cevap}}</h5>
+            {% endif %}
+            <br>  
+            {% if cevap.sorular.soru14 %}
+             <p>{{cevap.sorular.soru14}}</p>
+             <h5>{{cevap.soru14_cevap}}</h5>
+            {% endif %}
+            <br> 
+            {% if cevap.sorular.soru15 %}
+             <p>{{cevap.sorular.soru15}}</p>
+             <h5>{{cevap.soru15_cevap}}</h5>
+            {% endif %}
+            <br>  
+            {% if cevap.sorular.soru16 %}
+             <p>{{cevap.sorular.soru16}}</p>
+             <h5>{{cevap.soru16_cevap}}</h5>
+            {% endif %}
+            <br>  
+            {% if cevap.sorular.soru17 %}
+             <p>{{cevap.sorular.soru17}}</p>
+             <h5>{{cevap.soru17_cevap}}</h5>
+            {% endif %}
+            <br>  
+            {% if cevap.sorular.soru18 %}
+             <p>{{cevap.sorular.soru18}}</p>
+             <h5>{{cevap.soru18_cevap}}</h5>
+            {% endif %}
+            <br>  
+            {% if cevap.onay1 %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
+            {% else %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
+            {% endif %}
+            <br>  
+            {% if cevap.onay2 %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
+            {% else %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
+            {% endif %}
+            <br> 
+            {% if cevap.onay3 %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
+            {% else %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
+            {% endif %}
+            <br> 
+            {% if cevap.onay4 %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
+            {% else %}
+            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
+            {% endif %}
+            {{cevap.guncellenme_tarihi }}
+            {% endfor %}
           </div>
     </main>
 

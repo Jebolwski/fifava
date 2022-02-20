@@ -437,12 +437,12 @@ def FormAnaliz(request,pk):
         print(i.soru10_cevap)
 
     cevaplar = Cevaplar.objects.all().order_by('-guncellenme_tarihi')
-    p = Paginator(cevaplar,1)
+    p = Paginator(Cevaplar.objects.all(),1)
     page = request.GET.get('page')
     cevaplar_hepsi = p.get_page(page)
 
     context = {'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,
-    'dizi':array,'sorusayac':sorucount,'cevaplar_hepsi':cevaplar_hepsi,'cevaplar':cevaplar}
+    'dizi':array,'sorusayac':sorucount,'cevaplar':cevaplar_hepsi,'cevaplarim':cevaplar}
 
     return render(request,"base/form/form-analiz.html",context)
 

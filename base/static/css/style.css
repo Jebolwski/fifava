@@ -29,6 +29,7 @@ body .home aside {
 }
 
 .side-navbar ul {
+  margin-top: 15px;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -37,14 +38,20 @@ body .home aside {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .side-navbar ul li a {
   color: white;
   text-decoration: none;
   text-align: center;
+  font-size: 22px;
+}
+
+main {
+  margin-left: 11vw;
 }
 
 main .main-wrapper-home {
@@ -90,6 +97,10 @@ main form .submit {
   color: white;
 }
 
+.haberler p {
+  font-size: 30px;
+}
+
 .haberler ul {
   margin-right: 10%;
   list-style: none;
@@ -133,9 +144,16 @@ main form .submit {
   }
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1200px) {
   .side-navbar ul li a {
-    font-size: 13px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .side-navbar ul li a {
+    font-size: 12px;
     text-align: center;
   }
 }
