@@ -1,9 +1,11 @@
-from re import template
+from pydoc import doc
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 
 from .forms import CevapForm,SorularForm,KayitForm
+
+from django.core.paginator import Paginator
 
 
 from .models import *
@@ -16,18 +18,39 @@ from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
-def KayitOlma(request):
+# def KayitOlma(request):
+#     form = KayitForm()
+#     if request.method == "POST":
+#         if form.is_valid():
+#             form.save()
+#             return redirect('giris-yap')
+#     context = {'form':form}
+#     return render(request,"base/kayit.html",context)
+
+
+def KayitOl(request):
     form = KayitForm()
-    if request.method == "POST":
+    print(request.GET)
+    if request.method == 'POST':
+        print("valid :",request.POST)
+        form = KayitForm(request.POST)
         if form.is_valid():
+            print("valid :",request.POST)
             form.save()
+            messages.success(request, 'Başarıyla kayıt olundu.')
             return redirect('giris-yap')
-    context = {'form':form}
-    return render(request,"base/kayit.html",context)
+        else:
+            messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
+
+    context = {
+        'form': form
+    }
+    return render(request, 'base/kayit.html', context)
 
 
 def GirisYap(request):
     if request.method=="POST":
+        print(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -413,7 +436,13 @@ def FormAnaliz(request,pk):
     for i in cevap:
         print(i.soru10_cevap)
 
-    context = {'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,'dizi':array,'sorusayac':sorucount}
+    cevaplar = Cevaplar.objects.all().order_by('-guncellenme_tarihi')
+    p = Paginator(cevaplar,1)
+    page = request.GET.get('page')
+    cevaplar_hepsi = p.get_page(page)
+
+    context = {'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,
+    'dizi':array,'sorusayac':sorucount,'cevaplar_hepsi':cevaplar_hepsi,'cevaplar':cevaplar}
 
     return render(request,"base/form/form-analiz.html",context)
 

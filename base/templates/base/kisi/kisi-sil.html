@@ -3,35 +3,34 @@
  <title>Kişi Sil | FIFAVA</title>
   </head>
   <body>
-    <aside class="side-navbar col-2 bg-dark" >
+     <aside class="side-navbar col-2" >
       <ul class="p-0 text-center">
-        <li><a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house"></i> <p>Anasayfa</p></a></li>
-        <li><a href="{% url 'kisiler' %}"><i class="fa-solid fa-person"></i> <p>Oyuncular</p> </a></li>
+        <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
+        <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
         <li>
           <a href="">
-          <i class="fa-solid fa-question"></i> <p>Nasıl Katılabilirim</p> 
+          <p>Nasıl Katılabilirim</p> 
         </a>
         </li>
         {% if user.is_superuser %}
           <li>
             <a href="{% url 'haberler' %}">
-              <i class="fa-solid fa-newspaper"></i> <p>Haberler</p> 
+              <p>Haberler</p> 
             </a>
           </li>
         {% endif %}
           <li>
             <a href="{% url 'formlar' %}">
-              <i class="fa-solid fa-file"></i> <p>Anketler</p> 
+              <p>Anketler</p> 
             </a>
           </li>
         <li>
         {% if user.is_authenticated %}
-        <a href="{% url 'cikis-yap' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <p> Çıkış Yap</p></a>
+        <a href="{% url 'cikis-yap' %}"> <p> Çıkış Yap</p></a>
         {% else %}
-        <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> <p>Giriş Yap</p> </a>
+        <a href="{% url 'giris-yap' %}"><p>Giriş Yap</p> </a>
         {% endif %}
         </li>
-        
       </ul>
     </aside>
     <main class="col-10 col-lg-8 offset-2">
@@ -41,7 +40,7 @@
         <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">  
       </form>  
   </main>  
-  <aside class="haberler col-2 offset-10 bg-dark d-none d-lg-block">
+  <aside class="haberler col-2 offset-10  d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>
         {% for haber in haberler %}

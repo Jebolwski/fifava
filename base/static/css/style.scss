@@ -2,13 +2,25 @@ $navbar-background-color: rgb(73, 73, 73);
 $kisiler-main-background-color: rgb(212, 208, 208);
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: adios amigos;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
+  aside {
+    background-color: rgb(56, 21, 56);
+    font-size: 24px;
+  }
+  .home {
+    background: url("../images/image1.jpg");
+    background-size: cover;
+    aside {
+      background-color: rgba(165, 35, 165, 0.25);
+    }
+  }
+
   overflow-x: hidden;
 }
 
@@ -28,7 +40,6 @@ body {
 }
 main {
   .main-wrapper-home {
-    background: url("../images/gtabackground.jpg");
     height: 100vh;
   }
   table a {
