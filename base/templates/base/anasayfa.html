@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="home">
-    <aside class="side-navbar col-1" >
+    <aside class="side-navbar col-1 pt-5" >
       <ul class="p-0 text-center">
         <!-- <li><img src="{% static 'images/logo.png' %}" class="col-6"></li> -->
         <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
@@ -39,6 +39,13 @@
     </aside>
     
     <main class="col-11 col-lg-10 offset-1">
+       {% for message in messages %}
+        <br>
+        <div class="alert alert-info alert-dismissible col-4 offset-4 fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
       <div class="main-wrapper-home">
       <div id="particles-js" class="h-100">
         <div class="btext"></div>
@@ -58,7 +65,8 @@
       <ul>
         
 
-          <p class="text-center h5">Haberler</p>  <hr>
+          <p class="text-center h5">Haberler</p> 
+          <hr>
         {% for haber in haberler %}
         <li>
             

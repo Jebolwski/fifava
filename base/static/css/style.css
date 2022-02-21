@@ -1,5 +1,10 @@
+@font-face {
+  font-family: "adios";
+  src: url(../font/Adios.woff);
+}
+
 * {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: adios;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -39,8 +44,9 @@ body .home aside {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .side-navbar ul li a {
