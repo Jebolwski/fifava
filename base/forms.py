@@ -1,3 +1,4 @@
+from dataclasses import field
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +10,10 @@ class KayitForm(UserCreationForm):
         model = User 
         fields = ['username', 'email', 'password1', 'password2']
 
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        for fields in self.fields:
+            self.fields[fields].widget.attrs.update({'class':'form-control'})
 
 class CevapForm(forms.ModelForm):
     class Meta:

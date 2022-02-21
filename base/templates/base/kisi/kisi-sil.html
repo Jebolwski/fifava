@@ -33,16 +33,16 @@
         </li>
       </ul>
     </aside>
-    <main class="col-11 col-lg-9 offset-1">
+    <main class="col-11 col-lg-10 offset-1">
       <form method="post">
         {% csrf_token %}
         <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
         <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">  
       </form>  
   </main>  
-  <aside class="haberler col-2 offset-10  d-none d-lg-block">
+  <aside class="haberler col-1 offset-11  d-none d-lg-block">
       <ul>
-          <p class="text-center h5">Haberler</p>
+          <p class="text-center h5">Haberler</p>  <hr>
         {% for haber in haberler %}
         <li>
             

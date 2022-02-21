@@ -1,0 +1,2 @@
+form geçerlilik testi yaparken hiç birşeye bakmadan direkt olarak giriş yapma
+sayfasına geçme sebebi formda action={% url 'giris-yap' %} olmasıymış.

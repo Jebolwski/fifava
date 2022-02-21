@@ -6,8 +6,9 @@
   </head>
   <body>
     <div class="home">
-    <aside class="side-navbar col-1 pt-5" >
+    <aside class="side-navbar col-1" >
       <ul class="p-0 text-center">
+        <!-- <li><img src="{% static 'images/logo.png' %}" class="col-6"></li> -->
         <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
         <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
         <li>
@@ -37,7 +38,7 @@
       </ul>
     </aside>
     
-    <main class="col-11 col-lg-9">
+    <main class="col-11 col-lg-10 offset-1">
       <div class="main-wrapper-home">
       <div id="particles-js" class="h-100">
         <div class="btext"></div>
@@ -53,11 +54,11 @@
       
     </main>
 
-    <aside class="haberler col-2 offset-10 d-none d-lg-block">
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
       <ul>
         
 
-          <p class="text-center h5">Haberler</p>
+          <p class="text-center h5">Haberler</p>  <hr>
         {% for haber in haberler %}
         <li>
             

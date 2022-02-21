@@ -1,12 +1,10 @@
-{% extends 'base/ana.html' %}
-{% block content %}
-<title>Giriş Yapma | FIFAVA</title>
-</head>
-<body>
-    
-     <aside class="side-navbar col-1" >
+{% extends 'base/ana.html' %} {% block content %}
+ <title>Formlar | FIFAVA</title>
+  </head>
+  <body>
+<aside class="side-navbar col-1">
       <ul class="p-0 text-center">
-        <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
+        <li><a href="{% url 'anasayfa' %}">Anasayfa</p></a></li>
         <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
         <li>
           <a href="">
@@ -35,30 +33,16 @@
       </ul>
     </aside>
 
-
-  <main class="col-11 col-lg-10 offset-1">
-    <h4 class="text-center pt-4">Kayıt Ol</h4>
-      <form method="POST">
-      {% csrf_token %}
-      <h6 class="text-center mt-5">Kullanıcı Adı</h6>
-      <div class="center col-8 col-md-4">{{form.username}}</div>
-      <h6 class="text-center mt-5">Email</h6>
-      <div class="center col-8 col-md-4">{{form.email}}</div>
-      <h6 class="text-center mt-5">Şifre</h6>
-      <div class="center col-8 col-md-4">{{form.password1}}</div>
-      <h6 class="text-center mt-5">Şifre (Tekrar)</h6>
-      <div class="center col-8 col-md-4">{{form.password2}}</div>
-      {% for message in messages %}
-        <div class="alert alert-danger alert-dismissible mt-4 bt-4 col-4 offset-4 fade show" role="alert">
-        {{message}}
-      {% endfor %}
-      <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" />
+<main class="col-11 col-lg-10 offset-1">
+    <form>
+     <h4 class="text-center pt-5">Bu anketi çoktan doldurmuşsunuz. <br> Başka bir anket doldurmak için geri dönün.</h4>
+     <a href="{% url 'formlar' %}" class="btn btn-outline-dark center mt-4">Geri Dön</a>
     </form>
-  </main>
+</main>
 
-    <aside class="haberler col-1 offset-11  d-none d-lg-block">
+<aside class="haberler col-1 offset-11  d-none d-lg-block">
       <ul>
-          <p class="text-center h5">Haberler</p>  <hr>
+          <p class="text-center h5">Haberler  <hr>
         {% for haber in haberler %}
         <li>
             
@@ -71,11 +55,5 @@
         </li>
         {% endfor %}
       </ul>
-    </aside>
-
-    
-  </body>
-</html>
+</aside>
 {% endblock content %}
-  
-  

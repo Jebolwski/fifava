@@ -18,25 +18,36 @@ from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
-# def KayitOlma(request):
-#     form = KayitForm()
-#     if request.method == "POST":
-#         if form.is_valid():
-#             form.save()
-#             return redirect('giris-yap')
-#     context = {'form':form}
-#     return render(request,"base/kayit.html",context)
+def GirisYap(request):
+    
+    if request.user.is_authenticated:
+            return redirect('anasayfa')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        person = authenticate(
+            request, username=username, password=password)
+
+        if person is not None:
+            login(request, person)
+            messages.success(request, 'Başarıyla giriş yapıldı.')
+            return redirect('anasayfa')
+        else:
+            messages.error(request,'Kullanıcı adı veya şifre hatalı.')
+
+    return render(request, 'base/giris.html')
 
 
 def KayitOl(request):
     form = KayitForm()
-    print(request.GET)
     if request.method == 'POST':
-        print("valid :",request.POST)
         form = KayitForm(request.POST)
+        print("geçerlilik testi öncesi")
         if form.is_valid():
-            print("valid :",request.POST)
             form.save()
+            print("register formu geçerli")
             messages.success(request, 'Başarıyla kayıt olundu.')
             return redirect('giris-yap')
         else:
@@ -48,22 +59,6 @@ def KayitOl(request):
     return render(request, 'base/kayit.html', context)
 
 
-def GirisYap(request):
-    if request.method=="POST":
-        print(request.POST)
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        person = authenticate(
-            request, username=username, password=password)
-
-        if person is not None:
-            login(request,person)
-            return redirect('anasayfa')
-        else:
-            messages.error(request,"Kullanıcı adı veya şifre hatalı...")
-    return render(request,"base/giris.html")
-    
 
 def Ev(request):
     return render(request,"base/anasayfa.html")
@@ -78,7 +73,6 @@ class Kisiler(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
        
         search_input = self.request.GET.get('arama') or ''
         if search_input:
@@ -160,11 +154,9 @@ def FormEkle(request):
     form = SorularForm()
     if request.method=="POST":
         form = SorularForm(request.POST)
-        print("form valid değil")
         if form.is_valid():
             form.instance.user=request.user
             form.save()
-            print("form valid")
             return redirect("formlar")
     context={"form":form}
     return render(request,"base/form/form-ekle.html",context)
@@ -192,8 +184,10 @@ def FormSil(request,pk):
 
 
 def FormCevapla(request,pk):
-    form=CevapForm()
-    sorular=Sorular.objects.get(id=pk)
+    form = CevapForm()
+    sorular = Sorular.objects.get(id=pk)
+    if Cevaplar.objects.all().filter(kayitli_id=request.user.id):
+        return redirect('cevaplanmis')
     if request.method=="POST":
         form_copy=request.POST.copy()
         form_copy['kayitli']=str(request.user.id)
@@ -203,10 +197,11 @@ def FormCevapla(request,pk):
         if form.is_valid():
             form.save()
             return redirect('formlar')
-        else:
-            print("valid degilmis")
     context={'form':form,'sorular':sorular}
     return render(request,"base/form/form-cevapla.html",context)
+
+def Cevaplanmis(request):
+    return render(request,"base/form/cevaplanmis.html")
 
 
 def FormDetay(request,pk):
@@ -450,7 +445,6 @@ def FormAnaliz(request,pk):
 
 def CevapDetay(request,pk):
     cevap = Cevaplar.objects.get(id=pk)
-    print(cevap.sorular.soru1)
     context = {'cevap':cevap}
     return render(request,"base/form/cevap-detay.html",context)
 

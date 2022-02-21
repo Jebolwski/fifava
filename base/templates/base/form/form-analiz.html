@@ -1,11 +1,13 @@
  {% extends 'base/ana.html' %}
  {% block content %}
+ {% load static %}
  <title>Formlar | FIFAVA</title>
   </head>
   <body>
-     <aside class="side-navbar col-1" >
+     <aside class="side-navbar col-1">
       <ul class="p-0 text-center">
-        <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
+        <!-- <li><img src="{% static 'images/logo.png' %}" class="col-7"></li> -->
+        <li><a href="{% url 'anasayfa' %}">Anasayfa</p></a></li>
         <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
         <li>
           <a href="">
@@ -35,7 +37,7 @@
     </aside>
 
 
-    <main class="col-11 col-lg-9 offset-1">
+    <main class="col-11 col-lg-10 offset-1">
       <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
         <div class="mt-5">
           <table class="table table-striped text-center">
@@ -52,7 +54,7 @@
               <td colspan="2">Metinli Soru Sayısı: {{sorusayac}}</td>
             </tr>
           </table>
-          <p class="offset-1">
+          <p class="offset-1 mt-5">
                 {% if cevaplar.has_previous%}
                 <a href="?page=1" style="color: black;"><i class="fas fa-angle-double-left"></i></a>
                {% endif %}
@@ -74,139 +76,354 @@
           </p>
           <div class="cevaplar text-center">
             {% for cevap in cevaplar %}
-            {% if cevap.sorular.soru1 %}
-             <p>{{cevap.sorular.soru1}}</p>
-             <h5>{{cevap.soru1_cevap}}</h5>
-            {% endif %}
-            <br>
-            {% if cevap.sorular.soru2 %}
-             <p>{{cevap.sorular.soru2}}</p>
-             <h5>{{cevap.soru2_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru3 %}
-             <p>{{cevap.sorular.soru3}}</p>
-             <h5>{{cevap.soru3_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru4 %}
-             <p>{{cevap.sorular.soru4}}</p>
-             <h5>{{cevap.soru4_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru5 %}
-             <p>{{cevap.sorular.soru5}}</p>
-             <h5>{{cevap.soru5_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru6 %}
-             <p>{{cevap.sorular.soru6}}</p>
-             <h5>{{cevap.soru6_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru7 %}
-             <p>{{cevap.sorular.soru7}}</p>
-             <h5>{{cevap.soru7_cevap}}</h5> 
-            {% endif %}
-            <br>
-             
-            {% if cevap.sorular.soru8 %}
-             <p>{{cevap.sorular.soru8}}</p>
-             <h5>{{cevap.soru8_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru9 %}
-             <p>{{cevap.sorular.soru9}}</p>
-             <h5>{{cevap.soru9_cevap}}</h5> 
-            {% endif %}
-            <br>
-
-            {% if cevap.sorular.soru10 %}
-             <p>{{cevap.sorular.soru10}}</p>
-             <h5>{{cevap.soru10_cevap}}</h5>
-            {% endif %}
-
-            {% if cevap.sorular.soru11 %}
-             <p>{{cevap.sorular.soru11}}</p>
-             <h5>{{cevap.soru11_cevap}}</h5>
-            {% endif %}
-            <br>
-            
-            {% if cevap.sorular.soru12 %}
-             <p>{{cevap.sorular.soru12}}</p>
-             <h5>{{cevap.soru12_cevap}}</h5>
-            {% endif %}
-            <br>
-            
-            {% if cevap.sorular.soru13 %} 
-             <p>{{cevap.sorular.soru13}}</p>
-             <h5>{{cevap.soru13_cevap}}</h5>
-            {% endif %}
-            <br>  
-            {% if cevap.sorular.soru14 %}
-             <p>{{cevap.sorular.soru14}}</p>
-             <h5>{{cevap.soru14_cevap}}</h5>
-            {% endif %}
-            <br> 
-            {% if cevap.sorular.soru15 %}
-             <p>{{cevap.sorular.soru15}}</p>
-             <h5>{{cevap.soru15_cevap}}</h5>
-            {% endif %}
-            <br>  
-            {% if cevap.sorular.soru16 %}
-             <p>{{cevap.sorular.soru16}}</p>
-             <h5>{{cevap.soru16_cevap}}</h5>
-            {% endif %}
-            <br>  
-            {% if cevap.sorular.soru17 %}
-             <p>{{cevap.sorular.soru17}}</p>
-             <h5>{{cevap.soru17_cevap}}</h5>
-            {% endif %}
-            <br>  
-            {% if cevap.sorular.soru18 %}
-             <p>{{cevap.sorular.soru18}}</p>
-             <h5>{{cevap.soru18_cevap}}</h5>
-            {% endif %}
-            <br>  
-            {% if cevap.onay1 %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
-            {% else %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
-            {% endif %}
-            <br>  
-            {% if cevap.onay2 %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
-            {% else %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
-            {% endif %}
-            <br> 
-            {% if cevap.onay3 %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
-            {% else %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
-            {% endif %}
-            <br> 
-            {% if cevap.onay4 %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-check"></i></p>
-            {% else %}
-            <p>{{cevap.sorular.onay1}} <i class="fa-solid fa-xmark"></i></p>
-            {% endif %}
-            {{cevap.guncellenme_tarihi }}
-            {% endfor %}
-          </div>
+            <h4 class="pb-3">Anket Sahibi : {{cevap.kayitli}}</h4>
+      <table class="table table-striped table-hover mt-4">
+              {% if cevap.sorular.soru2 %}
+              <tr>
+                <td>{{cevap.sorular.soru1}}</td>
+                <td>
+                  {% if cevap.soru1_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru1_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru1_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru1_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru1_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru2 %}
+              <tr>
+                <td>{{cevap.sorular.soru2}}</td>
+                <td>
+                  {% if cevap.soru2_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru2_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru2_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru2_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru2_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru3 %}
+              <tr>
+                <td>{{cevap.sorular.soru3}}</td>
+                <td>
+                  {% if cevap.soru3_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru3_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru3_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru3_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru3_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru4 %}
+              <tr>
+                <td>{{cevap.sorular.soru4}}</td>
+                <td>
+                  {% if cevap.soru4_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru4_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru4_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru4_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru4_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru5 %}
+              <tr>
+                <td>{{cevap.sorular.soru5}}</td>
+                <td>
+                  {% if cevap.soru5_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru5_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru5_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru5_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru5_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru6 %}
+              <tr>
+                <td>{{cevap.sorular.soru6}}</td>
+                <td>
+                  {% if cevap.soru6_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru6_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru6_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru6_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru6_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru7 %}
+              <tr>
+                <td>{{cevap.sorular.soru7}}</td>
+                <td>
+                  {% if cevap.soru7_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru7_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru7_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru7_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru7_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru8 %}
+              <tr>
+                <td>{{cevap.sorular.soru8}}</td>
+                <td>
+                  {% if cevap.soru8_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru8_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru8_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru8_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru8_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru9 %}
+              <tr>
+                <td>{{cevap.sorular.soru9}}</td>
+                <td>
+                  {% if cevap.soru9_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru9_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru9_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru9_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru9_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru10 %}
+              <tr>
+                <td>{{cevap.sorular.soru10}}</td>
+                <td>
+                  {% if cevap.soru10_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru10_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru10_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru10_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru10_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru11 %}
+              <tr>
+                <td>{{cevap.sorular.soru11}}</td>
+                <td>
+                  {% if cevap.soru11_cevap %}
+                  {{cevap.soru11_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru12 %}
+              <tr>
+                <td>{{cevap.sorular.soru12}}</td>
+                <td>
+                  {% if cevap.soru12_cevap %}
+                  {{cevap.soru12_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru13 %}
+              <tr>
+                <td>{{cevap.sorular.soru13}}</td>
+                <td>
+                  {% if cevap.soru13_cevap %}
+                  {{cevap.soru13_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru14 %}
+              <tr>
+                <td>{{cevap.sorular.soru14}}</td>
+                <td>
+                  {% if cevap.soru14_cevap %}
+                  {{cevap.soru14_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru15 %}
+              <tr>
+                <td>{{cevap.sorular.soru15}}</td>
+                <td>
+                  {% if cevap.soru15_cevap %}
+                  {{cevap.soru15_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru16 %}
+              <tr>
+                <td>{{cevap.sorular.soru16}}</td>
+                <td>
+                  {% if cevap.soru16_cevap %}
+                  {{cevap.soru16_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru17 %}
+              <tr>
+                <td>{{cevap.sorular.soru17}}</td>
+                <td>
+                  {% if cevap.soru17_cevap %}
+                  {{cevap.soru17_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.soru18 %}
+              <tr>
+                <td>{{cevap.sorular.soru18}}</td>
+                <td>
+                  {% if cevap.soru18_cevap %}
+                  {{cevap.soru18_cevap}}
+                  {% else %}
+                  Cevap Yok
+                  {% endif %}
+                </td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.onay1 %}
+              <tr>
+                <td>{{cevap.sorular.onay1}}</td>
+                <td><i class="fa-solid fa-check"></i></td>
+              {% else %}
+                <td>{{cevap.sorular.onay1}}</td>
+                <td><i class="fa-solid fa-xmark"></i></td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.onay2 %}
+              <tr>
+                <td>{{cevap.sorular.onay2}}</td>
+                <td><i class="fa-solid fa-check"></i></td>
+              {% else %}
+                <td>{{cevap.sorular.onay2}}</td>
+                <td><i class="fa-solid fa-xmark"></i></td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.onay2 %}
+              <tr>
+                <td>{{cevap.sorular.onay2}}</td>
+                <td><i class="fa-solid fa-check"></i></td>
+              {% else %}
+                <td>{{cevap.sorular.onay2}}</td>
+                <td><i class="fa-solid fa-xmark"></i></td>
+              </tr>
+              {% endif %}
+              {% if cevap.sorular.onay4 %}
+              <tr>
+                <td>{{cevap.sorular.onay4}}</td>
+                <td><i class="fa-solid fa-check"></i></td>
+              {% else %}
+                <td>{{cevap.sorular.onay4}}</td>
+                <td><i class="fa-solid fa-xmark"></i></td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td>Güncellenme Tarihi</td>
+                <td>{{cevap.guncellenme_tarihi}}</td>
+              </tr>
+      </table>
+      {% endfor %}      
+        </div>
     </main>
 
 
 
-    <aside class="haberler col-2 offset-10  d-none d-lg-block">
+    <aside class="haberler col-1 offset-11  d-none d-lg-block">
       <ul>
-          <p class="text-center h5">Haberler</p>
+          <p class="text-center h5">Haberler  <hr>
         {% for haber in haberler %}
         <li>
             
@@ -220,7 +437,5 @@
         {% endfor %}
       </ul>
     </aside>
-  </body>
-
 {% endblock content %}
  
