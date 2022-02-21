@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,7 +11,12 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    {% load static %}
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/logo_bigger.png' %}"
+    />
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
