@@ -142,7 +142,7 @@ form {
             #particles-js {
                 .svg {
                     svg {
-                        height: 20vh;
+                        height: 18vh;
                         width: 91.66vw;
                     }
                 }
@@ -157,9 +157,19 @@ form {
             font-size: 20px;
         }
     }
+    main {
+        .main-wrapper-home {
+            #particles-js {
+                .svg {
+                    svg {
+                        height: 15vh;
+                    }
+                }
+            }
+        }
+    }
     body {
         aside {
-            background-color: rgb(56, 21, 56);
             font-size: 24px;
         }
         .home {
@@ -169,10 +179,23 @@ form {
     }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 450px) {
     .side-navbar {
         ul li a {
             font-size: 16px;
+        }
+    }
+    main {
+        .main-wrapper-home {
+            #particles-js {
+                .svg {
+                    svg {
+                        height: 10vh;
+                        width: 75vw;
+                        margin-left: 12.5vw;
+                    }
+                }
+            }
         }
     }
 }

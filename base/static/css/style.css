@@ -160,7 +160,7 @@ form .submit {
 
 @media only screen and (max-width: 988px) {
   main .main-wrapper-home #particles-js .svg svg {
-    height: 20vh;
+    height: 18vh;
     width: 91.66vw;
   }
 }
@@ -169,18 +169,25 @@ form .submit {
   .side-navbar ul li a {
     font-size: 20px;
   }
+  main .main-wrapper-home #particles-js .svg svg {
+    height: 15vh;
+  }
   body {
     overflow-x: hidden;
   }
   body aside {
-    background-color: #381538;
     font-size: 24px;
   }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 450px) {
   .side-navbar ul li a {
     font-size: 16px;
+  }
+  main .main-wrapper-home #particles-js .svg svg {
+    height: 10vh;
+    width: 75vw;
+    margin-left: 12.5vw;
   }
 }
 /*# sourceMappingURL=style.css.map */
