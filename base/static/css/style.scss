@@ -14,14 +14,14 @@ $kisiler-main-background-color: rgb(212, 208, 208);
 
 body {
     aside {
-        background-color: rgb(56, 21, 56);
+        background-color: rgb(68, 65, 39);
         font-size: 24px;
     }
     .home {
-        background: url("../images/image1.jpg");
+        background-image: url("../images/background2.jpg");
         background-size: cover;
         aside {
-            background-color: rgba(165, 35, 165, 0.25);
+            background-color: rgba(78, 78, 78, 0.35);
         }
     }
     overflow-x: hidden;
@@ -45,46 +45,46 @@ body {
 }
 
 main {
-    .svg {
-        height: 100vh;
-        display: grid;
-        place-items: center;
-        // position: absolute;
-        // margin-top: 50vh;
-        // margin-left: 45vw;
-        // transform: translateY(-50%);
-        // transform: translateX(-50%);
-        svg {
-            width: clamp(1 rem, 2 rem, 3 rem);
-        }
-    }
     .main-wrapper-home {
         height: 100vh;
+        #particles-js {
+            .svg {
+                margin-top: 25vh;
+                position: absolute;
+                svg {
+                    height: 18vh;
+                    width: 83.32vw;
+                }
+            }
+        }
     }
-    table a {
-        color: black;
+}
+
+table a {
+    color: black;
+    transition: 0.3s;
+    &:hover {
+        color: rgb(66, 66, 66);
         transition: 0.3s;
-        &:hover {
-            color: rgb(66, 66, 66);
-            transition: 0.3s;
-        }
     }
-    .aciklama {
-        overflow: hidden;
-        max-width: 120px;
-        max-width: 100px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+}
+
+.aciklama {
+    overflow: hidden;
+    max-width: 120px;
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+form {
+    .center {
+        margin-left: 50%;
+        transform: translateX(-50%);
     }
-    form {
-        .center {
-            margin-left: 50%;
-            transform: translateX(-50%);
-        }
-        .submit {
-            margin-left: 48%;
-            transform: translateX(-50%);
-        }
+    .submit {
+        margin-left: 48%;
+        transform: translateX(-50%);
     }
 }
 
@@ -136,6 +136,21 @@ main {
     }
 }
 
+@media only screen and (max-width: 988px) {
+    main {
+        .main-wrapper-home {
+            #particles-js {
+                .svg {
+                    svg {
+                        height: 20vh;
+                        width: 91.66vw;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 650px) {
     .side-navbar {
         ul li a {
@@ -148,11 +163,7 @@ main {
             font-size: 24px;
         }
         .home {
-            background: url("../images/image2.jpg");
-            background-size: cover;
-            aside {
-                background-color: rgba(165, 35, 165, 0.25);
-            }
+            aside {}
         }
         overflow-x: hidden;
     }

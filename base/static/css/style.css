@@ -16,17 +16,17 @@ body {
 }
 
 body aside {
-  background-color: #381538;
+  background-color: #444127;
   font-size: 24px;
 }
 
 body .home {
-  background: url("../images/image1.jpg");
+  background-image: url("../images/background2.jpg");
   background-size: cover;
 }
 
 body .home aside {
-  background-color: rgba(165, 35, 165, 0.25);
+  background-color: rgba(78, 78, 78, 0.35);
 }
 
 .side-navbar {
@@ -55,34 +55,33 @@ body .home aside {
   font-size: 20px;
 }
 
-main .svg {
-  height: 100vh;
-  display: -ms-grid;
-  display: grid;
-  place-items: center;
-}
-
-main .svg svg {
-  width: clamp(1 rem, 2 rem, 3 rem);
-}
-
 main .main-wrapper-home {
   height: 100vh;
 }
 
-main table a {
+main .main-wrapper-home #particles-js .svg {
+  margin-top: 25vh;
+  position: absolute;
+}
+
+main .main-wrapper-home #particles-js .svg svg {
+  height: 18vh;
+  width: 83.32vw;
+}
+
+table a {
   color: black;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-main table a:hover {
+table a:hover {
   color: #424242;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-main .aciklama {
+.aciklama {
   overflow: hidden;
   max-width: 120px;
   max-width: 100px;
@@ -90,13 +89,13 @@ main .aciklama {
   text-overflow: ellipsis;
 }
 
-main form .center {
+form .center {
   margin-left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 }
 
-main form .submit {
+form .submit {
   margin-left: 48%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -159,6 +158,13 @@ main form .submit {
   }
 }
 
+@media only screen and (max-width: 988px) {
+  main .main-wrapper-home #particles-js .svg svg {
+    height: 20vh;
+    width: 91.66vw;
+  }
+}
+
 @media only screen and (max-width: 650px) {
   .side-navbar ul li a {
     font-size: 20px;
@@ -169,13 +175,6 @@ main form .submit {
   body aside {
     background-color: #381538;
     font-size: 24px;
-  }
-  body .home {
-    background: url("../images/image2.jpg");
-    background-size: cover;
-  }
-  body .home aside {
-    background-color: rgba(165, 35, 165, 0.25);
   }
 }
 
