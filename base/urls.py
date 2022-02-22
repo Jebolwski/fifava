@@ -35,4 +35,5 @@ urlpatterns = [
     path("cevap-sil/<int:pk>", views.CevapSil, name="cevap-sil"),
     path("cevap-detay/<int:pk>", views.CevapDetay, name="cevap-detay"),
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
+    path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 ]

@@ -66,8 +66,8 @@
               <td>{{kisi.meslek}}</td>
               <td>{{kisi.guncellenme_tarihi}}</td>
               {% if user.is_superuser %}
-              <td> <a href="{% url 'kisi-duzenle' kisi.id %}"><i class="fa-solid fa-user-pen"></i></a> </td>
-              <td> <a href="{% url 'kisi-sil' kisi.id %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
+              <td><a href="{% url 'kisi-duzenle' kisi.id %}"><i class="fa-solid fa-user-pen"></i></a> </td>
+              <td><a href="{% url 'kisi-sil' kisi.id %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
               {% endif %}
             </tr>
             {% endfor %}
@@ -77,6 +77,9 @@
         <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
         {% endif %}
     </main>
+
+
+
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
       <ul>
           <p class="text-center h5">Haberler</p>  <hr>

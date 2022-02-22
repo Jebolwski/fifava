@@ -1,8 +1,20 @@
-from dataclasses import field
+from dataclasses import field, fields
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
+
+
+class OyuncuForm(forms.ModelForm):
+    oyun_ad_soyad       = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    meslek              = forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'class': 'form-control'})) 
+    class Meta:
+        model = Kullanici
+        fields = '__all__'
+
 
 class KayitForm(UserCreationForm):
     

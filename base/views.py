@@ -1,9 +1,10 @@
 from pydoc import doc
+import re
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 
-from .forms import CevapForm,SorularForm,KayitForm
+from .forms import CevapForm, OyuncuForm,SorularForm,KayitForm
 
 from django.core.paginator import Paginator
 
@@ -15,7 +16,7 @@ from django.contrib import messages
 
 
 #?CLASS BASED VIEWS
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
 
 
 def GirisYap(request):
@@ -73,7 +74,7 @@ class Kisiler(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-       
+        search_input = self.request.GET.get('temizle') or ''
         search_input = self.request.GET.get('arama') or ''
         if search_input:
             context["kisiler"] = context["kisiler"].filter(
@@ -84,8 +85,8 @@ class Kisiler(ListView):
         return context
 
 class KisiEkle(LoginRequiredMixin,CreateView):
+    form_class          = OyuncuForm
     model               = Kullanici
-    fields              = "__all__"
     template_name       = "base/kisi/kisi-ekle.html"
     success_url         = reverse_lazy('kisiler')
 
@@ -95,10 +96,10 @@ class KisiDetay(DetailView):
     template_name       = "base/kisi/kisi-detay.html"
     
 class KisiDuzenle(LoginRequiredMixin,UpdateView):
+    form_class          = OyuncuForm
     model               = Kullanici
     template_name       = 'base/kisi/kisi-duzenle.html'
     context_object_name = 'kisi'
-    fields              = '__all__'
     success_url         = reverse_lazy('kisiler')
 
 class KisiSil(LoginRequiredMixin,DeleteView):
@@ -162,6 +163,7 @@ def FormEkle(request):
     return render(request,"base/form/form-ekle.html",context)
 
 
+
 def FormDuzenle(request,pk):
     form_instance = Sorular.objects.get(id=pk)
     form = SorularForm(instance=form_instance)
@@ -200,8 +202,6 @@ def FormCevapla(request,pk):
     context={'form':form,'sorular':sorular}
     return render(request,"base/form/form-cevapla.html",context)
 
-def Cevaplanmis(request):
-    return render(request,"base/form/cevaplanmis.html")
 
 
 def FormDetay(request,pk):
@@ -442,12 +442,31 @@ def FormAnaliz(request,pk):
     return render(request,"base/form/form-analiz.html",context)
 
 
+def Cevaplanmis(request):
+    return render(request,"base/form/cevaplanmis.html")
+
+
+def CevaplanmisDuzenle(request,pk):
+    form_instance = Cevaplar.objects.get(id=pk)
+    form = CevapForm(instance=form_instance)
+    sorular = Sorular.objects.filter(id=form_instance.sorular_id)
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['baslik']=form_instance.baslik
+        form = CevapForm(data,instance=form_instance)
+        if form.is_valid():
+            form.save()
+            return redirect("formlar")
+    context={'form':form,'sorular':sorular}
+
+    return render(request,"base/form/cevaplanmis-duzenle.html",context)
+
+
 
 def CevapDetay(request,pk):
     cevap = Cevaplar.objects.get(id=pk)
     context = {'cevap':cevap}
     return render(request,"base/form/cevap-detay.html",context)
-
 
 
 def CevapSil(request,pk):

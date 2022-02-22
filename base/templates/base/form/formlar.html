@@ -79,7 +79,7 @@
               {% if user.is_authenticated%}
               <td><a href="{% url 'form-cevapla' form.id %}"><i class="fa-solid fa-reply"></i></a></td>
               {% else %}
-              <td><i class="fa-solid fa-reply" title="Cevaplamak için giriş yapın..." ></i></td>
+              <td><i class="fa-solid fa-xmark" title="Cevaplamak için giriş yapın..."></i></td>
               {% endif %}
             </tr>
             {% endfor %}
@@ -109,7 +109,7 @@
               <td>{{c.baslik}}</td>
               <td>{{c.guncellenme_tarihi}}</td>
               <td><a href="{% url 'cevap-detay' c.id %}"><i class="fa-solid fa-circle-info"></i></a></td>
-              <td><i class="fa-solid fa-pen"></i></td>
+              <td><a href="{% url 'cevaplanmis-duzenle' c.id %}"><i class="fa-solid fa-pen"></i></a></td>
               <td><a href="{% url 'cevap-sil' c.id %}"><i class="fa-solid fa-minus"></i></a></td>
             </tr>
             {% endfor %}

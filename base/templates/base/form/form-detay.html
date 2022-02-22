@@ -37,7 +37,7 @@
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
     
-    <main class="col-8 col-lg-6 offset-3">
+    <main class="col-8 col-lg-6 offset-3 text-center">
       <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
       <h5>Sorular</h5>
       {% if soru.soru1 %}
@@ -70,6 +70,48 @@
       {% if soru.soru10 %}
       <div class="pt-5">{{ soru.soru10 }}</div>
       {% endif %}
+      {% if soru.soru11 %}
+      <div class="pt-5">{{ soru.soru11 }}</div>
+      {% endif %}
+      {% if soru.soru12 %}
+      <div class="pt-5">{{ soru.soru12 }}</div>
+      {% endif %}
+      {% if soru.soru13 %}
+      <div class="pt-5">{{ soru.soru13 }}</div>
+      {% endif %}
+      {% if soru.soru14 %}
+      <div class="pt-5">{{ soru.soru14 }}</div>
+      {% endif %}
+      {% if soru.soru15 %}
+      <div class="pt-5">{{ soru.soru15 }}</div>
+      {% endif %}
+      {% if soru.soru16 %}
+      <div class="pt-5">{{ soru.soru16 }}</div>
+      {% endif %}
+      {% if soru.soru17 %}
+      <div class="pt-5">{{ soru.soru17 }}</div>
+      {% endif %}
+      {% if soru.soru18 %}
+      <div class="pt-5">{{ soru.soru18 }}</div>
+      {% endif %}
+      {% if soru.onay1 %}
+      <div class="pt-5">{{ soru.onay1 }} <input type="checkbox" disabled class="mx-2"></div>
+      
+      {% endif %}
+      {% if soru.onay2 %}
+      <div class="pt-5">{{ soru.onay2 }} <input type="checkbox" disabled class="mx-2"></div>
+      
+      {% endif %}
+      {% if soru.onay3 %}
+      <div class="pt-5">{{ soru.onay3 }} <input type="checkbox" disabled class="mx-2"></div>
+      
+      {% endif %}
+      {% if soru.onay4 %}
+      <div class="pt-5">{{ soru.onay4 }} <input type="checkbox" disabled class="mx-2"></div>
+      
+      {% endif %}
+      <br>
+
       
     </main>
     

@@ -48,43 +48,183 @@
           <h5 class="mt-5">Cevapların</h5>
           {% if cevap.soru1_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru1}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru1_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru1_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru1_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru1_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru1_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru1_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru2_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru2}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru2_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru2_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru2_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru2_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru2_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru2_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru3_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru3}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru3_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru3_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru3_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru3_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru3_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru3_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru4_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru4}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru4_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru4_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru4_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru4_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru4_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru4_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru5_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru5}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru5_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru5_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru5_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru5_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru5_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru5_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru6_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru6}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru6_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru6_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru6_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru6_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru6_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru6_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru7_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru7}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru7_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru7_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru7_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru7_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru7_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru7_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru8_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru8}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru8_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru8_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru8_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru8_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru8_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru8_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru9_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru9}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru9_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru9_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru9_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru9_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru9_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru9_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru10_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru10}}</label>
-          <div class="col-4 offset-4 pb-2">{{cevap.soru10_cevap}}</div>
+          <div class="col-4 offset-4 pb-2">
+            {% if cevap.soru10_cevap == "1" %}
+                  Kesinlikle Katılmıyorum
+                  {% elif cevap.soru10_cevap == "2" %}
+                  Katılmıyorum
+                  {% elif cevap.soru10_cevap == "3" %}
+                  Kararsızım
+                  {% elif cevap.soru10_cevap == "4" %}
+                  Katılıyorum
+                  {% elif cevap.soru10_cevap == "5" %}
+                  Kesinlikle Katılıyorum
+                  {% else %}
+                  Cevap Yok
+            {% endif %}
+          </div>
           {% endif %}
           {% if cevap.soru11_cevap %}
           <label class="mt-5 mb-3">{{cevap.sorular.soru11}}</label>
@@ -124,7 +264,7 @@
           <br>
           <span>
             {% if cevap.onay1_cevap %}
-              İşaretlendi <i class="fa-solid fa-check"></i>
+              İşaretlendi <i class="mx-2 fa-solid fa-check"></i>
             {% else %}
               İşaretlenmedi
             {% endif %}
@@ -138,9 +278,9 @@
           <br>
           <span>
             {% if cevap.onay2_cevap %}
-              İşaretlendi <i class="fa-solid fa-check"></i>
+              İşaretlendi <i class="mx-2 fa-solid fa-check"></i>
             {% else %}
-              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+              İşaretlenmedi <i class="mx-2 fa-solid fa-circle-xmark"></i>
             {% endif %}
           </span>
           {% endif %}
@@ -150,9 +290,9 @@
           <br>
           <span>
             {% if cevap.onay3_cevap %}
-              İşaretlendi <i class="fa-solid fa-check"></i>
+              İşaretlendi <i class="mx-2 fa-solid fa-check"></i>
             {% else %}
-              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+              İşaretlenmedi <i class="mx-2 fa-solid fa-circle-xmark"></i>
             {% endif %}
           </span>
           {% endif %}
@@ -162,9 +302,9 @@
           <br>
           <span>
             {% if cevap.onay4_cevap %}
-              İşaretlendi <i class="fa-solid fa-check"></i>
+              İşaretlendi <i class="mx-2 fa-solid fa-check"></i>
             {% else %}
-              İşaretlenmedi <i class="fa-solid fa-circle-xmark"></i>
+              İşaretlenmedi <i class="mx-2 fa-solid fa-circle-xmark"></i>
             {% endif %}
           </span>
           {% endif %}

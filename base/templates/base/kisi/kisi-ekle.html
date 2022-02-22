@@ -33,17 +33,21 @@
         </li>
       </ul>
     </aside>
+
+
+
     <main class="col-11 col-lg-10 offset-1">
-      <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
-    <form method="post">
-        {% csrf_token %}
-    <h5 class="text-center mt-2">Ad Soyad</h5>
-    <div class="center col-2">{{form.oyun_ad_soyad}}</div>
-    <h5 class="text-center mt-5">Meslek</h5>
-    <div class="center col-2">{{form.meslek}}</div>
-    <input type="submit" value="Kişi Ekle" class="center btn btn-outline-dark mt-5">
-    </form>
-  </main>
+        <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
+      <form method="post">
+          {% csrf_token %}
+      <h5 class="text-center mt-2">Ad Soyad</h5>
+      <div class="center">{{form.oyun_ad_soyad}}</div>
+      <h5 class="text-center mt-5">Meslek</h5>
+      <div class="center">{{form.meslek}}</div>
+      <input type="submit" value="Kişi Ekle" class="center btn btn-outline-dark mt-5">
+      </form>
+    </main>
+
 
     <aside class="haberler col-1 offset-11  d-none d-lg-block">
       <ul>
