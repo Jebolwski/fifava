@@ -29,6 +29,52 @@ body .home aside {
   background-color: rgba(78, 78, 78, 0.35);
 }
 
+body .loading {
+  height: 100vh;
+  width: 100vw;
+  background-color: #444127;
+  z-index: 1000;
+  position: fixed;
+  display: -ms-grid;
+  display: grid;
+  place-content: center;
+}
+
+body .loading h3 {
+  text-align: center;
+  margin-top: 4vw;
+  margin-bottom: 4vw;
+  color: white;
+}
+
+body .loading img {
+  -webkit-animation-name: loading;
+          animation-name: loading;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  width: 20vw;
+}
+
+.home .side-navbar {
+  -webkit-animation-name: s-left;
+          animation-name: s-left;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+.home .haberler {
+  -webkit-animation-name: h-right;
+          animation-name: h-right;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
 .side-navbar {
   position: fixed;
 }
@@ -69,16 +115,30 @@ main .main-wrapper-home #particles-js .svg svg {
   width: 83.32vw;
 }
 
-table a {
+main table a {
   color: black;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-table a:hover {
+main table a:hover {
   color: #424242;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+main .message {
+  position: absolute;
+  top: -100px;
+  -webkit-animation: message 2s 0.5s;
+          animation: message 2s 0.5s;
+  margin-left: 50%;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  padding: 10px;
+  background-color: rgba(52, 129, 129, 0.856);
+  border-radius: 20px;
+  color: white;
 }
 
 .aciklama {
@@ -99,6 +159,8 @@ form .submit {
   margin-left: 48%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
+  -webkit-transform: translateY();
+          transform: translateY();
 }
 
 .haberler {
@@ -148,6 +210,102 @@ form .submit {
   }
   95% {
     opacity: 1;
+  }
+}
+
+@-webkit-keyframes h-right {
+  from {
+    margin-left: 110vw;
+  }
+  to {
+    margin-left: 91.66vw;
+  }
+}
+
+@keyframes h-right {
+  from {
+    margin-left: 110vw;
+  }
+  to {
+    margin-left: 91.66vw;
+  }
+}
+
+@-webkit-keyframes s-left {
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0;
+  }
+}
+
+@keyframes s-left {
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0;
+  }
+}
+
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: rotateZ(0);
+            transform: rotateZ(0);
+  }
+  50% {
+    -webkit-transform: rotateZ(180deg);
+            transform: rotateZ(180deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+@keyframes loading {
+  0% {
+    -webkit-transform: rotateZ(0);
+            transform: rotateZ(0);
+  }
+  50% {
+    -webkit-transform: rotateZ(180deg);
+            transform: rotateZ(180deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+@-webkit-keyframes message {
+  0% {
+    position: absolute;
+    top: -100px;
+  }
+  50% {
+    position: absolute;
+    top: 40px;
+  }
+  100% {
+    position: absolute;
+    top: -100px;
+  }
+}
+
+@keyframes message {
+  0% {
+    position: absolute;
+    top: -100px;
+  }
+  50% {
+    position: absolute;
+    top: 40px;
+  }
+  100% {
+    position: absolute;
+    top: -100px;
   }
 }
 

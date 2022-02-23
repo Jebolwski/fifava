@@ -198,6 +198,7 @@ def FormCevapla(request,pk):
         form=CevapForm(form_copy)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
     context={'form':form,'sorular':sorular}
     return render(request,"base/form/form-cevapla.html",context)

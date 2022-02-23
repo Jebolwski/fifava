@@ -13,6 +13,7 @@ $kisiler-main-background-color: rgb(212, 208, 208);
 }
 
 body {
+    overflow-x: hidden;
     aside {
         background-color: rgb(68, 65, 39);
         font-size: 24px;
@@ -24,7 +25,40 @@ body {
             background-color: rgba(78, 78, 78, 0.35);
         }
     }
-    overflow-x: hidden;
+    .loading {
+        height: 100vh;
+        width: 100vw;
+        background-color: rgb(68, 65, 39);
+        z-index: 1000;
+        position: fixed;
+        display: grid;
+        place-content: center;
+        h3 {
+            text-align: center;
+            margin-top: 4vw;
+            margin-bottom: 4vw;
+            color: white;
+        }
+        img {
+            animation-name: loading;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            width: 20vw;
+        }
+    }
+}
+
+.home {
+    .side-navbar {
+        animation-name: s-left;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+    }
+    .haberler {
+        animation-name: h-right;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+    }
 }
 
 .side-navbar {
@@ -58,14 +92,24 @@ main {
             }
         }
     }
-}
-
-table a {
-    color: black;
-    transition: 0.3s;
-    &:hover {
-        color: rgb(66, 66, 66);
+    table a {
+        color: black;
         transition: 0.3s;
+        &:hover {
+            color: rgb(66, 66, 66);
+            transition: 0.3s;
+        }
+    }
+    .message {
+        position: absolute;
+        top: -100px;
+        animation: message 2s 0.5s;
+        margin-left: 50%;
+        transform: translateX(-100%);
+        padding: 10px;
+        background-color: rgba(52, 129, 129, 0.856);
+        border-radius: 20px;
+        color: white;
     }
 }
 
@@ -85,6 +129,7 @@ form {
     .submit {
         margin-left: 48%;
         transform: translateX(-50%);
+        transform: translateY();
     }
 }
 
@@ -124,6 +169,51 @@ form {
     }
     95% {
         opacity: 1;
+    }
+}
+
+@keyframes h-right {
+    from {
+        margin-left: 110vw;
+    }
+    to {
+        margin-left: 91.66vw;
+    }
+}
+
+@keyframes s-left {
+    from {
+        margin-left: -100%;
+    }
+    to {
+        margin-left: 0;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotateZ(0);
+    }
+    50% {
+        transform: rotateZ(180deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@keyframes message {
+    0% {
+        position: absolute;
+        top: -100px;
+    }
+    50% {
+        position: absolute;
+        top: 40px;
+    }
+    100% {
+        position: absolute;
+        top: -100px;
     }
 }
 
@@ -172,9 +262,7 @@ form {
         aside {
             font-size: 24px;
         }
-        .home {
-            aside {}
-        }
+        .home {}
         overflow-x: hidden;
     }
 }
