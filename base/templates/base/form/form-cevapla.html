@@ -3,6 +3,7 @@
 </head>
 
 <body>
+
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
             <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
@@ -17,6 +18,7 @@
             {% if user.is_superuser %}
             <li>
                 <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
                     <p class="d-none d-md-block">Haberler</p>
                 </a>
             </li>
@@ -47,6 +49,7 @@
             {% csrf_token %}
             <h5 class="text-center pt-5">{{sorular.baslik}}</h5>
             <div class="text-center">
+                {{form.errors}}
                 <h5 class="mt-5">Sorular</h5>
                 {% if sorular.soru1 %}
                 <div class="pb-3 pt-5">{{ sorular.soru1 }}</div>
@@ -104,22 +107,22 @@
                 <div class="col-4 offset-4 pb-2">{{form.soru18_cevap}}</div>
                 {% endif %}
             </div>
-            <div class="offset-3 mt-5">
+            <div class="text-center mt-5">
                 {% if sorular.onay1 %}
-                <span>{{form.onay1_cevap}}</span>
-                <span class="pb-3 pt-5">{{ sorular.onay1 }}</span> {% endif %}
+                <span class="pb-3 pt-5 mx-2">{{ sorular.onay1 }}</span>
+                <span>{{form.onay1_cevap}}</span>{% endif %}
                 <br>
                 <br> {% if sorular.onay2 %}
-                <span>{{form.onay2_cevap}}</span>
-                <span class="pb-3 pt-5">{{ sorular.onay2 }}</span> {% endif %}
+                <span class="pb-3 pt-5 mx-2">{{ sorular.onay2 }}</span>
+                <span>{{form.onay2_cevap}}</span>{% endif %}
                 <br>
                 <br> {% if sorular.onay3 %}
-                <span>{{form.onay3_cevap}}</span>
-                <span class="pb-3 pt-5">{{ sorular.onay3 }}</span> {% endif %}
+                <span class="pb-3 pt-5 mx-2">{{ sorular.onay3 }}</span>
+                <span>{{form.onay3_cevap}}</span>{% endif %}
                 <br>
                 <br> {% if sorular.onay4 %}
-                <span>{{form.onay4_cevap}}</span>
-                <span class="pb-3 pt-5">{{ sorular.onay4 }}</span> {% endif %}
+                <span class="pb-3 pt-5 mx-2">{{ sorular.onay4 }}</span>
+                <span>{{form.onay4_cevap}}</span> {% endif %}
             </div>
 
 
@@ -146,6 +149,95 @@
     </aside>
 
 </body>
+<script>
+    if (document.querySelector(".soru1")) {
+        document.querySelector(".soru1").setAttribute("required", "");
+    }
+    if (document.querySelector(".soru2")) {
+        document.querySelector(".soru2").setAttribute("required", "");
+    }
 
-</html>
+    if (document.querySelector(".soru3")) {
+        document.querySelector(".soru3").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru4")) {
+        document.querySelector(".soru4").setAttribute("required", "");
+    }
+    if (document.querySelector(".soru5")) {
+        document.querySelector(".soru5").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru6")) {
+        document.querySelector(".soru6").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru7")) {
+        document.querySelector(".soru7").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru8")) {
+        document.querySelector(".soru8").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru9")) {
+        document.querySelector(".soru9").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru10")) {
+        document.querySelector(".soru10").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru11")) {
+        document.querySelector(".soru11").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru12")) {
+        document.querySelector(".soru12").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru12")) {
+        document.querySelector(".soru12").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru13")) {
+        document.querySelector(".soru13").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru14")) {
+        document.querySelector(".soru14").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru15")) {
+        document.querySelector(".soru15").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru16")) {
+        document.querySelector(".soru16").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru17")) {
+        document.querySelector(".soru17").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".soru18")) {
+        document.querySelector(".soru18").setAttribute("required", "");
+    }
+
+    if (document.querySelector(".input1")) {
+        document.querySelector(".input1").checked = false;
+    }
+
+    if (document.querySelector(".input2")) {
+        document.querySelector(".input2").checked = false;
+    }
+
+    if (document.querySelector(".input3")) {
+        document.querySelector(".input3").checked = false;
+    }
+
+    if (document.querySelector(".input4")) {
+        document.querySelector(".input4").checked = false;
+    }
+</script>
 {% endblock content %}

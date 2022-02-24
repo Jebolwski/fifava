@@ -31,32 +31,33 @@ class CevapForm(forms.ModelForm):
     class Meta:
         model = Cevaplar
         fields="__all__"
+        exclude=["baslik"]
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args, **kwargs)
         for fields in self.fields:
-            self.fields['soru1_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru2_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru3_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru4_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru5_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru6_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru7_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru8_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru9_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru10_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru11_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru12_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru13_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru14_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru15_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru16_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru17_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['soru18_cevap'].widget.attrs.update({'rows':'3','class':'form-control'})
-            self.fields['onay1_cevap'].widget.attrs.update({'rows':'3','class':'form-check-input'})
-            self.fields['onay2_cevap'].widget.attrs.update({'rows':'3','class':'form-check-input'})
-            self.fields['onay3_cevap'].widget.attrs.update({'rows':'3','class':'form-check-input'})
-            self.fields['onay4_cevap'].widget.attrs.update({'rows':'3','class':'form-check-input'})
+            self.fields['soru1_cevap'].widget.attrs.update({'rows':'3','class':'soru1 form-control'})
+            self.fields['soru2_cevap'].widget.attrs.update({'rows':'3','class':'soru2 form-control'})
+            self.fields['soru3_cevap'].widget.attrs.update({'rows':'3','class':'soru3 form-control'})
+            self.fields['soru4_cevap'].widget.attrs.update({'rows':'3','class':'soru4 form-control'})
+            self.fields['soru5_cevap'].widget.attrs.update({'rows':'3','class':'soru5 form-control'})
+            self.fields['soru6_cevap'].widget.attrs.update({'rows':'3','class':'soru6 form-control'})
+            self.fields['soru7_cevap'].widget.attrs.update({'rows':'3','class':'soru7 form-control'})
+            self.fields['soru8_cevap'].widget.attrs.update({'rows':'3','class':'soru8 form-control'})
+            self.fields['soru9_cevap'].widget.attrs.update({'rows':'3','class':'soru9 form-control'})
+            self.fields['soru10_cevap'].widget.attrs.update({'rows':'3','class':'soru10 form-control'})
+            self.fields['soru11_cevap'].widget.attrs.update({'rows':'3','class':'soru11 form-control'})
+            self.fields['soru12_cevap'].widget.attrs.update({'rows':'3','class':'soru12 form-control'})
+            self.fields['soru13_cevap'].widget.attrs.update({'rows':'3','class':'soru13 form-control'})
+            self.fields['soru14_cevap'].widget.attrs.update({'rows':'3','class':'soru14 form-control'})
+            self.fields['soru15_cevap'].widget.attrs.update({'rows':'3','class':'soru15 form-control'})
+            self.fields['soru16_cevap'].widget.attrs.update({'rows':'3','class':'soru16 form-control'})
+            self.fields['soru17_cevap'].widget.attrs.update({'rows':'3','class':'soru17 form-control'})
+            self.fields['soru18_cevap'].widget.attrs.update({'rows':'3','class':'soru18 form-control'})
+            self.fields['onay1_cevap'].widget.attrs.update({'class':'input1 form-check-input','checked':False})
+            self.fields['onay2_cevap'].widget.attrs.update({'class':'input2 form-check-input','checked':False})
+            self.fields['onay3_cevap'].widget.attrs.update({'class':'input3 form-check-input','checked':False})
+            self.fields['onay4_cevap'].widget.attrs.update({'class':'input4 form-check-input','checked':False})
 
 
 class SorularForm(forms.ModelForm):

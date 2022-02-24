@@ -36,7 +36,7 @@ ANKET_SECIMLERI = (
 
 
 class Sorular(models.Model):
-    baslik                 = models.CharField(max_length=60,null=True,blank=True)
+    baslik                 = models.CharField(max_length=60,null=False,blank=False)
     
     soru1                  = models.TextField(max_length=200,null=True,blank=True)
     soru2                  = models.TextField(max_length=200,null=True,blank=True)
@@ -73,7 +73,7 @@ class Sorular(models.Model):
         
 class Cevaplar(models.Model):
     
-    baslik                 = models.CharField(max_length=60,null=True,blank=True)
+    baslik                 = models.CharField(max_length=60,null=False,blank=False)
 
     sorular                = models.ForeignKey(Sorular,on_delete=models.CASCADE,null=True,blank=True)
 

@@ -1,91 +1,86 @@
-{% extends 'base/ana.html' %}
-{% block content %}
- {% load static %}
+{% extends 'base/ana.html' %} {% block content %} {% load static %}
 <title>Giriş Yapma | FIFAVA</title>
 </head>
+
 <body>
-    
-     <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
-                <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li> 
-                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-                <li>
-                    <a href="">
-                        <i class=" fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                    </a>
-                </li>
-                {% if user.is_superuser %}
-                <li>
-                    <a href="{% url 'haberler' %}">
-                        <p class="d-none d-md-block">Haberler</p>
-                    </a>
-                </li>
+
+    <aside class="side-navbar col-1">
+        <ul class="p-0 text-center">
+            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            {% if user.is_superuser %}
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
                 {% endif %}
-                <li>
-                    <a href="{% url 'formlar' %}">
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
-                    </a>
-                </li>
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
-                    </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </aside>
-
-  <main class="col-11 col-lg-10 offset-1">
-    <h4 class="text-center pt-4">Giriş Yap</h4>
-      <form method="POST" action="{% url 'giris-yap' %}" >
-      {% csrf_token %}
-      <h5 class="text-center mt-5">Kullanıcı Adı</h5>
-      <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
-      <h5 class="text-center mt-4">Şifre</h5>
-      <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
-      <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" />
-        {% for message in messages %}
-        <div class="alert alert-info alert-dismissible mt-4 bt-4 col-4 offset-4 fade show" role="alert">
-        {{message}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor %}
-      <h5 class="text-center mt-5">Şifreni mi unuttun? Şifre Sıfırla</h5>
-      <h5 class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
-            </a></h5>
-    </form>
-  </main>
-
-    <aside class="haberler col-1 offset-11 d-none d-lg-block">
-      <ul>
-          <p class="text-center h5">Haberler</p>  <hr>
-        {% for haber in haberler %}
-        <li>
-            
-            <table>
-                <tr>
-                    <td>{{haber.baslik}}</td>
-                    <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
-                </tr>
-            </table>
-        </li>
-        {% endfor %}
-      </ul>
+            </li>
+        </ul>
     </aside>
 
-    
-  </body>
+    <main class="col-11 col-lg-10 offset-1">
+        <h4 class="text-center pt-4">Giriş Yap</h4>
+        <form method="POST" action="{% url 'giris-yap' %}">
+            {% csrf_token %}
+            <h5 class="text-center mt-5">Kullanıcı Adı</h5>
+            <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
+            <h5 class="text-center mt-4">Şifre</h5>
+            <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
+            <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" /> {% for message in messages %}
+            <div class="message">{{message}}</div>
+            {% endfor %}
+            <h5 class="text-center mt-5">Şifreni mi unuttun? Şifre Sıfırla</h5>
+            <h5 class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
+            </a></h5>
+        </form>
+    </main>
+
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
+
+                <table>
+                    <tr>
+                        <td>{{haber.baslik}}</td>
+                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+
+</body>
+
 </html>
 {% endblock content %}
-  
-  

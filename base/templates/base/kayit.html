@@ -3,7 +3,6 @@
 </head>
 
 <body>
-
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
             <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
@@ -18,6 +17,7 @@
             {% if user.is_superuser %}
             <li>
                 <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
                     <p class="d-none d-md-block">Haberler</p>
                 </a>
             </li>

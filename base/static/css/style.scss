@@ -41,7 +41,7 @@ body {
         }
         img {
             animation-name: loading;
-            animation-duration: 1s;
+            animation-duration: 0.8s;
             animation-iteration-count: infinite;
             width: 20vw;
         }
@@ -51,12 +51,12 @@ body {
 .home {
     .side-navbar {
         animation-name: s-left;
-        animation-duration: 1s;
+        animation-duration: 0.8s;
         animation-timing-function: ease-in-out;
     }
     .haberler {
         animation-name: h-right;
-        animation-duration: 1s;
+        animation-duration: 0.8s;
         animation-timing-function: ease-in-out;
     }
 }
@@ -103,22 +103,34 @@ main {
     .message {
         position: absolute;
         top: -100px;
-        animation: message 2s 0.5s;
-        margin-left: 50%;
-        transform: translateX(-100%);
+        animation: message 6s 0.5s;
+        margin-left: 41.67%;
+        transform: translateX(-50%);
         padding: 10px;
-        background-color: rgba(52, 129, 129, 0.856);
+        background-color: rgb(85, 81, 42);
         border-radius: 20px;
         color: white;
     }
-}
-
-.aciklama {
-    overflow: hidden;
-    max-width: 120px;
-    max-width: 100px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    .aciklama {
+        overflow: hidden;
+        max-width: 120px;
+        max-width: 100px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    p {
+        a {
+            i {
+                transition: 0.4s;
+            }
+            &:hover {
+                i {
+                    color: rgb(114, 108, 53);
+                    transition: 0.4s;
+                }
+            }
+        }
+    }
 }
 
 form {
@@ -210,8 +222,13 @@ form {
     50% {
         position: absolute;
         top: 40px;
+        opacity: 0.8;
+    }
+    75% {
+        opacity: 0.5;
     }
     100% {
+        opacity: 0;
         position: absolute;
         top: -100px;
     }
