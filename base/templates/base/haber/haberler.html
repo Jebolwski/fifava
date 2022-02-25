@@ -1,12 +1,11 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Kişiler | FIFAVA</title>
+<title>Haberler | FIFAVOX</title>
 </head>
 
 <body>
-
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
-            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
+            <li><img src="{% static 'images/logo.png' %}" class="col-8 col-md-5"></li>
             <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
             <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
             <li>
@@ -45,41 +44,57 @@
         </ul>
     </aside>
 
-
-
-    <main class="col-11 col-lg-10 offset-1">
-        {% if haber %}
+    <main class="col-11 col-lg-10 offset-1 pt-5">
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+        <form method="GET">
+            <div class="row pt-4 mb-5">
+                <div class="col-3 offset-4"><input type="text" class="form-control" placeholder="Aranacak Haberin Başlığı" name="arama"></div>
+                <input type="submit" value="Arama" class="col-1 text-center display-4 btn btn-outline-dark font-3"> {% if user.is_superuser %}
+                <div class="col"><a href="{% url 'haber-ekle' %}"><i class="fa-solid fa-circle-plus text-black mt-2 pt-1"></i></a></div>
+                {% endif %}
+            </div>
+        </form>
+        {% if haberler %}
         <table class="table table-striped table-hover">
             <thead class="text-center">
                 <tr>
-                    <th>Başlık</th>
-                    <th>Açıklama</th>
+                    <th>Ad Soyad</th>
+                    <th>Meslek</th>
                     <th>Tarih</th>
+                    {% if user.is_superuser %}
+                    <th>Detay</th>
                     <th>Düzenle</th>
                     <th>Sil</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
                 {% for haber in haberler %}
                 <tr class="text-center">
                     <td>{{haber.baslik}}</td>
-                    <td class="aciklama">{{haber.aciklama}}</td>
+                    <td>{{haber.aciklama}}</td>
                     <td>{{haber.guncellenme_tarihi}}</td>
-                    <td><a href="{% url 'haber-duzenle' haber.id %}"><i class="fa-solid fa-pen"></i></a></td>
-                    <td><a href="{% url 'haber-sil' haber.id %}"><i class="fa-solid fa-minus"></i></a></td>
+                    {% if user.is_superuser %}
+                    <td>
+                        <a href="{% url 'haber-detay' haber.id %}"><i class="fa-solid fa-circle-info"></i></a>
+                    </td>
+                    <td><a href="{% url 'haber-duzenle' haber.id %}"><i class="fa-solid fa-user-pen"></i></a> </td>
+                    <td><a href="{% url 'haber-sil' haber.id %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <h4 class="text-center pt-5">Bakılacak haber yok...</h4>
+        <h4 class="mt-4 text-center">Okunacak haber yok...</h4>
         {% endif %}
     </main>
 
 
 
-
-    <aside class="haberler col-1 offset-11  d-none d-lg-block">
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
         <ul>
             <p class="text-center h5">Haberler</p>
             <hr> {% for haber in haberler %}
@@ -87,8 +102,6 @@
 
                 <table>
                     <tr>
-                        <td>{{haber.baslik}}</td>
-                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
                     </tr>
                 </table>
             </li>
@@ -97,4 +110,5 @@
     </aside>
 </body>
 
+</html>
 {% endblock content %}

@@ -41,7 +41,7 @@ body {
         }
         img {
             animation-name: loading;
-            animation-duration: 0.8s;
+            animation-duration: 1.2s;
             animation-iteration-count: infinite;
             width: 20vw;
         }
@@ -134,6 +134,10 @@ main {
 }
 
 form {
+    .main-center {
+        margin-left: 41.67%;
+        transform: translateX(-50%);
+    }
     .center {
         margin-left: 50%;
         transform: translateX(-50%);

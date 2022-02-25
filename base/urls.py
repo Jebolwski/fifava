@@ -18,11 +18,11 @@ urlpatterns = [
     path("kisi-sil/<int:pk>", views.KisiSil.as_view(), name="kisi-sil"),
 
 
-    path("haberler/", views.Haberler.as_view(), name="haberler"),
-    path("haber-ekle/", views.HaberEkle.as_view(), name="haber-ekle"),
-    path("haber/<int:pk>", views.HaberDetay.as_view(), name="haber-detay"),
-    path("haber-duzenle/<int:pk>", views.HaberDuzenle.as_view(), name="haber-duzenle"),
-    path("haber-sil/<int:pk>", views.HaberSil.as_view(), name="haber-sil"),
+    path("haberler/", views.Haberlerim, name="haberler"),
+    path("haber-ekle/", views.HaberEkle, name="haber-ekle"),
+    path("haber/<str:pk>/", views.HaberDetay, name="haber-detay"),
+    path("haber-duzenle/<str:pk>/", views.HaberDuzenle, name="haber-duzenle"),
+    path("haber-sil/<str:pk>/", views.HaberSil, name="haber-sil"),
 
 
     path("formlar/", views.Formlar, name="formlar"),

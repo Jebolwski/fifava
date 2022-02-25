@@ -59,6 +59,15 @@ class CevapForm(forms.ModelForm):
             self.fields['onay3_cevap'].widget.attrs.update({'class':'input3 form-check-input','checked':False})
             self.fields['onay4_cevap'].widget.attrs.update({'class':'input4 form-check-input','checked':False})
 
+class HaberForm(forms.ModelForm):
+    baslik=forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    aciklama=forms.CharField(max_length=250, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    class Meta:
+        model=Haberler
+        fields="__all__"
+
 
 class SorularForm(forms.ModelForm):
 

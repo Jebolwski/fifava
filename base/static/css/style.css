@@ -50,8 +50,8 @@ body .loading h3 {
 body .loading img {
   -webkit-animation-name: loading;
           animation-name: loading;
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
+  -webkit-animation-duration: 1.2s;
+          animation-duration: 1.2s;
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
   width: 20vw;
@@ -158,6 +158,12 @@ main p a:hover i {
   color: #726c35;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+}
+
+form .main-center {
+  margin-left: 41.67%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 form .center {

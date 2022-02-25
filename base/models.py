@@ -24,6 +24,8 @@ class Haberler(models.Model):
     def __str__(self):
         return self.baslik
 
+
+
 ANKET_SECIMLERI = (
     ('1','Kesinlikle Katılmıyorum'),
     ('2','Katılmıyorum'),
@@ -31,8 +33,6 @@ ANKET_SECIMLERI = (
     ('4','Katılıyorum'),
     ('5','Kesinlikle Katılıyorum'),
     )
-
-
 
 
 class Sorular(models.Model):

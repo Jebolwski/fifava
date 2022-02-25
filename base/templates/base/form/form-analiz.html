@@ -1,11 +1,11 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
-<title>Formlar | FIFAVA</title>
+<title>Anket Analiz | FIFAVOX</title>
 </head>
 
 <body>
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
-            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
+            <li><img src="{% static 'images/logo.png' %}" class="col-8 col-md-5"></li>
             <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
             <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
             <li>
@@ -14,14 +14,12 @@
                     <p class="d-none d-md-block">Nasıl Katılabilirim</p>
                 </a>
             </li>
-            {% if user.is_superuser %}
             <li>
                 <a href="{% url 'haberler' %}">
                     <i class="fa-solid fa-newspaper"></i>
                     <p class="d-none d-md-block">Haberler</p>
                 </a>
             </li>
-            {% endif %}
             <li>
                 <a href="{% url 'formlar' %}">
                     <i class=" fa-solid fa-square-poll-vertical"></i>

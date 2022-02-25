@@ -1,10 +1,9 @@
-from pydoc import doc
-import re
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
-from .forms import CevapForm, OyuncuForm,SorularForm,KayitForm
+from .forms import CevapForm, OyuncuForm,SorularForm,KayitForm,HaberForm
 
 from django.core.paginator import Paginator
 
@@ -16,7 +15,7 @@ from django.contrib import messages
 
 
 #?CLASS BASED VIEWS
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
 def GirisYap(request):
@@ -108,37 +107,65 @@ class KisiSil(LoginRequiredMixin,DeleteView):
 
 
 
+
 #?HABER CRUD
-class Haberler(ListView):
-    model               = Haberler
-    template_name       = 'base/haber/haberler.html'
-    context_object_name = 'haberler'
+def Haberlerim(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')
+    context = {'haberler':haberler}
+    return render(request,"base/haber/haberler.html",context)
 
 
-class HaberEkle(LoginRequiredMixin,CreateView):
-    model               = Haberler
-    fields              = "__all__"
-    template_name       = "base/haber/haber-ekle.html"
-    success_url         = reverse_lazy('haberler')
+@login_required(login_url='giris-yap')
+def HaberEkle(request):
+    form = HaberForm()
+    if request.method=='POST':
+        copy = request.POST.copy()
+        copy.resim=request.FILES.get('files')
+        print(copy)
+        form = HaberForm(copy)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Haber başarıyla oluşturuldu.")
+            return redirect('haberler')
+            context = {'form':form}
+    context = {'form':form}
+    return render(request,"base/haber/haber-ekle.html",context)
+            
 
-class HaberDetay(DetailView):
-    model               = Haberler
-    context_object_name = 'haber'
-    template_name       = "base/haber/haber-detay.html"
-    
-class HaberDuzenle(LoginRequiredMixin,UpdateView):
-    model               = Haberler
-    template_name       = 'base/haber/haber-duzenle.html'
-    context_object_name = 'haber'
-    fields              = '__all__'
-    success_url         = reverse_lazy('haberler')
+def HaberDetay(request,pk):
+    haber = Haberler.objects.get(id=pk)
+    context = {'haber':haber}
+    return render(request,"base/haber/haber-detay.html",context)
 
-class HaberSil(LoginRequiredMixin,DeleteView):
-    model               = Haberler
-    template_name       = "base/haber/haber-sil.html"
-    context_object_name = "haber"
-    success_url         = reverse_lazy("haberler")
 
+@login_required(login_url='giris-yap')
+def HaberDuzenle(request,pk):
+    instance = Haberler.objects.get(id=pk)
+    form = HaberForm(instance=instance)
+    if request.method=='POST':
+        form = HaberForm(instance=instance,data=request.POST)
+        temizle=request.POST.get('temizle')
+        if temizle=='on':
+            instance.resim.delete()
+        if request.FILES:
+            instance.resim=request.FILES['file']
+        if form.is_valid:
+            form.save()
+            messages.success(request,'Haber başarıyla düzenlendi.')
+            return redirect('haberler')
+    context = {'form':form,'instance':instance}
+    return render(request,"base/haber/haber-duzenle.html",context)
+
+
+@login_required(login_url='giris-yap')
+def HaberSil(request,pk):
+    haber = Haberler.objects.get(id=pk)
+    if request.method=="POST":
+        haber.delete()
+        messages.success(request,'Haber başarıyla silindi.')
+        return redirect('haberler')
+    context={'haber':haber}
+    return render(request,"base/haber/haber-sil.html",context)
 
 #!FORM
 def Formlar(request):
@@ -148,7 +175,7 @@ def Formlar(request):
     return render(request,"base/form/formlar.html",context)
 
 
-
+@login_required(login_url='giris-yap')
 def FormEkle(request):
     form = SorularForm()
     if request.method=="POST":
@@ -168,13 +195,18 @@ def FormDuzenle(request,pk):
     form = SorularForm(instance=form_instance)
     if request.method=="POST":
         form = SorularForm(request.POST,instance=form_instance)
+        temizle=request.POST.get('temizle')
+        if temizle=='on':
+            duyuru.image.delete()
+        if request.FILES:
+            duyuru.image=request.FILES['file']
         if form.is_valid():
             form.save()
             return redirect("formlar")
     context={"form":form}
     return render(request,"base/form/form-duzenle.html",context)
 
-
+@login_required(login_url='giris-yap')
 def FormSil(request,pk):
     form=Sorular.objects.get(id=pk)
     if request.method=='POST':
@@ -211,7 +243,7 @@ def FormDetay(request,pk):
     return render(request,"base/form/form-detay.html",context)
 
 
-
+@login_required(login_url='giris-yap')
 def FormAnaliz(request,pk):
     form = Sorular.objects.get(id=pk)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
