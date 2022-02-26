@@ -5,23 +5,21 @@
   <body>
      <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
-                <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li> 
+                <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
                 <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
                 <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
                 <li>
-                    <a href="">
+                    <a href="{% url 'nasil-katilabilirim' %}">
                         <i class=" fa-solid fa-question"></i>
                         <p class="d-none d-md-block">Nasıl Katılabilirim</p>
                     </a>
                 </li>
-                {% if user.is_superuser %}
                 <li>
                     <a href="{% url 'haberler' %}">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <p class="d-none d-md-block">Haberler</p>
-                </a>
+                        <i class="fa-solid fa-newspaper"></i>
+                        <p class="d-none d-md-block">Haberler</p>
+                    </a>
                 </li>
-                {% endif %}
                 <li>
                     <a href="{% url 'formlar' %}">
                         <i class=" fa-solid fa-square-poll-vertical"></i>

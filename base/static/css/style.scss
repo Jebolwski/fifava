@@ -82,13 +82,14 @@ main {
     .main-wrapper-home {
         height: 100vh;
         #particles-js {
-            .svg {
-                margin-top: 25vh;
+            #fifava {
                 position: absolute;
-                svg {
-                    height: 18vh;
-                    width: 83.32vw;
-                }
+                margin-left: 41.67vw;
+                transform: translateX(-50%);
+                margin-top: 24vh;
+                width: 83.34vw;
+                height: 22vh;
+                padding: 20px;
             }
         }
     }
@@ -251,11 +252,13 @@ form {
     main {
         .main-wrapper-home {
             #particles-js {
-                .svg {
-                    svg {
-                        height: 18vh;
-                        width: 91.66vw;
-                    }
+                #fifava {
+                    width: 91.67vw;
+                    position: absolute;
+                    margin-left: 45.835vw;
+                    transform: translateX(-50%);
+                    margin-top: 24vh;
+                    height: 18vh;
                 }
             }
         }
@@ -271,10 +274,8 @@ form {
     main {
         .main-wrapper-home {
             #particles-js {
-                .svg {
-                    svg {
-                        height: 15vh;
-                    }
+                #fifava {
+                    height: 14vh;
                 }
             }
         }
@@ -283,7 +284,6 @@ form {
         aside {
             font-size: 24px;
         }
-        .home {}
         overflow-x: hidden;
     }
 }
@@ -297,12 +297,8 @@ form {
     main {
         .main-wrapper-home {
             #particles-js {
-                .svg {
-                    svg {
-                        height: 10vh;
-                        width: 75vw;
-                        margin-left: 12.5vw;
-                    }
+                #fifava {
+                    height: 13vh;
                 }
             }
         }

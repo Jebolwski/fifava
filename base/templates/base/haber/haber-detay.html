@@ -1,0 +1,80 @@
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+<title>{{haber.baslik}} | FIFAVOX</title>
+</head>
+
+<body>
+    <aside class="side-navbar col-1">
+        <ul class="p-0 text-center">
+            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </aside>
+
+    <main class="col-11 col-lg-10 offset-1 pt-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-sm-10 col-6 offset-sm-1 offset-3">
+                <p class="text-center mt-5 h5">Başlık</p>
+                <p class="text-center h5">{{haber.baslik}}</p>
+                <p class="text-center mt-5 h5">Açıklama</p>
+                <p class="text-center h5">{{haber.aciklama}}</p>
+                <p class="mt-4 text-center h5">Dosya</p>
+                <p class="text-center"><img src="{% static 'haber.resim.url' %}"></p>
+            </div>
+        </form>
+    </main>
+
+
+
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
+
+                <table>
+                    <tr>
+                        <td>{{haber.baslik}}</td>
+                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+</body>
+
+</html>
+{% endblock content %}

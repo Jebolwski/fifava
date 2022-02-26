@@ -62,6 +62,9 @@ def Ev(request):
     return render(request,"base/anasayfa.html")
 
 
+def NasilKatilabilirim(request):
+    return render(request,"base/nasil-katilabilirim.html")
+
 #?KİŞİ CRUD
 class Kisiler(ListView):
     model               = Kullanici
@@ -119,15 +122,14 @@ def Haberlerim(request):
 def HaberEkle(request):
     form = HaberForm()
     if request.method=='POST':
-        copy = request.POST.copy()
-        copy.resim=request.FILES.get('files')
-        print(copy)
-        form = HaberForm(copy)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Haber başarıyla oluşturuldu.")
-            return redirect('haberler')
-            context = {'form':form}
+        Haberler.objects.create(
+        baslik=request.POST['baslik'],
+        aciklama=request.POST['aciklama'],
+        resim=request.FILES.get('file'),
+        )
+        messages.success(request,"Haber başarıyla oluşturuldu.")
+        return redirect('haberler')
+        context = {'form':form}
     context = {'form':form}
     return render(request,"base/haber/haber-ekle.html",context)
             

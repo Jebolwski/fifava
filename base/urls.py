@@ -10,6 +10,7 @@ urlpatterns = [
     path("kayit-ol/",views.KayitOl,name="kayit-ol"),
     path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
 
+    path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
 
     path("kisiler/", views.Kisiler.as_view(), name="kisiler"),
     path("kisi-ekle/", views.KisiEkle.as_view(), name="kisi-ekle"),

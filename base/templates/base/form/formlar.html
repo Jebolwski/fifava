@@ -6,11 +6,11 @@
 
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
-            <li><img src="{% static 'images/logo.png' %}" class="col-8 col-md-5"></li>
+            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
             <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
             <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
             <li>
-                <a href="">
+                <a href="{% url 'nasil-katilabilirim' %}">
                     <i class=" fa-solid fa-question"></i>
                     <p class="d-none d-md-block">Nasıl Katılabilirim</p>
                 </a>

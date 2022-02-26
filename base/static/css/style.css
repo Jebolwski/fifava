@@ -105,14 +105,15 @@ main .main-wrapper-home {
   height: 100vh;
 }
 
-main .main-wrapper-home #particles-js .svg {
-  margin-top: 25vh;
+main .main-wrapper-home #particles-js #fifava {
   position: absolute;
-}
-
-main .main-wrapper-home #particles-js .svg svg {
-  height: 18vh;
-  width: 83.32vw;
+  margin-left: 41.67vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  margin-top: 24vh;
+  width: 83.34vw;
+  height: 22vh;
+  padding: 20px;
 }
 
 main table a {
@@ -344,9 +345,14 @@ form .submit {
 }
 
 @media only screen and (max-width: 988px) {
-  main .main-wrapper-home #particles-js .svg svg {
+  main .main-wrapper-home #particles-js #fifava {
+    width: 91.67vw;
+    position: absolute;
+    margin-left: 45.835vw;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    margin-top: 24vh;
     height: 18vh;
-    width: 91.66vw;
   }
 }
 
@@ -354,8 +360,8 @@ form .submit {
   .side-navbar ul li a {
     font-size: 20px;
   }
-  main .main-wrapper-home #particles-js .svg svg {
-    height: 15vh;
+  main .main-wrapper-home #particles-js #fifava {
+    height: 14vh;
   }
   body {
     overflow-x: hidden;
@@ -369,10 +375,8 @@ form .submit {
   .side-navbar ul li a {
     font-size: 16px;
   }
-  main .main-wrapper-home #particles-js .svg svg {
-    height: 10vh;
-    width: 75vw;
-    margin-left: 12.5vw;
+  main .main-wrapper-home #particles-js #fifava {
+    height: 13vh;
   }
 }
 /*# sourceMappingURL=style.css.map */

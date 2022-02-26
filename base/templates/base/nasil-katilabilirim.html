@@ -1,5 +1,5 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Haber Ekle | FIFAVOX</title>
+<title>Nasıl Katılabil | FIFAVOX</title>
 </head>
 
 <body>
@@ -43,18 +43,10 @@
     </aside>
 
     <main class="col-11 col-lg-10 offset-1 pt-5">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="col-sm-12 col-6 offset-sm-1 offset-3">
-                <span>Başlık</span>
-                <p>{{form.baslik}}</p>
-                <span>Açıklama</span>
-                <p>{{form.aciklama}}</p>
-                <label for="file">Dosya</label>
-                <input type="file" id="file" name="file" class="form-control" />
-                <input type="submit" value="Ekle" class="btn btn-outline-dark main-center mt-4">
-            </div>
-        </form>
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+        <h3 class="text-center pt-5">Bilmiyorum...</h3>
     </main>
 
 
@@ -67,8 +59,6 @@
 
                 <table>
                     <tr>
-                        <td>{{haber.baslik}}</td>
-                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
                     </tr>
                 </table>
             </li>
