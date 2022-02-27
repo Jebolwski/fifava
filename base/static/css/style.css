@@ -55,6 +55,7 @@ body .loading img {
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
   width: 20vw;
+  min-width: 150px;
 }
 
 .home .side-navbar {
@@ -98,7 +99,7 @@ body .loading img {
   color: white;
   text-decoration: none;
   text-align: center;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 main .main-wrapper-home {
@@ -114,6 +115,26 @@ main .main-wrapper-home #particles-js #fifava {
   width: 83.34vw;
   height: 22vh;
   padding: 20px;
+}
+
+main .main-wrapper-home #particles-js #kesfet {
+  position: absolute;
+  margin-top: 80vh;
+  width: 10vw;
+  min-width: 90px;
+  margin-left: 41.67vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 1.125rem;
+}
+
+main .main-wrapper-home #particles-js #kesfet:hover {
+  background-color: rgba(78, 78, 78, 0.35);
+  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 main table a {
@@ -161,19 +182,24 @@ main p a:hover i {
   transition: 0.4s;
 }
 
-form .main-center {
+main form img {
+  background-color: red;
+  border-radius: 100%;
+}
+
+main .main-center {
   margin-left: 41.67%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 }
 
-form .center {
+main .center {
   margin-left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 }
 
-form .submit {
+main .submit {
   margin-left: 48%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -352,7 +378,26 @@ form .submit {
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
     margin-top: 24vh;
-    height: 18vh;
+    height: 20vh;
+    min-height: 140px;
+  }
+  main .main-wrapper-home #particles-js #kesfet {
+    position: absolute;
+    margin-top: 80vh;
+    width: 10vw;
+    min-width: 90px;
+    margin-left: 48.835vw;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    font-size: 1.125rem;
+  }
+  main .main-wrapper-home #particles-js #kesfet:hover {
+    background-color: rgba(78, 78, 78, 0.35);
+    color: white;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
   }
 }
 

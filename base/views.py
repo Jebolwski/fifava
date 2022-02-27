@@ -114,7 +114,16 @@ class KisiSil(LoginRequiredMixin,DeleteView):
 #?HABER CRUD
 def Haberlerim(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')
-    context = {'haberler':haberler}
+    p = Paginator(haberler,10)
+    page = request.GET.get('page')
+    haber = p.get_page(page)
+    if request.method=='POST':
+        arama=request.POST['arama']
+        sorular=Haberler.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
+        p = Paginator(sorular,10)
+        page = request.GET.get('page')
+        haber = p.get_page(page)
+    context = {'haberler':haber}
     return render(request,"base/haber/haberler.html",context)
 
 
@@ -173,7 +182,16 @@ def HaberSil(request,pk):
 def Formlar(request):
     sorular=Sorular.objects.all().order_by('-guncellenme_tarihi')
     cevaplananlar=Cevaplar.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
-    context={"formlar":sorular,"cevap":cevaplananlar}
+    p = Paginator(sorular,10)
+    page = request.GET.get('page')
+    soru = p.get_page(page)
+    if request.method=='POST':
+        arama=request.POST['arama']
+        sorular=Sorular.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
+        p = Paginator(sorular,10)
+        page = request.GET.get('page')
+        soru = p.get_page(page)
+    context={"formlar":soru,"cevap":cevaplananlar}
     return render(request,"base/form/formlar.html",context)
 
 
@@ -199,9 +217,9 @@ def FormDuzenle(request,pk):
         form = SorularForm(request.POST,instance=form_instance)
         temizle=request.POST.get('temizle')
         if temizle=='on':
-            duyuru.image.delete()
+            form.image.delete()
         if request.FILES:
-            duyuru.image=request.FILES['file']
+            form.image=request.FILES['file']
         if form.is_valid():
             form.save()
             return redirect("formlar")
@@ -451,7 +469,7 @@ def FormAnaliz(request,pk):
             array.append(soru9*20)
         if soru10!=0:
             array.append(soru10*20) 
-    if len(Cevaplar.objects.all())>0:
+    if len(Cevaplar.objects.all())>1:
         bolmesayac=bolmesayac-1
         
     print(cevap)
@@ -503,3 +521,16 @@ def CevapSil(request,pk):
     cevap=Cevaplar.objects.filter(id=pk)
     cevap.delete()
     return redirect("formlar")
+
+
+
+def KayitOnay(request):
+    kisiler = User.objects.all()
+    context={'kisiler':kisiler}
+    return render(request,"base/kayitonay/kayit-onay.html",context)
+
+def KayitOnayForm(request,pk):
+    sorular = Sorular.objects.get(id=5)
+    cevaplar = Cevaplar.objects.all().filter(kayitli_id=pk)
+    context={'cevaplar':cevaplar,'sorular':sorular}  
+    return render(request,"base/kayitonay/kayit-onay-form.html",context)

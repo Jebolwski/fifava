@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 
 
@@ -11,6 +13,9 @@ urlpatterns = [
     path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
 
     path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
+
+    path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
+    path("kayit-onay-form/<int:pk>",views.KayitOnayForm,name="kayit-onay-form"),
 
     path("kisiler/", views.Kisiler.as_view(), name="kisiler"),
     path("kisi-ekle/", views.KisiEkle.as_view(), name="kisi-ekle"),
@@ -37,4 +42,4 @@ urlpatterns = [
     path("cevap-detay/<int:pk>", views.CevapDetay, name="cevap-detay"),
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

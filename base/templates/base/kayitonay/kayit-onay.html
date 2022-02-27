@@ -1,0 +1,110 @@
+ {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
+<title>Anasayfa | FIFAVOX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+    <aside class="side-navbar col-1">
+        <ul class="p-0 text-center">
+            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-5 col-9 "></li>
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'kayit-onay' %}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="d-none d-md-block">Kayıt Onay</p>
+                </a>
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </aside>
+
+    <main class="col-11 col-lg-10 offset-1">
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+        </div>
+        <h4 class="text-center pt-5 pb-5">Kayıt Onay</h4>
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <td>Kullanıcı Adı</td>
+                    <td>Kayıt Formu</td>
+                    <td>Kayıt Tarihi</td>
+                    <td>Onayla</td>
+                    <td>Beklet</td>
+                    <td>Reddet</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kisi in kisiler %}
+                <tr>
+                    <td>{{kisi.username}}</td>
+                    <td><a href="{% url 'kayit-onay-form' kisi.id %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
+                    <td>{{kisi.date_joined}}</td>
+                    <td><a href=""><i class="fa-solid fa-check"></i></a></td>
+                    <td><a href=""><i class="fa-solid fa-circle-pause"></i></a></td>
+                    <td><a href=""><i class="fa-solid fa-square-xmark"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </main>
+
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
+
+                <table>
+                    <tr>
+                        <td>{{haber.baslik}}</td>
+                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% endblock content %}
+    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->
