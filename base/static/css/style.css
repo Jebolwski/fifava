@@ -183,8 +183,9 @@ main p a:hover i {
 }
 
 main form img {
-  background-color: red;
-  border-radius: 100%;
+  min-width: 100px;
+  width: 25vw;
+  border-radius: 20%;
 }
 
 main .main-center {
@@ -422,6 +423,21 @@ main .submit {
   }
   main .main-wrapper-home #particles-js #fifava {
     height: 13vh;
+  }
+  main form img {
+    width: 50vw;
+  }
+}
+
+@media only screen and (max-width: 200px) {
+  .side-navbar ul li a {
+    font-size: 8px;
+  }
+  main .main-wrapper-home #particles-js #fifava {
+    height: 11vh;
+  }
+  main form p {
+    font-size: 10px;
   }
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,148 +1,133 @@
- {% extends 'base/ana.html' %}  {% load static %} 
- {% block content %}
- <title>Anket Detay | FIFAVOX</title>
-  </head>
-  <body>
-     <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
-                <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
-                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-                <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class=" fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'haberler' %}">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <p class="d-none d-md-block">Haberler</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'formlar' %}">
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
-                    </a>
-                </li>
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
-                    </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </aside>    <!-- <main class="col-11 col-lg-10 offset-1">
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+<title>Anket Detay | FIFAVOX</title>
+</head>
+
+<body>
+    <aside class="side-navbar col-1">
+        <ul class="p-0 text-center">
+            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-5 col-9 "></li>
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>{% if user.is_superuser %}{% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'kayit-onay' %}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="d-none d-md-block">Kayıt Onay</p>
+                </a>
+            </li>{% endif %}{% endif %}
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
+                {% endif %}
+            </li>
+        </ul>
+    </aside>
+    <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
-    
-    <main class="col-8 col-lg-6 offset-3 text-center">
-      <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
-      <h5>Sorular</h5>
-      {% if soru.soru1 %}
-      <div class="pb-5 pt-5">{{ soru.soru1 }}</div>
-      {% endif %}
-      {% if soru.soru2 %}
-      <div class="pb-5 pt-5">{{ soru.soru2 }}</div>
-      {% endif %}
-      {% if soru.soru3 %}
-      <div class="pb-5 pt-5">{{ soru.soru3 }}</div>
-      {% endif %}
-      {% if soru.soru4 %}
-      <div class="pb-5 pt-5">{{ soru.soru4 }}</div>
-      {% endif %}
-      {% if soru.soru5 %}
-      <div class="pb-5 pt-5">{{ soru.soru5 }}</div>
-      {% endif %}
-      {% if soru.soru6 %}
-      <div class="pb-5 pt-5">{{ soru.soru6 }}</div>
-      {% endif %}
-      {% if soru.soru7 %}
-      <div class="pb-5 pt-5">{{ soru.soru7 }}</div>
-      {% endif %}
-      {% if soru.soru8 %}
-      <div class="pb-5 pt-5">{{ soru.soru8 }}</div>
-      {% endif %}
-      {% if soru.soru9 %}
-      <div class="pb-5 pt-5">{{ soru.soru9 }}</div>
-      {% endif %}
-      {% if soru.soru10 %}
-      <div class="pt-5">{{ soru.soru10 }}</div>
-      {% endif %}
-      {% if soru.soru11 %}
-      <div class="pt-5">{{ soru.soru11 }}</div>
-      {% endif %}
-      {% if soru.soru12 %}
-      <div class="pt-5">{{ soru.soru12 }}</div>
-      {% endif %}
-      {% if soru.soru13 %}
-      <div class="pt-5">{{ soru.soru13 }}</div>
-      {% endif %}
-      {% if soru.soru14 %}
-      <div class="pt-5">{{ soru.soru14 }}</div>
-      {% endif %}
-      {% if soru.soru15 %}
-      <div class="pt-5">{{ soru.soru15 }}</div>
-      {% endif %}
-      {% if soru.soru16 %}
-      <div class="pt-5">{{ soru.soru16 }}</div>
-      {% endif %}
-      {% if soru.soru17 %}
-      <div class="pt-5">{{ soru.soru17 }}</div>
-      {% endif %}
-      {% if soru.soru18 %}
-      <div class="pt-5">{{ soru.soru18 }}</div>
-      {% endif %}
-      {% if soru.onay1 %}
-      <div class="pt-5">{{ soru.onay1 }} <input type="checkbox" disabled class="mx-2"></div>
-      
-      {% endif %}
-      {% if soru.onay2 %}
-      <div class="pt-5">{{ soru.onay2 }} <input type="checkbox" disabled class="mx-2"></div>
-      
-      {% endif %}
-      {% if soru.onay3 %}
-      <div class="pt-5">{{ soru.onay3 }} <input type="checkbox" disabled class="mx-2"></div>
-      
-      {% endif %}
-      {% if soru.onay4 %}
-      <div class="pt-5">{{ soru.onay4 }} <input type="checkbox" disabled class="mx-2"></div>
-      
-      {% endif %}
-      <br>
 
-      
+    <main class="col-8 col-lg-6 offset-3 text-center">
+        <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
+        <h5>Sorular</h5>
+        {% if soru.soru1 %}
+        <div class="pb-5 pt-5">{{ soru.soru1 }}</div>
+        {% endif %} {% if soru.soru2 %}
+        <div class="pb-5 pt-5">{{ soru.soru2 }}</div>
+        {% endif %} {% if soru.soru3 %}
+        <div class="pb-5 pt-5">{{ soru.soru3 }}</div>
+        {% endif %} {% if soru.soru4 %}
+        <div class="pb-5 pt-5">{{ soru.soru4 }}</div>
+        {% endif %} {% if soru.soru5 %}
+        <div class="pb-5 pt-5">{{ soru.soru5 }}</div>
+        {% endif %} {% if soru.soru6 %}
+        <div class="pb-5 pt-5">{{ soru.soru6 }}</div>
+        {% endif %} {% if soru.soru7 %}
+        <div class="pb-5 pt-5">{{ soru.soru7 }}</div>
+        {% endif %} {% if soru.soru8 %}
+        <div class="pb-5 pt-5">{{ soru.soru8 }}</div>
+        {% endif %} {% if soru.soru9 %}
+        <div class="pb-5 pt-5">{{ soru.soru9 }}</div>
+        {% endif %} {% if soru.soru10 %}
+        <div class="pt-5">{{ soru.soru10 }}</div>
+        {% endif %} {% if soru.soru11 %}
+        <div class="pt-5">{{ soru.soru11 }}</div>
+        {% endif %} {% if soru.soru12 %}
+        <div class="pt-5">{{ soru.soru12 }}</div>
+        {% endif %} {% if soru.soru13 %}
+        <div class="pt-5">{{ soru.soru13 }}</div>
+        {% endif %} {% if soru.soru14 %}
+        <div class="pt-5">{{ soru.soru14 }}</div>
+        {% endif %} {% if soru.soru15 %}
+        <div class="pt-5">{{ soru.soru15 }}</div>
+        {% endif %} {% if soru.soru16 %}
+        <div class="pt-5">{{ soru.soru16 }}</div>
+        {% endif %} {% if soru.soru17 %}
+        <div class="pt-5">{{ soru.soru17 }}</div>
+        {% endif %} {% if soru.soru18 %}
+        <div class="pt-5">{{ soru.soru18 }}</div>
+        {% endif %} {% if soru.onay1 %}
+        <div class="pt-5">{{ soru.onay1 }} <input type="checkbox" disabled class="mx-2"></div>
+
+        {% endif %} {% if soru.onay2 %}
+        <div class="pt-5">{{ soru.onay2 }} <input type="checkbox" disabled class="mx-2"></div>
+
+        {% endif %} {% if soru.onay3 %}
+        <div class="pt-5">{{ soru.onay3 }} <input type="checkbox" disabled class="mx-2"></div>
+
+        {% endif %} {% if soru.onay4 %}
+        <div class="pt-5">{{ soru.onay4 }} <input type="checkbox" disabled class="mx-2"></div>
+
+        {% endif %}
+        <br>
+
+
     </main>
-    
-    
-  </main>
+
+
+    </main>
 
     <aside class="haberler col-1 offset-11  d-none d-lg-block">
-      <ul>
-          <p class="text-center h5">Haberler</p>  <hr>
-        {% for haber in haberler %}
-        <li>
-            
-            <table>
-                <tr>
-                    <td>{{haber.baslik}}</td>
-                    <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
-                </tr>
-            </table>
-        </li>
-        {% endfor %}
-      </ul>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
+
+                <table>
+                    <tr>
+                        <td>{{haber.baslik}}</td>
+                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
     </aside>
 
-    
 
-{% endblock content %}
- 
+
+    {% endblock content %}

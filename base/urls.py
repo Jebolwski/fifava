@@ -16,6 +16,9 @@ urlpatterns = [
 
     path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
     path("kayit-onay-form/<int:pk>",views.KayitOnayForm,name="kayit-onay-form"),
+    path("kayit-kisi-kabul-et/<int:pk>",views.KayitKabulEt,name="kayit-kabul-et"),
+    path("kayit-beklet/<int:pk>",views.KayitBeklet,name="kayit-beklet"),
+    path("kayit-reddet/<int:pk>",views.KayitReddet,name="kayit-reddet"),
 
     path("kisiler/", views.Kisiler.as_view(), name="kisiler"),
     path("kisi-ekle/", views.KisiEkle.as_view(), name="kisi-ekle"),
@@ -43,3 +46,6 @@ urlpatterns = [
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+handler404 = "base.views.Bulunamadi"
+

@@ -150,8 +150,9 @@ main {
     }
     form {
         img {
-            background-color: red;
-            border-radius: 100%;
+            min-width: 100px;
+            width: 25vw;
+            border-radius: 20%;
         }
     }
     .main-center {
@@ -335,6 +336,33 @@ main {
                 #fifava {
                     height: 13vh;
                 }
+            }
+        }
+        form {
+            img {
+                width: 50vw;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 200px) {
+    .side-navbar {
+        ul li a {
+            font-size: 8px;
+        }
+    }
+    main {
+        .main-wrapper-home {
+            #particles-js {
+                #fifava {
+                    height: 11vh;
+                }
+            }
+        }
+        form {
+            p {
+                font-size: 10px;
             }
         }
     }

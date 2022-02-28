@@ -11,3 +11,7 @@ class Person(admin.ModelAdmin):
 admin.site.register(Haberler)
 admin.site.register(Cevaplar)
 admin.site.register(Sorular)
+
+@admin.register(OnayDurum)
+class Person(admin.ModelAdmin):
+    list_display = ('kisi','onaydurum')

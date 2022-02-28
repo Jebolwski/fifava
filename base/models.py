@@ -108,3 +108,16 @@ class Cevaplar(models.Model):
 
     def __str__(self):
         return self.baslik
+
+ONAY_DURUM=(
+    ('Bekle','Bekle'),
+    ('Kabul Et','Kabul Et'),
+    ('Reddet','Reddet'),
+)
+
+class OnayDurum(models.Model):
+    kisi                      = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    onaydurum                 = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
+
+    def __str__(self):
+        return self.kisi

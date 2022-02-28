@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
@@ -16,6 +17,10 @@ from django.contrib import messages
 
 #?CLASS BASED VIEWS
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+
+
+def Bulunamadi(request,exception):
+    return render(request,'base/404.html')
 
 
 def GirisYap(request):
@@ -526,11 +531,40 @@ def CevapSil(request,pk):
 
 def KayitOnay(request):
     kisiler = User.objects.all()
-    context={'kisiler':kisiler}
+    context = {'kisiler':kisiler}
     return render(request,"base/kayitonay/kayit-onay.html",context)
+
+def KayitKabulEt(request,pk):
+    kisi = OnayDurum.objects.get(kisi_id=pk)
+    if request.method=="POST":
+        kisi.onaydurum="Kabul Et"
+        return redirect("kayit-onay")
+    context = {'kisi':kisi}
+    return render(request,"base/kayitonay/kayit-kabul-et.html",context)
+
+def KayitBeklet(request,pk):
+    kisi = OnayDurum.objects.get(kisi_id=pk)
+    if request.method=="POST":
+        kisi.onaydurum="Beklet"
+        print(kisi.kisi,"----",kisi.onaydurum,"----",request.POST)
+        return redirect("kayit-onay")
+    context = {'kisi':kisi}
+    return render(request,"base/kayitonay/kayit-beklet.html",context)
+
+def KayitReddet(request,pk):
+    kisi = OnayDurum.objects.get(kisi_id=pk)
+    if request.method=="POST":
+        kisi.onaydurum="Reddet"
+        return redirect("kayit-onay")
+    context = {'kisi':kisi}
+    return render(request,"base/kayitonay/kayit-reddet.html",context)
+
 
 def KayitOnayForm(request,pk):
     sorular = Sorular.objects.get(id=5)
-    cevaplar = Cevaplar.objects.all().filter(kayitli_id=pk)
-    context={'cevaplar':cevaplar,'sorular':sorular}  
+    if Cevaplar.objects.all().filter(kayitli_id=pk):
+        cevaplar = Cevaplar.objects.get(kayitli_id=pk)
+        context = {'cevap':cevaplar,'sorular':sorular}  
+    else:
+        context = {'sorular':sorular}  
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
