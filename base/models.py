@@ -57,10 +57,10 @@ class Sorular(models.Model):
     soru17                 = models.TextField(max_length=200,null=True,blank=True)
     soru18                 = models.TextField(max_length=200,null=True,blank=True)
 
-    onay1                  = models.CharField(max_length=60,null=True,blank=True)
-    onay2                  = models.CharField(max_length=60,null=True,blank=True)
-    onay3                  = models.CharField(max_length=60,null=True,blank=True)
-    onay4                  = models.CharField(max_length=60,null=True,blank=True)
+    onay1                  = models.CharField(max_length=120,null=True,blank=True)
+    onay2                  = models.CharField(max_length=120,null=True,blank=True)
+    onay3                  = models.CharField(max_length=120,null=True,blank=True)
+    onay4                  = models.CharField(max_length=120,null=True,blank=True)
     
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
@@ -110,8 +110,8 @@ class Cevaplar(models.Model):
         return self.baslik
 
 ONAY_DURUM=(
-    ('Bekle','Bekle'),
     ('Kabul Et','Kabul Et'),
+    ('Bekle','Bekle'),
     ('Reddet','Reddet'),
 )
 

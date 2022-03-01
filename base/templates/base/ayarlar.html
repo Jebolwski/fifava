@@ -1,9 +1,11 @@
-{% extends 'base/ana.html' %} {% block content %} {% load static %}
-<title>Giriş Yapma | FIFAVOX</title>
+ {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
+<title>Ayarlar | FIFAVOX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
-
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
             <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
@@ -58,20 +60,17 @@
     </aside>
 
     <main class="col-11 col-lg-10 offset-1">
-        <h4 class="text-center pt-4">Giriş Yap</h4>
-        <form method="POST" action="{% url 'giris-yap' %}">
-            {% csrf_token %}
-            <h5 class="text-center mt-5">Kullanıcı Adı</h5>
-            <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
-            <h5 class="text-center mt-4">Şifre</h5>
-            <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
-            <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" /> {% for message in messages %}
-            <div class="message">{{message}}</div>
-            {% endfor %}
-            <h5 class="text-center mt-5">Şifreni mi unuttun? Şifre Sıfırla</h5>
-            <h5 class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
-            </a></h5>
-        </form>
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+        <h5 class="text-center pt-5">{{request.user}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
+            <i class="fa-solid fa-circle-check mx-2"></i> Kabul Edildin {% elif durum.onaydurum == "Bekle" %}
+            <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin {% elif durum.onaydurum == "Reddet" %}
+            <i class="fa-solid fa-circle-xmark mx-2"></i> Reddedildin {% else %}
+            <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin {% endif %} {% endif %}
+        </h5>
+        <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
+        <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
@@ -92,7 +91,7 @@
     </aside>
 
 
-</body>
-
-</html>
-{% endblock content %}
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% endblock content %}
+    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->

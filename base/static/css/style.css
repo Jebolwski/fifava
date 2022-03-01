@@ -364,9 +364,9 @@ main .submit {
   }
 }
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 1366px) {
   .side-navbar ul li a {
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
   }
 }

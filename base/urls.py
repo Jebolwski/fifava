@@ -12,13 +12,16 @@ urlpatterns = [
     path("kayit-ol/",views.KayitOl,name="kayit-ol"),
     path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
 
+    path("ayarlar/",views.Ayarlar,name="ayarlar"),
+
     path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
 
     path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
-    path("kayit-onay-form/<int:pk>",views.KayitOnayForm,name="kayit-onay-form"),
-    path("kayit-kisi-kabul-et/<int:pk>",views.KayitKabulEt,name="kayit-kabul-et"),
-    path("kayit-beklet/<int:pk>",views.KayitBeklet,name="kayit-beklet"),
-    path("kayit-reddet/<int:pk>",views.KayitReddet,name="kayit-reddet"),
+    path("kayit-onay-form/<int:pk>/",views.KayitOnayForm,name="kayit-onay-form"),
+    path("kayit-onay-form-duzenle/<int:pk>/",views.KayitOnayFormDuzenle,name="kayit-onay-form-duzenle"),
+    path("kayit-kisi-kabul-et/<int:pk>/",views.KayitKabulEt,name="kayit-kabul-et"),
+    path("kayit-beklet/<int:pk>/",views.KayitBeklet,name="kayit-beklet"),
+    path("kayit-reddet/<int:pk>/",views.KayitReddet,name="kayit-reddet"),
 
     path("kisiler/", views.Kisiler.as_view(), name="kisiler"),
     path("kisi-ekle/", views.KisiEkle.as_view(), name="kisi-ekle"),

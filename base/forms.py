@@ -15,6 +15,10 @@ class OyuncuForm(forms.ModelForm):
         model = Kullanici
         fields = '__all__'
 
+class OnayForm(forms.ModelForm):
+    class Meta:
+        model = OnayDurum
+        fields = '__all__'
 
 class KayitForm(UserCreationForm):
     
@@ -67,7 +71,6 @@ class HaberForm(forms.ModelForm):
     class Meta:
         model=Haberler
         fields="__all__"
-
 
 class SorularForm(forms.ModelForm):
 

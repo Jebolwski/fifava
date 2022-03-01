@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .forms import CevapForm, OyuncuForm,SorularForm,KayitForm,HaberForm
+from .forms import CevapForm, OnayForm, OyuncuForm,SorularForm,KayitForm,HaberForm
 
 from django.core.paginator import Paginator
 
@@ -157,19 +157,18 @@ def HaberDetay(request,pk):
 @login_required(login_url='giris-yap')
 def HaberDuzenle(request,pk):
     instance = Haberler.objects.get(id=pk)
-    form = HaberForm(instance=instance)
-    if request.method=='POST':
-        form = HaberForm(instance=instance,data=request.POST)
-        temizle=request.POST.get('temizle')
-        if temizle=='on':
-            instance.resim.delete()
-        if request.FILES:
-            instance.resim=request.FILES['file']
-        if form.is_valid:
-            form.save()
-            messages.success(request,'Haber başarıyla düzenlendi.')
-            return redirect('haberler')
-    context = {'form':form,'instance':instance}
+    if request.method == 'POST':
+            instance.baslik=request.POST['baslik']
+            instance.aciklama=request.POST['aciklama']
+            temizle=request.POST.get('temizle')
+            if temizle=='on':
+                instance.resim.delete()
+            if request.FILES:
+                instance.res=request.FILES['file']
+            instance.save()
+            messages.success(request,"Haber başarıyla düzenlendi.")
+            return redirect("haberler")
+    context = {'instance':instance}
     return render(request,"base/haber/haber-duzenle.html",context)
 
 
@@ -220,11 +219,6 @@ def FormDuzenle(request,pk):
     form = SorularForm(instance=form_instance)
     if request.method=="POST":
         form = SorularForm(request.POST,instance=form_instance)
-        temizle=request.POST.get('temizle')
-        if temizle=='on':
-            form.image.delete()
-        if request.FILES:
-            form.image=request.FILES['file']
         if form.is_valid():
             form.save()
             return redirect("formlar")
@@ -535,36 +529,93 @@ def KayitOnay(request):
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
 def KayitKabulEt(request,pk):
-    kisi = OnayDurum.objects.get(kisi_id=pk)
-    if request.method=="POST":
-        kisi.onaydurum="Kabul Et"
-        return redirect("kayit-onay")
-    context = {'kisi':kisi}
+    user = User.objects.get(id=pk)
+    form = OnayForm()
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['kisi'] = user
+        data.kisi = user
+        print(data)
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            return redirect('kayit-onay')
+    context = {'form':form}
     return render(request,"base/kayitonay/kayit-kabul-et.html",context)
 
 def KayitBeklet(request,pk):
-    kisi = OnayDurum.objects.get(kisi_id=pk)
-    if request.method=="POST":
-        kisi.onaydurum="Beklet"
-        print(kisi.kisi,"----",kisi.onaydurum,"----",request.POST)
-        return redirect("kayit-onay")
-    context = {'kisi':kisi}
+    user = User.objects.get(id=pk)
+    form = OnayForm()
+    if request.method=='POST':
+        data = request.POST.copy()
+        data.kisi = user
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form':form,'kisi':user}
     return render(request,"base/kayitonay/kayit-beklet.html",context)
 
 def KayitReddet(request,pk):
-    kisi = OnayDurum.objects.get(kisi_id=pk)
+    user = User.objects.get(id=pk)
+    form = OnayForm()
+    if request.method=='POST':
+        data = request.POST.copy()
+        data.kisi = user
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form':form,'kisi':user}
+    return render(request,"base/kayitonay/kayit-beklet.html",context)
+
+def KayitOnayFormDuzenle(request,pk):
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(id=1)
+    instance = OnayDurum.objects.get(kisi_id=kisi.id)
+    form = OnayForm(instance=instance)
     if request.method=="POST":
-        kisi.onaydurum="Reddet"
-        return redirect("kayit-onay")
-    context = {'kisi':kisi}
-    return render(request,"base/kayitonay/kayit-reddet.html",context)
-
-
-def KayitOnayForm(request,pk):
-    sorular = Sorular.objects.get(id=5)
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(instance=instance,data=data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu güncellendi.")
+            return redirect("kayit-onay")
+            
     if Cevaplar.objects.all().filter(kayitli_id=pk):
         cevaplar = Cevaplar.objects.get(kayitli_id=pk)
-        context = {'cevap':cevaplar,'sorular':sorular}  
+        context = {'cevap':cevaplar,'sorular':sorular,'form':form}  
     else:
         context = {'sorular':sorular}  
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
+
+def KayitOnayForm(request,pk):
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(id=1)
+    if len(OnayDurum.objects.all().filter(kisi_id=pk))>0:
+        print(kisi.id)
+        return redirect('kayit-onay-form-duzenle',kisi.id)
+    form = OnayForm()
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu kaydedildi.")
+            return redirect("kayit-onay")
+    if Cevaplar.objects.all().filter(kayitli_id=pk):
+        cevaplar = Cevaplar.objects.get(kayitli_id=pk)
+        context = {'cevap':cevaplar,'sorular':sorular,'form':form}  
+    else:
+        context = {'sorular':sorular}  
+    return render(request,"base/kayitonay/kayit-onay-form.html",context)
+
+
+def Ayarlar(request):
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context={'durum':durum}
+        print(durum.kisi,durum.onaydurum)
+    return render(request,"base/ayarlar.html",context)  
