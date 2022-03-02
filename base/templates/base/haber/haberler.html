@@ -58,7 +58,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
-        <div class="message">{{message}}</div>
+        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
         <h4 class="text-center pt-5 mb-5">Haberler</h4>
         <form method="POST">
@@ -133,6 +133,9 @@
 
                 <table>
                     <tr>
+                        <td>
+                            <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                        </td>
                     </tr>
                 </table>
             </li>

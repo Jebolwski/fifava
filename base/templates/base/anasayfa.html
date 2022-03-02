@@ -71,7 +71,7 @@
             <div class="message">{{message}}</div>
             {% endfor %}
             <div class="main-wrapper-home">
-                <div id="particles-js" class="h-100 ">
+                <div id="particles-js">
                     <svg width="280" height="85" id="fifava" viewBox="0 0 280 85" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_15_21)">
 <mask id="path-1-outside-1_15_21" maskUnits="userSpaceOnUse" x="30" y="0" width="219" height="39" fill="black">
@@ -153,9 +153,8 @@
 </defs>
                     </svg>
 
-                    <h4 id="kesfet" class="btn btn-outline-primary btn-sm text-center col-2 offset-5">Keşfet</h4>
+                    <h4 id="kesfet" class="kesfet btn btn-outline-primary btn-sm text-center col-2 offset-5">Keşfet</h4>
                 </div>
-
             </div>
 
 
@@ -172,8 +171,9 @@
 
                     <table>
                         <tr>
-                            <td>{{haber.baslik}}</td>
-                            <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
+                            <td>
+                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                            </td>
                         </tr>
                     </table>
                 </li>

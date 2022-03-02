@@ -119,5 +119,9 @@ class OnayDurum(models.Model):
     kisi                      = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     onaydurum                 = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
 
+    olusturulma_tarihi     = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    
     def __str__(self):
         return self.kisi

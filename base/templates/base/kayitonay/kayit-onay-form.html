@@ -174,22 +174,23 @@
 
     </main>
 
-    <aside class="haberler col-1 offset-11  d-none d-lg-block">
-        <ul>
-            <p class="text-center h5">Haberler</p>
-            <hr> {% for haber in haberler %}
-            <li>
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+            <ul>
+                <p class="text-center h5">Haberler</p>
+                <hr> {% for haber in haberler %}
+                <li>
 
-                <table>
-                    <tr>
-                        <td>{{haber.baslik}}</td>
-                        <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
-    </aside>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
 
 
 

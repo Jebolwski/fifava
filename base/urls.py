@@ -23,11 +23,11 @@ urlpatterns = [
     path("kayit-beklet/<int:pk>/",views.KayitBeklet,name="kayit-beklet"),
     path("kayit-reddet/<int:pk>/",views.KayitReddet,name="kayit-reddet"),
 
-    path("kisiler/", views.Kisiler.as_view(), name="kisiler"),
-    path("kisi-ekle/", views.KisiEkle.as_view(), name="kisi-ekle"),
-    path("kisi/<int:pk>", views.KisiDetay.as_view(), name="kisi-detay"),
-    path("kisi-duzenle/<int:pk>", views.KisiDuzenle.as_view(), name="kisi-duzenle"),
-    path("kisi-sil/<int:pk>", views.KisiSil.as_view(), name="kisi-sil"),
+    path("kisiler/", views.Kisiler, name="kisiler"),
+    path("kisi-ekle/", views.KisiEkle, name="kisi-ekle"),
+    path("kisi/<int:pk>", views.KisiDetay, name="kisi-detay"),
+    path("kisi-duzenle/<int:pk>", views.KisiDuzenle, name="kisi-duzenle"),
+    path("kisi-sil/<int:pk>", views.KisiSil, name="kisi-sil"),
 
 
     path("haberler/", views.Haberlerim, name="haberler"),

@@ -1,9 +1,9 @@
- {% extends 'base/ana.html' %}  {% load static %} 
- {% block content %}
- <title>Kişi Sil | FIFAVOX</title>
-  </head>
-  <body>
-     <aside class="side-navbar col-1">
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+<title>Kişi Sil | FIFAVOX</title>
+</head>
+
+<body>
+    <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
             <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
             <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
@@ -54,28 +54,31 @@
                 {% endif %}
             </li>
         </ul>
-    </aside>    <main class="col-11 col-lg-10 offset-1">
-      <form method="post">
-        {% csrf_token %}
-        <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
-        <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">  
-      </form>  
-  </main>  
-  <aside class="haberler col-1 offset-11  d-none d-lg-block">
-      <ul>
-          <p class="text-center h5">Haberler</p>  <hr>
-        {% for haber in haberler %}
-        <li>
-            
-            <table>
-                <tr>
-                    <td>{{haber.baslik}}</td>
-                    <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
-                </tr>
-            </table>
-        </li>
-        {% endfor %}
-      </ul>
     </aside>
-{% endblock content %}
- 
+    <main class="col-11 col-lg-10 offset-1">
+        <form method="post">
+            {% csrf_token %}
+            <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
+            <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">
+        </form>
+    </main>
+
+
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
+
+                <table>
+                    <tr>
+                        <td>
+                            <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    {% endblock content %}

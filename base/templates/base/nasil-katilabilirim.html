@@ -58,7 +58,7 @@
 
     <main class="col-11 col-lg-10 offset-1 pt-5">
         {% for message in messages %}
-        <div class="message">{{message}}</div>
+        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
         <h3 class="text-center pt-5">Bilmiyorum...</h3>
     </main>
@@ -66,19 +66,22 @@
 
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-        <ul>
-            <p class="text-center h5">Haberler</p>
-            <hr> {% for haber in haberler %}
-            <li>
+            <ul>
+                <p class="text-center h5">Haberler</p>
+                <hr> {% for haber in haberler %}
+                <li>
 
-                <table>
-                    <tr>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
-    </aside>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
 </body>
 
 </html>
