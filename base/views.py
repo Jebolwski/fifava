@@ -19,8 +19,19 @@ from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
-def Bulunamadi(request,exception):
+def Bulunamadi1(request):
     return render(request,'base/404.html')
+
+
+def Bulunamadi(request,exception):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/404.html',context)
+
+def Hata(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/500.html',context)
 
 
 def GirisYap(request):
@@ -41,11 +52,13 @@ def GirisYap(request):
             return redirect('anasayfa')
         else:
             messages.error(request,'Kullanıcı adı veya şifre hatalı.')
-
-    return render(request, 'base/giris.html')
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request, 'base/giris.html',context)
 
 
 def KayitOl(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = KayitForm()
     if request.method == 'POST':
         form = KayitForm(request.POST)
@@ -57,7 +70,7 @@ def KayitOl(request):
             messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
 
     context = {
-        'form': form
+        'form': form,'haberler':haberler
     }
     return render(request, 'base/kayit.html', context)
 

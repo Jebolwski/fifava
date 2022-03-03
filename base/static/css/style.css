@@ -11,6 +11,21 @@
           box-sizing: border-box;
 }
 
+* .btn-outline-dark {
+  color: #726c35;
+  border: 1px solid #726c35;
+}
+
+* .btn-outline-dark:hover {
+  background-color: #726c35;
+  border: 1px solid #77771f;
+}
+
+* .btn-outline-dark:focus {
+  outline: 4px solid rgba(163, 147, 0, 0.5);
+  border: 1px solid #77771f;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -113,7 +128,7 @@ main .main-wrapper-home #particles-js #fifava {
           transform: translateX(-50%);
   margin-top: 24vh;
   width: 83.34vw;
-  height: 22vh;
+  height: 26vh;
   padding: 20px;
 }
 

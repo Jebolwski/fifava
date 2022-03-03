@@ -9,3 +9,4 @@ urlpatterns = [
 
 
 handler404 = "base.views.Bulunamadi"
+handler500 = "base.views.Hata"
