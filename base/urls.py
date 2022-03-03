@@ -12,6 +12,8 @@ urlpatterns = [
     path("kayit-ol/",views.KayitOl,name="kayit-ol"),
     path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
 
+    path("profil/<int:pk>",views.Profil,name="profil"),
+
     path("ayarlar/",views.Ayarlar,name="ayarlar"),
 
     path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),

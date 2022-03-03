@@ -1,5 +1,8 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Haber Ekle | FIFAVOX</title>
+{% extends 'base/ana.html' %} {% load static %} {% block content %} 
+<link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
+<title>Ayarlar | FIFAVOX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -60,23 +63,30 @@
             </ul>
         </aside>
 
-    <main class="col-11 col-lg-10 offset-1 pt-5">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="col-sm-12 col-6 offset-sm-1 offset-3">
-                <span>Başlık</span>
-                <p>{{form.baslik}}</p>
-                <span>Açıklama</span>
-                <p>{{form.aciklama}}</p>
-                <label for="file">Dosya</label>
-                <input type="file" id="file" name="file" class="form-control" />
-                <input type="submit" value="Ekle" class="btn btn-outline-dark main-center mt-4">
-            </div>
-        </form>
-    </main>
-
-
-
+    <main class="col-11 col-lg-10 offset-1">
+        {% for message in messages %}
+        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
+        {% endfor %}
+        {% if user.is_authenticated %}
+        <h5 class="text-center pt-5">{{request.user}}
+            {% if durum %} 
+            {% if durum.onaydurum == "Kabul Et" %}
+            <i class="fa-solid fa-circle-check mx-2"></i> Kabul Edildin 
+            {% elif durum.onaydurum == "Bekle" %}
+            <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin 
+            {% elif durum.onaydurum == "Reddet" %}
+            <i class="fa-solid fa-circle-xmark mx-2"></i> Reddedildin 
+            {% endif %}
+            {% else %}
+            - Onaylanmak için Kayıt Formunu Doldur
+        {% endif %} 
+        </h5>
+        <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
+        <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
+        {% else %}
+        <h4 class="pt-5 text-center">Profilinizi görmek için <a href="{% url 'giris-yap' %}">giriş yapın</a>.</h4>
+        {% endif %}
+    </main> 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
             <ul>
                 <p class="text-center h5">Haberler</p>
@@ -94,7 +104,9 @@
                 {% endfor %}
             </ul>
         </aside>
-</body>
 
-</html>
-{% endblock content %}
+
+    <script src="{% static 'js/particles.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% endblock content %}
+    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->

@@ -1,4 +1,4 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
 <title>Ayarlar | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -7,70 +7,67 @@
 
 <body>
     <aside class="side-navbar col-1">
-        <ul class="p-0 text-center">
-            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
-            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-            <li>
-                <a href="{% url 'nasil-katilabilirim' %}">
-                    <i class=" fa-solid fa-question"></i>
-                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'haberler' %}">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <p class="d-none d-md-block">Haberler</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'formlar' %}">
-                    <i class=" fa-solid fa-square-poll-vertical"></i>
-                    <p class="d-none d-md-block">Anketler</p>
-                </a>
-            </li>{% if user.is_superuser and user.is_authenticated %}
-            <li>
-                <a href="{% url 'kayit-onay' %}">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <p class="d-none d-md-block">Kayıt Onay</p>
-                </a>
-            </li>{% endif %} {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'ayarlar' %}">
-                    <i class="fa-solid fa-gear"></i>
-                    <p class="d-none d-md-block">Ayarlar</p>
-                </a>
-            </li>
-
-            {% endif %}
-            <li>
+            <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <a href="{% url 'cikis-yap' %}">
-                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                    <p class="d-none d-md-block"> Çıkış Yap</p>
-                </a>
+                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
-                <a href="{% url 'giris-yap' %}">
-                    <i class=" fa-solid fa-right-to-bracket"></i>
-                    <p class="d-none d-md-block">Giriş Yap</p>
-                </a>
+                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
-            </li>
-        </ul>
-    </aside>
+                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+                <li>
+                    <a href="{% url 'nasil-katilabilirim' %}">
+                        <i class=" fa-solid fa-question"></i>
+                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'haberler' %}">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <p class="d-none d-md-block">Haberler</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'formlar' %}">
+                        <i class=" fa-solid fa-square-poll-vertical"></i>
+                        <p class="d-none d-md-block">Anketler</p>
+                    </a>
+                </li>{% if user.is_superuser and user.is_authenticated %}
+                <li>
+                    <a href="{% url 'kayit-onay' %}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p class="d-none d-md-block">Kayıt Onay</p>
+                    </a>
+                </li>{% endif %} {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'ayarlar' %}">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="d-none d-md-block">Ayarlar</p>
+                    </a>
+                </li>
+
+                {% endif %}
+                <li>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'cikis-yap' %}">
+                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                        <p class="d-none d-md-block"> Çıkış Yap</p>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'giris-yap' %}">
+                        <i class=" fa-solid fa-right-to-bracket"></i>
+                        <p class="d-none d-md-block">Giriş Yap</p>
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </aside>
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
-        <h5 class="text-center pt-5">{{request.user}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
-            <i class="fa-solid fa-circle-check mx-2"></i> Kabul Edildin {% elif durum.onaydurum == "Bekle" %}
-            <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin {% elif durum.onaydurum == "Reddet" %}
-            <i class="fa-solid fa-circle-xmark mx-2"></i> Reddedildin {% else %}
-            <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin {% endif %} {% endif %}
-        </h5>
-        <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
-        <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
+        <h3 class="pt-5 text-center">Gelecek...</h3>
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">

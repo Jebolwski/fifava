@@ -615,7 +615,7 @@ def KayitReddet(request,pk):
 def KayitOnayFormDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(id=1)
+    sorular = Sorular.objects.get(baslik="FIFAVOX Roleplay Kayıt Anketi")
     instance = OnayDurum.objects.get(kisi_id=kisi.id)
     form = OnayForm(instance=instance)
     if request.method=="POST":
@@ -628,7 +628,7 @@ def KayitOnayFormDuzenle(request,pk):
             return redirect("kayit-onay")
             
     if Cevaplar.objects.all().filter(kayitli_id=pk):
-        cevaplar = Cevaplar.objects.get(kayitli_id=pk)
+        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
         context = {'cevap':cevaplar,'sorular':sorular,'form':form}  
     else:
         context = {'sorular':sorular,'haberler':haberler}  
@@ -636,10 +636,9 @@ def KayitOnayFormDuzenle(request,pk):
 
 def KayitOnayForm(request,pk):
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(id=1)
+    sorular = Sorular.objects.get(baslik="FIFAVOX Roleplay Kayıt Anketi")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if len(OnayDurum.objects.all().filter(kisi_id=pk))>0:
-        print(kisi.id)
+    if len(OnayDurum.objects.all().filter(kisi_id=sorular.id))>0:
         return redirect('kayit-onay-form-duzenle',kisi.id)
     form = OnayForm()
     if request.method=="POST":
@@ -650,18 +649,28 @@ def KayitOnayForm(request,pk):
             form.save()
             messages.success(request,"Onay durumu kaydedildi.")
             return redirect("kayit-onay")
-    if Cevaplar.objects.all().filter(kayitli_id=pk):
-        cevaplar = Cevaplar.objects.get(kayitli_id=pk)
+    if Cevaplar.objects.all().filter(sorular_id=sorular.id):
+        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
         context = {'cevap':cevaplar,'sorular':sorular,'form':form,'haberler':haberler}  
     else:
         context = {'sorular':sorular,'haberler':haberler}  
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
 
-def Ayarlar(request):
+def Profil(request,pk):
+    user = User.objects.get(id=pk)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler}
+        context={'durum':durum,'haberler':haberler,'user':user}
         print(durum.kisi,durum.onaydurum)
+    else:
+        context={'haberler':haberler,'user':user}
+    
+    return render(request,"base/profil.html",context)  
+
+
+def Ayarlar(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
     return render(request,"base/ayarlar.html",context)  
