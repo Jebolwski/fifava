@@ -6,7 +6,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -98,15 +98,14 @@
                 {% for haber in haberler %}
                 <tr class="text-center">
                     <td>{{haber.baslik}}</td>
-                    <td>{{haber.aciklama}}</td>
+                    <td class="aciklama">{{haber.aciklama}}</td>
                     <td>{{haber.guncellenme_tarihi}}</td>
-
                     <td>
-                        <a href="{% url 'haber-detay' haber.id %}"><i class="fa-solid fa-circle-info"></i></a>
+                        <a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a>
                     </td>
                     {% if user.is_superuser %}
-                    <td><a href="{% url 'haber-duzenle' haber.id %}"><i class="fa-solid fa-user-pen"></i></a> </td>
-                    <td><a href="{% url 'haber-sil' haber.id %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
+                    <td><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-user-pen"></i></a> </td>
+                    <td><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
                     {% endif %}
                 </tr>
                 {% endfor %}
@@ -138,14 +137,15 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
 </body>
 
 </html>

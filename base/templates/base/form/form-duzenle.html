@@ -4,43 +4,61 @@
 
 <body>
     <aside class="side-navbar col-1">
-        <ul class="p-0 text-center">
-            <li><img src="{% static 'images/logo.png' %}" class="col-9 col-md-5"></li>
-            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-            <li>
-                <a href="{% url 'nasil-katilabilirim' %}">
-                    <i class=" fa-solid fa-question"></i>
-                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'haberler' %}">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <p class="d-none d-md-block">Haberler</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'formlar' %}">
-                    <i class=" fa-solid fa-square-poll-vertical"></i>
-                    <p class="d-none d-md-block">Anketler</p>
-                </a>
-            </li>
-            <li>
+            <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <a href="{% url 'cikis-yap' %}">
-                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                    <p class="d-none d-md-block"> Çıkış Yap</p>
-                </a>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
-                <a href="{% url 'giris-yap' %}">
-                    <i class=" fa-solid fa-right-to-bracket"></i>
-                    <p class="d-none d-md-block">Giriş Yap</p>
-                </a>
+                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
-            </li>
-        </ul>
-    </aside>
+                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+                <li>
+                    <a href="{% url 'nasil-katilabilirim' %}">
+                        <i class=" fa-solid fa-question"></i>
+                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'haberler' %}">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <p class="d-none d-md-block">Haberler</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'formlar' %}">
+                        <i class=" fa-solid fa-square-poll-vertical"></i>
+                        <p class="d-none d-md-block">Anketler</p>
+                    </a>
+                </li>{% if user.is_superuser and user.is_authenticated %}
+                <li>
+                    <a href="{% url 'kayit-onay' %}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p class="d-none d-md-block">Kayıt Onay</p>
+                    </a>
+                </li>{% endif %} {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'ayarlar' %}">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="d-none d-md-block">Ayarlar</p>
+                    </a>
+                </li>
+
+                {% endif %}
+                <li>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'cikis-yap' %}">
+                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                        <p class="d-none d-md-block"> Çıkış Yap</p>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'giris-yap' %}">
+                        <i class=" fa-solid fa-right-to-bracket"></i>
+                        <p class="d-none d-md-block">Giriş Yap</p>
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </aside>
     <main class="col-6 col-lg-6 offset-3">
         <h4 class="text-center pt-5">Formu Düzenle</h4>
         <form method="post">
@@ -52,50 +70,139 @@
             <h4 class="mt-5">Şıklı Sorular</h4>
             <label class="pt-5">Soru 1</label>
             <div>{{form.soru1}}</div>
+            {% if form.soru1.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 2</label>
             <div>{{form.soru2}}</div>
+            {% if form.soru2.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru2.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 3</label>
             <div>{{form.soru3}}</div>
+            {% if form.soru3.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru3.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 4</label>
             <div>{{form.soru4}}</div>
+            {% if form.soru4.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru4.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 5</label>
             <div>{{form.soru5}}</div>
+            {% if form.soru5.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru5.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 6</label>
             <div>{{form.soru6}}</div>
+            {% if form.soru6.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru6.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 7</label>
             <div>{{form.soru7}}</div>
-
+            {% if form.soru7.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru7.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 8</label>
             <div>{{form.soru8}}</div>
+            {% if form.soru8.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru8.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 9</label>
             <div>{{form.soru9}}</div>
+            {% if form.soru9.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru9.errors}}</li>
+            </ul>
+            {% endif %}
 
             <label class="pt-5">Soru 10</label>
             <div>{{form.soru10}}</div>
+            {% if form.soru10.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru10.errors}}</li>
+            </ul>
+            {% endif %}
             <h4 class="mt-4">Metinli Sorular</h4>
             <label class="pt-5">Soru 11</label>
             <div>{{form.soru11}}</div>
+            {% if form.soru11.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru11.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 12</label>
             <div>{{form.soru12}}</div>
+            {% if form.soru12.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru12.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 13</label>
             <div>{{form.soru13}}</div>
+            {% if form.soru13.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru13.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 14</label>
             <div>{{form.soru14}}</div>
+            {% if form.soru14.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru14.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 15</label>
             <div>{{form.soru15}}</div>
+            {% if form.soru15.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru15.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 16</label>
             <div>{{form.soru16}}</div>
+            {% if form.soru16.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru16.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 17</label>
             <div>{{form.soru17}}</div>
+            {% if form.soru17.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
+            </ul>
+            {% endif %}
             <label class="pt-5">Soru 18</label>
             <div>{{form.soru18}}</div>
+            {% if form.soru18.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru18.errors}}</li>
+            </ul>
+            {% endif %}
             <h4 class="mt-4">Onay Kutuları</h4>
             <label class="pt-5">Onay Kutusu 1</label>
             <div>{{form.onay1}}</div>
@@ -111,22 +218,24 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
-        </aside>
+                <table>
+                    <tr>
+                        <td>
+                            {% if haber.resim %}
+                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
 
 </body>
 

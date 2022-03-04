@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-    
+
 
 class Kullanici(models.Model):
     oyun_ad_soyad          = models.CharField(max_length=25,blank=False,null=False)
@@ -15,6 +15,7 @@ class Kullanici(models.Model):
 
 class Haberler(models.Model):
     baslik                 = models.CharField(max_length=30,null=False,blank=False)
+    baslik_slug            = models.SlugField(unique=True,null=False,blank=False)
     aciklama               = models.TextField(max_length=250,null=True,blank=True)
     resim                  = models.ImageField(upload_to="haberler",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(
@@ -32,11 +33,13 @@ ANKET_SECIMLERI = (
     ('3','Kararsızım'),
     ('4','Katılıyorum'),
     ('5','Kesinlikle Katılıyorum'),
-    )
+)
 
 
 class Sorular(models.Model):
     baslik                 = models.CharField(max_length=60,null=False,blank=False)
+    
+    baslik_slug            = models.SlugField(unique=True,null=False,blank=False)
     
     soru1                  = models.TextField(max_length=200,null=True,blank=True)
     soru2                  = models.TextField(max_length=200,null=True,blank=True)
@@ -69,11 +72,12 @@ class Sorular(models.Model):
     def __str__(self):
         return self.baslik
 
-
         
 class Cevaplar(models.Model):
     
     baslik                 = models.CharField(max_length=60,null=False,blank=False)
+    baslik_slug            = models.SlugField(unique=True,null=False,blank=False)
+
 
     sorular                = models.ForeignKey(Sorular,on_delete=models.CASCADE,null=True,blank=True)
 
@@ -107,12 +111,13 @@ class Cevaplar(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
 
     def __str__(self):
-        return self.baslik
+        return self.sorular.baslik
 
 ONAY_DURUM=(
     ('Kabul Et','Kabul Et'),
     ('Bekle','Bekle'),
     ('Reddet','Reddet'),
+    ('Yasakla','Yasakla'),
 )
 
 class OnayDurum(models.Model):

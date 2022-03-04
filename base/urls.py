@@ -12,7 +12,7 @@ urlpatterns = [
     path("kayit-ol/",views.KayitOl,name="kayit-ol"),
     path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
 
-    path("profil/<int:pk>",views.Profil,name="profil"),
+    path("profil/<slug:my_slug>/",views.Profil,name="profil"),
 
     path("ayarlar/",views.Ayarlar,name="ayarlar"),
 
@@ -34,20 +34,20 @@ urlpatterns = [
 
     path("haberler/", views.Haberlerim, name="haberler"),
     path("haber-ekle/", views.HaberEkle, name="haber-ekle"),
-    path("haber/<str:pk>/", views.HaberDetay, name="haber-detay"),
-    path("haber-duzenle/<str:pk>/", views.HaberDuzenle, name="haber-duzenle"),
-    path("haber-sil/<str:pk>/", views.HaberSil, name="haber-sil"),
+    path("haber/<slug:my_slug>/", views.HaberDetay, name="haber-detay"),
+    path("haber-duzenle/<slug:my_slug>/", views.HaberDuzenle, name="haber-duzenle"),
+    path("haber-sil/<slug:my_slug>/", views.HaberSil, name="haber-sil"),
 
 
     path("formlar/", views.Formlar, name="formlar"),
     path("form-ekle/", views.FormEkle, name="form-ekle"),
-    path("form-duzenle/<int:pk>", views.FormDuzenle, name="form-duzenle"),
-    path("form-sil/<int:pk>", views.FormSil, name="form-sil"),
-    path("form-cevapla/<int:pk>", views.FormCevapla, name="form-cevapla"),
-    path("form-detay/<int:pk>", views.FormDetay, name="form-detay"),
-    path("form-analiz/<int:pk>", views.FormAnaliz, name="form-analiz"),
-    path("cevap-sil/<int:pk>", views.CevapSil, name="cevap-sil"),
-    path("cevap-detay/<int:pk>", views.CevapDetay, name="cevap-detay"),
+    path("form-duzenle/<slug:my_slug>", views.FormDuzenle, name="form-duzenle"),
+    path("form-sil/<slug:my_slug>/", views.FormSil, name="form-sil"),
+    path("form-cevapla/<slug:my_slug>/", views.FormCevapla, name="form-cevapla"),
+    path("form-detay/<slug:my_slug>/", views.FormDetay, name="form-detay"),
+    path("form-analiz/<slug:my_slug>/", views.FormAnaliz, name="form-analiz"),
+    path("cevap-sil/<int:pk>/", views.CevapSil, name="cevap-sil"),
+    path("cevap-detay/<int:pk>/", views.CevapDetay, name="cevap-detay"),
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

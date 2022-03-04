@@ -6,7 +6,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -63,7 +63,10 @@
         <form method="post">
             {% csrf_token %}
             <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
-            <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">
+            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2 mt-4">
+                <li><a href="{% url 'kisiler' %}" class="btn btn-outline-dark">Vazgeç</a></li>
+                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
+            </ul>
         </form>
     </main>
 
@@ -77,12 +80,13 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
     {% endblock content %}

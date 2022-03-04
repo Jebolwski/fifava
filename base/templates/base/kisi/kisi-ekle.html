@@ -6,7 +6,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -65,10 +65,21 @@
         <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
         <form method="post">
             {% csrf_token %}
+            
             <h5 class="text-center mt-2">Ad Soyad</h5>
             <div class="center">{{form.oyun_ad_soyad}}</div>
+            {% if form.oyun_ad_soyad.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
+            </ul>
+            {% endif %}
             <h5 class="text-center mt-5">Meslek</h5>
             <div class="center">{{form.meslek}}</div>
+            {% if form.meslek.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.meslek.errors}}</li>
+            </ul>
+            {% endif %}
             <input type="submit" value="Kişi Ekle" class="center btn btn-outline-dark mt-5">
         </form>
     </main>
@@ -83,14 +94,15 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
 
 </body>
 

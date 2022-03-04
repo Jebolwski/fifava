@@ -9,7 +9,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -65,7 +65,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
+            <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
         {% if user.is_authenticated %}
         <h5 class="text-center pt-5">{{request.user}}
@@ -74,6 +74,8 @@
             <i class="fa-solid fa-circle-check mx-2"></i> Kabul Edildin 
             {% elif durum.onaydurum == "Bekle" %}
             <i class="fa-solid fa-circle-pause mx-2"></i> Beklemedesin 
+            {% elif durum.onaydurum == "Bekle" %}
+            <i class="fa-solid fa-ban"></i> Yasaklandın
             {% elif durum.onaydurum == "Reddet" %}
             <i class="fa-solid fa-circle-xmark mx-2"></i> Reddedildin 
             {% endif %}
@@ -96,14 +98,15 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
 
 
     <script src="{% static 'js/particles.js' %}"></script>

@@ -85,14 +85,15 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -67,26 +67,26 @@
             <h6 class="text-center mt-5">Kullanıcı Adı</h6>
             <div class="center col-8 col-md-4">{{form.username}}</div>
             {% if form.username.errors %}
-            <ul style="list-style: none;">
+            <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.username.errors}}</li>
             </ul>
             {% endif %}
             <h6 class=" text-center mt-5 ">Email</h6>
             <div class="center col-8 col-md-4 ">{{form.email}}</div>
             {% if form.email.errors %}
-            <ul style="list-style: none;">
+            <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.email.errors}}</li>
             </ul> {% endif %}
             <h6 class="text-center mt-5 ">Şifre</h6>
             <div class="center col-8 col-md-4 ">{{form.password1}}</div>
             {% if form.password1.errors %}
-            <ul style="list-style: none;">
+            <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password1.errors}}</li>
             </ul>{% endif %}
             <h6 class="text-center mt-5 ">Şifre (Tekrar)</h6>
             <div class="center col-8 col-md-4 ">{{form.password2}}</div>
             {% if form.password2.errors %}
-            <ul style="list-style: none;">
+            <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password2.errors}}</li>
             </ul> {% endif %}
 
@@ -103,14 +103,15 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
 
 
 </body>

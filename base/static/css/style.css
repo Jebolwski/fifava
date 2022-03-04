@@ -12,11 +12,15 @@
 }
 
 * .btn-outline-dark {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   color: #726c35;
   border: 1px solid #726c35;
 }
 
 * .btn-outline-dark:hover {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   background-color: #726c35;
   border: 1px solid #77771f;
 }
@@ -121,8 +125,13 @@ main .main-wrapper-home {
   height: 100vh;
 }
 
+main .main-wrapper-home #particles-js {
+  height: 100vh;
+}
+
 main .main-wrapper-home #particles-js #fifava {
   position: absolute;
+  z-index: 0;
   margin-left: 41.67vw;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -206,7 +215,6 @@ main p a:hover i {
 main form img {
   min-width: 100px;
   width: 25vw;
-  border-radius: 20%;
 }
 
 main .main-center {

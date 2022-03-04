@@ -47,7 +47,10 @@
         <form method="post">
             {% csrf_token %}
             <h3 class="text-center pt-5">'{{haber.baslik}}' başlıklı haberi silmek istediğinize emin misiniz?</h3>
-            <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">
+            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
+                <li><a href="{% url 'haberler' %}" class="btn btn-outline-dark">Vazgeç</a></li>
+                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
+            </ul>
         </form>
     </main>
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
@@ -59,12 +62,13 @@
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
                 </li>
                 {% endfor %}
             </ul>
-        </aside>
+    </aside>
     {% endblock content %}

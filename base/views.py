@@ -3,6 +3,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
+
 
 from .forms import CevapForm, OnayForm, OyuncuForm,SorularForm,KayitForm,HaberForm
 
@@ -10,7 +12,6 @@ from django.core.paginator import Paginator
 
 
 from .models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib import messages
 
@@ -137,8 +138,6 @@ def KisiSil(request,pk):
     return render(request,"base/kisi/kisi-sil.html",context)
 
 
-
-
 #?HABER CRUD
 def Haberlerim(request):
     haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -152,7 +151,7 @@ def Haberlerim(request):
         p = Paginator(sorular,10)
         page = request.GET.get('page')
         haber = p.get_page(page)
-    context = {'haberler':haber,'haberler':haberler1}
+    context = {'haberler':haber,'haberler1':haberler1}
     return render(request,"base/haber/haberler.html",context)
 
 
@@ -165,6 +164,7 @@ def HaberEkle(request):
         baslik=request.POST['baslik'],
         aciklama=request.POST['aciklama'],
         resim=request.FILES.get('file'),
+        baslik_slug = slugify(request.POST['baslik']),
         )
         messages.success(request,"Haber başarıyla oluşturuldu.")
         return redirect('haberler')
@@ -173,20 +173,21 @@ def HaberEkle(request):
     return render(request,"base/haber/haber-ekle.html",context)
             
 
-def HaberDetay(request,pk):
+def HaberDetay(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    haber = Haberler.objects.get(id=pk)
+    haber = Haberler.objects.get(baslik_slug=my_slug)
     context = {'haber':haber,'haberler':haberler}
     return render(request,"base/haber/haber-detay.html",context)
 
 
 @login_required(login_url='giris-yap')
-def HaberDuzenle(request,pk):
+def HaberDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    instance = Haberler.objects.get(id=pk)
+    instance = Haberler.objects.get(baslik_slug=my_slug)
     if request.method == 'POST':
             instance.baslik=request.POST['baslik']
             instance.aciklama=request.POST['aciklama']
+            instance.baslik_slug = slugify(request.POST['baslik'])
             temizle=request.POST.get('temizle')
             if temizle=='on':
                 instance.resim.delete()
@@ -200,9 +201,9 @@ def HaberDuzenle(request,pk):
 
 
 @login_required(login_url='giris-yap')
-def HaberSil(request,pk):
+def HaberSil(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    haber = Haberler.objects.get(id=pk)
+    haber = Haberler.objects.get(baslik_slug=my_slug)
     if request.method=="POST":
         haber.delete()
         messages.success(request,'Haber başarıyla silindi.')
@@ -233,7 +234,9 @@ def FormEkle(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = SorularForm()
     if request.method=="POST":
-        form = SorularForm(request.POST)
+        data = request.POST.copy()
+        data['baslik_slug'] = slugify(data['baslik'])
+        form = SorularForm(data)
         if form.is_valid():
             form.instance.user=request.user
             form.save()
@@ -244,9 +247,9 @@ def FormEkle(request):
 
 
 
-def FormDuzenle(request,pk):
+def FormDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    form_instance = Sorular.objects.get(id=pk)
+    form_instance = Sorular.objects.get(baslik_slug=my_slug)
     form = SorularForm(instance=form_instance)
     if request.method=="POST":
         form = SorularForm(request.POST,instance=form_instance)
@@ -257,9 +260,9 @@ def FormDuzenle(request,pk):
     return render(request,"base/form/form-duzenle.html",context)
 
 @login_required(login_url='giris-yap')
-def FormSil(request,pk):
+def FormSil(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    form=Sorular.objects.get(id=pk)
+    form=Sorular.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
         form.delete()
         return redirect("formlar")
@@ -267,12 +270,12 @@ def FormSil(request,pk):
     return render(request,"base/form/form-sil.html",context)
 
 
-def FormCevapla(request,pk):
+def FormCevapla(request,my_slug):
     form = CevapForm()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    sorular = Sorular.objects.get(id=pk)
-    benim_cevaplarim = Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=pk)
-    if len(Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=pk))>0 :
+    sorular = Sorular.objects.get(baslik_slug = my_slug)
+    benim_cevaplarim = Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id)
+    if len(Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id))>0 :
         return redirect('cevaplanmis')
     if request.method=="POST":
         form_copy=request.POST.copy()
@@ -289,17 +292,17 @@ def FormCevapla(request,pk):
 
 
 
-def FormDetay(request,pk):
+def FormDetay(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    soru=Sorular.objects.get(id=pk)
+    soru=Sorular.objects.get(baslik_slug = my_slug)
     context={'soru':soru,'haberler':haberler}
     return render(request,"base/form/form-detay.html",context)
 
 
 @login_required(login_url='giris-yap')
-def FormAnaliz(request,pk):
+def FormAnaliz(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    form = Sorular.objects.get(id=pk)
+    form = Sorular.objects.get(baslik_slug = my_slug)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
     if True:
         sorucount=0
@@ -513,7 +516,7 @@ def FormAnaliz(request,pk):
         if array[i]!=0:
             print("Soru "+str(i+1)+" katılma yüzdesi",array[i],"%")
     cevaplar = Cevaplar.objects.all().order_by('-guncellenme_tarihi')
-    p = Paginator(Cevaplar.objects.all(),1)
+    p = Paginator(Cevaplar.objects.all().filter(sorular_id=form.id),1)
     page = request.GET.get('page')
     cevaplar_hepsi = p.get_page(page)
 
@@ -564,8 +567,9 @@ def CevapSil(request,pk):
 
 def KayitOnay(request):
     kisiler = User.objects.all()
+    onay = OnayDurum.objects.all()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    context = {'kisiler':kisiler,'haberler':haberler}
+    context = {'kisiler':kisiler,'haberler':haberler,'onay':onay}
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
 def KayitKabulEt(request,pk):
@@ -638,7 +642,7 @@ def KayitOnayForm(request,pk):
     kisi = User.objects.get(id=pk)
     sorular = Sorular.objects.get(baslik="FIFAVOX Roleplay Kayıt Anketi")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if len(OnayDurum.objects.all().filter(kisi_id=sorular.id))>0:
+    if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
         return redirect('kayit-onay-form-duzenle',kisi.id)
     form = OnayForm()
     if request.method=="POST":
@@ -657,8 +661,9 @@ def KayitOnayForm(request,pk):
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
 
-def Profil(request,pk):
-    user = User.objects.get(id=pk)
+def Profil(request,my_slug):
+    
+    user = User.objects.get(username = request.user.username)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)

@@ -10,7 +10,7 @@
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.id %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -74,16 +74,18 @@
             <thead>
                 <tr>
                     <td>Kullanıcı Adı</td>
+                    <td>Onay Durumu</td>
                     <td>Kayıt Formu</td>
                     <td>Kayıt Tarihi</td>
                 </tr>
             </thead>
             <tbody>
-                {% for kisi in kisiler %}
+                {% for i in onay %}
                 <tr>
-                    <td>{{kisi.username}}</td>
-                    <td><a href="{% url 'kayit-onay-form' kisi.id %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
-                    <td>{{kisi.date_joined}}</td>
+                    <td>{{i.kisi}}</td>
+                    <td>{{i.onaydurum}}</td>
+                    <td><a href="{% url 'kayit-onay-form' i.kisi_id %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
+                    <td>{{i.kisi.date_joined}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -93,22 +95,22 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
-        </aside>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="{% url 'haber-detay' haber.id %}"><img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
 
 
     <script src="{% static 'js/particles.js' %}"></script>
