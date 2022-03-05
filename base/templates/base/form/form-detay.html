@@ -4,61 +4,63 @@
 
 <body>
     <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
-                {% else %}
-                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
-                {% endif %}
-                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-                <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class=" fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'haberler' %}">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <p class="d-none d-md-block">Haberler</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'formlar' %}">
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
-                    </a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
-                <li>
-                    <a href="{% url 'kayit-onay' %}">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <p class="d-none d-md-block">Kayıt Onay</p>
-                    </a>
-                </li>{% endif %} {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'ayarlar' %}">
-                        <i class="fa-solid fa-gear"></i>
-                        <p class="d-none d-md-block">Ayarlar</p>
-                    </a>
-                </li>
+        <ul class="p-0 text-center">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
+            </li>
+            {% else %}
+            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+            {% endif %}
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>{% if user.is_superuser and user.is_authenticated %}
+            <li>
+                <a href="{% url 'kayit-onay' %}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="d-none d-md-block">Kayıt Onay</p>
+                </a>
+            </li>{% endif %} {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'ayarlar' %}">
+                    <i class="fa-solid fa-gear"></i>
+                    <p class="d-none d-md-block">Ayarlar</p>
+                </a>
+            </li>
 
+            {% endif %}
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
                 {% endif %}
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
-                    </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </aside>
+            </li>
+        </ul>
+    </aside>
     <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
@@ -68,41 +70,149 @@
         <h5>Sorular</h5>
         {% if soru.soru1 %}
         <div class="pb-5 pt-5">{{ soru.soru1 }}</div>
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div>
         {% endif %} {% if soru.soru2 %}
         <div class="pb-5 pt-5">{{ soru.soru2 }}</div>
-        {% endif %} {% if soru.soru3 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru3 %}
         <div class="pb-5 pt-5">{{ soru.soru3 }}</div>
-        {% endif %} {% if soru.soru4 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru4 %}
         <div class="pb-5 pt-5">{{ soru.soru4 }}</div>
-        {% endif %} {% if soru.soru5 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru5 %}
         <div class="pb-5 pt-5">{{ soru.soru5 }}</div>
-        {% endif %} {% if soru.soru6 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru6 %}
         <div class="pb-5 pt-5">{{ soru.soru6 }}</div>
-        {% endif %} {% if soru.soru7 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div>{% endif %} {% if soru.soru7 %}
         <div class="pb-5 pt-5">{{ soru.soru7 }}</div>
-        {% endif %} {% if soru.soru8 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru8 %}
         <div class="pb-5 pt-5">{{ soru.soru8 }}</div>
-        {% endif %} {% if soru.soru9 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru9 %}
         <div class="pb-5 pt-5">{{ soru.soru9 }}</div>
-        {% endif %} {% if soru.soru10 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru10 %}
         <div class="pt-5">{{ soru.soru10 }}</div>
-        {% endif %} {% if soru.soru11 %}
+        <div class="col-12 col-md-6 offset-md-3">
+            <select class="form-control">
+            <option value="----">-----</option>
+            <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+            <option value="Katılmıyorum">Katılmıyorum</option>
+            <option value="Kararsızım">Kararsızım</option>
+            <option value="Katılıyorum">Katılıyorum</option>
+            <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+            </select>
+        </div> {% endif %} {% if soru.soru11 %}
         <div class="pt-5">{{ soru.soru11 }}</div>
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div>
         {% endif %} {% if soru.soru12 %}
         <div class="pt-5">{{ soru.soru12 }}</div>
-        {% endif %} {% if soru.soru13 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru13 %}
         <div class="pt-5">{{ soru.soru13 }}</div>
-        {% endif %} {% if soru.soru14 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru14 %}
         <div class="pt-5">{{ soru.soru14 }}</div>
-        {% endif %} {% if soru.soru15 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru15 %}
         <div class="pt-5">{{ soru.soru15 }}</div>
-        {% endif %} {% if soru.soru16 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru16 %}
         <div class="pt-5">{{ soru.soru16 }}</div>
-        {% endif %} {% if soru.soru17 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru17 %}
         <div class="pt-5">{{ soru.soru17 }}</div>
-        {% endif %} {% if soru.soru18 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.soru18 %}
         <div class="pt-5">{{ soru.soru18 }}</div>
-        {% endif %} {% if soru.onay1 %}
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %} {% if soru.onay1 %}
         <div class="pt-5">{{ soru.onay1 }} <input type="checkbox" disabled class="mx-2"></div>
 
         {% endif %} {% if soru.onay2 %}
@@ -124,22 +234,23 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
+                <table>
+                    <tr>
+                        <td>
+                            {% if haber.resim %}
+                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
     </aside>
 
 

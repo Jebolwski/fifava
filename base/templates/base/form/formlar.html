@@ -92,10 +92,10 @@
                 <tr>
                     <th>Başlık</th>
                     <th>Tarih</th>
+                    <th>Detay</th>
                     {% if user.is_superuser %}
                     <th>Düzenle</th>
                     <th>Sil</th>
-                    <th>Detay</th>
                     <th>Analiz</th>
                     {% endif %}
                     <th>Cevapla</th>
@@ -106,10 +106,10 @@
                 <tr class="text-center">
                     <td>{{form.baslik}}</td>
                     <td>{{form.guncellenme_tarihi}}</td>
+                    <td><a href="{% url 'form-detay' form.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></td>
                     {% if user.is_superuser %}
                     <td><a href="{% url 'form-duzenle' form.baslik|slugify %}"><i class="fa-solid fa-pen"></i></td>
-              <td><a href="{% url 'form-sil' form.baslik|slugify %}"><i class="fa-solid fa-minus"></i></a></td>
-                    <td><a href="{% url 'form-detay' form.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></td>
+                    <td><a href="{% url 'form-sil' form.baslik|slugify %}"><i class="fa-solid fa-minus"></i></a></td>
                     <td><a href="{% url 'form-analiz' form.baslik|slugify %}"><i class="fa-solid fa-chart-line"></i></a></td>
                     {% endif %} {% if user.is_authenticated%}
                     <td><a href="{% url 'form-cevapla' form.baslik|slugify %}"><i class="fa-solid fa-reply"></i></a></td>

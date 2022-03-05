@@ -119,6 +119,22 @@ body .loading img {
   text-decoration: none;
   text-align: center;
   font-size: 17px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.side-navbar ul li a i,
+.side-navbar ul li a img {
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.side-navbar ul li a:hover i,
+.side-navbar ul li a:hover img {
+  -webkit-transform: rotateZ(360deg);
+          transform: rotateZ(360deg);
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 main .main-wrapper-home {

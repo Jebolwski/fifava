@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Kullanici(models.Model):
     oyun_ad_soyad          = models.CharField(max_length=25,blank=False,null=False)
+    oyun_ad_soyad_slug          = models.SlugField(unique=True,null=False,blank=False)
     meslek                 = models.CharField(max_length=25,blank=False,null=False)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)

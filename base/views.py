@@ -1,7 +1,7 @@
 from urllib import request
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
@@ -57,6 +57,10 @@ def GirisYap(request):
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)
 
+def CikisYap(request):
+    logout(request)
+    messages.success(request,"Başarıyla çıkış yapıldı.")
+    return redirect("anasayfa")
 
 def KayitOl(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -99,7 +103,9 @@ def KisiEkle(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = OyuncuForm()
     if request.method == 'POST':
-        form = OyuncuForm(request.POST)
+        data = request.POST.copy()
+        data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        form = OyuncuForm(data)
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
@@ -107,18 +113,14 @@ def KisiEkle(request):
     context = {'form':form,'haberler':haberler}
     return render(request,"base/kisi/kisi-ekle.html",context)
 
-def KisiDetay(request,pk):
+def KisiDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    instance = Kullanici.objects.get(id=pk)
-    context = {'kisi':instance,'haberler':haberler}
-    return render(request,"base/kisi/kisi-detay.html",context)
-    
-def KisiDuzenle(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    instance = Kullanici.objects.get(id=pk)
+    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     form = OyuncuForm(instance=instance)
     if request.method == 'POST':
-        form = OyuncuForm(instance=instance,data = request.POST)
+        data = request.POST.copy()
+        data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        form = OyuncuForm(instance=instance,data = data)
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla düzenlendi.")
@@ -126,9 +128,9 @@ def KisiDuzenle(request,pk):
 
     return render(request,"base/kisi/kisi-duzenle.html",context)
 
-def KisiSil(request,pk):
+def KisiSil(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    instance = Kullanici.objects.get(id=pk)
+    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     context = {"haberler":haberler,'kisi':instance}
     if request.method == 'POST':
         instance.delete()
@@ -234,6 +236,7 @@ def FormEkle(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = SorularForm()
     if request.method=="POST":
+        print(request.POST)
         data = request.POST.copy()
         data['baslik_slug'] = slugify(data['baslik'])
         form = SorularForm(data)

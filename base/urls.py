@@ -3,14 +3,14 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
-
+from django.contrib.auth import views as authview
 
 urlpatterns = [
     path("", views.Ev, name="anasayfa"),
 
     path("giris-yap/", views.GirisYap, name="giris-yap"),
     path("kayit-ol/",views.KayitOl,name="kayit-ol"),
-    path("cikis-yap/", LogoutView.as_view(), name="cikis-yap"),
+    path("cikis-yap/", views.CikisYap, name="cikis-yap"),
 
     path("profil/<slug:my_slug>/",views.Profil,name="profil"),
 
@@ -27,9 +27,8 @@ urlpatterns = [
 
     path("kisiler/", views.Kisiler, name="kisiler"),
     path("kisi-ekle/", views.KisiEkle, name="kisi-ekle"),
-    path("kisi/<int:pk>", views.KisiDetay, name="kisi-detay"),
-    path("kisi-duzenle/<int:pk>", views.KisiDuzenle, name="kisi-duzenle"),
-    path("kisi-sil/<int:pk>", views.KisiSil, name="kisi-sil"),
+    path("kisi-duzenle/<slug:my_slug>", views.KisiDuzenle, name="kisi-duzenle"),
+    path("kisi-sil/<slug:my_slug>", views.KisiSil, name="kisi-sil"),
 
 
     path("haberler/", views.Haberlerim, name="haberler"),
@@ -50,6 +49,24 @@ urlpatterns = [
     path("cevap-detay/<int:pk>/", views.CevapDetay, name="cevap-detay"),
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
+
+
+    #!ŞİFRE İŞLEMLERİ
+    #!a
+    path('sifre-sifirla/', authview.PasswordChangeView.as_view(template_name="base/password/passwordreset.html"),
+         name="change_password"),
+    
+    path('sifre-sifirla-bitti/', authview.PasswordChangeDoneView.as_view(template_name="base/password/passwordresetdone1.html"),
+         name="password_change_done"),
+    path('sifre-sifirla-gonderildi/',
+         authview.PasswordResetDoneView.as_view(template_name="base/password/passwordresetdone.html"), name="password_reset_done"),
+    path('sifre-sifirla/<uidb64>/<token>/',
+         authview.PasswordResetConfirmView.as_view(template_name="base/password/passwordresetemail.html"), name="password_reset_confirm"),
+    path('sifre-sifirlandı/', authview.PasswordResetCompleteView.as_view(template_name='base/password/resetcomplete.html'),
+         name="password_reset_complete"),
+    #!a
+    path('sifre-unuttum/', authview.PasswordResetView.as_view(template_name="base/password/passwordforgotreset.html"),
+         name="password_forgot_reset"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 handler404 = "base.views.Bulunamadi"

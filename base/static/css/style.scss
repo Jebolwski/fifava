@@ -90,6 +90,18 @@ body {
         text-decoration: none;
         text-align: center;
         font-size: 17px;
+        i,
+        img {
+            transition: 1s;
+        }
+        transition: 1s;
+        &:hover {
+            i,
+            img {
+                transform: rotateZ(360deg);
+                transition: 1s;
+            }
+        }
     }
 }
 
