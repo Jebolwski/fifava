@@ -11,6 +11,7 @@ class Person(admin.ModelAdmin):
 admin.site.register(Haberler)
 admin.site.register(Cevaplar)
 admin.site.register(Sorular)
+admin.site.register(Kisi)
 
 @admin.register(OnayDurum)
 class Person(admin.ModelAdmin):

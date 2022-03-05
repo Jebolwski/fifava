@@ -255,7 +255,9 @@ def FormDuzenle(request,my_slug):
     form_instance = Sorular.objects.get(baslik_slug=my_slug)
     form = SorularForm(instance=form_instance)
     if request.method=="POST":
-        form = SorularForm(request.POST,instance=form_instance)
+        data = request.POST.copy()
+        data['baslik_slug'] = slugify(request.POST['baslik'])
+        form = SorularForm(data,instance=form_instance)
         if form.is_valid():
             form.save()
             return redirect("formlar")
@@ -284,6 +286,7 @@ def FormCevapla(request,my_slug):
         form_copy=request.POST.copy()
         form_copy['kayitli']=str(request.user.id)
         form_copy['baslik']=sorular.baslik
+        form_copy['baslik_slugify']=slugify(sorular.baslik)
         form_copy['sorular']=sorular
         form=CevapForm(form_copy)
         if form.is_valid():
@@ -509,8 +512,8 @@ def FormAnaliz(request,my_slug):
             array.append(soru9*20)
         if soru10!=0:
             array.append(soru10*20) 
-    if len(Cevaplar.objects.all())>1:
-        bolmesayac=bolmesayac-1
+    # if len(Cevaplar.objects.all())>1:
+    #     bolmesayac=bolmesayac-1
         
     print(cevap)
 
@@ -569,10 +572,10 @@ def CevapSil(request,pk):
 
 
 def KayitOnay(request):
-    kisiler = User.objects.all()
+    kisi = Kisi.objects.all()
     onay = OnayDurum.objects.all()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    context = {'kisiler':kisiler,'haberler':haberler,'onay':onay}
+    context = {'kisiler':kisi,'haberler':haberler,'onay':onay}
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
 def KayitKabulEt(request,pk):
@@ -622,7 +625,7 @@ def KayitReddet(request,pk):
 def KayitOnayFormDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX Roleplay Kayıt Anketi")
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Anketi")
     instance = OnayDurum.objects.get(kisi_id=kisi.id)
     form = OnayForm(instance=instance)
     if request.method=="POST":
@@ -634,8 +637,8 @@ def KayitOnayFormDuzenle(request,pk):
             messages.success(request,"Onay durumu güncellendi.")
             return redirect("kayit-onay")
             
-    if Cevaplar.objects.all().filter(kayitli_id=pk):
-        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
+    if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
+        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id,kayitli_id=kisi.id)
         context = {'cevap':cevaplar,'sorular':sorular,'form':form}  
     else:
         context = {'sorular':sorular,'haberler':haberler}  
@@ -643,7 +646,7 @@ def KayitOnayFormDuzenle(request,pk):
 
 def KayitOnayForm(request,pk):
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX Roleplay Kayıt Anketi")
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Anketi")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
         return redirect('kayit-onay-form-duzenle',kisi.id)

@@ -137,6 +137,10 @@ body .loading img {
   transition: 1s;
 }
 
+main i {
+  color: #726c35;
+}
+
 main .main-wrapper-home {
   height: 100vh;
 }
