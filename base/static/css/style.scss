@@ -111,15 +111,16 @@ main {
     }
     .main-wrapper-home {
         height: 100vh;
+        z-index: 2;
         #particles-js {
             height: 100vh;
+            z-index: 3;
             #fifava {
                 position: absolute;
-                z-index: 0;
-                margin-left: 41.67vw;
+                margin-left: 31.97vw;
                 transform: translateX(-50%);
                 margin-top: 24vh;
-                width: 83.34vw;
+                transform: scale(1.6);
                 height: 26vh;
                 padding: 20px;
             }
@@ -308,10 +309,10 @@ main {
         .main-wrapper-home {
             #particles-js {
                 #fifava {
-                    width: 91.67vw;
                     position: absolute;
-                    margin-left: 45.835vw;
+                    margin-left: 31.9vw;
                     transform: translateX(-50%);
+                    transform: scale(1.5);
                     margin-top: 24vh;
                     height: 20vh;
                     min-height: 140px;
@@ -323,12 +324,10 @@ main {
                     min-width: 90px;
                     margin-left: 48.835vw;
                     transform: translateX(-50%);
-                    transition: 0.3s;
                     font-size: 1.125rem;
                     &:hover {
                         background-color: rgba(78, 78, 78, 0.35);
                         color: white;
-                        transition: 0.3s;
                     }
                 }
             }
@@ -346,7 +345,7 @@ main {
         .main-wrapper-home {
             #particles-js {
                 #fifava {
-                    height: 14vh;
+                    margin-left: 27vw;
                 }
             }
         }
@@ -356,6 +355,19 @@ main {
             font-size: 24px;
         }
         overflow-x: hidden;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    main {
+        .main-wrapper-home {
+            #particles-js {
+                #fifava {
+                    margin-left: 21vw;
+                    transform: scale(1.4);
+                }
+            }
+        }
     }
 }
 
@@ -369,7 +381,8 @@ main {
         .main-wrapper-home {
             #particles-js {
                 #fifava {
-                    height: 13vh;
+                    margin-left: 15vw;
+                    transform: scale(1.1);
                 }
             }
         }
@@ -381,7 +394,7 @@ main {
     }
 }
 
-@media only screen and (max-width: 200px) {
+@media only screen and (max-width: 364px) {
     .side-navbar {
         ul li a {
             font-size: 8px;
@@ -391,7 +404,8 @@ main {
         .main-wrapper-home {
             #particles-js {
                 #fifava {
-                    height: 11vh;
+                    width: 80vw;
+                    margin-left: 10vw;
                 }
             }
         }

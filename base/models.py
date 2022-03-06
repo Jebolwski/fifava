@@ -12,7 +12,7 @@ class Kullanici(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
 
     def __str__(self):
-        return self.oyun_ad_soyad
+        return str(self.oyun_ad_soyad)
 
 
 class Haberler(models.Model):
@@ -25,13 +25,14 @@ class Haberler(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
 
     def __str__(self):
-        return self.baslik
+        return str(self.baslik)
 
-ONAY_DURUM=(
+ONAY_DURUM = (
     ('Kabul Et','Kabul Et'),
     ('Bekle','Bekle'),
     ('Reddet','Reddet'),
     ('Yasakla','Yasakla'),
+    ('Cevapsız','Cevapsız'),
 )
 
 ANKET_SECIMLERI = (
@@ -52,12 +53,8 @@ class OnayDurum(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     
     def __str__(self):
-        return self.kisi
+        return str(self.kisi.username)
 
-
-class Kisi(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=False,blank=False)
-    user_onaydurum = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True, related_name='+')
 
 class Sorular(models.Model):
     baslik                 = models.CharField(max_length=60,null=False,blank=False)
@@ -93,7 +90,7 @@ class Sorular(models.Model):
 
 
     def __str__(self):
-        return self.baslik
+        return str(self.baslik)
         
 class Cevaplar(models.Model):
     
@@ -133,4 +130,4 @@ class Cevaplar(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
 
     def __str__(self):
-        return self.sorular.baslik
+        return str(self.kayitli)

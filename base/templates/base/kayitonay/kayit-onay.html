@@ -91,9 +91,10 @@
                         <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
                         <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}
                         <i class="fa-solid fa-ban px-2"></i> Yasaklı {% elif i.onaydurum == "Reddet" %}
-                        <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% endif %} {% else %} Bakılmadı {% endif %}
+                        <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% elif i.onaydurum == "Cevapsız" %}
+                        <i class="fa-solid fa-comment-slash"></i> Cevaplanmadı {% endif %} {% endif %}
                     </td>
-                    <td><a href="{% url 'kayit-onay-form' i.kisi_id %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
+                    <td><a href="{% url 'kayit-onay-form' i.kisi.id  %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
                     <td>{{i.kisi.date_joined}}</td>
                 </tr>
                 {% endfor %}

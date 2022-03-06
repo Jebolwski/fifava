@@ -45,6 +45,7 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
+
         if person is not None:
             login(request, person)
             messages.success(request, 'Başarıyla giriş yapıldı.')
@@ -68,6 +69,7 @@ def KayitOl(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Başarıyla kayıt olundu.')
+            OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
             return redirect('giris-yap')
         else:
             messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
@@ -289,6 +291,9 @@ def FormCevapla(request,my_slug):
         form=CevapForm(form_copy)
         if form.is_valid():
             form.save()
+            onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
+            onaydurum.onaydurum = "Bekle"
+            onaydurum.save()
             messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
     context={'form':form,'sorular':sorular,'haberler':haberler}
@@ -513,7 +518,6 @@ def FormAnaliz(request,my_slug):
     # if len(Cevaplar.objects.all())>1:
     #     bolmesayac=bolmesayac-1
         
-    print(cevap)
 
     yuzde=top/bolmesayac
     for i in range(0,len(array)):
@@ -570,10 +574,9 @@ def CevapSil(request,pk):
 
 
 def KayitOnay(request):
-    kisi = Kisi.objects.all()
     onay = OnayDurum.objects.all()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    context = {'kisiler':kisi,'haberler':haberler,'onay':onay}
+    context = {'haberler':haberler,'onay':onay}
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
 def KayitKabulEt(request,pk):
