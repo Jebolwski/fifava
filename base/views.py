@@ -27,6 +27,7 @@ def Bulunamadi(request,exception):
     context = {'haberler':haberler}
     return render(request,'base/404.html',context)
 
+
 def Hata(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
@@ -56,10 +57,12 @@ def GirisYap(request):
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)
 
+
 def CikisYap(request):
     logout(request)
     messages.success(request,"Başarıyla çıkış yapıldı.")
     return redirect("anasayfa")
+
 
 def KayitOl(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -99,6 +102,29 @@ def Kisiler(request):
     context = {'kisiler':kisiler,'haberler':haberler}
     return render(request,"base/kisi/kisiler.html",context)
 
+
+@login_required(login_url='giris-yap')
+def EmailDegistir(request):
+    if request.method == 'POST':
+        eski_email = request.POST['eski-email']
+        yeni_email1 = request.POST['yeni-email1']
+        yeni_email2 = request.POST['yeni-email2']
+
+        if eski_email==request.user.email and yeni_email1==yeni_email2 and eski_email!=yeni_email1:
+            request.user.email = yeni_email1
+            request.user.save()
+            messages.success(request,'Emailiniz başarıyla değiştirildi.')
+            return redirect('ayarlar')
+        elif yeni_email1!=yeni_email2:
+            messages.success(request,'Yeni emailler uyuşmuyor...')
+        elif eski_email!=request.user.email:
+            messages.success(request,'Eski emailinizi yanlış girdiniz...')
+        else:
+            messages.success(request,'Bir hata oluştu.')
+
+    return render(request,"base/email-degistir.html")
+
+@login_required(login_url='giris-yap')
 def KisiEkle(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = OyuncuForm()
@@ -113,6 +139,7 @@ def KisiEkle(request):
     context = {'form':form,'haberler':haberler}
     return render(request,"base/kisi/kisi-ekle.html",context)
 
+@login_required(login_url='giris-yap')
 def KisiDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
@@ -128,6 +155,7 @@ def KisiDuzenle(request,my_slug):
 
     return render(request,"base/kisi/kisi-duzenle.html",context)
 
+@login_required(login_url='giris-yap')
 def KisiSil(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
@@ -249,7 +277,7 @@ def FormEkle(request):
     return render(request,"base/form/form-ekle.html",context)
 
 
-
+@login_required(login_url='giris-yap')
 def FormDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form_instance = Sorular.objects.get(baslik_slug=my_slug)
@@ -264,6 +292,7 @@ def FormDuzenle(request,my_slug):
     context={"form":form,'haberler':haberler}
     return render(request,"base/form/form-duzenle.html",context)
 
+
 @login_required(login_url='giris-yap')
 def FormSil(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -275,6 +304,7 @@ def FormSil(request,my_slug):
     return render(request,"base/form/form-sil.html",context)
 
 
+@login_required(login_url='giris-yap')
 def FormCevapla(request,my_slug):
     form = CevapForm()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -298,7 +328,6 @@ def FormCevapla(request,my_slug):
             return redirect('formlar')
     context={'form':form,'sorular':sorular,'haberler':haberler}
     return render(request,"base/form/form-cevapla.html",context)
-
 
 
 def FormDetay(request,my_slug):
@@ -535,12 +564,14 @@ def FormAnaliz(request,my_slug):
     return render(request,"base/form/form-analiz.html",context)
 
 
+@login_required(login_url='giris-yap')
 def Cevaplanmis(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,"base/form/cevaplanmis.html",context)
 
 
+@login_required(login_url='giris-yap')
 def CevaplanmisDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form_instance = Cevaplar.objects.get(id=pk)
@@ -558,27 +589,28 @@ def CevaplanmisDuzenle(request,pk):
     return render(request,"base/form/cevaplanmis-duzenle.html",context)
 
 
-
+@login_required(login_url='giris-yap')
 def CevapDetay(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     cevap = Cevaplar.objects.get(id=pk)
     context = {'cevap':cevap,'haberler':haberler}
     return render(request,"base/form/cevap-detay.html",context)
 
-
+@login_required(login_url='giris-yap')
 def CevapSil(request,pk):
     cevap=Cevaplar.objects.filter(id=pk)
     cevap.delete()
     return redirect("formlar")
 
 
-
+@login_required(login_url='giris-yap')
 def KayitOnay(request):
     onay = OnayDurum.objects.all()
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler,'onay':onay}
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
+@login_required(login_url='giris-yap')
 def KayitKabulEt(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     user = User.objects.get(id=pk)
@@ -595,6 +627,8 @@ def KayitKabulEt(request,pk):
     context = {'form':form,'haberler':haberler}
     return render(request,"base/kayitonay/kayit-kabul-et.html",context)
 
+
+@login_required(login_url='giris-yap')
 def KayitBeklet(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     user = User.objects.get(id=pk)
@@ -609,6 +643,8 @@ def KayitBeklet(request,pk):
     context = {'form':form,'kisi':user,'haberler':haberler}
     return render(request,"base/kayitonay/kayit-beklet.html",context)
 
+
+@login_required(login_url='giris-yap')
 def KayitReddet(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     user = User.objects.get(id=pk)
@@ -623,6 +659,8 @@ def KayitReddet(request,pk):
     context = {'form':form,'kisi':user,'haberler':haberler}
     return render(request,"base/kayitonay/kayit-beklet.html",context)
 
+
+@login_required(login_url='giris-yap')
 def KayitOnayFormDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     kisi = User.objects.get(id=pk)
@@ -645,6 +683,8 @@ def KayitOnayFormDuzenle(request,pk):
         context = {'sorular':sorular,'haberler':haberler}  
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
+
+@login_required(login_url='giris-yap')
 def KayitOnayForm(request,pk):
     kisi = User.objects.get(id=pk)
     sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Anketi")
@@ -668,8 +708,8 @@ def KayitOnayForm(request,pk):
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
 
+@login_required(login_url='giris-yap')
 def Profil(request,my_slug):
-    
     user = User.objects.get(username = request.user.username)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):

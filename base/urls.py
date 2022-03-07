@@ -16,6 +16,8 @@ urlpatterns = [
     path("ayarlar/",views.Ayarlar,name="ayarlar"),
 
     path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
+    
+    path("email-degistir/",views.EmailDegistir,name="email-degistir"),
 
     path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
     path("kayit-onay-form/<int:pk>/",views.KayitOnayForm,name="kayit-onay-form"),

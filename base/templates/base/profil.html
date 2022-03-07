@@ -68,15 +68,22 @@
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
-        {% endfor %} {% if user.is_authenticated %}
-        <h5 class="text-center pt-5">{{request.user}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
+        {% endfor %}
+                
+        
+        {% if user.is_authenticated %}
+        <h5 class="text-center pt-5"> {{request.user}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
             <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildin {% elif durum.onaydurum == "Bekle" %}
             <i class="fa-solid fa-circle-pause px-2"></i> Beklemedesin {% elif durum.onaydurum == "Yasakla" %}
             <i class="fa-solid fa-ban"></i> Yasaklandın {% elif durum.onaydurum == "Reddet" %}
-            <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildin {% endif %} {% else %} - Onaylanmak için Kayıt Formunu Doldur {% endif %}
+            <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildin 
+            {% elif durum.onaydurum == "Cevapsız" %}
+            <i class="fa-brands fa-creative-commons-nd px-2"></i> Onaylanmak İçin <a href="/form-cevapla/fifavox-roleplay-kayt-anketi/" class="text-black">Cevapla</a>
+            {% endif %} {% else %} - Onaylanmak için Kayıt Formunu Doldur {% endif %}
+            <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
+            <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
         </h5>
-        <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
-        <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
+        
         {% else %}
         <h4 class="pt-5 text-center">Profilinizi görmek için <a href="{% url 'giris-yap' %}">giriş yapın</a>.</h4>
         {% endif %}
@@ -103,7 +110,4 @@
     </aside>
 
 
-    <script src="{% static 'js/particles.js' %}"></script>
-    <script src="{% static 'js/app.js' %}"></script>
     {% endblock content %}
-    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->
