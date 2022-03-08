@@ -726,3 +726,7 @@ def Ayarlar(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,"base/ayarlar.html",context)  
+
+
+def KayitOnbilgi(request):
+    return render(request,"base/kayit-onbilgi.html")

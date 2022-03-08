@@ -22,6 +22,8 @@ $kisiler-main-background-color: rgb(212, 208, 208);
         &:focus {
             outline: 4px solid rgba(163, 147, 0, 0.5);
             border: 1px solid rgb(119, 119, 31);
+            background-color: rgb(114, 108, 53);
+            color: white;
         }
     }
 }
@@ -141,7 +143,6 @@ main {
             }
             .kesfet-div {
                 height: 100vh;
-                background-color: red;
             }
         }
     }
@@ -203,6 +204,31 @@ main {
         margin-left: 48%;
         transform: translateX(-50%);
         transform: translateY();
+    }
+    .tab-pane {
+        height: 70vh;
+    }
+    .setting-bar {
+        color: rgb(114, 108, 53);
+        border: 1px solid rgb(114, 108, 53);
+        border-bottom: transparent;
+        &:hover {
+            transition: 0.3s;
+            background-color: rgb(114, 108, 53);
+            border: 1px solid rgb(119, 119, 31);
+            color: white;
+        }
+        &:focus {
+            outline: 4px solid rgba(163, 147, 0, 0.5);
+            border: 1px solid rgb(119, 119, 31);
+            background-color: rgb(114, 108, 53);
+            color: white;
+        }
+        &.active {
+            border: 1px solid rgb(119, 119, 31);
+            background-color: rgb(114, 108, 53);
+            color: white;
+        }
     }
 }
 

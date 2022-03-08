@@ -28,6 +28,8 @@
 * .btn-outline-dark:focus {
   outline: 4px solid rgba(163, 147, 0, 0.5);
   border: 1px solid #77771f;
+  background-color: #726c35;
+  color: white;
 }
 
 body {
@@ -185,7 +187,6 @@ main .main-wrapper-home #particles-js #kesfet:hover {
 
 main .main-wrapper-home #particles-js .kesfet-div {
   height: 100vh;
-  background-color: red;
 }
 
 main table a {
@@ -257,6 +258,37 @@ main .submit {
           transform: translateX(-50%);
   -webkit-transform: translateY();
           transform: translateY();
+}
+
+main .tab-pane {
+  height: 70vh;
+}
+
+main .setting-bar {
+  color: #726c35;
+  border: 1px solid #726c35;
+  border-bottom: transparent;
+}
+
+main .setting-bar:hover {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #726c35;
+  border: 1px solid #77771f;
+  color: white;
+}
+
+main .setting-bar:focus {
+  outline: 4px solid rgba(163, 147, 0, 0.5);
+  border: 1px solid #77771f;
+  background-color: #726c35;
+  color: white;
+}
+
+main .setting-bar.active {
+  border: 1px solid #77771f;
+  background-color: #726c35;
+  color: white;
 }
 
 .haberler {

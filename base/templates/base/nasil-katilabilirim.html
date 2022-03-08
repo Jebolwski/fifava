@@ -1,93 +1,125 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Nasıl Katılabilirim | FIFAVOX</title>
+<title>Ayarlar | FIFAVOX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
     <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
+        <ul class="p-0 text-center">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
+            </li>
+            {% else %}
+            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+            {% endif %}
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Anketler</p>
+                </a>
+            </li>{% if user.is_superuser and user.is_authenticated %}
+            <li>
+                <a href="{% url 'kayit-onay' %}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="d-none d-md-block">Kayıt Onay</p>
+                </a>
+            </li>{% endif %} {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'ayarlar' %}">
+                    <i class="fa-solid fa-gear"></i>
+                    <p class="d-none d-md-block">Ayarlar</p>
+                </a>
+            </li>
+
+            {% endif %}
+            <li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
                 {% else %}
-                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
                 {% endif %}
-                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-                <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class=" fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'haberler' %}">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <p class="d-none d-md-block">Haberler</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'formlar' %}">
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
-                    </a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
-                <li>
-                    <a href="{% url 'kayit-onay' %}">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <p class="d-none d-md-block">Kayıt Onay</p>
-                    </a>
-                </li>{% endif %} {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'ayarlar' %}">
-                        <i class="fa-solid fa-gear"></i>
-                        <p class="d-none d-md-block">Ayarlar</p>
-                    </a>
-                </li>
+            </li>
+        </ul>
+    </aside>
 
-                {% endif %}
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
-                    </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </aside>
+    <main class="col-11 col-lg-10 offset-1">
+        <div class="col-9 col-md-8 offset-1 offset-md-2">
 
-    <main class="col-11 col-lg-10 offset-1 pt-5">
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
-        {% endfor %}
-        <h3 class="text-center pt-5">Bilmiyorum...</h3>
+        <h5 class="text-center pb-4 pt-5">FIFAVOX RolePlay FiveM sunucusunda oynamak için gerekli koşullar</h5> 
+        <p>1-) Kayıt başvurusunda bulunabilmek için en az 50 saat FiveM geçmişiniz olmalı.</p>
+
+        <p>2-) Yaşınız en az 16 ve üzeri olmalı.</p>
+
+        <p>3-) FIFAVOX RolePlay sunucusunun "HARD" RolePlay olduğu bilinerek kayıt işlemi gerçekleştirilmeli.</p>
+
+
+        <p>FIFAVOX RolePlay FiveM sunucusu kayıt aşamaları:</p> 
+
+        <p>1-) <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> sitesi üzerinden <a href="{%url 'kayit-ol'%}" class="text-dark" >hesap oluşturun</a>.</p> 
+
+        <p>2-) <a href="{% url 'formlar' %}" class="text-dark" >fifavox.com/anketler</a> kısmından <a href="/form-cevapla/fifavox-roleplay-kayt-anketi/" class="text-dark">FIFAVOX RolePlay Başvuru Formunu</a> eksiksiz bir biçimde doldurun.</p> 
+        
+        <p>3-) Bu iki işlemin ardından <a href="https://discord.gg/8yn76ANa9n" class="text-dark" target="_blank">https://discord.gg/8yn76ANa9n</a> adresinden FIFAVOX RolePlay Ön Kayıt Discord sunucusuna katılın.</p> 
+        
+        <p>4-) 5 dakikanın ardından Hoşgeldin rolünüz Kayıt Bekleyen rolüyle değişecek.</p> 
+        
+        <p>5-) Rolünüzü aldıktan sonra Kayıt Bekleme odalarından birine girip yetkililer ile internet sitesindeki bilgileri teyit edin.</p> 
+        
+        <p>6-) Ek olarak birkaç soru daha sorulduktan sonra yetkili onay durumunuza karar verecek.</p> 
+        
+        <p>7-) Onaylandıktan sonra yetkili tarafından size ana Discord sunucusunun linki verilecek.</p> 
+        
+        <p>8-) Son olarak <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> web sitesinde onayınızı alacaksınız.</p> 
+        
+        <p>9-) Onay durumunuzu kontrol etmek için  <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> sitesinde hesabınıza giriş yaptıktan sonra sol üst tarafta bulunan maymun simgesine basın.</p> 
+        
+        <p>10-) Onaylandınız yazısını görüyorsanız tebrikler artık FIFAVOX RolePlay sunucusunun onaylı bir oyuncususunuz.</p> 
+        
+        <p class="pb-4">Keyifli Roller...</p>
+        </div>
     </main>
 
-
-
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
+                <table>
+                    <tr>
+                        <td>
+                            {% if haber.resim %}
+                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
     </aside>
-</body>
 
-</html>
-{% endblock content %}
+
+    {% endblock content %}

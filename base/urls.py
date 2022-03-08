@@ -25,6 +25,7 @@ urlpatterns = [
     path("kayit-kisi-kabul-et/<int:pk>/",views.KayitKabulEt,name="kayit-kabul-et"),
     path("kayit-beklet/<int:pk>/",views.KayitBeklet,name="kayit-beklet"),
     path("kayit-reddet/<int:pk>/",views.KayitReddet,name="kayit-reddet"),
+    path("kayit-onbilgi/",views.KayitOnbilgi,name="kayit-onbilgi"),
 
     path("kisiler/", views.Kisiler, name="kisiler"),
     path("kisi-ekle/", views.KisiEkle, name="kisi-ekle"),
