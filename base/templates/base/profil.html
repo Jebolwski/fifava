@@ -81,7 +81,7 @@
             <i class="fa-brands fa-creative-commons-nd px-2"></i> Onaylanmak İçin <a href="/form-cevapla/fifavox-roleplay-kayt-anketi/" class="text-black">Cevapla</a>
             {% endif %} {% else %} - Onaylanmak için Kayıt Formunu Doldur {% endif %}
             <h5 class="text-center pt-5">Katılma Tarihi : {{request.user.date_joined}}</h5>
-            <h5 class="text-center pt-5">En son giriş : {{request.user.last_login}}</h5>
+            <h5 class="text-center pt-5">Kayıt Onay Tarihi : {{durum.guncellenme_tarihi}}</h5>
         </h5>
         
         {% else %}

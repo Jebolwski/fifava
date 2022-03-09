@@ -291,6 +291,13 @@ main .setting-bar.active {
   color: white;
 }
 
+main .nasil-katilabilirim {
+  -webkit-animation-name: sidenavbarhiddentitle;
+          animation-name: sidenavbarhiddentitle;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
 .haberler {
   position: fixed;
   top: 0;
@@ -510,7 +517,7 @@ main .setting-bar.active {
 
 @media only screen and (max-width: 385px) {
   .side-navbar ul li a {
-    font-size: 8px;
+    font-size: 12px;
   }
   main .main-wrapper-home #particles-js #fifava {
     margin-left: 15vw;
@@ -528,6 +535,12 @@ main .setting-bar.active {
   }
   main form p {
     font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 200px) {
+  .side-navbar ul li a {
+    font-size: 7px;
   }
 }
 /*# sourceMappingURL=style.css.map */

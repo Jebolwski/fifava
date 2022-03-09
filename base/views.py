@@ -35,8 +35,7 @@ def Hata(request):
 
 
 def GirisYap(request):
-    
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and OnayDurum.objects.get(kisi_id=request.user.id).onaydurum!="Yasakla":
             return redirect('anasayfa')
 
     if request.method == 'POST':
@@ -46,7 +45,9 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
-
+        if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
+            messages.success(request,"Bu hesap yasaklandı.")
+            return redirect("anasayfa")
         if person is not None:
             login(request, person)
             messages.success(request, 'Başarıyla giriş yapıldı.')
@@ -605,7 +606,7 @@ def CevapSil(request,pk):
 
 @login_required(login_url='giris-yap')
 def KayitOnay(request):
-    onay = OnayDurum.objects.all()
+    onay = OnayDurum.objects.all().order_by("-onaydurum")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler,'onay':onay}
     return render(request,"base/kayitonay/kayit-onay.html",context)

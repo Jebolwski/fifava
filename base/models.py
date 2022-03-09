@@ -121,10 +121,10 @@ class Cevaplar(models.Model):
     soru17_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru18_cevap           = models.TextField(max_length=200,blank=True,null=True)
 
-    onay1_cevap            = models.BooleanField(default=True)
-    onay2_cevap            = models.BooleanField(default=True)
-    onay3_cevap            = models.BooleanField(default=True)
-    onay4_cevap            = models.BooleanField(default=True)
+    onay1_cevap            = models.BooleanField(default=False)
+    onay2_cevap            = models.BooleanField(default=False)
+    onay3_cevap            = models.BooleanField(default=False)
+    onay4_cevap            = models.BooleanField(default=False)
 
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
