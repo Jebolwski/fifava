@@ -45,7 +45,7 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
-        if OnayDurum.objects.all().filter(kisi_id=person.id):
+        if len(OnayDurum.objects.all().filter(kisi_id=person.id))>0:
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
                 messages.success(request,"Bu hesap yasaklandı.")
                 return redirect("anasayfa")
