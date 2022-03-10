@@ -45,7 +45,6 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
-        
         if person is not None:
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
                 messages.success(request,"Bu hesap yasaklandı.")
