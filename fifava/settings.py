@@ -4,7 +4,8 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-(rhsfic-du!q01mywf*5b^$w&3_ur8$nl$vxm4d-#h36v&#)^9'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 DEBUG = False
 
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +122,13 @@ EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "besevler.mah.muh@gmail.com"
 EMAIL_HOST_PASSWORD = 'ucfmktlwucycdqnq'
+
+
+AWS_ACCESS_KEY_ID = 'AKIAYEWWKWPZYMZJEYQO'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'fifavox-bucket-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
