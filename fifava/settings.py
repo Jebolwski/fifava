@@ -8,7 +8,7 @@ SECRET_KEY = 'django-insecure-(rhsfic-du!q01mywf*5b^$w&3_ur8$nl$vxm4d-#h36v&#)^9
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','fifava.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','fifavox.herokuapp.com']
 
 
 # Application definition

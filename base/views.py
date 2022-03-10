@@ -45,10 +45,11 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
-        if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
-            messages.success(request,"Bu hesap yasaklandı.")
-            return redirect("anasayfa")
+        
         if person is not None:
+            if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
+                messages.success(request,"Bu hesap yasaklandı.")
+                return redirect("giris-yap")
             login(request, person)
             messages.success(request, 'Başarıyla giriş yapıldı.')
             return redirect('anasayfa')
@@ -320,11 +321,14 @@ def FormCevapla(request,my_slug):
         form_copy['baslik_slugify']=slugify(sorular.baslik)
         form_copy['sorular']=sorular
         form=CevapForm(form_copy)
+        
+
         if form.is_valid():
             form.save()
-            onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
-            onaydurum.onaydurum = "Bekle"
-            onaydurum.save()
+            if sorular.baslik == "FIFAVOX RolePlay Kayıt Anketi":
+                onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
+                onaydurum.onaydurum = "Bekle"
+                onaydurum.save()
             messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
     context={'form':form,'sorular':sorular,'haberler':haberler}
