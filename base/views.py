@@ -45,9 +45,11 @@ def GirisYap(request):
         person = authenticate(
             request, username=username, password=password)
 
-        if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
-            messages.success(request,"Bu hesap yasaklandı.")
-            return redirect("anasayfa")
+        if OnayDurum.objects.all().filter(kisi_id=person.id):
+            if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
+                messages.success(request,"Bu hesap yasaklandı.")
+                return redirect("anasayfa")
+
         if person is not None:
             login(request, person)
             messages.success(request, 'Başarıyla giriş yapıldı.')
