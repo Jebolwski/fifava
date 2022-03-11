@@ -1,5 +1,5 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Anket Düzenle | FIFAVOX</title>
+<title>Form Düzenle | FIFAVOX</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                 <li>
                     <a href="{% url 'formlar' %}">
                         <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
+                        <p class="d-none d-md-block">Formlar</p>
                     </a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
                 <li>
@@ -63,7 +63,7 @@
         <h4 class="text-center pt-5">Formu Düzenle</h4>
         <form method="post">
             {% csrf_token %}
-            <label class="text-center pt-5">Anket Başlığı</label>
+            <label class="text-center pt-5">Form Başlığı</label>
             <div>{{form.baslik}}</div>
 
 

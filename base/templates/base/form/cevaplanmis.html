@@ -27,7 +27,7 @@
                 <li>
                     <a href="{% url 'formlar' %}">
                         <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Anketler</p>
+                        <p class="d-none d-md-block">Formlar</p>
                     </a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
                 <li>
@@ -62,7 +62,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         <form>
-            <h4 class="text-center pt-5">Bu anketi çoktan doldurmuşsunuz. <br> Başka bir anket doldurmak için geri dönün.</h4>
+            <h4 class="text-center pt-5">Bu formu çoktan doldurmuşsunuz. <br> Başka bir form doldurmak için geri dönün.</h4>
             <a href="{% url 'formlar' %}" class="btn btn-outline-dark center mt-4">Geri Dön</a>
         </form>
     </main>

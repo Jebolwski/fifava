@@ -1,5 +1,5 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Anketler | FIFAVOX</title>
+<title>Formlar | FIFAVOX</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
             <li>
                 <a href="{% url 'formlar' %}">
                     <i class=" fa-solid fa-square-poll-vertical"></i>
-                    <p class="d-none d-md-block">Anketler</p>
+                    <p class="d-none d-md-block">Fomlar</p>
                 </a>
             </li>{% if user.is_superuser and user.is_authenticated %}
             <li>
@@ -69,13 +69,13 @@
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
-        <h4 class="text-center pt-5 mb-5">Anketler</h4>
+        <h4 class="text-center pt-5 mb-5">Formlar</h4>
 
         <form method="POST">
             {% csrf_token %}
             <table class="center col-sm-8 col-md-4 mb-5">
                 <tr>
-                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Anketin Başlığı" name="arama"></td>
+                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Formun Başlığı" name="arama"></td>
                     <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
                     {% if user.is_superuser %}
                     <td>
@@ -131,7 +131,7 @@
             <i class="fas fa-chevron-right" style="color: gray;"></i> {% endif %}
         </p>
         {% else %}
-        <h4 class="text-center mt-4 mb-5">Anket yok...</h4>
+        <h4 class="text-center mt-4 mb-5">Form yok...</h4>
         {% endif %} {% if not formlar %}
         <hr> {% endif %}
         <!-- <h4 class="mt-5 text-center">Cevaplananlar</h4>
