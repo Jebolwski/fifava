@@ -9,7 +9,7 @@ SECRET_KEY = "django-insecure-%0$s52dr2w=5jq=fui1xhrnwo__kk#w*x2dvl*j9q*k1q(edh$
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','fifavox.herokuapp.com']
+ALLOWED_HOSTS = ["fifavox.com","www.fifavox.com","35.158.208.19","172.31.36.165","127.0.0.1"]
 
 
 # Application definition
@@ -60,6 +60,8 @@ WSGI_APPLICATION = 'fifava.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -67,6 +69,7 @@ DATABASES = {
     }
 }
 
+CSRF_COOKIE_SECURE=True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -85,6 +88,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Internationalization
@@ -120,15 +127,16 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "besevler.mah.muh@gmail.com"
-EMAIL_HOST_PASSWORD = 'ucfmktlwucycdqnq'
+EMAIL_HOST_USER = "fifavoxteam@gmail.com"
+EMAIL_HOST_PASSWORD = 'ujqxewmwvgriknem'
 
+# SECURE_SSL_REDIRECT = True 
 
-AWS_ACCESS_KEY_ID = 'AKIAVBZFNB4PBCU7W4GR'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'fifavox-s3-buckets'
-AWS_S3_FILE_OVERWRITE = False
-AWS_QUERYSTRING_AUTH = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_ACCESS_KEY_ID = 'AKIA32ZGHYSFVKRESFPD'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'fifavox-s3-buckets-1'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_QUERYSTRING_AUTH = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

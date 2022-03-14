@@ -4,61 +4,63 @@
 
 <body>
     <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
-                {% else %}
-                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
-                {% endif %}
-                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-                <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class=" fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'haberler' %}">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <p class="d-none d-md-block">Haberler</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'formlar' %}">
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
-                        <p class="d-none d-md-block">Formlar</p>
-                    </a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
-                <li>
-                    <a href="{% url 'kayit-onay' %}">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <p class="d-none d-md-block">Kayıt Onay</p>
-                    </a>
-                </li>{% endif %} {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'ayarlar' %}">
-                        <i class="fa-solid fa-gear"></i>
-                        <p class="d-none d-md-block">Ayarlar</p>
-                    </a>
-                </li>
+        <ul class="p-0 text-center">
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
+            </li>
+            {% else %}
+            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+            {% endif %}
+            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+            <li>
+                <a href="{% url 'nasil-katilabilirim' %}">
+                    <i class=" fa-solid fa-question"></i>
+                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'haberler' %}">
+                    <i class="fa-solid fa-newspaper"></i>
+                    <p class="d-none d-md-block">Haberler</p>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'formlar' %}">
+                    <i class=" fa-solid fa-square-poll-vertical"></i>
+                    <p class="d-none d-md-block">Formlar</p>
+                </a>
+            </li>{% if user.is_superuser and user.is_authenticated %}
+            <li>
+                <a href="{% url 'kayit-onay' %}">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="d-none d-md-block">Kayıt Onay</p>
+                </a>
+            </li>{% endif %} {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'ayarlar' %}">
+                    <i class="fa-solid fa-gear"></i>
+                    <p class="d-none d-md-block">Ayarlar</p>
+                </a>
+            </li>
 
+            {% endif %}
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'cikis-yap' %}">
+                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                    <p class="d-none d-md-block"> Çıkış Yap</p>
+                </a>
+                {% else %}
+                <a href="{% url 'giris-yap' %}">
+                    <i class=" fa-solid fa-right-to-bracket"></i>
+                    <p class="d-none d-md-block">Giriş Yap</p>
+                </a>
                 {% endif %}
-                <li>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
-                    </a>
-                    {% endif %}
-                </li>
-            </ul>
-        </aside>
+            </li>
+        </ul>
+    </aside>
     <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
@@ -69,59 +71,59 @@
             {{form.errors}}
             <h5 class="pt-5">Fifavox Kayıt Formu</h5>
             {% if sorular.soru1 %}
-            <div class="pb-3 pt-5">{{ sorular.soru1 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru1 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru1_cevap}}</div>
             {% endif %} {% if sorular.soru2 %}
-            <div class="pb-3 pt-5">{{ sorular.soru2 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru2 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru2_cevap}}</div>
             {% endif %} {% if sorular.soru3 %}
-            <div class="pb-3 pt-5">{{ sorular.soru3 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru3 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru3_cevap}}</div>
             {% endif %} {% if sorular.soru4 %}
-            <div class="pb-3 pt-5">{{ sorular.soru4 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru4 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru4_cevap}}</div>
             {% endif %} {% if sorular.soru5 %}
-            <div class="pb-3 pt-5">{{ sorular.soru5 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru5 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru5_cevap}}</div>
             {% endif %} {% if sorular.soru6 %}
-            <div class="pb-3 pt-5">{{ sorular.soru6 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru6 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru6_cevap}}</div>
             {% endif %} {% if sorular.soru7 %}
-            <div class="pb-3 pt-5">{{ sorular.soru7 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru7 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru7_cevap}}</div>
             {% endif %} {% if sorular.soru8 %}
-            <div class="pb-3 pt-5">{{ sorular.soru8 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru8 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru8_cevap}}</div>
             {% endif %} {% if sorular.soru9 %}
-            <div class="pb-3 pt-5">{{ sorular.soru9 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru9 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru9_cevap}}</div>
             {% endif %} {% if sorular.soru10 %}
-            <div class="pb-3 pt-5">{{ sorular.soru10 }}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru10 }}</div>
             <div class="col-4 offset-4 pb-2">{{cevap.soru10_cevap}}</div>
             {% endif %} {% if sorular.soru11 %}
-            <div class="pb-3 pt-5">{{ sorular.soru11 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru11_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru11 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru11_cevap}}</div>
             {% endif %} {% if sorular.soru12 %}
-            <div class="pb-3 pt-5">{{ sorular.soru12 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru12_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru12 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru12_cevap}}</div>
             {% endif %} {% if sorular.soru13 %}
-            <div class="pb-3 pt-5">{{ sorular.soru13 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru13_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru13 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru13_cevap}}</div>
             {% endif %} {% if sorular.soru14 %}
-            <div class="pb-3 pt-5">{{ sorular.soru14 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru14_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru14 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru14_cevap}}</div>
             {% endif %} {% if sorular.soru15 %}
-            <div class="pb-3 pt-5">{{ sorular.soru15 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru15_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru15 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru15_cevap}}</div>
             {% endif %} {% if sorular.soru16 %}
-            <div class="pb-3 pt-5">{{ sorular.soru16 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru16_cevap}}</div>
+            <h5 class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru16 }}</h5>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru16_cevap}}</div>
             {% endif %} {% if sorular.soru17 %}
-            <div class="pb-3 pt-5">{{ sorular.soru17 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru17_cevap}}</div>
+            <h5 class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru17 }}</h5>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru17_cevap}}</div>
             {% endif %} {% if sorular.soru18 %}
-            <div class="pb-3 pt-5">{{ sorular.soru18 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru18_cevap}}</div>
+            <div class="pb-3 pt-5 text-decoration-underline">{{ sorular.soru18 }}</div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2 pb-2">{{cevap.soru18_cevap}}</div>
             {% endif %}
         </div>
         <div class="text-center mt-5">
@@ -170,7 +172,7 @@
             <a href="{% url 'kayit-reddet' cevap.kayitli.id %}" class="btn btn-outline-dark mt-5 mb-5 mx-3">Reddet</a>
         </div>  -->
         {% else %}
-        <h4 class="text-center pt-5">Anketi Cevaplamamış...</h4>
+        <h4 class="text-center pt-5">Formu Cevaplamamış...</h4>
         {% endif %}
 
     </main>
@@ -179,22 +181,23 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
+                <table>
+                    <tr>
+                        <td>
+                            {% if haber.resim %}
+                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
     </aside>
 
 

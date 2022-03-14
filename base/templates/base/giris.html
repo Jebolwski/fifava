@@ -1,4 +1,4 @@
-{% extends 'base/ana.html' %} {% block content %} {% load static %}
+﻿{% extends 'base/ana.html' %} {% block content %} {% load static %}
 <title>Giriş Yapma | FIFAVOX</title>
 </head>
 
@@ -65,7 +65,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         <h4 class="text-center pt-4">Giriş Yap</h4>
-        <form method="POST" action="{% url 'giris-yap' %}">
+        <form method="POST" action={% url 'giris-yap'%} >
             {% csrf_token %}
             <h5 class="text-center mt-5">Kullanıcı Adı</h5>
             <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>

@@ -1,5 +1,5 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Kişiler | FIFAVOX</title>
+﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+<title>Oyuncular | FIFAVOX</title>
 </head>
 
 <body>
@@ -64,7 +64,8 @@
 
     <main class="col-11 col-lg-10 offset-1">
         <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
-        <form method="GET">
+        <form method="POST">
+            {% csrf_token %}
             <table class="center col-sm-8 col-md-4 mb-5">
                 <tr>
                     <td><input type="text" class="form-control col-10" placeholder="Aranacak Kişinin Adı" name="arama"></td>

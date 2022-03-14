@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "adios";
-  src: url(../font/Adios.woff);
-}
-
 * {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin: 0;
@@ -42,12 +37,29 @@ body aside {
 }
 
 body .home {
-  background-image: url("../images/background2.jpg");
-  background-size: cover;
+  background-size: 100vw 100%;
 }
 
 body .home aside {
   background-color: rgba(78, 78, 78, 0.35);
+}
+
+body .home .side-navbar {
+  -webkit-animation-name: s-left;
+          animation-name: s-left;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+
+body .home .haberler {
+  -webkit-animation-name: h-right;
+          animation-name: h-right;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
 }
 
 body .loading {
@@ -79,25 +91,21 @@ body .loading img {
   min-width: 150px;
 }
 
-.home .side-navbar {
-  -webkit-animation-name: s-left;
-          animation-name: s-left;
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
+body .first {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../images/background2.jpg");
 }
 
-.home .haberler {
-  -webkit-animation-name: h-right;
-          animation-name: h-right;
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
+body .second {
+  width: 100vw;
+  height: 100vh;
+  background-color: red;
 }
 
 .side-navbar {
+  z-index: 100;
+  left: 0;
   position: fixed;
 }
 
@@ -139,38 +147,41 @@ body .loading img {
   transition: 1s;
 }
 
+main .one-container {
+  background-image: url("../images/background2.jpg");
+  background-size: 100vw 100vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+main .home-main {
+  height: 200vh;
+  background-color: red;
+}
+
 main i {
   color: #726c35;
 }
 
-main .main-wrapper-home {
+main #particles-js {
   height: 100vh;
-  z-index: 2;
 }
 
-main .main-wrapper-home #particles-js {
-  height: 100vh;
-  z-index: 3;
-}
-
-main .main-wrapper-home #particles-js #fifava {
+main #particles-js #fifava {
   position: absolute;
-  margin-left: 31.97vw;
+  margin-top: 22vh;
+  height: 16vh;
+  margin-left: 50vw;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  margin-top: 24vh;
-  -webkit-transform: scale(1.6);
-          transform: scale(1.6);
-  height: 26vh;
-  padding: 20px;
 }
 
-main .main-wrapper-home #particles-js #kesfet {
+main #particles-js #kesfet {
   position: absolute;
   margin-top: 80vh;
   width: 10vw;
   min-width: 90px;
-  margin-left: 41.67vw;
+  margin-left: 50vw;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   -webkit-transition: 0.3s;
@@ -178,15 +189,18 @@ main .main-wrapper-home #particles-js #kesfet {
   font-size: 1.125rem;
 }
 
-main .main-wrapper-home #particles-js #kesfet:hover {
+main #particles-js #kesfet:hover {
   background-color: rgba(78, 78, 78, 0.35);
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-main .main-wrapper-home #particles-js .kesfet-div {
+main #particles-js #kesfet-sayfa {
   height: 100vh;
+  width: 100vw;
+  background-color: red;
+  background-size: 100vw 100vh;
 }
 
 main table a {
@@ -459,21 +473,16 @@ main .nasil-katilabilirim {
     font-size: 14px;
     text-align: center;
   }
+  #fifava {
+    height: 13vh;
+  }
 }
 
 @media only screen and (max-width: 988px) {
-  main .main-wrapper-home #particles-js #fifava {
-    position: absolute;
-    margin-left: 31.9vw;
-    -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
-    -webkit-transform: scale(1.5);
-            transform: scale(1.5);
-    margin-top: 24vh;
-    height: 20vh;
-    min-height: 140px;
+  main #particles-js #fifava {
+    height: 15vh;
   }
-  main .main-wrapper-home #particles-js #kesfet {
+  main #particles-js #kesfet {
     position: absolute;
     margin-top: 80vh;
     width: 10vw;
@@ -483,7 +492,7 @@ main .nasil-katilabilirim {
             transform: translateX(-50%);
     font-size: 1.125rem;
   }
-  main .main-wrapper-home #particles-js #kesfet:hover {
+  main #particles-js #kesfet:hover {
     background-color: rgba(78, 78, 78, 0.35);
     color: white;
   }
@@ -493,10 +502,8 @@ main .nasil-katilabilirim {
   .side-navbar ul li a {
     font-size: 20px;
   }
-  main .main-wrapper-home #particles-js #fifava {
-    width: 45vw;
-    margin-left: 25vw;
-    height: 12vh;
+  main #particles-js #fifava {
+    height: 11vh;
   }
   body {
     overflow-x: hidden;
@@ -507,6 +514,9 @@ main .nasil-katilabilirim {
 }
 
 @media only screen and (max-width: 450px) {
+  #fifava {
+    height: 9vh;
+  }
   .side-navbar ul li a {
     font-size: 16px;
   }
@@ -519,9 +529,8 @@ main .nasil-katilabilirim {
   .side-navbar ul li a {
     font-size: 12px;
   }
-  main .main-wrapper-home #particles-js #fifava {
-    margin-left: 15vw;
-    width: 60vw;
+  main #particles-js #fifava {
+    height: 10vh;
   }
   main form p {
     font-size: 10px;
@@ -529,9 +538,8 @@ main .nasil-katilabilirim {
 }
 
 @media only screen and (max-width: 350px) {
-  main .main-wrapper-home #particles-js #fifava {
-    margin-left: 15vw;
-    width: 60vw;
+  main #particles-js #fifava {
+    height: 6vh;
   }
   main form p {
     font-size: 10px;

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+﻿from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
@@ -98,11 +98,13 @@ def NasilKatilabilirim(request):
 
 #?KİŞİ CRUD
 def Kisiler(request):
-    kisiler = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+    kisiler = Kullanici.objects.all().order_by('oyun_ad_soyad')
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if request.method=="POST":
+        arama = request.POST['arama']
+        kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('oyun_ad_soyad')
     context = {'kisiler':kisiler,'haberler':haberler}
     return render(request,"base/kisi/kisiler.html",context)
-
 
 @login_required(login_url='giris-yap')
 def EmailDegistir(request):
@@ -324,7 +326,7 @@ def FormCevapla(request,my_slug):
 
         if form.is_valid():
             form.save()
-            if sorular.baslik == "FIFAVOX RolePlay Kayıt Anketi":
+            if sorular.baslik == "FIFAVOX RolePlay Kayıt Formu":
                 onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
                 onaydurum.onaydurum = "Bekle"
                 onaydurum.save()
@@ -668,7 +670,7 @@ def KayitReddet(request,pk):
 def KayitOnayFormDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Anketi")
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
     instance = OnayDurum.objects.get(kisi_id=kisi.id)
     form = OnayForm(instance=instance)
     if request.method=="POST":
@@ -691,7 +693,7 @@ def KayitOnayFormDuzenle(request,pk):
 @login_required(login_url='giris-yap')
 def KayitOnayForm(request,pk):
     kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Anketi")
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
         return redirect('kayit-onay-form-duzenle',kisi.id)

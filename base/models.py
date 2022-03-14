@@ -1,4 +1,4 @@
-from django.db import models
+﻿from django.db import models
 from django.contrib.auth.models import User
 
 
@@ -113,12 +113,12 @@ class Cevaplar(models.Model):
     soru9_cevap            = models.CharField(max_length=5, choices=ANKET_SECIMLERI,blank=True,null=True)        
     soru10_cevap           = models.CharField(max_length=5, choices=ANKET_SECIMLERI,blank=True,null=True) 
     soru11_cevap           = models.TextField(max_length=200,blank=True,null=True) 
-    soru12_cevap           = models.TextField(max_length=200,blank=True,null=True) 
+    soru12_cevap           = models.TextField(max_length=1000,blank=True,null=True) 
     soru13_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru14_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru15_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru16_cevap           = models.TextField(max_length=200,blank=True,null=True) 
-    soru17_cevap           = models.TextField(max_length=200,blank=True,null=True) 
+    soru17_cevap           = models.TextField(max_length=500,blank=True,null=True) 
     soru18_cevap           = models.TextField(max_length=200,blank=True,null=True)
 
     onay1_cevap            = models.BooleanField(default=False)
