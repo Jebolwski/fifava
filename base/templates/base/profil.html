@@ -7,63 +7,72 @@
 
 <body>
     <aside class="side-navbar col-1">
-        <ul class="p-0 text-center">
-            {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
-            </li>
-            {% else %}
-            <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
-            {% endif %}
-            <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
-            <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
-            <li>
-                <a href="{% url 'nasil-katilabilirim' %}">
-                    <i class=" fa-solid fa-question"></i>
-                    <p class="d-none d-md-block">Nasıl Katılabilirim</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'haberler' %}">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <p class="d-none d-md-block">Haberler</p>
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'formlar' %}">
-                    <i class=" fa-solid fa-square-poll-vertical"></i>
-                    <p class="d-none d-md-block">Fomlar</p>
-                </a>
-            </li>{% if user.is_superuser and user.is_authenticated %}
-            <li>
-                <a href="{% url 'kayit-onay' %}">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <p class="d-none d-md-block">Kayıt Onay</p>
-                </a>
-            </li>{% endif %} {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'ayarlar' %}">
-                    <i class="fa-solid fa-gear"></i>
-                    <p class="d-none d-md-block">Ayarlar</p>
-                </a>
-            </li>
-
-            {% endif %}
-            <li>
+            <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <a href="{% url 'cikis-yap' %}">
-                    <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                    <p class="d-none d-md-block"> Çıkış Yap</p>
-                </a>
+                <li>
+                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
+                    {% if durum.onaydurum == 'Kabul Et' %}
+                    Onaylandın
+                    {% elif durum.onaydurum == 'Bekle' %}
+                    Beklemedesin
+                    {% elif durum.onaydurum == 'Reddet' %}
+                    Reddedildin
+                    {% elif durum.onaydurum == 'Cevapsız' %}
+                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9 ">
+                </li>
                 {% else %}
-                <a href="{% url 'giris-yap' %}">
-                    <i class=" fa-solid fa-right-to-bracket"></i>
-                    <p class="d-none d-md-block">Giriş Yap</p>
-                </a>
+                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
-            </li>
-        </ul>
-    </aside>
+                <li><a href="{% url 'anasayfa' %}"><i class=" fa-solid fa-house-user"></i><p class="d-none d-md-block">Anasayfa</p></a></li>
+                <li><a href="{% url 'kisiler' %}"><i class=" fa-solid fa-headset"></i><p class="d-none d-md-block">Oyuncular</p></a></li>
+                <li>
+                    <a href="{% url 'nasil-katilabilirim' %}">
+                        <i class=" fa-solid fa-question"></i>
+                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'haberler' %}">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <p class="d-none d-md-block">Haberler</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'formlar' %}">
+                        <i class=" fa-solid fa-square-poll-vertical"></i>
+                        <p class="d-none d-md-block">Formlar</p>
+                    </a>
+                </li>{% if user.is_superuser and user.is_authenticated %}
+                <li>
+                    <a href="{% url 'kayit-onay' %}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p class="d-none d-md-block">Kayıt Onay</p>
+                    </a>
+                </li>{% endif %} {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'ayarlar' %}">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="d-none d-md-block">Ayarlar</p>
+                    </a>
+                </li>
+
+                {% endif %}
+                <li>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'cikis-yap' %}">
+                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                        <p class="d-none d-md-block"> Çıkış Yap</p>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'giris-yap' %}">
+                        <i class=" fa-solid fa-right-to-bracket"></i>
+                        <p class="d-none d-md-block">Giriş Yap</p>
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </aside>
+
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
@@ -90,24 +99,35 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-        <ul>
-            <p class="text-center h5">Haberler</p>
-            <hr> {% for haber in haberler %}
-            <li>
+            <ul>
+                <p class="text-center h5">Haberler</p>
+                <hr> {% for haber in haberler %}
+                <li>
 
-                <table>
-                    <tr>
-                        <td>
-                            {% if haber.resim %}
-                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
+                    <table>
+                        <tr>
+                            <td>
+                                {% if haber.resim %}
+                                <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                {% endfor %}
+            </ul>
     </aside>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"').popover({
+                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation:true,
+                placement :"top",
 
+            });
+        })
+    </script>
+</body>
+</html>
 
     {% endblock content %}

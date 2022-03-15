@@ -63,5 +63,14 @@
     <h4 class="pt-5 col-6 offset-3">Parola sıfırlama tamamlandı. <br> <br> Parolanız ayarlandı. Şimdi devam edebilir ve oturum açabilirsiniz.</h4>
     <a href="{% url 'giris-yap' %}" class="btn btn-outline-dark mt-5 center">Giriş Yap</a>
 </main>
+<script>
+    $(document).ready(function(){
+            $('[data-toggle="popover"').popover({
+                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation:true,
+                placement :"top",
 
+            });
+        })
+</script>
 {% endblock content%}

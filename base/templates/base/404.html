@@ -16,7 +16,17 @@
         <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a></li>
+                <li>
+                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
+                    {% if durum.onaydurum == 'Kabul Et' %}
+                    Onaylandın
+                    {% elif durum.onaydurum == 'Bekle' %}
+                    Beklemedesin
+                    {% elif durum.onaydurum == 'Reddet' %}
+                    Reddedildin
+                    {% elif durum.onaydurum == 'Cevapsız' %}
+                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9 ">
+                </li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
                 {% endif %}
@@ -69,12 +79,12 @@
                 </li>
             </ul>
         </aside>
-        <main class="col-11 col-lg-10 offset-1">
+        <main class="col-11 col-lg-10">
             {% for message in messages %}
-            <div class="message">{{message}}</div>
+            <div class="anasayfa-message">{{message}}</div>
             {% endfor %}
-            <div class="main-wrapper-home">
-                <div id="particles-js" class="h-100 ">
+            <div class="one-container">
+                <div id="particles-js" style="height: 100vh;">
                     <svg width="279" height="140" id="fifava" viewBox="0 0 279 140" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="path-1-outside-1_2_7" maskUnits="userSpaceOnUse" x="0.91983" y="0.975006" width="278" height="139" fill="black">
 <rect fill="white" x="0.91983" y="0.975006" width="278" height="139"/>
@@ -106,11 +116,7 @@
 <path d="M238.299 137C238.082 137 237.974 136.892 237.974 136.675L238.104 92.02C238.104 91.8467 238.19 91.76 238.364 91.76L250.519 91.695C252.902 91.6517 255.069 92.215 257.019 93.385C259.012 94.555 260.594 96.1367 261.764 98.13C262.934 100.08 263.519 102.247 263.519 104.63V123.285C263.519 125.798 262.912 128.095 261.699 130.175C260.485 132.212 258.86 133.837 256.824 135.05C254.787 136.263 252.49 136.892 249.934 136.935L238.299 137ZM245.904 129.005H249.934C251.537 129.005 252.88 128.442 253.964 127.315C255.09 126.188 255.654 124.845 255.654 123.285V104.565C255.654 103.178 255.134 101.987 254.094 100.99C253.097 99.95 251.905 99.4517 250.519 99.495L245.969 99.56L245.904 129.005Z" stroke="white" stroke-width="4" mask="url(#path-1-outside-1_2_7)"/>
 <path d="M268.958 137C268.741 137 268.633 136.892 268.633 136.675L268.698 92.02C268.698 91.8467 268.784 91.76 268.958 91.76H276.238C276.411 91.76 276.498 91.8467 276.498 92.02L276.563 136.675C276.563 136.892 276.476 137 276.303 137H268.958Z" stroke="white" stroke-width="4" mask="url(#path-1-outside-1_2_7)"/>
                     </svg>
-                    <a href="{% url 'anasayfa' %}">
-                        <h4 id="kesfet" class="kesfet btn btn-outline-primary btn-sm text-center col-2 offset-5">Anasayfa</h4>
-                    </a>
                 </div>
-
             </div>
         </main>
 
@@ -151,6 +157,14 @@
             direction: 'alternate',
             loop: true
         });
+        $(document).ready(function(){
+            $('[data-toggle="popover"').popover({
+                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation:true,
+                placement :"top",
+
+            });
+        })
     </script>
 
     <script src="{% static 'js/particles.js' %}"></script>

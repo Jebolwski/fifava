@@ -7,7 +7,15 @@
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
+                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
+                    {% if durum.onaydurum == 'Kabul Et' %}
+                    Onaylandın
+                    {% elif durum.onaydurum == 'Bekle' %}
+                    Beklemedesin
+                    {% elif durum.onaydurum == 'Reddet' %}
+                    Reddedildin
+                    {% elif durum.onaydurum == 'Cevapsız' %}
+                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9 ">
                 </li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
@@ -61,6 +69,7 @@
                 </li>
             </ul>
         </aside>
+
     <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
@@ -234,25 +243,34 @@
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-        <ul>
-            <p class="text-center h5">Haberler</p>
-            <hr> {% for haber in haberler %}
-            <li>
+            <ul>
+                <p class="text-center h5">Haberler</p>
+                <hr> {% for haber in haberler %}
+                <li>
 
-                <table>
-                    <tr>
-                        <td>
-                            {% if haber.resim %}
-                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
-    </aside>
+                    <table>
+                        <tr>
+                            <td>
+                                {% if haber.resim %}
+                                <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
 
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"').popover({
+                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation:true,
+                placement :"top",
 
+            });
+        })
+    </script>
 
     {% endblock content %}

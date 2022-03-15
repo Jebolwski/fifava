@@ -30,5 +30,15 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(document).ready(function () {
+        $('[data-toggle="popover"').popover({
+          content:
+            "Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+          animation: true,
+          placement: "top",
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 ﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <title>Anasayfa | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -23,7 +24,15 @@
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></a>
+                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
+                    {% if durum.onaydurum == 'Kabul Et' %}
+                    Onaylandın
+                    {% elif durum.onaydurum == 'Bekle' %}
+                    Beklemedesin
+                    {% elif durum.onaydurum == 'Reddet' %}
+                    Reddedildin
+                    {% elif durum.onaydurum == 'Cevapsız' %}
+                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9 ">
                 </li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
@@ -78,9 +87,10 @@
             </ul>
         </aside>
 
+
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}
-            <div class="message">{{message}}</div>
+            <div class="anasayfa-message">{{message}}</div>
             {% endfor %}
             <div class="one-container">
                 <div id="particles-js" style="height: 100vh;">
@@ -164,14 +174,14 @@
 </filter>
 </defs>
                     </svg>
-                    <h4 id="kesfet" class="kesfet btn btn-outline-primary btn-sm text-center col-2 offset-5" onclick="kesfet_kay()">Keşfet</h4>
+                    <h4 id="kesfet" class="kesfet btn btn-outline-light  btn-sm text-center col-2 offset-5" onclick="kesfet_kay()">Keşfet</h4>
                 </div>
             </div>
-            <div id="kesfet-sayfa" style="min-height: 100vh;width: 100vw;background-image: url('../../static/images/background.jpg');background-size: 100vw 100%;">
+            <div class="kesfet-sayfa" style="min-height: 100vh;width: 100vw;background-image: url('../../static/images/background.jpg');background-size: 100vw 100%;">
                 <div>
                     <div class="card-group pt-5 col-10 col-lg-7 offset-1 offset-lg-2">
 
-                        <div class="card col-8 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             <h4 class="card-title text-center text-white">Biz Kimiz ?</h4>
                             <img class="card-img-top rounded" src="{% static 'images/maymun1.png' %}" style="height: 40vh;width: 100%;">
                             <hr>
@@ -182,12 +192,12 @@
                         </div>
 
 
-                        <div class="card col-8 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             <h4 class="card-title text-center text-white">Tarihçe</h4>
                             <img class="card-img-top rounded" src="{% static 'images/maymun2.png' %}" style="height: 40vh;width: 100%;">
                             <hr>
                             <div class="card-footer text-center">
-                                <p class="card-text text-center text-white">FIFAVOX 2022 yılında hayate geçmiş yenilikçi bir kuruluştur.</p>
+                                <p class="card-text text-center text-white">FIFAVOX 2022 yılında hayata geçmiş yenilikçi, dinamik bir kuruluştur.</p>
                             </div>
                             <a class="btn btn-outline-light btn-sm" href="{% url 'nasil-katilabilirim' %}" target="_blank">Dünyamıza Katılın</a>
                         </div>
@@ -241,6 +251,14 @@
             direction: 'alternate',
             loop: false
         });
+        $(document).ready(function(){
+            $('[data-toggle="popover"').popover({
+                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation:true,
+                placement :"top",
+
+            });
+        })
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     <script src="{% static 'js/app.js' %}"></script>
