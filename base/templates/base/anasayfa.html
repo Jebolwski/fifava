@@ -1,5 +1,4 @@
 ﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
-<link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <title>Anasayfa | FIFAVOX</title>
@@ -177,7 +176,7 @@
                     <h4 id="kesfet" class="kesfet btn btn-outline-light  btn-sm text-center col-2 offset-5" onclick="kesfet_kay()">Keşfet</h4>
                 </div>
             </div>
-            <div class="kesfet-sayfa" style="min-height: 100vh;width: 100vw;background-image: url('../../static/images/background.jpg');background-size: 100vw 100%;">
+            <div class="kesfet-sayfa">
                 <div>
                     <div class="card-group pt-5 col-10 col-lg-7 offset-1 offset-lg-2">
 
@@ -201,9 +200,10 @@
                             </div>
                             <a class="btn btn-outline-light btn-sm" href="{% url 'nasil-katilabilirim' %}" target="_blank">Dünyamıza Katılın</a>
                         </div>
-
                     </div>
                 </div>
+                <br>
+
             </div>
         </main>
 

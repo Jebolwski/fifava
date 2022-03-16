@@ -1,3 +1,21 @@
+::-webkit-scrollbar-thumb {
+  background: #d2b568;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8a05e;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dadada;
+  -webkit-box-shadow: inset 0 0 5px #555555;
+          box-shadow: inset 0 0 5px #555555;
+}
+
 * {
   scroll-behavior: smooth;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -159,6 +177,13 @@ main .one-container {
   height: 100vh;
 }
 
+main .kesfet-sayfa {
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url("../images/background.jpg");
+  background-size: 100vw 100%;
+}
+
 main .home-main {
   height: 200vh;
   background-color: red;
@@ -199,10 +224,6 @@ main #particles-js #kesfet:hover {
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-}
-
-main #particles-js .kesfet-sayfa {
-  background-size: 100vw 100%;
 }
 
 main table a {
@@ -538,8 +559,19 @@ main .nasil-katilabilirim {
   .side-navbar ul li a {
     font-size: 16px;
   }
+  main .one-container {
+    background-color: red;
+    background-image: url("../images/fifavoxphone.jpg");
+    background-size: 100vw 100vh;
+  }
   main form img {
     width: 50vw;
+  }
+  main .kesfet-sayfa {
+    min-height: 100vh;
+    width: 100vw;
+    background-image: url("../images/fifavoxphone2.jpg");
+    background-size: 100vw 100%;
   }
 }
 

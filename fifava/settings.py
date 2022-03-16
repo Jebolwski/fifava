@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%0$s52dr2w=5jq=fui1xhrnwo__kk#w*x2dvl*j9q*k1q(edh$"
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["fifavox.com","www.fifavox.com","35.158.208.19","172.31.36.165","127.0.0.1"]
 
