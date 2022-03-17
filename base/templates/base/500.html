@@ -129,14 +129,14 @@
             direction: 'alternate',
             loop: true
         });
-        $(document).ready(function(){
-            $('[data-toggle="popover"').popover({
-                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation:true,
-                placement :"top",
-
-            });
-        })
+        $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content:
+        "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+      animation: true,
+      placement: "top",
+    });
+  });
     </script>
 
     <script src="{% static 'js/particles.js' %}"></script>

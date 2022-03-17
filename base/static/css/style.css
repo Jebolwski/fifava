@@ -16,6 +16,10 @@
           box-shadow: inset 0 0 5px #555555;
 }
 
+.form-control:focus {
+  background-color: rgba(143, 143, 143, 0.35);
+}
+
 * {
   scroll-behavior: smooth;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -84,7 +88,7 @@ body .home .haberler {
 body .loading {
   height: 100vh;
   width: 100vw;
-  background-color: #444127;
+  background-color: rgba(78, 78, 78, 0.35);
   z-index: 1000;
   position: fixed;
   display: -ms-grid;
@@ -108,18 +112,6 @@ body .loading img {
           animation-iteration-count: infinite;
   width: 20vw;
   min-width: 150px;
-}
-
-body .first {
-  width: 100vw;
-  height: 100vh;
-  background-image: url("../images/background2.jpg");
-}
-
-body .second {
-  width: 100vw;
-  height: 100vh;
-  background-color: red;
 }
 
 .side-navbar {
@@ -184,9 +176,28 @@ main .kesfet-sayfa {
   background-size: 100vw 100%;
 }
 
+main .iletisim-sayfa {
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
+  background-image: url("../images/iletisim.png");
+  background-size: 100vw 100%;
+}
+
+main .iletisim-sayfa input {
+  background-color: rgba(128, 128, 128, 0.35);
+}
+
+main .iletisim-sayfa .form-control {
+  color: white;
+}
+
+main .iletisim-sayfa textarea {
+  background-color: rgba(78, 78, 78, 0.35);
+}
+
 main .home-main {
   height: 200vh;
-  background-color: red;
 }
 
 main i {
@@ -403,19 +414,19 @@ main .nasil-katilabilirim {
 
 @-webkit-keyframes h-right {
   from {
-    margin-left: 110vw;
+    right: -474px;
   }
   to {
-    margin-left: 91.66vw;
+    right: 0;
   }
 }
 
 @keyframes h-right {
   from {
-    margin-left: 110vw;
+    right: -474px;
   }
   to {
-    margin-left: 91.66vw;
+    right: 0;
   }
 }
 
@@ -560,7 +571,6 @@ main .nasil-katilabilirim {
     font-size: 16px;
   }
   main .one-container {
-    background-color: red;
     background-image: url("../images/fifavoxphone.jpg");
     background-size: 100vw 100vh;
   }
@@ -572,6 +582,9 @@ main .nasil-katilabilirim {
     width: 100vw;
     background-image: url("../images/fifavoxphone2.jpg");
     background-size: 100vw 100%;
+  }
+  main .iletisim-sayfa {
+    background-image: url("../images/iletisimphone.jpg");
   }
 }
 

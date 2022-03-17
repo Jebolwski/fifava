@@ -83,3 +83,18 @@ class SorularForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for fields in self.fields:
             self.fields[fields].widget.attrs.update({'class':'form-control col-4','rows':'3'})
+
+
+class IletisimForm(forms.ModelForm):
+    ad_soyad=forms.CharField(max_length=250, widget=forms.TextInput(
+        attrs={'class': 'form-control col-8'}))
+    baslik=forms.CharField(max_length=40, widget=forms.TextInput(
+        attrs={'class': 'form-control col-8'}))
+    aciklama=forms.CharField(max_length=250, widget=forms.TextInput(
+        attrs={'class': 'form-control col-8'}))
+    
+    class Meta:
+        model = Iletisim
+        fields='__all__'
+
+

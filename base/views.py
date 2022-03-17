@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
 
-from .forms import CevapForm, OnayForm, OyuncuForm,SorularForm,KayitForm,HaberForm
+from .forms import CevapForm, OnayForm, OyuncuForm,SorularForm,KayitForm,HaberForm,IletisimForm
 
 from django.core.paginator import Paginator
 
@@ -87,11 +87,21 @@ def KayitOl(request):
 
 def Ev(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = IletisimForm()
+    if request.method=='POST':
+        Iletisim.objects.create(
+        baslik=request.POST['baslik'],
+        ad_soyad = request.POST['ad_soyad'],
+        aciklama=request.POST['aciklama'],
+        dosya = request.FILES.get('file'),
+        )
+        messages.success(request,"Bilgiler başarıyla kaydedildi.")
+        return redirect("anasayfa")
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler}
+        context={'durum':durum,'haberler':haberler,'form':form}
     else:
-        context={'haberler':haberler}
+        context={'haberler':haberler,'form':form}
     return render(request,"base/anasayfa.html",context)
 
 

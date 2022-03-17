@@ -5,11 +5,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
-<style>
-    body {
-        overflow-y: scroll;
-    }
-</style>
 
 <body>
     <div class="loading col-12">
@@ -23,7 +18,7 @@
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
                 <li>
-                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
+                    <img src="{% static 'images/logo.png' %}" data-toggle="popover" title="
                     {% if durum.onaydurum == 'Kabul Et' %}
                     Onaylandın
                     {% elif durum.onaydurum == 'Bekle' %}
@@ -205,6 +200,31 @@
                 <br>
 
             </div>
+            <div class="iletisim-sayfa">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="col-11 col-lg-10 offset-1 pt-5">
+                        <div class="col-8 col-md-6 offset-2 offset-md-3">
+                            <h3 class="text-center text-white pb-3">Bizimle İletişime Geçin</h3>
+                            <h5 class="pt-5 text-center text-white">Ad Soyad</h5>
+                            <br>
+                            <input type="text" class="form-control" name="ad_soyad">
+                            <h5 class="mt-5 text-center text-white">Başlık</h5>
+                            <br>
+                            <input type="text" name="baslik" class="form-control">
+                            <h5 class="mt-5 text-center text-white">Açıklama</h5>
+                            <br>
+                            <textarea name="aciklama" class="form-control" rows="4"></textarea>
+
+                            <br>
+                            <h5 class="mt-5 text-center text-white mb-3">Dosya</h5>
+                            <input type="file" id="file" name="file" class="form-control" />
+                            <input type="submit" value="İlet" class="btn text-white center border mt-5 mb-5">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </main>
 
         <aside class="haberler col-1 offset-11 d-none d-lg-block">
@@ -251,14 +271,13 @@
             direction: 'alternate',
             loop: false
         });
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('[data-toggle="popover"').popover({
-                content:"Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation:true,
-                placement :"top",
-
+                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation: true,
+                placement: "top",
             });
-        })
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     <script src="{% static 'js/app.js' %}"></script>
