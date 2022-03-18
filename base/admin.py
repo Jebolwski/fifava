@@ -8,6 +8,7 @@ class Person(admin.ModelAdmin):
     search_fields = ('oyun_ad_soyad', 'meslek')
 
 
+admin.site.register(Iletisim_cevap)
 admin.site.register(Iletisim)
 admin.site.register(Haberler)
 admin.site.register(Cevaplar)

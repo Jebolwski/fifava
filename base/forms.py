@@ -95,6 +95,6 @@ class IletisimForm(forms.ModelForm):
     
     class Meta:
         model = Iletisim
-        fields='__all__'
+        fields=['ad_soyad','baslik','aciklama','dosya']
 
 

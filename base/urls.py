@@ -67,6 +67,8 @@ urlpatterns = [
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 
+     #!İLETİŞİM
+    path("gelen-kutusu-cevaplama/<int:iletisim_id>",views.GelenKutusuCevaplama,name="gelen-kutusu-cevaplama"),
 
     #!ŞİFRE İŞLEMLERİ
     path('sifre-sifirla/', authview.PasswordChangeView.as_view(template_name="base/password/passwordreset.html"),

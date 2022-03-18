@@ -88,20 +88,25 @@ def KayitOl(request):
 def Ev(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = IletisimForm()
+    cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
     if request.method=='POST':
-        Iletisim.objects.create(
-        baslik=request.POST['baslik'],
-        ad_soyad = request.POST['ad_soyad'],
-        aciklama=request.POST['aciklama'],
-        dosya = request.FILES.get('file'),
-        )
+        form = IletisimForm(request.POST)
+        if request.user.is_authenticated:    
+            form.instance.user = request.user
+        if request.FILES:
+            form.instance.dosya = request.FILES.get('file')
+        
+
+        if form.is_valid():
+            form.save()
+
         messages.success(request,"Bilgiler başarıyla kaydedildi.")
         return redirect("anasayfa")
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'form':form}
+        context={'durum':durum,'haberler':haberler,'form':form,'cevaplar':cevaplar}
     else:
-        context={'haberler':haberler,'form':form}
+        context={'haberler':haberler,'form':form,'cevaplar':cevaplar}
     return render(request,"base/anasayfa.html",context)
 
 
@@ -885,3 +890,16 @@ def Ayarlar(request):
 
 def KayitOnbilgi(request):
     return render(request,"base/kayit-onbilgi.html")
+
+def GelenKutusuCevaplama(request,iletisim_id):
+    iletisim= Iletisim.objects.get(id=iletisim_id)
+    if request.method=='POST':
+        Iletisim_cevap.objects.create(
+            user=User.objects.get(id=iletisim.user.id),
+            cevap=request.POST['cevap'],
+            iletisim=iletisim,
+        )
+        messages.success(request,"Cevabınız kaydedildi.")
+        return redirect("anasayfa")
+    context={'iletisim':iletisim}
+    return render(request,"base/gelen-kutusu-cevaplama.html",context)

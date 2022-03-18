@@ -1,4 +1,5 @@
-﻿from django.db import models
+﻿from tkinter.tix import Tree
+from django.db import models
 from django.contrib.auth.models import User
 
 
@@ -135,13 +136,23 @@ class Cevaplar(models.Model):
 
 
 class Iletisim(models.Model):
-    ad_soyad = models.CharField(max_length=100)
-    baslik = models.CharField(max_length=100)
-    aciklama = models.TextField(max_length=1000)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    ad_soyad = models.CharField(max_length=100,null=False,blank=False)
+    baslik = models.CharField(max_length=100,null=False,blank=False)
+    aciklama = models.TextField(max_length=1000,null=True,blank=True)
     dosya = models.ImageField(upload_to="iletisim",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+
+    def __str__(self):
+        return str(self.baslik)
+
 class Iletisim_cevap(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    iletisim = models.ForeignKey(Iletisim,on_delete=models.CASCADE,null=True,blank=True)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     cevap = models.TextField(max_length=600)
 
+    def __str__(self):
+        return str(self.user)

@@ -166,7 +166,7 @@
 </filter>
 </defs>
                     </svg>
-                    <h4 id="kesfet" class="kesfet btn btn-outline-light  btn-sm text-center col-2 offset-5" onclick="kesfet_kay()">Keşfet</h4>
+                    <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" onclick="kesfet_kay()">Keşfet</h4>
                 </div>
             </div>
             <div class="kesfet-sayfa">
@@ -201,19 +201,18 @@
             <div class="iletisim-sayfa">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
                     <div class="col-11 col-lg-10 offset-1 pt-5">
                         <div class="col-8 col-md-6 offset-2 offset-md-3">
                             <h3 class="text-center text-white pb-3">Bizimle İletişime Geçin</h3>
                             <h5 class="pt-5 text-center text-white">Ad Soyad</h5>
                             <br>
-                            <input type="text" class="form-control" name="ad_soyad">
+                            <input type="text" class="form-control" required name="ad_soyad" maxlength="100">
                             <h5 class="mt-5 text-center text-white">Başlık</h5>
                             <br>
-                            <input type="text" name="baslik" class="form-control">
+                            <input type="text" class="form-control" required name="baslik" maxlength="100">
                             <h5 class="mt-5 text-center text-white">Açıklama</h5>
                             <br>
-                            <textarea name="aciklama" class="form-control" rows="4"></textarea>
+                            <textarea name="aciklama" class="form-control" maxlength="1000" rows="4"></textarea>
 
                             <br>
                             <h5 class="mt-5 text-center text-white mb-3">Dosya</h5>
@@ -223,6 +222,56 @@
                     </div>
                 </form>
             </div>
+            {% if user.is_superuser %}
+            <div class="iletisim-cevaplari">
+                {% if cevaplar %}
+                <h4 class="text-center pt-5 text-white">Gelen Kutusu</h4>
+                {% endif %}
+                <div class="pt-5">
+                    {% if cevaplar %}
+                    <table class="table table-striped table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th class="d-none d-lg-table-cell"></th>
+                                <th></th>
+                                <th class="d-none d-lg-table-cell"></th>
+                                <th>Gönderen</th>
+                                <th class="aciklama">Ad Soyad</th>
+                                <th>Başlık</th>
+                                <th class="d-none d-lg-table-cell">Açıklama</th>
+                                <th class="d-none d-lg-table-cell">Tarih</th>
+                                <th>Cevapla</th>
+                                <th class="d-none d-lg-table-cell"></th>
+                                <th class="d-none d-lg-table-cell"></th>
+                                <th class="d-none d-lg-table-cell"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cevap in cevaplar %}
+                            <tr>
+                                <td class="d-none d-lg-table-cell"></td>
+                                <td></td>
+                                <td class="d-none d-lg-table-cell"></td>
+                                <td class="text-white">{% if cevap.user %} {{cevap.user}} {% else %} Kayıtsız Kullanıcı {% endif %}
+                                </td>
+                                <td class="text-white">{{cevap.ad_soyad}}</td>
+                                <td class="text-white">{{cevap.baslik}}</td>
+                                <td class="aciklama text-white d-none d-lg-table-cell">{{cevap.aciklama}}</td>
+                                <td class="text-white d-none d-lg-table-cell">{{cevap.guncellenme_tarihi}}</td>
+                                <td class="text-white"><a href="{% url 'gelen-kutusu-cevaplama' cevap.id %}"><i class="fa-solid fa-reply text-light"></i></a></td>
+                                <td class="d-none d-lg-table-cell"></td>
+                                <td class="d-none d-lg-table-cell"></td>
+                                <td class="d-none d-lg-table-cell"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h3 class="text-center pt-5 text-white">Gelen Kutusu Boş...</h3>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </main>
 
         <aside class="haberler col-1 offset-11 d-none d-lg-block">
