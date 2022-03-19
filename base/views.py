@@ -66,6 +66,8 @@ def CikisYap(request):
 
 
 def KayitOl(request):
+    if request.user.is_authenticated:
+        return redirect("anasayfa")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = KayitForm()
     if request.method == 'POST':
@@ -89,6 +91,7 @@ def Ev(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = IletisimForm()
     cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+    cevaplara_cevap = Iletisim_cevap.objects.all().filter(user_id = request.user.id) 
     if request.method=='POST':
         form = IletisimForm(request.POST)
         if request.user.is_authenticated:    
@@ -104,10 +107,22 @@ def Ev(request):
         return redirect("anasayfa")
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'form':form,'cevaplar':cevaplar}
+        context={'durum':durum,'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
     else:
-        context={'haberler':haberler,'form':form,'cevaplar':cevaplar}
+        context={'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
     return render(request,"base/anasayfa.html",context)
+
+
+def CevabaCevap(request,pk):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
+    soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context={'durum':durum,'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
+    else:
+        context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
+    return render(request,"base/cevaba-cevap.html",context)
 
 
 def NasilKatilabilirim(request):

@@ -69,7 +69,7 @@ urlpatterns = [
 
      #!İLETİŞİM
     path("gelen-kutusu-cevaplama/<int:iletisim_id>",views.GelenKutusuCevaplama,name="gelen-kutusu-cevaplama"),
-
+    path("cevap/<int:pk>",views.CevabaCevap,name="cevaba-cevap"),
     #!ŞİFRE İŞLEMLERİ
     path('sifre-sifirla/', authview.PasswordChangeView.as_view(template_name="base/password/passwordreset.html"),
          name="change_password"),
