@@ -184,6 +184,44 @@ main .iletisim-sayfa .form-control:focus {
   background-color: rgba(143, 143, 143, 0.35);
 }
 
+main .iletisim-sayfa h4 {
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+main .iletisim-sayfa h4:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+main .iletisim-sayfa h5 a {
+  color: white;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+main .iletisim-sayfa h5 a:hover {
+  color: #d897ad;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
+main .iletisim-sayfa h5 a i {
+  color: #d897ad;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
+main .iletisim-sayfa h5 a i:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  color: #afafaf;
+}
+
 main .iletisim-sayfa input {
   background-color: rgba(128, 128, 128, 0.35);
 }
@@ -238,14 +276,6 @@ main .iletisim-cevaplara-cevaplari table td {
 
 main .iletisim-cevaplara-cevaplari table tbody tr > td {
   color: white;
-}
-
-main .medya-adresleri {
-  min-height: 100vh;
-  height: 100vh;
-  width: 100vw;
-  background-image: url("../images/medya-adresleri.jpg");
-  background-size: 100vw 100%;
 }
 
 main .home-main {
