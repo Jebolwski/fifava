@@ -9,6 +9,7 @@ class Person(admin.ModelAdmin):
 
 
 admin.site.register(Iletisim_cevap)
+admin.site.register(ProfilFoto)
 admin.site.register(Iletisim)
 admin.site.register(Haberler)
 admin.site.register(Cevaplar)

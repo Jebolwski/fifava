@@ -17,6 +17,7 @@ urlpatterns = [
 
     #!PROFİL
     path("profil/<slug:my_slug>/",views.Profil,name="profil"),
+    
 
 
     #!AYARLAR
@@ -30,6 +31,9 @@ urlpatterns = [
     #!EMAİL DEGİSTİR
     path("email-degistir/",views.EmailDegistir,name="email-degistir"),
 
+     #!PROFİL FOTOĞRAFI
+    path("profil-foto/<int:pk>",views.ProfilFotoView,name="profil-foto"),
+    path("profil-foto-duzenle/<int:pk>/",views.ProfilFotoDuzenle,name="profil-foto-duzenle"),
 
     #!KAYIT FORMU İŞLEMLERİ
     path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
@@ -47,12 +51,14 @@ urlpatterns = [
     path("oyuncu-duzenle/<slug:my_slug>", views.KisiDuzenle, name="kisi-duzenle"),
     path("oyuncu-sil/<slug:my_slug>", views.KisiSil, name="kisi-sil"),
 
+
     #!HABERLER
     path("haberler/", views.Haberlerim, name="haberler"),
     path("haber-ekle/", views.HaberEkle, name="haber-ekle"),
     path("haber/<slug:my_slug>/", views.HaberDetay, name="haber-detay"),
     path("haber-duzenle/<slug:my_slug>/", views.HaberDuzenle, name="haber-duzenle"),
     path("haber-sil/<slug:my_slug>/", views.HaberSil, name="haber-sil"),
+
 
     #!FORMLAR
     path("formlar/", views.Formlar, name="formlar"),
@@ -67,13 +73,15 @@ urlpatterns = [
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
     path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 
+
      #!İLETİŞİM
     path("gelen-kutusu-cevaplama/<int:iletisim_id>",views.GelenKutusuCevaplama,name="gelen-kutusu-cevaplama"),
     path("cevap/<int:pk>",views.CevabaCevap,name="cevaba-cevap"),
+    
+    
     #!ŞİFRE İŞLEMLERİ
     path('sifre-sifirla/', authview.PasswordChangeView.as_view(template_name="base/password/passwordreset.html"),
          name="change_password"),
-    
     path('sifre-sifirla-bitti/', authview.PasswordChangeDoneView.as_view(template_name="base/password/passwordresetdone1.html"),
          name="password_change_done"),
     path('sifre-sifirla-gonderildi/',

@@ -7,15 +7,7 @@
             <ul class="p-0 text-center">
                 {% if user.is_authenticated %}
                 <li>
-                    <img src="{% static 'images/logo.png' %}" data-toggle="popover"  title="
-                    {% if durum.onaydurum == 'Kabul Et' %}
-                    Onaylandın
-                    {% elif durum.onaydurum == 'Bekle' %}
-                    Beklemedesin
-                    {% elif durum.onaydurum == 'Reddet' %}
-                    Reddedildin
-                    {% elif durum.onaydurum == 'Cevapsız' %}
-                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9 ">
+                    <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
                 </li>
                 {% else %}
                 <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
@@ -208,14 +200,7 @@
             </ul>
         </aside>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script>
-        $(document).ready(function () {
-    $('[data-toggle="popover"').popover({
-      content:
-        "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-      animation: true,
-      placement: "top",
-    });
-  });
+       
     </script>
 
 

@@ -351,6 +351,52 @@ main {
     animation-name: sidenavbarhiddentitle;
     animation-duration: 2s;
   }
+  .profil-background {
+    height: 25vh;
+    width: 83.31vw;
+    position: relative;
+    z-index: 1;
+    img {
+      position: relative;
+      z-index: 0;
+      margin-top: 0;
+    }
+  }
+  .profil-rest {
+    position: relative;
+    z-index: 3;
+    height: 75vh;
+    border-top: 3px solid rgb(114, 108, 53);
+    background-color: white;
+  }
+  .profil-foto {
+    position: relative;
+    width: 12vw;
+    height: 22vh;
+    margin-left: 7vw;
+    top: -10vh;
+    border-radius: 49%;
+    outline: 3px solid rgb(114, 108, 53);
+  }
+  .biyografi {
+    .profil-biyografi {
+      position: relative;
+      top: -12vh;
+      left: -2vw;
+    }
+    .profil-katilma {
+      position: relative;
+      top: -11vh;
+      left: 5vw;
+    }
+    .top {
+      position: relative;
+      top: -18vh;
+    }
+    .profil-edit {
+      padding-left: 42vw;
+    }
+  }
 }
 
 .haberler {
@@ -474,6 +520,9 @@ main {
         }
       }
     }
+    .profil-background {
+      width: 91.67vw;
+    }
   }
 }
 
@@ -487,6 +536,33 @@ main {
     #particles-js {
       #fifava {
         height: 11vh;
+      }
+    }
+    .biyografi {
+      .profil-username {
+        font-size: 17px;
+      }
+      .profil-biyografi {
+        font-size: 15px;
+      }
+    }
+    .profil-foto {
+      width: 14vw;
+      height: 15vh;
+      top: -5vh;
+    }
+    .top {
+      margin-top: 8vh;
+    }
+    .biyografi {
+      .profil-biyografi {
+        position: relative;
+        top: -14vh;
+        left: -2vw;
+      }
+      .profil-katilma {
+        position: relative;
+        top: -30vh;
       }
     }
   }

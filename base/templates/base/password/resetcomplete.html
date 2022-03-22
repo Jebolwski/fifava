@@ -64,13 +64,6 @@
     <a href="{% url 'giris-yap' %}" class="btn btn-outline-dark mt-5 center">Giriş Yap</a>
 </main>
 <script>
-    $(document).ready(function () {
-    $('[data-toggle="popover"').popover({
-      content:
-        "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-      animation: true,
-      placement: "top",
-    });
-  });
+   
 </script>
 {% endblock content%}

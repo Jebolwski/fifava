@@ -3,8 +3,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
-
-from .forms import CevapForm, OnayForm, OyuncuForm,SorularForm,KayitForm,HaberForm,IletisimForm
+from .forms import CevapForm, OnayForm, OyuncuForm, ProfilFotoForm,SorularForm,KayitForm,HaberForm,IletisimForm
 
 from django.core.paginator import Paginator
 
@@ -14,8 +13,6 @@ from .models import *
 from django.contrib import messages
 
 
-#?CLASS BASED VIEWS
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
 def Bulunamadi1(request):
@@ -105,11 +102,7 @@ def Ev(request):
 
         messages.success(request,"Bilgiler başarıyla kaydedildi.")
         return redirect("anasayfa")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
-    else:
-        context={'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
+    context={'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
     return render(request,"base/anasayfa.html",context)
 
 
@@ -117,21 +110,13 @@ def CevabaCevap(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
     soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
-    else:
-        context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
+    context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
     return render(request,"base/cevaba-cevap.html",context)
 
 
 def NasilKatilabilirim(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler}
-    else:
-        context={'haberler':haberler}
+    context={'haberler':haberler}
     return render(request,"base/nasil-katilabilirim.html",context)
 
 #?KİŞİ CRUD
@@ -142,11 +127,7 @@ def Kisiler(request):
     if request.method=="POST":
         arama = request.POST['arama']
         kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('oyun_ad_soyad')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'kisiler':kisiler,'haberler':haberler,'durum':durum}
-    else:
-        context = {'kisiler':kisiler,'haberler':haberler}
+    context = {'kisiler':kisiler,'haberler':haberler}
     return render(request,"base/kisi/kisiler.html",context)
 
 @login_required(login_url='giris-yap')
@@ -167,10 +148,7 @@ def EmailDegistir(request):
             messages.success(request,'Eski emailinizi yanlış girdiniz...')
         else:
             messages.success(request,'Bir hata oluştu.')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-    context={'durum':durum}
-    return render(request,"base/email-degistir.html")
+    return render(request,"base/ayarlar/email-degistir.html")
 
 @login_required(login_url='giris-yap')
 def KisiEkle(request):
@@ -184,9 +162,7 @@ def KisiEkle(request):
             form.save()
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
             return redirect('kisiler')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-    context = {'form':form,'haberler':haberler,'durum':durum}
+    context = {'form':form,'haberler':haberler}
     return render(request,"base/kisi/kisi-ekle.html",context)
 
 @login_required(login_url='giris-yap')
@@ -202,11 +178,7 @@ def KisiDuzenle(request,my_slug):
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla düzenlendi.")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'form':form , 'haberler':haberler,'durum':durum}
-    else:
-        context = {'form':form , 'haberler':haberler}
+    context = {'form':form , 'haberler':haberler}
 
     return render(request,"base/kisi/kisi-duzenle.html",context)
 
@@ -220,11 +192,7 @@ def KisiSil(request,my_slug):
         instance.delete()
         messages.success(request,"Oyuncu başarıyla silindi.")
         return redirect('kisiler')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {"haberler":haberler,'kisi':instance,'durum':durum}
-    else:
-        context = {"haberler":haberler,'kisi':instance}
+    context = {"haberler":haberler,'kisi':instance}
     return render(request,"base/kisi/kisi-sil.html",context)
 
 
@@ -242,11 +210,7 @@ def Haberlerim(request):
         p = Paginator(sorular,10)
         page = request.GET.get('page')
         haber = p.get_page(page)
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'haberler':haber,'haberler1':haberler1,'durum':durum}
-    else:
-        context = {'haberler':haber,'haberler1':haberler1}
+    context = {'haberler':haber,'haberler1':haberler1}
     return render(request,"base/haber/haberler.html",context)
 
 
@@ -265,22 +229,14 @@ def HaberEkle(request):
         messages.success(request,"Haber başarıyla oluşturuldu.")
         return redirect('haberler')
         context = {'form':form,'haberler':haberler}
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'form':form,'haberler':haberler,'durum':durum}
-    else:
-        context = {'form':form,'haberler':haberler}
+    context = {'form':form,'haberler':haberler}
     return render(request,"base/haber/haber-ekle.html",context)
             
 
 def HaberDetay(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     haber = Haberler.objects.get(baslik_slug=my_slug)
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'haber':haber,'haberler':haberler,'durum':durum}
-    else:
-        context = {'haber':haber,'haberler':haberler}
+    context = {'haber':haber,'haberler':haberler}
     return render(request,"base/haber/haber-detay.html",context)
 
 
@@ -300,11 +256,7 @@ def HaberDuzenle(request,my_slug):
             instance.save()
             messages.success(request,"Haber başarıyla düzenlendi.")
             return redirect("haberler")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'instance':instance,'haberler':haberler,'durum':durum}
-    else:
-        context = {'instance':instance,'haberler':haberler}
+    context = {'instance':instance,'haberler':haberler}
     return render(request,"base/haber/haber-duzenle.html",context)
 
 
@@ -316,11 +268,7 @@ def HaberSil(request,my_slug):
         haber.delete()
         messages.success(request,'Haber başarıyla silindi.')
         return redirect('haberler')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'haber':haber,'haberler':haberler,'durum':durum}
-    else:
-        context={'haber':haber,'haberler':haberler}
+    context={'haber':haber,'haberler':haberler}
 
     return render(request,"base/haber/haber-sil.html",context)
 
@@ -338,11 +286,7 @@ def Formlar(request):
         p = Paginator(sorular,10)
         page = request.GET.get('page')
         soru = p.get_page(page)
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={"formlar":soru,"cevap":cevaplananlar,'haberler':haberler,'durum':durum}
-    else:
-        context={"formlar":soru,"cevap":cevaplananlar,'haberler':haberler}
+    context={"formlar":soru,"cevap":cevaplananlar,'haberler':haberler}
     return render(request,"base/form/formlar.html",context)
 
 
@@ -360,11 +304,7 @@ def FormEkle(request):
             form.save()
             messages.success(request,"Anket başarıyla oluşturuldu.")
             return redirect("formlar")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={"form":form,'haberler':haberler,'durum':durum}
-    else:
-        context={"form":form,'haberler':haberler}
+    context={"form":form,'haberler':haberler}
     return render(request,"base/form/form-ekle.html",context)
 
 
@@ -380,11 +320,7 @@ def FormDuzenle(request,my_slug):
         if form.is_valid():
             form.save()
             return redirect("formlar")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={"form":form,'haberler':haberler,'durum':durum}
-    else:
-        context={"form":form,'haberler':haberler}
+    context={"form":form,'haberler':haberler}
 
     return render(request,"base/form/form-duzenle.html",context)
 
@@ -396,11 +332,7 @@ def FormSil(request,my_slug):
     if request.method=='POST':
         form.delete()
         return redirect("formlar")
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'form':form,'haberler':haberler,'durum':durum}
-    else:
-        context={'form':form,'haberler':haberler}
+    context={'form':form,'haberler':haberler}
 
     return render(request,"base/form/form-sil.html",context)
 
@@ -430,11 +362,7 @@ def FormCevapla(request,my_slug):
                 onaydurum.save()
             messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'form':form,'sorular':sorular,'haberler':haberler,'durum':durum}
-    else:
-        context={'form':form,'sorular':sorular,'haberler':haberler}
+    context={'form':form,'sorular':sorular,'haberler':haberler}
 
     return render(request,"base/form/form-cevapla.html",context)
 
@@ -883,24 +811,23 @@ def KayitOnayForm(request,pk):
 @login_required(login_url='giris-yap')
 def Profil(request,my_slug):
     user = User.objects.get(username = request.user.username)
+    profil = ProfilFoto.objects.get(user_id=user.id) 
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'user':user}
+        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil}
     else:
-        context={'haberler':haberler,'user':user}
+        context={'haberler':haberler,'user':user,'profil':profil}
     
     return render(request,"base/profil.html",context)  
 
 
 def Ayarlar(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'haberler':haberler,'durum':durum}
-    else:
-        context = {'haberler':haberler}
-    return render(request,"base/ayarlar.html",context)  
+    
+
+    context = {'haberler':haberler}
+    return render(request,"base/ayarlar/ayarlar.html",context)  
 
 
 def KayitOnbilgi(request):
@@ -918,3 +845,53 @@ def GelenKutusuCevaplama(request,iletisim_id):
         return redirect("anasayfa")
     context={'iletisim':iletisim}
     return render(request,"base/gelen-kutusu-cevaplama.html",context)
+
+
+def ProfilFotoView(request,pk):
+    
+    if ProfilFoto.objects.all().filter(user_id=pk):
+        return redirect("profil-foto-duzenle",ProfilFoto.objects.get(user_id=pk).user.id)
+    
+    form = ProfilFotoForm()
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['user'] = User.objects.get(id=pk)
+        form = ProfilFotoForm(data=data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            print(form)
+            messages.success(request,"Profil fotoğrafınız güncellendi.")
+            return redirect("ayarlar")
+        else:
+            print(request.POST)
+            print("Valid degil")
+
+        
+    if ProfilFoto.objects.all().filter(user_id=pk):
+        foto = ProfilFoto.objects.get(user_id=pk)
+        context = {'form':form,'foto':foto}
+    else:
+        context = {'form':form}
+    return render(request,"base/ayarlar/profil-foto.html",context)
+
+
+def ProfilFotoDuzenle(request,pk):
+    foto = ProfilFoto.objects.get(user_id=pk)
+    ins = ProfilFoto.objects.get(user_id=pk)
+    form = ProfilFotoForm(instance=ins)
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['user'] = User.objects.get(id=pk)
+        form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            print(form)
+            messages.success(request,"Profil fotoğrafınız güncellendi.")
+            return redirect("profil",slugify(request.user.username))
+        else:
+            print(request.POST)
+            print("Valid degil")
+        
+    context = {'foto':foto,'form':form}
+    return render(request,"base/ayarlar/profil-foto.html",context)
+

@@ -444,6 +444,58 @@ main .nasil-katilabilirim {
           animation-duration: 2s;
 }
 
+main .profil-background {
+  height: 25vh;
+  width: 83.31vw;
+  position: relative;
+  z-index: 1;
+}
+
+main .profil-background img {
+  position: relative;
+  z-index: 0;
+  margin-top: 0;
+}
+
+main .profil-rest {
+  position: relative;
+  z-index: 3;
+  height: 75vh;
+  border-top: 3px solid #726c35;
+  background-color: white;
+}
+
+main .profil-foto {
+  position: relative;
+  width: 12vw;
+  height: 22vh;
+  margin-left: 7vw;
+  top: -10vh;
+  border-radius: 49%;
+  outline: 3px solid #726c35;
+}
+
+main .biyografi .profil-biyografi {
+  position: relative;
+  top: -12vh;
+  left: -2vw;
+}
+
+main .biyografi .profil-katilma {
+  position: relative;
+  top: -11vh;
+  left: 5vw;
+}
+
+main .biyografi .top {
+  position: relative;
+  top: -18vh;
+}
+
+main .biyografi .profil-edit {
+  padding-left: 42vw;
+}
+
 .haberler {
   position: fixed;
   top: 0;
@@ -628,6 +680,9 @@ main .nasil-katilabilirim {
     background-color: rgba(78, 78, 78, 0.35);
     color: white;
   }
+  main .profil-background {
+    width: 91.67vw;
+  }
 }
 
 @media only screen and (max-width: 650px) {
@@ -636,6 +691,29 @@ main .nasil-katilabilirim {
   }
   main #particles-js #fifava {
     height: 11vh;
+  }
+  main .biyografi .profil-username {
+    font-size: 17px;
+  }
+  main .biyografi .profil-biyografi {
+    font-size: 15px;
+  }
+  main .profil-foto {
+    width: 14vw;
+    height: 15vh;
+    top: -5vh;
+  }
+  main .top {
+    margin-top: 8vh;
+  }
+  main .biyografi .profil-biyografi {
+    position: relative;
+    top: -14vh;
+    left: -2vw;
+  }
+  main .biyografi .profil-katilma {
+    position: relative;
+    top: -30vh;
   }
   body {
     overflow-x: hidden;

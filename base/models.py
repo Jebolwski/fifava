@@ -1,4 +1,6 @@
-﻿from django.db import models
+﻿from distutils.command.upload import upload
+from urllib import request
+from django.db import models
 from django.contrib.auth.models import User
 
 
@@ -153,5 +155,27 @@ class Iletisim_cevap(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     cevap = models.TextField(max_length=600)
 
+    def __str__(self):
+        return str(self.user)
+
+
+class ForumSoru(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    soru = models.CharField(max_length=1000,null=False,blank=False)
+
+
+class ForumSoruCevap(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    cevap = models.CharField(max_length=1000,null=False,blank=False)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+
+class ProfilFoto(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    biyografi = models.CharField(max_length=160,null=True,blank=True)
+    resim = models.ImageField(upload_to="profil_foto",null=True,blank=True)
+    arka_plan = models.ImageField(upload_to="arka_plan",null=True,blank=True)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     def __str__(self):
         return str(self.user)

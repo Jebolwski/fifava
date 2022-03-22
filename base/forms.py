@@ -97,4 +97,9 @@ class IletisimForm(forms.ModelForm):
         model = Iletisim
         fields=['ad_soyad','baslik','aciklama','dosya']
 
+class ProfilFotoForm(forms.ModelForm):
+    class Meta:
+        model = ProfilFoto
+        fields = "__all__"
+
 
