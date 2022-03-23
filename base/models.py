@@ -161,14 +161,24 @@ class Iletisim_cevap(models.Model):
 
 class ForumSoru(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    baslik = models.CharField(max_length=250,null=False,blank=False)
     soru = models.CharField(max_length=1000,null=False,blank=False)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
+    def __str__(self):
+        return str(self.baslik)
 
 class ForumSoruCevap(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    soru = models.ForeignKey(ForumSoru,on_delete=models.CASCADE,null=True,blank=True)
     cevap = models.CharField(max_length=1000,null=False,blank=False)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+
+    def __str__(self):
+        return str(self.cevap)
+
 
 class ProfilFoto(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)

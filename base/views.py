@@ -811,6 +811,7 @@ def KayitOnayForm(request,pk):
 
 @login_required(login_url='giris-yap')
 def Profil(request,my_slug):
+    
     user = User.objects.get(username = request.user.username)
     profil = ProfilFoto.objects.get(user_id=user.id) 
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
@@ -822,7 +823,7 @@ def Profil(request,my_slug):
     
     return render(request,"base/profil.html",context)  
 
-
+@login_required(login_url='giris-yap')
 def Ayarlar(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     
@@ -833,7 +834,7 @@ def Ayarlar(request):
 
 def KayitOnbilgi(request):
     return render(request,"base/kayit-onbilgi.html")
-
+@login_required(login_url='giris-yap')
 def GelenKutusuCevaplama(request,iletisim_id):
     iletisim= Iletisim.objects.get(id=iletisim_id)
     if request.method=='POST':
@@ -847,7 +848,7 @@ def GelenKutusuCevaplama(request,iletisim_id):
     context={'iletisim':iletisim}
     return render(request,"base/gelen-kutusu-cevaplama.html",context)
 
-
+@login_required(login_url='giris-yap')
 def ProfilFotoView(request,pk):
     
     if ProfilFoto.objects.all().filter(user_id=pk):
@@ -875,7 +876,7 @@ def ProfilFotoView(request,pk):
         context = {'form':form}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
-
+@login_required(login_url='giris-yap')
 def ProfilFotoDuzenle(request,pk):
     foto = ProfilFoto.objects.get(user_id=pk)
     ins = ProfilFoto.objects.get(user_id=pk)
@@ -896,3 +897,14 @@ def ProfilFotoDuzenle(request,pk):
     context = {'foto':foto,'form':form}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
+def Forumlar(request):
+    forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+    context = {'forumlar':forumlar}
+    return render(request,"base/forum/forumlar.html",context) 
+
+@login_required(login_url='giris-yap')
+def ForumCevapla(request,pk):
+    soru = ForumSoru.objects.get(id=pk)
+    forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
+    context = {'forum':forum,'soru':soru}
+    return render(request,"base/forum/forum.html",context) 

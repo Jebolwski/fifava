@@ -18,6 +18,10 @@ urlpatterns = [
     #!PROFİL
     path("profil/<slug:my_slug>/",views.Profil,name="profil"),
     
+    #!FORUMLAR
+    path("forumlar/",views.Forumlar,name="forumlar"),
+    path("forum/<int:pk>/",views.ForumCevapla,name="forum"),
+
 
 
     #!AYARLAR
@@ -31,7 +35,7 @@ urlpatterns = [
     #!EMAİL DEGİSTİR
     path("email-degistir/",views.EmailDegistir,name="email-degistir"),
 
-     #!PROFİL FOTOĞRAFI
+    #!PROFİL FOTOĞRAFI
     path("profil-foto/<int:pk>",views.ProfilFotoView,name="profil-foto"),
     path("profil-foto-duzenle/<int:pk>/",views.ProfilFotoDuzenle,name="profil-foto-duzenle"),
 
