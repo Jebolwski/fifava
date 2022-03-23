@@ -69,10 +69,15 @@
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
-        {% endfor %}
+        {% endfor %} {%if profil.arka_plan %}
         <div class="profil-background"><img class="col-12" src="{{profil.arka_plan.url}}"></div>
+        {% else %}
+        <div class="profil-background"><img class="col-12" src="https://i.pinimg.com/564x/b0/f8/89/b0f889675286fd12a30df25584f10275.jpg"></div>
+        {% endif %}
         <div class="profil-rest">
-            <img src="{{profil.resim.url}}" class="profil-foto">
+            {% if profil.resim %}
+            <img src="{{profil.resim.url}}" class="profil-foto"> {%else%}
+            <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" class="profil-foto"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -99,7 +104,11 @@
                         </li>
                     </ul>
                 </div>
+                {% if profil.biyagorafi %}
                 <h5 class="profil-biyografi offset-1 "><i class="text-black">{{profil.biyografi}}</i></h5>
+                {% else %}
+                <h5 class="profil-biyografi offset-1 "><i class="text-black">Kişi hakkında bilgi verilmemiş.</i></h5>
+                {% endif %}
                 <p class="profil-katilma d-none d-lg-block col-3">{{request.user.date_joined}} Tarihinde Katıldı</p>
             </div>
         </div>

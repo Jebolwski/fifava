@@ -72,6 +72,7 @@ def KayitOl(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Başarıyla kayıt olundu.')
+            ProfilFoto.objects.update_or_create(user=User.objects.get(username = request.POST['username']),biyografi=None,resim=None,arka_plan=None)
             OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
             return redirect('giris-yap')
         else:
