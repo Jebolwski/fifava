@@ -159,8 +159,23 @@ class Iletisim_cevap(models.Model):
         return str(self.user)
 
 
-class ForumSoru(models.Model):
+
+class ProfilFoto(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    username = models.CharField(max_length=160,null=True,blank=True)
+    username_slug = models.CharField(max_length=160,null=True,blank=True)
+    biyografi = models.CharField(max_length=160,null=True,blank=True)
+    resim = models.ImageField(upload_to="profil_foto",null=True,blank=True)
+    arka_plan = models.ImageField(upload_to="arka_plan",null=True,blank=True)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    def __str__(self):
+        return str(self.user)
+
+
+
+class ForumSoru(models.Model):
+    profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=250,null=False,blank=False)
     soru = models.CharField(max_length=1000,null=False,blank=False)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
@@ -170,7 +185,7 @@ class ForumSoru(models.Model):
         return str(self.baslik)
 
 class ForumSoruCevap(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
     soru = models.ForeignKey(ForumSoru,on_delete=models.CASCADE,null=True,blank=True)
     cevap = models.CharField(max_length=1000,null=False,blank=False)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -178,14 +193,3 @@ class ForumSoruCevap(models.Model):
 
     def __str__(self):
         return str(self.cevap)
-
-
-class ProfilFoto(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-    biyografi = models.CharField(max_length=160,null=True,blank=True)
-    resim = models.ImageField(upload_to="profil_foto",null=True,blank=True)
-    arka_plan = models.ImageField(upload_to="arka_plan",null=True,blank=True)
-    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
-    def __str__(self):
-        return str(self.user)

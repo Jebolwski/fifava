@@ -21,11 +21,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{% url 'forumlar' %}">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <p class="d-none d-md-block">Forumlar</p>
+                    </a>
+                </li>
+                <li>
                     <a href="{% url 'haberler' %}">
                         <i class="fa-solid fa-newspaper"></i>
                         <p class="d-none d-md-block">Haberler</p>
                     </a>
                 </li>
+
                 <li>
                     <a href="{% url 'formlar' %}">
                         <i class=" fa-solid fa-square-poll-vertical"></i>
@@ -60,8 +67,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
-    <!-- <main class="col-11 col-lg-10 offset-1">
+        </aside>    <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
     <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
 

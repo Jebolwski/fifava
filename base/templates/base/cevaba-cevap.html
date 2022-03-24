@@ -29,11 +29,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{% url 'forumlar' %}">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <p class="d-none d-md-block">Forumlar</p>
+                    </a>
+                </li>
+                <li>
                     <a href="{% url 'haberler' %}">
                         <i class="fa-solid fa-newspaper"></i>
                         <p class="d-none d-md-block">Haberler</p>
                     </a>
                 </li>
+
                 <li>
                     <a href="{% url 'formlar' %}">
                         <i class=" fa-solid fa-square-poll-vertical"></i>
@@ -69,7 +76,6 @@
                 </li>
             </ul>
         </aside>
-
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}

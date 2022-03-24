@@ -24,11 +24,18 @@
                 </a>
             </li>
             <li>
+                <a href="{% url 'forumlar' %}">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    <p class="d-none d-md-block">Forumlar</p>
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'haberler' %}">
                     <i class="fa-solid fa-newspaper"></i>
                     <p class="d-none d-md-block">Haberler</p>
                 </a>
             </li>
+
             <li>
                 <a href="{% url 'formlar' %}">
                     <i class=" fa-solid fa-square-poll-vertical"></i>
@@ -47,6 +54,7 @@
                     <p class="d-none d-md-block">Ayarlar</p>
                 </a>
             </li>
+
             {% endif %}
             <li>
                 {% if user.is_authenticated %}
@@ -64,19 +72,18 @@
         </ul>
     </aside>
 
-
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %} {%if profil.arka_plan %}
         <div class="profil-background"><img class="col-12" src="{{profil.arka_plan.url}}"></div>
         {% else %}
-        <div class="profil-background"><img class="col-12" src="https://i.pinimg.com/564x/b0/f8/89/b0f889675286fd12a30df25584f10275.jpg"></div>
+        <div class="profil-background"><img class="col-12" src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
         <div class="profil-rest">
             {% if profil.resim %}
             <img src="{{profil.resim.url}}" class="profil-foto"> {%else%}
-            <img src="https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png" class="profil-foto"> {% endif %}
+            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -91,7 +98,7 @@
                             {% elif durum.onaydurum == 'Cevapsız' %}
                             Onaylanmak için kayıt formunu cevaplayın.
                             {% else %}
-                            {% endif %}" data-content="Neden" class="profil-username">{{profil.user.username}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
+                            {% endif %}" data-content="Neden" class="profil-username">{{profil.username}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
                                 <i class="fa-solid fa-circle-check px-2 fa-sm" title="Kabul Edildin"></i>{% elif durum.onaydurum == "Bekle" %}
                                 <i class="fa-solid fa-circle-pause px-2 fa-sm" title="Beklemedesin"></i>{% elif durum.onaydurum == "Yasakla" %}
                                 <i class="fa-solid fa-ban" title="Yasaklandın"></i> {% elif durum.onaydurum == "Reddet" %}
@@ -99,8 +106,10 @@
                                 <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla."></i> {% endif %} {% else %} - Onaylanmak için Kayıt Formunu Doldur {% endif %}
                             </h4>
                         </li>
+                        {% if request.user.username == profil.username %}
                         <li><a href="{% url 'profil-foto' request.user.id %}" class="profil-edit"><i class="fa-solid fa-user-pen fa-lg"></i></a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
                 {% if profil.biyagorafi %}
@@ -108,7 +117,35 @@
                 {% else %}
                 <h5 class="profil-biyografi offset-1 "><i class="text-black">Kişi hakkında bilgi verilmemiş.</i></h5>
                 {% endif %}
-                <p class="profil-katilma d-none d-lg-block col-3">{{request.user.date_joined}} Tarihinde Katıldı</p>
+                <p class="profil-katilma d-none d-lg-block col-3">{{profil.user.date_joined}} Tarihinde Katıldı</p>
+            </div>
+
+            <div>
+                {% if forumlari %}
+                <h5 class="text-center py-4">Oluşturduğu Formlar</h5>
+                {% for forum in forumlari %}
+                <table class="mt-3 table table-striped table-hover text-center">
+                    <thead>
+                        <tr class="py-4">
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th class="d-none d-lg-table-cell">Tarih</th>
+                            <th>Bak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="py-4">
+                            <td>{{forum.baslik}}</td>
+                            <td class="aciklama">{{forum.soru}}</td>
+                            <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
+                            <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-pencil"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endfor %} {% else %}
+                <hr>
+                <h5 class="text-center pt-5">Bu kullanıcı hiç forum oluşturnmamaış...</h5>
+                {% endif %}
             </div>
         </div>
     </main>

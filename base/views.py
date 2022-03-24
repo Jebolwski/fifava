@@ -72,7 +72,13 @@ def KayitOl(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Başarıyla kayıt olundu.')
-            ProfilFoto.objects.update_or_create(user=User.objects.get(username = request.POST['username']),biyografi=None,resim=None,arka_plan=None)
+            ProfilFoto.objects.update_or_create(
+                user=User.objects.get(username = request.POST['username']),
+                username=request.POST['username'],
+                username_slug=slugify(request.POST['username']),
+                biyografi=None,
+                resim=None,
+                arka_plan=None)
             OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
             return redirect('giris-yap')
         else:
@@ -811,15 +817,16 @@ def KayitOnayForm(request,pk):
 
 @login_required(login_url='giris-yap')
 def Profil(request,my_slug):
-    
-    user = User.objects.get(username = request.user.username)
+    profil_user = ProfilFoto.objects.get(username_slug=my_slug)
+    user = User.objects.get(username = profil_user.username)
     profil = ProfilFoto.objects.get(user_id=user.id) 
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil}
+    forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
+    if OnayDurum.objects.all().filter(kisi_id=profil_user.id):
+        durum = OnayDurum.objects.get(kisi_id=profil_user.id)
+        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil,'forumlari':forumlari}
     else:
-        context={'haberler':haberler,'user':user,'profil':profil}
+        context={'haberler':haberler,'user':user,'profil':profil,'forumlari':forumlari}
     
     return render(request,"base/profil.html",context)  
 
@@ -834,6 +841,8 @@ def Ayarlar(request):
 
 def KayitOnbilgi(request):
     return render(request,"base/kayit-onbilgi.html")
+
+
 @login_required(login_url='giris-yap')
 def GelenKutusuCevaplama(request,iletisim_id):
     iletisim= Iletisim.objects.get(id=iletisim_id)
@@ -902,9 +911,14 @@ def Forumlar(request):
     context = {'forumlar':forumlar}
     return render(request,"base/forum/forumlar.html",context) 
 
-@login_required(login_url='giris-yap')
 def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
+    if request.method=='POST':
+        ForumSoruCevap.objects.create(
+            profil=ProfilFoto.objects.get(user_id=request.user),
+            soru=soru,
+            cevap=request.POST['cevap'],
+        )
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 

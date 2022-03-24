@@ -52,7 +52,7 @@ body {
 
 body aside {
   background-color: #444127;
-  font-size: 24px;
+  font-size: 15px;
 }
 
 body .home {
@@ -719,7 +719,7 @@ main .biyografi .profil-edit {
     overflow-x: hidden;
   }
   body aside {
-    font-size: 24px;
+    font-size: 15px;
   }
 }
 
