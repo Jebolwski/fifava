@@ -1,7 +1,7 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-<title>Anasayfa | FIFAVOX</title>
+<title>Forumlar | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -81,8 +81,24 @@
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="anasayfa-message">{{message}}</div>
-        {% endfor %} {% if forumlar %} {% for forum in forumlar %}
+        {% endfor %}
         <h4 class="pt-5 text-center">Forumlar</h4>
+        <form method="POST">
+            {% csrf_token %}
+            <table class="center col-sm-8 col-md-4 mb-5 mt-5">
+                <tr>
+                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
+                    <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
+                    {% if user.is_superuser %}
+                    <td>
+                        <a href="{% url 'forum-ekle' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
+                    </td>
+                    {% endif %}
+                </tr>
+            </table>
+        </form>
+
+        {% if forumlar %}
         <table class="mt-5 table table-striped table-hover text-center">
             <thead>
                 <tr>
@@ -93,17 +109,19 @@
                     <th>Bak</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>{% for forum in forumlar %}
+
+
                 <tr>
                     <td>{{forum.profil.username}}</td>
                     <td>{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
                     <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-pencil"></i></a></td>
-                </tr>
+                </tr>{% endfor %}
             </tbody>
         </table>
-        {% endfor %} {% else %}
+        {% else %}
         <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
         {% endif %}
 

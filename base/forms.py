@@ -103,3 +103,8 @@ class ProfilFotoForm(forms.ModelForm):
         fields = "__all__"
 
 
+class ForumEkleForm(forms.ModelForm):
+    class Meta:
+        model = ForumSoru
+        fields = "__all__"
+

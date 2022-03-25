@@ -23,6 +23,7 @@ urlpatterns = [
     #!FORUMLAR
     path("forumlar/",views.Forumlar,name="forumlar"),
     path("forum/<int:pk>/",views.ForumCevapla,name="forum"),
+    path("forum-ekle/",views.ForumEkle,name="forum-ekle"),
 
 
 
@@ -46,7 +47,6 @@ urlpatterns = [
     path("kayit-kisi-kabul-et/<int:pk>/",views.KayitKabulEt,name="kayit-kabul-et"),
     path("kayit-beklet/<int:pk>/",views.KayitBeklet,name="kayit-beklet"),
     path("kayit-reddet/<int:pk>/",views.KayitReddet,name="kayit-reddet"),
-    path("kayit-onbilgi/",views.KayitOnbilgi,name="kayit-onbilgi"),
     
 
     #!OYUNCULAR

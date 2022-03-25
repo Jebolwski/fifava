@@ -1,9 +1,10 @@
-﻿from django.shortcuts import render,redirect
+﻿from multiprocessing import context
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
 
-from .forms import CevapForm, OnayForm, OyuncuForm, ProfilFotoForm,SorularForm,KayitForm,HaberForm,IletisimForm
+from .forms import CevapForm, OnayForm, OyuncuForm, ProfilFotoForm,SorularForm,KayitForm,HaberForm,IletisimForm,ForumEkleForm
 
 from django.core.paginator import Paginator
 
@@ -815,7 +816,6 @@ def KayitOnayForm(request,pk):
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
 
-@login_required(login_url='giris-yap')
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
     user = User.objects.get(username = profil_user.username)
@@ -837,10 +837,6 @@ def Ayarlar(request):
 
     context = {'haberler':haberler}
     return render(request,"base/ayarlar/ayarlar.html",context)  
-
-
-def KayitOnbilgi(request):
-    return render(request,"base/kayit-onbilgi.html")
 
 
 @login_required(login_url='giris-yap')
@@ -908,6 +904,9 @@ def ProfilFotoDuzenle(request,pk):
 
 def Forumlar(request):
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+    if request.method=='POST':
+        arama = request.POST['arama']
+        forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
     context = {'forumlar':forumlar}
     return render(request,"base/forum/forumlar.html",context) 
 
@@ -915,10 +914,29 @@ def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
     if request.method=='POST':
+        print(request.POST)
         ForumSoruCevap.objects.create(
             profil=ProfilFoto.objects.get(user_id=request.user),
             soru=soru,
             cevap=request.POST['cevap'],
+            cevaba_cevap = request.POST.get('cevaba_cevap','')
         )
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 
+
+def ForumEkle(request):
+    form = ForumEkleForm()
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['profil']=str(request.user.id)
+        print(request.POST)
+        print(data)
+        form = ForumEkleForm(data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Formunuz başarıyla oluşturuldu.")
+            return redirect('forumlar')
+    context={'form':form}
+    return render(request,"base/forum/forum-ekle.html",context)
+
+
