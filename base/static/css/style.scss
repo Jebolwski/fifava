@@ -397,6 +397,12 @@ main {
             padding-left: 42vw;
         }
     }
+    .reply-to-comment {
+        display: none;
+    }
+    .visible {
+        display: block;
+    }
 }
 
 .haberler {

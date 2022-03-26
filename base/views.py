@@ -919,16 +919,28 @@ def ForumCevapla(request,pk):
             profil=ProfilFoto.objects.get(user_id=request.user),
             soru=soru,
             cevap=request.POST['cevap'],
-            cevaba_cevap = request.POST.get('cevaba_cevap','')
         )
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 
 
+@login_required(login_url='giris-yap')
+def ForumSil(request,my_slug):
+    forum = ForumSoru.objects.get(baslik_slug=my_slug)
+    if request.method=='POST':
+        if request.user.is_authenticated and forum.profil.username==request.user.username:
+            forum.delete()
+            messages.success(request,"Forum başarıyla silindi.")
+            return redirect("forumlar")
+    context={'forum':forum}
+    return render(request,"base/forum/forum-sil.html",context)
+
+@login_required(login_url='giris-yap')
 def ForumEkle(request):
     form = ForumEkleForm()
     if request.method=="POST":
         data = request.POST.copy()
         data['profil']=str(request.user.id)
+        data['baslik_slug']=slugify(data['baslik'])
         print(request.POST)
         print(data)
         form = ForumEkleForm(data)

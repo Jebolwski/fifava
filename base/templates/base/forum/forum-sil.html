@@ -1,15 +1,12 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-<title>{{soru.baslik}} | FIFAVOX</title>
+<title>Forumlar | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
-    <div class="loading col-12">
-        <img src="{% static 'images/logo.png' %}">
-    </div>
 
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
@@ -82,44 +79,10 @@
         {% for message in messages %}
         <div class="anasayfa-message">{{message}}</div>
         {% endfor %}
-        <br>
-        <div class="soru col-10 col-lg-8 offset-1 border p-4">
-            <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-1 rounded mx-2">{% endif %} {{soru.profil.user.username}}</p>
-            </a>
-            <hr>
-            <h5>{{soru.baslik}}</h5>
-            <hr>
-            <p>{{soru.soru}}</p>
-            <hr>
-            <p>{{soru.guncellenme_tarihi}}</p>
-        </div>
-        <br> {% if forum %}
-        <h5 class="offset-2 mb-2">Cevaplar</h5>
-        {% for foru in forum %}
-        <div class="cevaplar bg-light col-8 col-lg-6 offset-2 border p-3 my-4">
-            <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <p>{% if foru.profil.resim %}<img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2">{% endif %} {{foru.profil.user.username}}</p>
-            </a>
-            <hr>
-            <form method="POST">
-                <p>{{foru.cevap}}
-                    <!-- <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" />
-                    <label for="{{foru.id}}" onclick="kay()"><i class="fa-solid fa-reply mx-3" name="cevaba_cevap" ></i></label>--></p>
-                <hr>
-
-                <p>{{foru.guncellenme_tarihi}}</p>
-        </div>
-        {% endfor %} {% else %}
-        <h5 class="text-center pt-5">Bu forumda cevap yok. <br> <br> İlk cevaplayan sen ol.</h5>
-        {% endif %}
-        <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-
-        {% csrf_token %} {% if request.user.is_authenticated %}
-        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap"></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"> {% else %}
-        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap" disabled></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <h4 class="text-center py-5">'{{forum.baslik}}' baslikli forumu silmek istediğinize emin misiniz?</h4>
+            <input type="submit" class="btn btn-outline-dark center" value="Sil">
         </form>
     </main>
 
@@ -144,34 +107,5 @@
         </ul>
     </aside>
 
-
-    <script>
-        $(window).on("load", function() {
-            $('.loading').fadeOut(800);
-        });
-
-        let height = window.innerHeight;
-
-        function kesfet_kay() {
-            window.scrollTo({
-                top: height,
-                left: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation: true,
-                placement: "top",
-            });
-        });
-
-        function kay() {
-            console.log(screen.height);
-            window.scrollTo(0, document.body.clientHeight);
-        }
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     {% endblock content %}

@@ -496,6 +496,14 @@ main .biyografi .profil-edit {
   padding-left: 42vw;
 }
 
+main .reply-to-comment {
+  display: none;
+}
+
+main .visible {
+  display: block;
+}
+
 .haberler {
   position: fixed;
   top: 0;

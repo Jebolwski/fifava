@@ -80,7 +80,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
-        <div class="anasayfa-message">{{message}}</div>
+        <div class="message">{{message}}</div>
         {% endfor %}
         <h4 class="pt-5 text-center">Forumlar</h4>
         <form method="POST">
@@ -89,7 +89,7 @@
                 <tr>
                     <td><input type="text" class="form-control col-10" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
                     <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
-                    {% if user.is_superuser %}
+                    {% if user.is_authenticated %}
                     <td>
                         <a href="{% url 'forum-ekle' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
                     </td>
@@ -107,6 +107,7 @@
                     <th>Açıklama</th>
                     <th class="d-none d-lg-table-cell">Tarih</th>
                     <th>Bak</th>
+                    <th>Sil</th>
                 </tr>
             </thead>
             <tbody>{% for forum in forumlar %}
@@ -118,6 +119,11 @@
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
                     <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-pencil"></i></a></td>
+                    {% if forum.profil.username == request.user.username or request.user.is_superuser %}
+                    <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
+                    {% else %}
+                    <td><i class="fa-solid fa-ban"></i></td>
+                    {% endif %}
                 </tr>{% endfor %}
             </tbody>
         </table>
@@ -156,7 +162,6 @@
         });
 
         let height = window.innerHeight;
-        console.log(height);
 
         function kesfet_kay() {
             window.scrollTo({
@@ -165,28 +170,6 @@
                 behavior: 'smooth'
             });
         }
-
-        anime({
-            targets: '#fifava path',
-            strokeDashoffset: [anime.setDashoffset, 0],
-            easing: 'easeInOutSine',
-            duration: 1700,
-            delay: function(el, i) {
-                return i * 60
-            },
-            direction: 'alternate',
-            loop: false
-        });
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation: true,
-                placement: "top",
-            });
-        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
-    <script src="{% static 'js/app.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
     {% endblock content %}
-    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->
