@@ -97,29 +97,29 @@
         <br> {% if forum %}
         <h5 class="offset-2 mb-2">Cevaplar</h5>
         {% for foru in forum %}
-        <div class="cevaplar bg-light col-8 col-lg-6 offset-2 border p-3 my-4">
-            <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
+        <form method="POST">
+            <div class="cevaplar bg-light col-8 col-lg-6 offset-2 border p-3 my-4">
                 <p>{% if foru.profil.resim %}<img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2">{% endif %} {{foru.profil.user.username}}</p>
-            </a>
-            <hr>
-            <form method="POST">
-                <p>{{foru.cevap}}
-                    <!-- <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" />
-                    <label for="{{foru.id}}" onclick="kay()"><i class="fa-solid fa-reply mx-3" name="cevaba_cevap" ></i></label>--></p>
                 <hr>
+                <p>{{foru.cevap}}
+                    <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
+                    <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i></p>
+            <hr>
 
-                <p>{{foru.guncellenme_tarihi}}</p>
+
+            <p>{{foru.guncellenme_tarihi}}</p>
         </div>
         {% endfor %} {% else %}
         <h5 class="text-center pt-5">Bu forumda cevap yok. <br> <br> İlk cevaplayan sen ol.</h5>
         {% endif %}
         <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
 
-        {% csrf_token %} {% if request.user.is_authenticated %}
-        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap"></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"> {% else %}
-        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap" disabled></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> {% endif %}
+        
+            {% csrf_token %} {% if request.user.is_authenticated %}
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap"></textarea></div>
+            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"> {% else %}
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap" disabled></textarea></div>
+            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> {% endif %}
         </form>
     </main>
 

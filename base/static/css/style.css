@@ -504,6 +504,17 @@ main .visible {
   display: block;
 }
 
+main .fa-reply {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+main .fa-reply:hover {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  color: black;
+}
+
 .haberler {
   position: fixed;
   top: 0;

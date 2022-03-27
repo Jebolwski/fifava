@@ -403,6 +403,13 @@ main {
     .visible {
         display: block;
     }
+    .fa-reply {
+        transition: 0.2s;
+        &:hover {
+            transition: 0.2s;
+            color: black;
+        }
+    }
 }
 
 .haberler {
