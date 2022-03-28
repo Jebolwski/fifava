@@ -100,12 +100,6 @@ body .loading h3 {
 }
 
 body .loading img {
-  -webkit-animation-name: loading;
-          animation-name: loading;
-  -webkit-animation-duration: 1.2s;
-          animation-duration: 1.2s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
   width: 20vw;
   min-width: 150px;
 }
@@ -598,36 +592,6 @@ main .fa-reply:hover {
   }
   to {
     margin-left: 0;
-  }
-}
-
-@-webkit-keyframes loading {
-  0% {
-    -webkit-transform: rotateZ(0);
-            transform: rotateZ(0);
-  }
-  50% {
-    -webkit-transform: rotateZ(180deg);
-            transform: rotateZ(180deg);
-  }
-  100% {
-    -webkit-transform: rotateZ(360deg);
-            transform: rotateZ(360deg);
-  }
-}
-
-@keyframes loading {
-  0% {
-    -webkit-transform: rotateZ(0);
-            transform: rotateZ(0);
-  }
-  50% {
-    -webkit-transform: rotateZ(180deg);
-            transform: rotateZ(180deg);
-  }
-  100% {
-    -webkit-transform: rotateZ(360deg);
-            transform: rotateZ(360deg);
   }
 }
 

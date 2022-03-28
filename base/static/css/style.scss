@@ -76,9 +76,6 @@ body {
             color: white;
         }
         img {
-            animation-name: loading;
-            animation-duration: 1.2s;
-            animation-iteration-count: infinite;
             width: 20vw;
             min-width: 150px;
         }
@@ -466,18 +463,6 @@ main {
     }
     to {
         margin-left: 0;
-    }
-}
-
-@keyframes loading {
-    0% {
-        transform: rotateZ(0);
-    }
-    50% {
-        transform: rotateZ(180deg);
-    }
-    100% {
-        transform: rotateZ(360deg);
     }
 }
 
