@@ -123,7 +123,7 @@
             <div>
                 {% if forumlari %}
                 <h5 class="text-center py-4">Oluşturduğu Formlar</h5>
-                {% for forum in forumlari %}
+
                 <table class="mt-3 table table-striped table-hover text-center">
                     <thead>
                         <tr class="py-4">
@@ -133,16 +133,16 @@
                             <th>Bak</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>{% for forum in forumlari %}
                         <tr class="py-4">
                             <td>{{forum.baslik}}</td>
                             <td class="aciklama">{{forum.soru}}</td>
                             <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
                             <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-pencil"></i></a></td>
-                        </tr>
+                        </tr>{% endfor %}
                     </tbody>
                 </table>
-                {% endfor %} {% else %}
+                {% else %}
                 <hr>
                 <h5 class="text-center pt-5">Bu kullanıcı hiç forum oluşturnmamaış...</h5>
                 {% endif %}

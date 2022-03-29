@@ -83,9 +83,9 @@
         <div class="anasayfa-message">{{message}}</div>
         {% endfor %}
         <br>
-        <div class="soru col-10 col-lg-8 offset-1 border p-4">
+        <div class="soru col-10 col-lg-8 border offset-1 p-4">
             <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-1 rounded mx-2">{% endif %} {{soru.profil.user.username}}</p>
+                <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2">{% endif %} {{soru.profil.user.username}}</p>
             </a>
             <hr>
             <h5>{{soru.baslik}}</h5>
@@ -96,14 +96,37 @@
         </div>
         <br> {% if forum %}
         <h5 class="offset-2 mb-2">Cevaplar</h5>
+
         {% for foru in forum %}
-        <form method="POST">
-            <div class="cevaplar bg-light col-8 col-lg-6 offset-2 border p-3 my-4">
-                <p>{% if foru.profil.resim %}<img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2">{% endif %} {{foru.profil.user.username}}</p>
-                <hr>
+        <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
+
+            {% if foru.cevaba_cevap %}
+
+            <p style="color: gray;">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
+                <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                    <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-md-1 rounded mx-2"></a> {% else %}
+                <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-md-1 rounded mx-2"></a> {% endif %}
+                <label for="{{foru.soru}}">{{foru.cevaba_cevap.cevap}}</label>
+            </p>
+            </a>
+
+
+            <hr> {% endif %}
+
+            <p>
+                {% if foru.profil.resim %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2"> {{foru.profil.user.username}}</a>{% else %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2"> {{foru.profil.user.username}}</a> {% endif %}
+            </p>
+
+            <hr>
+            <form method="POST">
                 <p>{{foru.cevap}}
                     <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
-                    <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i></p>
+                    <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i>
+                    
+                </p>
             <hr>
 
 
