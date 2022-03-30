@@ -889,6 +889,8 @@ def ProfilFotoDuzenle(request,pk):
     if request.method=='POST':
         data = request.POST.copy()
         data['user'] = User.objects.get(id=pk)
+        data['username'] = User.objects.get(id=pk).username
+        data['username_slug'] = slugify(User.objects.get(id=pk).username)
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
             form.save()

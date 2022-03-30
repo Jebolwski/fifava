@@ -85,7 +85,8 @@
         <br>
         <div class="soru col-10 col-lg-8 border offset-1 p-4">
             <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2">{% endif %} {{soru.profil.user.username}}</p>
+                <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2"
+                        style="min-height: 50px;height: 2.98vh;">{% endif %} {{soru.profil.user.username}}</p>
             </a>
             <hr>
             <h5>{{soru.baslik}}</h5>
@@ -101,12 +102,12 @@
         <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
 
             {% if foru.cevaba_cevap %}
-
             <p style="color: gray;">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-md-1 rounded mx-2"></a> {% else %}
+                    <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-md-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a> {% else %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-md-1 rounded mx-2"></a> {% endif %}
+                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-md-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                </a> {% endif %}
                 <label for="{{foru.soru}}">{{foru.cevaba_cevap.cevap}}</label>
             </p>
             </a>
@@ -116,8 +117,8 @@
 
             <p>
                 {% if foru.profil.resim %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2"> {{foru.profil.user.username}}</a>{% else %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2"> {{foru.profil.user.username}}</a> {% endif %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> {{foru.profil.user.username}}</a>{% else %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> {{foru.profil.user.username}}</a> {% endif %}
             </p>
 
             <hr>
@@ -125,7 +126,6 @@
                 <p>{{foru.cevap}}
                     <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
                     <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i>
-                    
                 </p>
             <hr>
 
@@ -139,9 +139,9 @@
 
         
             {% csrf_token %} {% if request.user.is_authenticated %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap"></textarea></div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap"></textarea></div>
             <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"> {% else %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="form-control" name="cevap" disabled></textarea></div>
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
             <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> {% endif %}
         </form>
     </main>
@@ -194,6 +194,7 @@
         function kay() {
             console.log(screen.height);
             window.scrollTo(0, document.body.clientHeight);
+            document.querySelector(".cevap-textarea").focus();
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>

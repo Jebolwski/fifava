@@ -173,7 +173,6 @@ class ProfilFoto(models.Model):
         return str(self.user)
 
 
-
 class ForumSoru(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=250,null=False,blank=False)
