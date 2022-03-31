@@ -1,4 +1,5 @@
 ﻿from distutils.command.upload import upload
+import re
 from urllib import request
 from django.db import models
 from django.contrib.auth.models import User
@@ -49,7 +50,6 @@ ANKET_SECIMLERI = (
 class OnayDurum(models.Model):
     kisi                      = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     onaydurum                 = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
-
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
@@ -191,8 +191,13 @@ class ForumSoruCevap(models.Model):
     cevaba_cevap = models.ForeignKey("self",on_delete=models.CASCADE,null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
-
+    likes = models.ManyToManyField(User,related_name='likes',default=None,blank=True)
+    dislikes = models.ManyToManyField(User,related_name='dislikes',default=None,blank=True)
     def __str__(self):
         return str(self.cevap)
 
+    def total_likes(self):
+        return self.likes.count()
 
+    def total_dislikes(self):
+        return self.dislikes.count()

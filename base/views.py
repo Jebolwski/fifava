@@ -912,6 +912,22 @@ def Forumlar(request):
     context = {'forumlar':forumlar}
     return render(request,"base/forum/forumlar.html",context) 
 
+
+def Begenme(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    forum.dislikes.remove(request.user.id)
+    forum.likes.add(request.user.id)
+    print(forum.likes.all())
+    return redirect("forum",forum.soru.id)
+
+def Begenmeme(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    forum.likes.remove(request.user.id)
+    forum.dislikes.add(request.user.id)
+    print(forum.dislikes.all())
+    return redirect("forum",forum.soru.id)
+
+
 def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
@@ -929,7 +945,8 @@ def ForumCevapla(request,pk):
                 soru=soru,
                 cevap=request.POST['cevap'],
                 cevaba_cevap = ForumSoruCevap.objects.get(id=int(list_post[0])),
-            )   
+            )
+
      
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 

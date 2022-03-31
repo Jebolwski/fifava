@@ -102,6 +102,12 @@ body .loading h3 {
 body .loading img {
   width: 20vw;
   min-width: 150px;
+  -webkit-animation-name: loading;
+          animation-name: loading;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
 }
 
 .side-navbar {
@@ -358,8 +364,7 @@ main .anasayfa-message {
 
 main .aciklama {
   overflow: hidden;
-  max-width: 120px;
-  max-width: 100px;
+  max-width: 80px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -539,6 +544,36 @@ main .fa-reply:hover {
   height: 12vh;
   min-width: 40px;
   border-radius: 6px;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes loading {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 
 @-webkit-keyframes sidenavbarhiddentitle {

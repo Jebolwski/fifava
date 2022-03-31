@@ -25,6 +25,8 @@ urlpatterns = [
     path("forum/<int:pk>/",views.ForumCevapla,name="forum"),
     path("forum-ekle/",views.ForumEkle,name="forum-ekle"),
     path("forum/<slug:my_slug>/sil",views.ForumSil,name="forum-sil"),
+    path("forum/<int:pk>/begen/",views.Begenme,name="forum-begen"),
+    path("forum/<int:pk>/begenme/",views.Begenmeme,name="forum-begenme"),
 
 
 
