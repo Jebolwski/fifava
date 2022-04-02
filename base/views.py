@@ -920,6 +920,7 @@ def Begenme(request,pk):
     print(forum.likes.all())
     return redirect("forum",forum.soru.id)
 
+
 def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.likes.remove(request.user.id)
@@ -938,6 +939,7 @@ def ForumCevapla(request,pk):
                 profil=ProfilFoto.objects.get(user_id=request.user),
                 soru=soru,
                 cevap=request.POST['cevap'],
+                cevaba_cevap = None,
             )  
         else:
             ForumSoruCevap.objects.create(
@@ -950,6 +952,12 @@ def ForumCevapla(request,pk):
      
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 
+
+@login_required(login_url='giris-yap')
+def ForumCevapSil(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    forum.delete()
+    return redirect("forum",forum.soru_id) 
 
 @login_required(login_url='giris-yap')
 def ForumSil(request,my_slug):
