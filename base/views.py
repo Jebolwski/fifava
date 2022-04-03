@@ -931,7 +931,8 @@ def ForumCevapla(request,pk):
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
     if request.method=='POST':
         list_post = list(request.POST)
-        if list_post[0] == "csrfmiddlewaretoken":
+        list_post.sort()
+        if list_post[0] == "cevap":
             ForumSoruCevap.objects.create(
                 profil=ProfilFoto.objects.get(user_id=request.user),
                 soru=soru,
@@ -945,8 +946,6 @@ def ForumCevapla(request,pk):
                 cevap=request.POST['cevap'],
                 cevaba_cevap = ForumSoruCevap.objects.get(id=int(list_post[0])),
             )
-
-     
     context = {'forum':forum,'soru':soru}
     return render(request,"base/forum/forum.html",context) 
 
