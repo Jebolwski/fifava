@@ -16,20 +16,18 @@ from django.contrib import messages
 
 
 
-def Bulunamadi1(request):
-    return render(request,'base/404.html')
 
 
 def Bulunamadi(request,exception):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
-    return render(request,'base/404.html',context)
+    return render(request,'base/hata_bulunamadi/404.html',context)
 
 
 def Hata(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
-    return render(request,'base/500.html',context)
+    return render(request,'base/hata_bulunamadi/500.html',context)
 
 
 def GirisYap(request):
@@ -828,7 +826,7 @@ def Profil(request,my_slug):
     else:
         context={'haberler':haberler,'user':user,'profil':profil,'forumlari':forumlari}
     
-    return render(request,"base/profil.html",context)  
+    return render(request,"base/ayarlar/profil.html",context)  
 
 @login_required(login_url='giris-yap')
 def Ayarlar(request):
@@ -927,7 +925,6 @@ def Begenmeme(request,pk):
     forum.dislikes.add(request.user.id)
     print(forum.dislikes.all())
     return redirect("forum",forum.soru.id)
-
 
 def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)

@@ -5,7 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
-    main {
+    * {
         scroll-behavior: auto;
     }
 </style>
@@ -126,7 +126,7 @@
             </p>
 
             <hr>
-            <form method="POST">
+            <form method="post">{% csrf_token %}
                 <p>{{foru.cevap}}
                     <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
                     <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i>
@@ -134,31 +134,34 @@
                     <a href="{% url 'forum-cevap-sil' foru.id %}"><i class="fa-solid fa-trash-can mx-3"></i></a>
                     {% endif %}
                 </p>
-            <hr>
+                <hr>
             
 
             <p>{{foru.guncellenme_tarihi}}</p>
             <hr>
             {% if user.is_authenticated %}
-            <p><a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up mx-2"></i></a> {{foru.total_likes}} 
-            <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}</p>
+            <p><a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up mx-2" style="color:rgb(31, 82, 31);"></i></a> {{foru.total_likes}} 
+            <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down mx-2" style="color:rgb(82, 34, 31);"></i></a> {{foru.total_dislikes}}</p>
             {% else %}
             <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2" style="color:rgb(31, 82, 31);" ></i></a> 
             {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"  style="color:rgb(82, 34, 31);"></i></a> {{foru.total_dislikes}}</p>
             <span></span> {% endif %}
-        </div>
-        {% endfor %} {% else %}
-        <h5 class="text-center pt-5">Bu forumda cevap yok. <br> <br> İlk cevaplayan sen ol.</h5>
-        {% endif %}
-        <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
+            </div>
+            {% endfor %} {% else %}
+            <h5 class="text-center pt-5">Bu forumda cevap yok. <br> <br> İlk cevaplayan sen ol.</h5>
+            {% endif %}
+            <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
 
 
-        {% csrf_token %} {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap"></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"> {% else %}
-        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
-        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> {% endif %}
+        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
         </form>
+        {% else %}
+        <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
+        <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> 
+        {% endif %}
+        
     </main>
 
 

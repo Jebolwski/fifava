@@ -792,9 +792,6 @@ main .fa-reply:hover {
   main #particles-js #fifava {
     height: 6vh;
   }
-  main form p {
-    font-size: 10px;
-  }
 }
 
 @media only screen and (max-width: 200px) {
