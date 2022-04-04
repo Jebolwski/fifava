@@ -28,21 +28,21 @@
 * .btn-outline-dark {
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  color: #726c35;
+  color: #817952;
   border: 1px solid #726c35;
 }
 
 * .btn-outline-dark:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  background-color: #726c35;
-  border: 1px solid #77771f;
+  background-color: #817952;
+  border: 1px solid #5c5125;
 }
 
 * .btn-outline-dark:focus {
   outline: 4px solid rgba(163, 147, 0, 0.5);
   border: 1px solid #77771f;
-  background-color: #726c35;
+  background-color: #817952;
   color: white;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 body aside {
-  background-color: #444127;
+  background-color: #817952;
   font-size: 15px;
 }
 
@@ -283,7 +283,7 @@ main .home-main {
 }
 
 main i {
-  color: #726c35;
+  color: #817952;
 }
 
 main #particles-js {
@@ -341,7 +341,7 @@ main .message {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   padding: 10px;
-  background-color: #55512a;
+  background-color: #817952;
   border-radius: 20px;
   color: white;
 }
@@ -357,7 +357,7 @@ main .anasayfa-message {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   padding: 10px;
-  background-color: #55512a;
+  background-color: #817952;
   border-radius: 20px;
   color: white;
 }
@@ -418,7 +418,7 @@ main .setting-bar {
 main .setting-bar:hover {
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  background-color: #726c35;
+  background-color: #817952;
   border: 1px solid #77771f;
   color: white;
 }
@@ -426,13 +426,13 @@ main .setting-bar:hover {
 main .setting-bar:focus {
   outline: 4px solid rgba(163, 147, 0, 0.5);
   border: 1px solid #77771f;
-  background-color: #726c35;
+  background-color: #817952;
   color: white;
 }
 
 main .setting-bar.active {
   border: 1px solid #77771f;
-  background-color: #726c35;
+  background-color: #817952;
   color: white;
 }
 
@@ -781,9 +781,6 @@ main .fa-reply:hover {
   }
   main #particles-js #fifava {
     height: 10vh;
-  }
-  main form p {
-    font-size: 10px;
   }
 }
 

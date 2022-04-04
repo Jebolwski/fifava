@@ -249,7 +249,7 @@
                     <br>
                 </div>
             </div>
-            {% if user.is_superuser %}
+            {% if user.is_superuser %} {% if cevaplar %}
             <div class="iletisim-cevaplari">
                 {% if cevaplar %}
                 <h4 class="text-center pt-5 text-white">Gelen Kutusu</h4>
@@ -302,7 +302,7 @@
                     {% endif %}
                 </div>
             </div>
-            {% endif %} {% if user.is_authenticated %}
+            {% endif %} {% endif %} {% if user.is_authenticated %} {% if cevaplara_cevap %}
             <div class="iletisim-cevaplara-cevaplari">
                 <h3 class="text-center text-white pt-5">İletilerinize Cevaplar</h3>
                 {% if cevaplara_cevap %}
@@ -342,7 +342,7 @@
                 <h3 class="text-center text-white mt-5">Cevap yok...</h3>
                 {% endif %}
             </div>
-            {% endif %}
+            {% endif %} {% endif %}
         </main>
 
 

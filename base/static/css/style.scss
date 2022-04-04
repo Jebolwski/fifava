@@ -23,17 +23,17 @@
     box-sizing: border-box;
     .btn-outline-dark {
         transition: 0.3s;
-        color: rgb(114, 108, 53);
+        color: rgb(129, 121, 82);
         border: 1px solid rgb(114, 108, 53);
         &:hover {
             transition: 0.3s;
-            background-color: rgb(114, 108, 53);
-            border: 1px solid rgb(119, 119, 31);
+            background-color: rgb(129, 121, 82);
+            border: 1px solid rgb(92, 81, 37);
         }
         &:focus {
             outline: 4px solid rgba(163, 147, 0, 0.5);
             border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(114, 108, 53);
+            background-color: rgb(129, 121, 82);
             color: white;
         }
     }
@@ -42,7 +42,7 @@
 body {
     overflow-x: hidden;
     aside {
-        background-color: rgb(68, 65, 39);
+        background-color: rgb(129, 121, 82);
         font-size: 15px;
     }
     .home {
@@ -223,7 +223,7 @@ main {
         height: 200vh;
     }
     i {
-        color: rgb(114, 108, 53);
+        color: rgb(129, 121, 82);
     }
     #particles-js {
         height: 100vh;
@@ -266,7 +266,7 @@ main {
         margin-left: 41.67%;
         transform: translateX(-50%);
         padding: 10px;
-        background-color: rgb(85, 81, 42);
+        background-color: rgb(129, 121, 82);
         border-radius: 20px;
         color: white;
     }
@@ -279,7 +279,7 @@ main {
         margin-left: 50%;
         transform: translateX(-50%);
         padding: 10px;
-        background-color: rgb(85, 81, 42);
+        background-color: rgb(129, 121, 82);
         border-radius: 20px;
         color: white;
     }
@@ -330,19 +330,19 @@ main {
         border-bottom: transparent;
         &:hover {
             transition: 0.3s;
-            background-color: rgb(114, 108, 53);
+            background-color: rgb(129, 121, 82);
             border: 1px solid #77771f;
             color: white;
         }
         &:focus {
             outline: 4px solid rgba(163, 147, 0, 0.5);
             border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(114, 108, 53);
+            background-color: rgb(129, 121, 82);
             color: white;
         }
         &.active {
             border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(114, 108, 53);
+            background-color: rgb(129, 121, 82);
             color: white;
         }
     }
@@ -636,11 +636,6 @@ main {
         #particles-js {
             #fifava {
                 height: 10vh;
-            }
-        }
-        form {
-            p {
-                font-size: 10px;
             }
         }
     }

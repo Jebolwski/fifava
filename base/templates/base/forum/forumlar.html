@@ -99,7 +99,6 @@
         <table class="mt-5 table table-striped table-hover text-center">
             <thead>
                 <tr>
-                    <th>Yazan</th>
                     <th>Başlık</th>
                     <th>Açıklama</th>
                     <th class="d-none d-lg-table-cell">Tarih</th>
@@ -110,8 +109,7 @@
             <tbody>{% for forum in forumlar %}
 
 
-                <tr>
-                    <td class="aciklama">{{forum.profil.username}}</td>
+                <tr title="{{forum.baslik}}">
                     <td class="aciklama">{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
