@@ -46,6 +46,12 @@
   color: white;
 }
 
+* h4,
+* h5,
+* h6 {
+  font-weight: 300;
+}
+
 body {
   overflow-x: hidden;
 }

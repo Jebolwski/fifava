@@ -1,13 +1,10 @@
 {% extends 'base/ana.html' %} {% load static %} {% block content%}
 <title>Şifre Sıfırlama | FIFAVOX</title>
 <aside class="side-navbar col-1">
-  <ul class="p-0 text-center">
-    {% if user.is_authenticated %}
-    <li>
-      <img
-        src="{% static 'images/logo.png' %}"
-        data-toggle="popover"
-        title="
+    <ul class="p-0 text-center">
+        {% if user.is_authenticated %}
+        <li>
+            <img src="{% static 'images/logo.png' %}" data-toggle="popover" title="
                     {% if durum.onaydurum == 'Kabul Et' %}
                     Onaylandın
                     {% elif durum.onaydurum == 'Bekle' %}
@@ -15,22 +12,15 @@
                     {% elif durum.onaydurum == 'Reddet' %}
                     Reddedildin
                     {% elif durum.onaydurum == 'Cevapsız' %}
-                    {% endif %}"
-        data-content="Neden"
-        class="logo-side-navbar col-sm-7 col-md-4 col-9"
-      />
-    </li>
-    {% else %}
-    <li>
-      <img
-        src="{% static 'images/logo.png' %}"
-        class="col-sm-7 col-md-4 col-9"
-      />
-    </li>
-    {% endif %}
-    <li>
-      <a href="{% url 'anasayfa' %}"
-        ><i class="fa-solid fa-house-user"></i>
+                    {% endif %}" data-content="Neden" class="logo-side-navbar col-sm-7 col-md-4 col-9" />
+        </li>
+        {% else %}
+        <li>
+            <img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9" />
+        </li>
+        {% endif %}
+        <li>
+            <a href="{% url 'anasayfa' %}"><i class="fa-solid fa-house-user"></i>
         <p class="d-none d-md-block">Anasayfa</p></a
       >
     </li>
@@ -45,77 +35,73 @@
         <i class="fa-solid fa-question"></i>
         <p class="d-none d-md-block">Nasıl Katılabilirim</p>
       </a>
-    </li>
-    <li>
-      <a href="{% url 'haberler' %}">
-        <i class="fa-solid fa-newspaper"></i>
-        <p class="d-none d-md-block">Haberler</p>
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'formlar' %}">
-        <i class="fa-solid fa-square-poll-vertical"></i>
-        <p class="d-none d-md-block">Formlar</p>
-      </a>
-    </li>
-    {% if user.is_superuser and user.is_authenticated %}
-    <li>
-      <a href="{% url 'kayit-onay' %}">
-        <i class="fa-solid fa-circle-check"></i>
-        <p class="d-none d-md-block">Kayıt Onay</p>
-      </a>
-    </li>
-    {% endif %} {% if user.is_authenticated %}
-    <li>
-      <a href="{% url 'ayarlar' %}">
-        <i class="fa-solid fa-gear"></i>
-        <p class="d-none d-md-block">Ayarlar</p>
-      </a>
-    </li>
+        </li>
+        <li>
+            <a href="{% url 'haberler' %}">
+                <i class="fa-solid fa-newspaper"></i>
+                <p class="d-none d-md-block">Haberler</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'formlar' %}">
+                <i class="fa-solid fa-square-poll-vertical"></i>
+                <p class="d-none d-md-block">Formlar</p>
+            </a>
+        </li>
+        {% if user.is_superuser and user.is_authenticated %}
+        <li>
+            <a href="{% url 'kayit-onay' %}">
+                <i class="fa-solid fa-circle-check"></i>
+                <p class="d-none d-md-block">Kayıt Onay</p>
+            </a>
+        </li>
+        {% endif %} {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'ayarlar' %}">
+                <i class="fa-solid fa-gear"></i>
+                <p class="d-none d-md-block">Ayarlar</p>
+            </a>
+        </li>
 
-    {% endif %}
-    <li>
-      {% if user.is_authenticated %}
-      <a href="{% url 'cikis-yap' %}">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <p class="d-none d-md-block">Çıkış Yap</p>
-      </a>
-      {% else %}
-      <a href="{% url 'giris-yap' %}">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        <p class="d-none d-md-block">Giriş Yap</p>
-      </a>
-      {% endif %}
-    </li>
-  </ul>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+            <a href="{% url 'cikis-yap' %}">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <p class="d-none d-md-block">Çıkış Yap</p>
+            </a>
+            {% else %}
+            <a href="{% url 'giris-yap' %}">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <p class="d-none d-md-block">Giriş Yap</p>
+            </a>
+            {% endif %}
+        </li>
+    </ul>
 </aside>
 <main class="col-11 offset-1">
-  <form method="POST">
-    {% for message in messages %}
-    <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">
-      {{message}}
-    </div>
-    {% endfor %} {% csrf_token %}
-    <div class="col-8 col-md-4 offset-2 offset-md-4">
-      <h4 class="text-center pt-5">Email Değiştir</h4>
-      <h5>Eski Email</h5>
-      <input type="email" class="form-control mt-2" name="eski-email" />
-      <h5 class="mt-4">Yeni Email</h5>
-      <input type="email" class="form-control" name="yeni-email1" />
-      <h5 class="mt-4">Yeni Email (Tekrar)</h5>
-      <input type="email" class="form-control" name="yeni-email2" />
-    </div>
-    <input
-      type="submit"
-      value="Değiştir"
-      class="btn btn-outline-dark col-2 offset-5 mt-5"
-    />
-  </form>
+    <form method="POST">
+        {% for message in messages %}
+        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">
+            {{message}}
+        </div>
+        {% endfor %} {% csrf_token %}
+        <div class="col-8 col-md-4 offset-2 offset-md-4">
+            <h4 class="text-center pt-5">Email Değiştir</h4>
+            <h5 class="mt-5">Eski Email</h5>
+            <input type="email" class="form-control mt-2" name="eski-email" />
+            <h5 class="mt-4">Yeni Email</h5>
+            <input type="email" class="form-control" name="yeni-email1" />
+            <h5 class="mt-4">Yeni Email (Tekrar)</h5>
+            <input type="email" class="form-control" name="yeni-email2" />
+        </div>
+        <input type="submit" value="Değiştir" class="btn btn-outline-dark center mt-5" />
+    </form>
 </main>
 
 <script>
- 
 </script>
 </body>
+
 </html>
 {% endblock content%}
