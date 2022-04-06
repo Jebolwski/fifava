@@ -409,8 +409,11 @@ main {
     }
     .fa-reply {
         transition: 0.2s;
-        &:hover {
-            transition: 0.2s;
+        &:active,
+        &:focus,
+        &:visited,
+        &:hover,
+        &::after {
             color: black;
         }
     }

@@ -514,9 +514,7 @@ main .fa-reply {
   transition: 0.2s;
 }
 
-main .fa-reply:hover {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
+main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-reply:hover, main .fa-reply::after {
   color: black;
 }
 
