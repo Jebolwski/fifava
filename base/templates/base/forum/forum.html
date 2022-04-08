@@ -101,7 +101,7 @@
         <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
 
             {% if foru.cevaba_cevap %}
-            <p style="color: gray;">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
+            <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
                     <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-md-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
                 {% else %}

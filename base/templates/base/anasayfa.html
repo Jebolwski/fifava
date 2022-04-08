@@ -311,6 +311,8 @@
                         <tr class="text-white">
                             <th></th>
                             <th></th>
+                            <th></th>
+                            <th></th>
                             <th>İletiniz</th>
                             <th>Gelen Cevap</th>
                             <th class="d-none d-lg-table-cell">Tarih</th>
@@ -324,6 +326,8 @@
                     <tbody>
                         {% for c in cevaplara_cevap %}
                         <tr>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td class="text-white aciklama">{{c.iletisim}}</td>
@@ -369,6 +373,27 @@
 
 
     <script>
+        window.onbeforeunload = function() {
+            var scrollPos;
+            if (typeof window.pageYOffset != 'undefined') {
+                scrollPos = window.pageYOffset;
+            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                scrollPos = document.documentElement.scrollTop;
+            } else if (typeof document.body != 'undefined') {
+                scrollPos = document.body.scrollTop;
+            }
+            document.cookie = "scrollTop=" + scrollPos;
+        }
+        window.onload = function() {
+            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+                document.documentElement.scrollTop = parseInt(arr[1]);
+                document.body.scrollTop = parseInt(arr[1]);
+            }
+        }
+
+
+
         $(window).on("load", function() {
             $('.loading').fadeOut(800);
         });

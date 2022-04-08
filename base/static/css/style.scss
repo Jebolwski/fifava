@@ -290,7 +290,7 @@ main {
     }
     .aciklama {
         overflow: hidden;
-        max-width: 80px;
+        max-width: 70px;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
@@ -646,6 +646,11 @@ main {
                 height: 10vh;
             }
         }
+        form {
+            p {
+                font-size: 12px;
+            }
+        }
     }
 }
 
@@ -656,7 +661,9 @@ main {
                 height: 6vh;
             }
         }
-        form {}
+        .cevaplandi {
+            font-size: 12px;
+        }
     }
 }
 

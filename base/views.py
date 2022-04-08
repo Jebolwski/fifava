@@ -127,8 +127,8 @@ def NasilKatilabilirim(request):
 
 #?KİŞİ CRUD
 def Kisiler(request):
-    kisiler = Kullanici.objects.all().order_by('oyun_ad_soyad')
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    kisiler = Kullanici.objects.all().order_by('meslek')
+    haberler = Haberler.objects.all().order_by('meslek')[:5]
     
     if request.method=="POST":
         arama = request.POST['arama']

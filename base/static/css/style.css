@@ -370,7 +370,7 @@ main .anasayfa-message {
 
 main .aciklama {
   overflow: hidden;
-  max-width: 80px;
+  max-width: 70px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -786,11 +786,17 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   main #particles-js #fifava {
     height: 10vh;
   }
+  main form p {
+    font-size: 12px;
+  }
 }
 
 @media only screen and (max-width: 350px) {
   main #particles-js #fifava {
     height: 6vh;
+  }
+  main .cevaplandi {
+    font-size: 12px;
   }
 }
 
