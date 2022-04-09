@@ -98,7 +98,7 @@
                             {% elif durum.onaydurum == 'Cevapsız' %}
                             Onaylanmak için kayıt formunu cevaplayın.
                             {% else %}
-                            {% endif %}" data-content="Neden" class="profil-username">{{profil.username}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
+                            {% endif %}" class="profil-username">{{profil.username}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
                                 <i class="fa-solid fa-circle-check px-2 fa-sm" title="Kabul Edildin"></i>{% elif durum.onaydurum == "Bekle" %}
                                 <i class="fa-solid fa-circle-pause px-2 fa-sm" title="Beklemedesin"></i>{% elif durum.onaydurum == "Yasakla" %}
                                 <i class="fa-solid fa-ban" title="Yasaklandın"></i> {% elif durum.onaydurum == "Reddet" %}

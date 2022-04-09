@@ -127,12 +127,12 @@ def NasilKatilabilirim(request):
 
 #?KİŞİ CRUD
 def Kisiler(request):
-    kisiler = Kullanici.objects.all().order_by('meslek')
-    haberler = Haberler.objects.all().order_by('meslek')[:5]
+    kisiler = Kullanici.objects.all().order_by('-meslek')
+    haberler = Haberler.objects.all().order_by('guncellenme_tarihi')[:5]
     
     if request.method=="POST":
         arama = request.POST['arama']
-        kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('oyun_ad_soyad')
+        kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('-meslek')
     context = {'kisiler':kisiler,'haberler':haberler}
     return render(request,"base/kisi/kisiler.html",context)
 
@@ -959,10 +959,12 @@ def ForumCevapSil(request,pk):
 def ForumSil(request,my_slug):
     forum = ForumSoru.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
-        if request.user.is_authenticated and forum.profil.username==request.user.username:
+        if request.user.is_superuser  or forum.profil.username==request.user.username:
             forum.delete()
             messages.success(request,"Forum başarıyla silindi.")
             return redirect("forumlar")
+        else:
+            print("Silemem")
     context={'forum':forum}
     return render(request,"base/forum/forum-sil.html",context)
 
