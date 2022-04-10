@@ -178,11 +178,19 @@ class ForumSoru(models.Model):
     baslik = models.CharField(max_length=250,null=False,blank=False)
     baslik_slug = models.SlugField(unique=True,null=False,blank=False)
     soru = models.CharField(max_length=1000,null=False,blank=False)
+    yanit_sayi = models.CharField(max_length=12,null=True,blank=True,default="0")
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    likes = models.ManyToManyField(User,related_name='likes1',default=None,blank=True)
+
 
     def __str__(self):
         return str(self.baslik)
+
+    def total_likes(self):
+        return self.likes.count()
+
+
 
 class ForumSoruCevap(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)

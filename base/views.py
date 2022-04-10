@@ -24,6 +24,14 @@ def Bulunamadi(request,exception):
     return render(request,'base/hata_bulunamadi/404.html',context)
 
 
+
+def Bulunamadi1(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/404.html',context)
+
+
+
 def Hata(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context = {'haberler':haberler}
@@ -301,7 +309,7 @@ def FormEkle(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = SorularForm()
     if request.method=="POST":
-        print(request.POST)
+        
         data = request.POST.copy()
         data['baslik_slug'] = slugify(data['baslik'])
         form = SorularForm(data)
@@ -682,67 +690,6 @@ def KayitOnay(request):
 
     return render(request,"base/kayitonay/kayit-onay.html",context)
 
-@login_required(login_url='giris-yap')
-def KayitKabulEt(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    user = User.objects.get(id=pk)
-    form = OnayForm()
-    if request.method=='POST':
-        data = request.POST.copy()
-        data['kisi'] = user
-        data.kisi = user
-        print(data)
-        form = OnayForm(data)
-        if form.is_valid():
-            form.save()
-            return redirect('kayit-onay')
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'form':form,'haberler':haberler,'durum':durum}
-    else:
-        context = {'form':form,'haberler':haberler}
-
-    return render(request,"base/kayitonay/kayit-kabul-et.html",context)
-
-
-@login_required(login_url='giris-yap')
-def KayitBeklet(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    user = User.objects.get(id=pk)
-    form = OnayForm()
-    if request.method=='POST':
-        data = request.POST.copy()
-        data.kisi = user
-        form = OnayForm(data)
-        if form.is_valid():
-            form.save()
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'form':form,'kisi':user,'haberler':haberler,'durum':durum}
-    else:
-        context = {'form':form,'kisi':user,'haberler':haberler}
-
-    return render(request,"base/kayitonay/kayit-beklet.html",context)
-
-
-@login_required(login_url='giris-yap')
-def KayitReddet(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    user = User.objects.get(id=pk)
-    form = OnayForm()
-    if request.method=='POST':
-        data = request.POST.copy()
-        data.kisi = user
-        form = OnayForm(data)
-        if form.is_valid():
-            form.save()
-    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
-        durum = OnayDurum.objects.get(kisi_id=request.user.id)       
-        context = {'form':form,'kisi':user,'haberler':haberler,'durum':durum}
-    else:
-        context = {'form':form,'kisi':user,'haberler':haberler}
-
-    return render(request,"base/kayitonay/kayit-beklet.html",context)
 
 
 @login_required(login_url='giris-yap')
@@ -864,12 +811,10 @@ def ProfilFotoView(request,pk):
         form = ProfilFotoForm(data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            print(form)
+            
             messages.success(request,"Profil fotoğrafınız güncellendi.")
             return redirect("ayarlar")
-        else:
-            print(request.POST)
-            print("Valid degil")
+        
 
         
     if ProfilFoto.objects.all().filter(user_id=pk):
@@ -882,8 +827,11 @@ def ProfilFotoView(request,pk):
 @login_required(login_url='giris-yap')
 def ProfilFotoDuzenle(request,pk):
     foto = ProfilFoto.objects.get(user_id=pk)
+    if foto.username!=request.user.username:
+        return redirect("404")
     ins = ProfilFoto.objects.get(user_id=pk)
     form = ProfilFotoForm(instance=ins)
+    
     if request.method=='POST':
         data = request.POST.copy()
         data['user'] = User.objects.get(id=pk)
@@ -892,22 +840,24 @@ def ProfilFotoDuzenle(request,pk):
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            print(form)
+            
             messages.success(request,"Profil fotoğrafınız güncellendi.")
             return redirect("profil",slugify(request.user.username))
-        else:
-            print(request.POST)
-            print("Valid degil")
+        
+            
+            
         
     context = {'foto':foto,'form':form}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
+
 def Forumlar(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
     if request.method=='POST':
         arama = request.POST['arama']
         forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
-    context = {'forumlar':forumlar}
+    context = {'forumlar':forumlar,'haberler':haberler}
     return render(request,"base/forum/forumlar.html",context) 
 
 
@@ -915,7 +865,7 @@ def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.dislikes.remove(request.user.id)
     forum.likes.add(request.user.id)
-    print(forum.likes.all())
+    
     return redirect("forum",forum.soru.id)
 
 
@@ -923,12 +873,39 @@ def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.likes.remove(request.user.id)
     forum.dislikes.add(request.user.id)
-    print(forum.dislikes.all())
+    
     return redirect("forum",forum.soru.id)
+
+def BegenmeForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    forum.likes.add(request.user.id)
+    print(request.path)
+    return redirect("forumlar")
+    
+    
+def BegenmemeForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    forum.likes.remove(request.user.id)
+    return redirect("forumlar")
+
+def BegenmeProfilForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    forum.likes.add(request.user.id)
+    print(request.path)
+    return redirect("profil",slugify(request.user.username))
+
+
+def BegenmemeProfilForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    forum.likes.remove(request.user.id)
+    return redirect("profil",slugify(request.user.username))
+
+
 
 def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if request.method=='POST':
         list_post = list(request.POST)
         list_post.sort()
@@ -946,12 +923,24 @@ def ForumCevapla(request,pk):
                 cevap=request.POST['cevap'],
                 cevaba_cevap = ForumSoruCevap.objects.get(id=int(list_post[0])),
             )
-    context = {'forum':forum,'soru':soru}
+        soru.yanit_sayi = str(int(soru.yanit_sayi)+1)
+        soru.save()
+    context = {'forum':forum,'soru':soru,'haberler':haberler}
     return render(request,"base/forum/forum.html",context) 
 
 @login_required(login_url='giris-yap')
 def ForumCevapSil(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
+    soru = ForumSoru.objects.get(id=forum.soru_id)
+    print(forum.id)
+    if len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))>0:
+        sayi = len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))
+        print(sayi)
+        soru.yanit_sayi = str(int(soru.yanit_sayi)-sayi-1)
+    else:
+        print("cevaba cevap yok.")
+        soru.yanit_sayi = str(int(soru.yanit_sayi)-1)
+    soru.save()
     forum.delete()
     return redirect("forum",forum.soru_id) 
 
@@ -963,10 +952,10 @@ def ForumSil(request,my_slug):
             forum.delete()
             messages.success(request,"Forum başarıyla silindi.")
             return redirect("forumlar")
-        else:
-            print("Silemem")
+        
     context={'forum':forum}
     return render(request,"base/forum/forum-sil.html",context)
+
 
 @login_required(login_url='giris-yap')
 def ForumEkle(request):
@@ -975,8 +964,8 @@ def ForumEkle(request):
         data = request.POST.copy()
         data['profil']=str(request.user.id)
         data['baslik_slug']=slugify(data['baslik'])
-        print(request.POST)
-        print(data)
+        
+        
         form = ForumEkleForm(data)
         if form.is_valid():
             form.save()

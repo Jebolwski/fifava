@@ -103,10 +103,10 @@
             {% if foru.cevaba_cevap %}
             <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-md-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
+                    <img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
                 {% else %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-md-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                 </a>
                 {% endif %}
                 <label for="{{foru.soru}}" style="overflow: hidden;

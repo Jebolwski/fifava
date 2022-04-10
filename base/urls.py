@@ -25,14 +25,20 @@ urlpatterns = [
     path("forum/<int:pk>/",views.ForumCevapla,name="forum"),
     path("forum-ekle/",views.ForumEkle,name="forum-ekle"),
     path("forum/<slug:my_slug>/sil",views.ForumSil,name="forum-sil"),
-    path("forum/<int:pk>/begen/",views.Begenme,name="forum-begen"),
-    path("forum/<int:pk>/begenme/",views.Begenmeme,name="forum-begenme"),
+    path("forum-cevap/<int:pk>/begen/",views.Begenme,name="forum-begen"),
+    path("forum-cevap/<int:pk>/begenme/",views.Begenmeme,name="forum-begenme"),
+    path("forum/<int:pk>/begen/",views.BegenmeForum,name="forum-begen-1"),
+    path("forum/<int:pk>/begenme/",views.BegenmemeForum,name="forum-begenme-1"),
+    path("forum-profil/<int:pk>/begen/",views.BegenmeProfilForum,name="forum-begen-2"),
+    path("forum-profil/<int:pk>/begenme/",views.BegenmemeProfilForum,name="forum-begenme-2"),
     path("forum-cevap/<int:pk>/sil/",views.ForumCevapSil,name="forum-cevap-sil"),
 
 
 
     #!AYARLAR
     path("ayarlar/",views.Ayarlar,name="ayarlar"),
+    path("bulunamadi/",views.Bulunamadi1,name="404"),
+
 
 
     #!NASIL KATILABİLİRİM
@@ -48,9 +54,6 @@ urlpatterns = [
     path("kayit-onay/",views.KayitOnay,name="kayit-onay"),
     path("kayit-onay-form/<int:pk>/",views.KayitOnayForm,name="kayit-onay-form"),
     path("kayit-onay-form-duzenle/<int:pk>/",views.KayitOnayFormDuzenle,name="kayit-onay-form-duzenle"),
-    path("kayit-kisi-kabul-et/<int:pk>/",views.KayitKabulEt,name="kayit-kabul-et"),
-    path("kayit-beklet/<int:pk>/",views.KayitBeklet,name="kayit-beklet"),
-    path("kayit-reddet/<int:pk>/",views.KayitReddet,name="kayit-reddet"),
     
 
     #!OYUNCULAR
