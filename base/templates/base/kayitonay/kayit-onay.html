@@ -14,7 +14,7 @@
 
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <li>
                 <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
             </li>
@@ -90,7 +90,7 @@
                     <td>Kullanıcı Adı</td>
                     <td>Onay Durumu</td>
                     <td>Kayıt Formu</td>
-                    <td>Kayıt Tarihi</td>
+                    <td class="d-none d-md-table-cell">Kayıt Tarihi</td>
                 </tr>
             </thead>
             <tbody>
@@ -106,7 +106,7 @@
                         <i class="fa-solid fa-comment-slash"></i> Cevaplanmadı {% endif %} {% endif %}
                     </td>
                     <td><a href="{% url 'kayit-onay-form' i.kisi.id  %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
-                    <td>{{i.kisi.date_joined}}</td>
+                    <td class="d-none d-md-table-cell">{{i.kisi.date_joined}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

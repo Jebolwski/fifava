@@ -24,7 +24,7 @@ urlpatterns = [
     path("forumlar/",views.Forumlar,name="forumlar"),
     path("forum/<int:pk>/",views.ForumCevapla,name="forum"),
     path("forum-ekle/",views.ForumEkle,name="forum-ekle"),
-    path("forum/<slug:my_slug>/sil",views.ForumSil,name="forum-sil"),
+    path("forum/<slug:my_slug>/sil/",views.ForumSil,name="forum-sil"),
     path("forum-cevap/<int:pk>/begen/",views.Begenme,name="forum-begen"),
     path("forum-cevap/<int:pk>/begenme/",views.Begenmeme,name="forum-begenme"),
     path("forum/<int:pk>/begen/",views.BegenmeForum,name="forum-begen-1"),
@@ -59,7 +59,7 @@ urlpatterns = [
     #!OYUNCULAR
     path("oyuncular/", views.Kisiler, name="kisiler"),
     path("oyuncu-ekle/", views.KisiEkle, name="kisi-ekle"),
-    path("oyuncu-duzenle/<slug:my_slug>", views.KisiDuzenle, name="kisi-duzenle"),
+    path("oyuncu-duzenle/<slug:my_slug>/", views.KisiDuzenle, name="kisi-duzenle"),
     path("oyuncu-sil/<slug:my_slug>", views.KisiSil, name="kisi-sil"),
 
 

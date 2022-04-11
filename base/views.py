@@ -66,6 +66,7 @@ def GirisYap(request):
 def CikisYap(request):
     logout(request)
     messages.success(request,"Başarıyla çıkış yapıldı.")
+    messages.error(request,"Bir hata oluştu.")
     return redirect("anasayfa")
 
 
@@ -113,9 +114,10 @@ def Ev(request):
 
         if form.is_valid():
             form.save()
-
-        messages.success(request,"Bilgiler başarıyla kaydedildi.")
-        return redirect("anasayfa")
+            messages.success(request,"Bilgiler başarıyla kaydedildi.")
+            return redirect("anasayfa")
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context={'haberler':haberler,'form':form,'cevaplar':cevaplar,'cevaplara_cevap':cevaplara_cevap}
     return render(request,"base/anasayfa.html",context)
 
@@ -176,6 +178,8 @@ def KisiEkle(request):
             form.save()
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
             return redirect('kisiler')
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context = {'form':form,'haberler':haberler}
     return render(request,"base/kisi/kisi-ekle.html",context)
 
@@ -192,6 +196,9 @@ def KisiDuzenle(request,my_slug):
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla düzenlendi.")
+            return redirect("kisiler")
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context = {'form':form , 'haberler':haberler}
 
     return render(request,"base/kisi/kisi-duzenle.html",context)
@@ -241,6 +248,7 @@ def HaberEkle(request):
         baslik_slug = slugify(request.POST['baslik']),
         )
         messages.success(request,"Haber başarıyla oluşturuldu.")
+        messages.error(request,"Bir hata oluştu.")
         return redirect('haberler')
         context = {'form':form,'haberler':haberler}
     context = {'form':form,'haberler':haberler}
@@ -269,6 +277,7 @@ def HaberDuzenle(request,my_slug):
                 instance.resim=request.FILES['file']
             instance.save()
             messages.success(request,"Haber başarıyla düzenlendi.")
+            messages.error(request,"Bir hata oluştu.")
             return redirect("haberler")
     context = {'instance':instance,'haberler':haberler}
     return render(request,"base/haber/haber-duzenle.html",context)
@@ -318,6 +327,8 @@ def FormEkle(request):
             form.save()
             messages.success(request,"Anket başarıyla oluşturuldu.")
             return redirect("formlar")
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context={"form":form,'haberler':haberler}
     return render(request,"base/form/form-ekle.html",context)
 
@@ -376,6 +387,8 @@ def FormCevapla(request,my_slug):
                 onaydurum.save()
             messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context={'form':form,'sorular':sorular,'haberler':haberler}
 
     return render(request,"base/form/form-cevapla.html",context)
@@ -707,6 +720,8 @@ def KayitOnayFormDuzenle(request,pk):
             form.save()
             messages.success(request,"Onay durumu güncellendi.")
             return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
           
     if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
         
@@ -743,6 +758,8 @@ def KayitOnayForm(request,pk):
             form.save()
             messages.success(request,"Onay durumu kaydedildi.")
             return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
     
     if Cevaplar.objects.all().filter(sorular_id=sorular.id):
         cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
@@ -764,15 +781,13 @@ def KayitOnayForm(request,pk):
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
     user = User.objects.get(username = profil_user.username)
-    profil = ProfilFoto.objects.get(user_id=user.id) 
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
     if OnayDurum.objects.all().filter(kisi_id=profil_user.id):
         durum = OnayDurum.objects.get(kisi_id=profil_user.id)
-        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil,'forumlari':forumlari}
+        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari}
     else:
-        context={'haberler':haberler,'user':user,'profil':profil,'forumlari':forumlari}
-    
+        context={'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari}
     return render(request,"base/ayarlar/profil.html",context)  
 
 @login_required(login_url='giris-yap')
@@ -811,9 +826,10 @@ def ProfilFotoView(request,pk):
         form = ProfilFotoForm(data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            
             messages.success(request,"Profil fotoğrafınız güncellendi.")
             return redirect("ayarlar")
+        else:
+            messages.error(request,"Bir hata oluştu.")
         
 
         
@@ -829,6 +845,10 @@ def ProfilFotoDuzenle(request,pk):
     foto = ProfilFoto.objects.get(user_id=pk)
     if foto.username!=request.user.username:
         return redirect("404")
+
+    if foto.user!=request.user:
+        return redirect("404")
+
     ins = ProfilFoto.objects.get(user_id=pk)
     form = ProfilFotoForm(instance=ins)
     
@@ -840,9 +860,10 @@ def ProfilFotoDuzenle(request,pk):
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            
             messages.success(request,"Profil fotoğrafınız güncellendi.")
             return redirect("profil",slugify(request.user.username))
+        else:
+            messages.error(request,"Girdileriniz doğru değil, girdiğiniz dosyaların türünü kontrol ediniz.")
         
             
             
@@ -860,7 +881,7 @@ def Forumlar(request):
     context = {'forumlar':forumlar,'haberler':haberler}
     return render(request,"base/forum/forumlar.html",context) 
 
-
+@login_required(login_url='giris-yap')
 def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.dislikes.remove(request.user.id)
@@ -868,7 +889,7 @@ def Begenme(request,pk):
     
     return redirect("forum",forum.soru.id)
 
-
+@login_required(login_url='giris-yap')
 def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.likes.remove(request.user.id)
@@ -876,30 +897,29 @@ def Begenmeme(request,pk):
     
     return redirect("forum",forum.soru.id)
 
+@login_required(login_url='giris-yap')
 def BegenmeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     forum.likes.add(request.user.id)
-    print(request.path)
     return redirect("forumlar")
     
-    
+@login_required(login_url='giris-yap')    
 def BegenmemeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     forum.likes.remove(request.user.id)
     return redirect("forumlar")
 
+@login_required(login_url='giris-yap')
 def BegenmeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     forum.likes.add(request.user.id)
-    print(request.path)
     return redirect("profil",slugify(request.user.username))
 
-
+@login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     forum.likes.remove(request.user.id)
     return redirect("profil",slugify(request.user.username))
-
 
 
 def ForumCevapla(request,pk):
@@ -932,13 +952,10 @@ def ForumCevapla(request,pk):
 def ForumCevapSil(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     soru = ForumSoru.objects.get(id=forum.soru_id)
-    print(forum.id)
     if len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))>0:
         sayi = len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))
-        print(sayi)
         soru.yanit_sayi = str(int(soru.yanit_sayi)-sayi-1)
     else:
-        print("cevaba cevap yok.")
         soru.yanit_sayi = str(int(soru.yanit_sayi)-1)
     soru.save()
     forum.delete()
@@ -952,6 +969,8 @@ def ForumSil(request,my_slug):
             forum.delete()
             messages.success(request,"Forum başarıyla silindi.")
             return redirect("forumlar")
+        else:
+            messages.error(request,"Bir hata oluştu.")
         
     context={'forum':forum}
     return render(request,"base/forum/forum-sil.html",context)
@@ -971,6 +990,8 @@ def ForumEkle(request):
             form.save()
             messages.success(request,"Formunuz başarıyla oluşturuldu.")
             return redirect('forumlar')
+        else:
+            messages.error(request,"Bir hata oluştu.")
     context={'form':form}
     return render(request,"base/forum/forum-ekle.html",context)
 

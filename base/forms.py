@@ -98,9 +98,17 @@ class IletisimForm(forms.ModelForm):
         fields=['ad_soyad','baslik','aciklama','dosya']
 
 class ProfilFotoForm(forms.ModelForm):
+
     class Meta:
         model = ProfilFoto
         fields = "__all__"
+
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
+        for fields in self.fields:
+            self.fields['resim'].widget.attrs.update({'accept':'image/png, image/gif, image/jpg, image/jpeg'})
+            self.fields['arka_plan'].widget.attrs.update({'accept':'image/png, image/gif, image/jpg, image/jpeg'})
+    
 
 
 class ForumEkleForm(forms.ModelForm):
