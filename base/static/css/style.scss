@@ -294,6 +294,18 @@ main {
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+    .aciklama-orta {
+        overflow: hidden;
+        max-width: 100px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .aciklama-uzun {
+        overflow: hidden;
+        max-width: 140px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     p {
         a {
             i {

@@ -932,6 +932,7 @@ def ForumCevapla(request,pk):
         if list_post[0] == "cevap":
             ForumSoruCevap.objects.create(
                 profil=ProfilFoto.objects.get(user_id=request.user),
+                onay_durum=OnayDurum.objects.get(kisi_id=request.user),
                 soru=soru,
                 cevap=request.POST['cevap'],
                 cevaba_cevap = None,
@@ -939,6 +940,7 @@ def ForumCevapla(request,pk):
         else:
             ForumSoruCevap.objects.create(
                 profil=ProfilFoto.objects.get(user_id=request.user),
+                onay_durum=OnayDurum.objects.get(kisi_id=request.user),
                 soru=soru,
                 cevap=request.POST['cevap'],
                 cevaba_cevap = ForumSoruCevap.objects.get(id=int(list_post[0])),
@@ -983,7 +985,7 @@ def ForumEkle(request):
         data = request.POST.copy()
         data['profil']=str(request.user.id)
         data['baslik_slug']=slugify(data['baslik'])
-        
+        data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user)
         
         form = ForumEkleForm(data)
         if form.is_valid():

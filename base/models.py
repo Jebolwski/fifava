@@ -175,6 +175,7 @@ class ProfilFoto(models.Model):
 
 class ForumSoru(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
+    onay_durum = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=250,null=False,blank=False)
     baslik_slug = models.SlugField(unique=True,null=False,blank=False)
     soru = models.CharField(max_length=1000,null=False,blank=False)
@@ -194,6 +195,7 @@ class ForumSoru(models.Model):
 
 class ForumSoruCevap(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
+    onay_durum = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True)
     soru = models.ForeignKey(ForumSoru,on_delete=models.CASCADE,null=True,blank=True)
     cevap = models.CharField(max_length=1000,null=False,blank=False)
     cevaba_cevap = models.ForeignKey("self",on_delete=models.CASCADE,null=True,blank=True)

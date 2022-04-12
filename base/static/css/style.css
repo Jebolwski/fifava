@@ -375,6 +375,20 @@ main .aciklama {
   text-overflow: ellipsis;
 }
 
+main .aciklama-orta {
+  overflow: hidden;
+  max-width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+main .aciklama-uzun {
+  overflow: hidden;
+  max-width: 140px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 main p a i {
   -webkit-transition: 0.4s;
   transition: 0.4s;

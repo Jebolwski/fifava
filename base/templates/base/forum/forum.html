@@ -85,7 +85,16 @@
         <div class="soru col-10 col-lg-8 border offset-1 p-4">
             <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
                 <p>{% if soru.profil.resim %}<img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">{% else %}<img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2"
-                        style="min-height: 50px;height: 2.98vh;">{% endif %} {{soru.profil.user.username}}</p>
+                        style="min-height: 50px;height: 2.98vh;">{% endif %} {{soru.profil.user.username}}
+                    <span>
+                    {% if soru.onay_durum %} {% if soru.onay_durum.onaydurum == "Kabul Et" %}
+                        <i class="fa-solid fa-circle-check px-1 fa-sm" title="Kabul Edildi"></i>{% elif soru.onay_durum.onaydurum == "Bekle" %}
+                        <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i>{% elif soru.onay_durum.onaydurum == "Yasakla" %}
+                        <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif soru.onay_durum.onaydurum == "Reddet" %}
+                        <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i>{% elif soru.onay_durum.onaydurum == "Cevapsız" %}
+                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i> {% endif %} 
+                    {% else %}{% endif %}
+                    </span></p>
             </a>
             <hr>
             <h5>{{soru.baslik}}</h5>
@@ -103,7 +112,7 @@
             {% if foru.cevaba_cevap %}
             <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{{soru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
+                    <img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
                 {% else %}
                 <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
                     <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
@@ -118,8 +127,27 @@
 
             <p>
                 {% if foru.profil.resim %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> {{foru.profil.user.username}}</a>{% else %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> {{foru.profil.user.username}}</a> {% endif %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> <span>{{foru.profil.user.username}}</span>
+                    <span>
+                    {% if foru.onay_durum %} {% if foru.onay_durum.onaydurum == "Kabul Et" %}
+                        <i class="fa-solid fa-circle-check px-1 fa-sm" title="Kabul Edildi"></i>{% elif foru.onay_durum.onaydurum == "Bekle" %}
+                        <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i>{% elif foru.onay_durum.onaydurum == "Yasakla" %}
+                        <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif foru.onay_durum.onaydurum == "Reddet" %}
+                        <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i>{% elif foru.onay_durum.onaydurum == "Cevapsız" %}
+                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i> {% endif %} 
+                    {% else %}{% endif %}
+                    </span></a>{% else %}
+                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none"><img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"> <span>{{foru.profil.user.username}}</span>
+                    <span>
+                    {% if foru.onay_durum %} {% if foru.onay_durum.onaydurum == "Kabul Et" %}
+                        <i class="fa-solid fa-circle-check px-1 fa-sm" title="Kabul Edildi"></i>{% elif foru.onay_durum.onaydurum == "Bekle" %}
+                        <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i>{% elif foru.onay_durum.onaydurum == "Yasakla" %}
+                        <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif foru.onay_durum.onaydurum == "Reddet" %}
+                        <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i>{% elif foru.onay_durum.onaydurum == "Cevapsız" %}
+                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i> {% endif %} 
+                    {% else %}{% endif %}
+                    </span></a>
+                {% endif %}
             </p>
 
             <hr>

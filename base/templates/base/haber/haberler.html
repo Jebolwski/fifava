@@ -114,8 +114,8 @@
                         <a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a>
                     </td>
                     {% if user.is_superuser %}
-                    <td><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-user-pen"></i></a> </td>
-                    <td><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-user-xmark"></i></a> </td>
+                    <td><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-pen-to-square"></i></a> </td>
+                    <td><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-calendar-minus"></i></a> </td>
                     {% endif %}
                 </tr>
                 {% endfor %}
