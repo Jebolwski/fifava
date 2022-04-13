@@ -88,13 +88,20 @@
                 <img src="{{foto.resim.url}}" class="rounded col-3 center"> {% else %}
                 <p class="mt-5 text-center">Kullanıcı Profil Fotoğrafı</p> {% endif %}
                 <p style="margin: 0;">{{form.resim}}</p>
+                {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
-                {% if foto.arka_plan %}
+                {% else %}
+                <p><i class="text-gray">.jpg, .png, .jpeg</i></p>
+                {% endif %} {% if foto.arka_plan %}
                 <p class="pt-5 text-center">Arka Plan Fotoğrafı</p>
                 <img src="{{foto.arka_plan.url}}" class="rounded col-4 center"> {% else %}
                 <p class="pt-5 text-center">Kullanıcı Arkaplan Fotoğrafı</p> {% endif %}
                 <p style="margin: 0;">{{form.arka_plan}}</p>
+                {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
+                {% else %}
+                <p><i class="text-gray">.jpg, .png, .jpeg</i></p>
+                {% endif %}
             </div>
             <input class="center mt-5 mb-5 btn btn-outline-dark" type="submit" value="Düzenle">
         </form>
@@ -128,6 +135,14 @@
         inputa.classList.add("form-control");
         inputb.classList.add("form-control");
         inputc.classList.add("form-control");
+        if ("{{onaydurum.onaydurum}}" == "Kabul Et") {
+            inputb.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+            inputc.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+        } else {
+            inputb.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+            inputc.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+        }
+
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",

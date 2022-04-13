@@ -815,6 +815,7 @@ def GelenKutusuCevaplama(request,iletisim_id):
 
 @login_required(login_url='giris-yap')
 def ProfilFotoView(request,pk):
+    onaydurum = OnayDurum.objects.get(kisi_id=pk)
     
     if ProfilFoto.objects.all().filter(user_id=pk):
         return redirect("profil-foto-duzenle",ProfilFoto.objects.get(user_id=pk).user.id)
@@ -826,16 +827,15 @@ def ProfilFotoView(request,pk):
         form = ProfilFotoForm(data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request,"Profil fotoğrafınız güncellendi.")
+            messages.success(request,"Profiliniz güncellendi.")
             return redirect("ayarlar")
         else:
             messages.error(request,"Bir hata oluştu.")
         
-
         
     if ProfilFoto.objects.all().filter(user_id=pk):
         foto = ProfilFoto.objects.get(user_id=pk)
-        context = {'form':form,'foto':foto}
+        context = {'form':form,'foto':foto,}
     else:
         context = {'form':form}
     return render(request,"base/ayarlar/profil-foto.html",context)
@@ -843,6 +843,7 @@ def ProfilFotoView(request,pk):
 @login_required(login_url='giris-yap')
 def ProfilFotoDuzenle(request,pk):
     foto = ProfilFoto.objects.get(user_id=pk)
+    onaydurum = OnayDurum.objects.get(kisi_id=pk)
     if foto.username!=request.user.username:
         return redirect("404")
 
@@ -868,7 +869,7 @@ def ProfilFotoDuzenle(request,pk):
             
             
         
-    context = {'foto':foto,'form':form}
+    context = {'foto':foto,'form':form,'onaydurum':onaydurum}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
 

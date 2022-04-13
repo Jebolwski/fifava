@@ -117,14 +117,14 @@
 
                 <tr title="{{forum.baslik}}">
                     {% if user.is_authenticated %}
-                    <td><a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md"></i></a>
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md"></i></a> <span class="mx-1">{{forum.total_likes}}</span></td>
+                    <td><a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a>
+                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> <span class="mx-1">{{forum.total_likes}}</span></td>
                     {% endif %}
                     <td class="aciklama">{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
                     <td class="d-none d-md-table-cell">{{forum.yanit_sayi}}</td>
-                    <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-pencil"></i></a></td>
+                    <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-eye" title="Bak"></i></a></td>
                     {% if user.is_authenticated %} {% if forum.profil.username == request.user.username or request.user.is_superuser %}
                     <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
                     {% else %}
