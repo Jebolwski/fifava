@@ -879,6 +879,7 @@ def Forumlar(request):
     if request.method=='POST':
         arama = request.POST['arama']
         forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
+    
     context = {'forumlar':forumlar,'haberler':haberler}
     return render(request,"base/forum/forumlar.html",context) 
 
@@ -887,7 +888,6 @@ def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.dislikes.remove(request.user.id)
     forum.likes.add(request.user.id)
-    
     return redirect("forum",forum.soru.id)
 
 @login_required(login_url='giris-yap')
@@ -895,19 +895,31 @@ def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     forum.likes.remove(request.user.id)
     forum.dislikes.add(request.user.id)
-    
     return redirect("forum",forum.soru.id)
 
 @login_required(login_url='giris-yap')
 def BegenmeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    forum.likes.add(request.user.id)
+    print(forum.likes.all())
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
     return redirect("forumlar")
     
 @login_required(login_url='giris-yap')    
 def BegenmemeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    forum.likes.remove(request.user.id)
+    print(forum.dislikes.all())
+    if request.user in forum.dislikes.all():
+        print("var",request.user)
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
+    
     return redirect("forumlar")
 
 @login_required(login_url='giris-yap')

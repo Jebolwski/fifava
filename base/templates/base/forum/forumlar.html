@@ -113,12 +113,23 @@
                 </tr>
             </thead>
             <tbody>{% for forum in forumlar %}
-
-
                 <tr title="{{forum.baslik}}">
                     {% if user.is_authenticated %}
-                    <td><a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a>
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> <span class="mx-1">{{forum.total_likes}}</span></td>
+                    <td>
+                        {% if request.user in forum.likes.all %}
+                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> 
+                        {% else %}
+                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> 
+                        {% endif %} 
+                        {% if request.user in forum.dislikes.all %}
+                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> 
+                        {% else %}
+                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> 
+                        {% endif %} 
+                        <span class="mx-1">{{forum.puan}}</span>
+                        
+
+                    </td>
                     {% endif %}
                     <td class="aciklama">{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>

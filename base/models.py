@@ -183,13 +183,15 @@ class ForumSoru(models.Model):
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     likes = models.ManyToManyField(User,related_name='likes1',default=None,blank=True)
+    dislikes = models.ManyToManyField(User,related_name='dislikes1',default=None,blank=True)
 
 
     def __str__(self):
         return str(self.baslik)
 
-    def total_likes(self):
-        return self.likes.count()
+    def puan(self):
+        return self.likes.count()-self.dislikes.count()
+
 
 
 
