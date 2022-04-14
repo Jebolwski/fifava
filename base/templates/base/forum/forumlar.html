@@ -114,7 +114,7 @@
             </thead>
             <tbody>{% for forum in forumlar %}
                 <tr title="{{forum.baslik}}">
-                    {% if user.is_authenticated %}
+                    
                     <td>
                         {% if request.user in forum.likes.all %}
                         <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> 
@@ -130,7 +130,7 @@
                         
 
                     </td>
-                    {% endif %}
+                    
                     <td class="aciklama">{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
