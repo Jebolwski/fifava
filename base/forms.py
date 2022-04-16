@@ -3,7 +3,7 @@ from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from django.shortcuts import render,redirect
 
 
 class OyuncuForm(forms.ModelForm):
@@ -106,8 +106,9 @@ class ProfilFotoForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super().__init__(*args, **kwargs)
         for fields in self.fields:
-            self.fields['resim'].widget.attrs.update({'accept':'image/png, image/gif, image/jpg, image/jpeg'})
-            self.fields['arka_plan'].widget.attrs.update({'accept':'image/png, image/gif, image/jpg, image/jpeg'})
+            self.fields['resim'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
+            self.fields['arka_plan'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
+    
     
 
 

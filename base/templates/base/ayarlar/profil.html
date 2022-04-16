@@ -75,9 +75,9 @@
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %} {%if profil.arka_plan %}
-        <div class="profil-background"><img class="col-12" src="{{profil.arka_plan.url}}"></div>
+        <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{{profil.arka_plan.url}}"></div>
         {% else %}
-        <div class="profil-background"><img class="col-12" src="{% static 'images/default-background.jpg' %}"></div>
+        <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
         <div class="profil-rest">
             {% if profil.resim %}

@@ -66,7 +66,6 @@ def GirisYap(request):
 def CikisYap(request):
     logout(request)
     messages.success(request,"Başarıyla çıkış yapıldı.")
-    messages.error(request,"Bir hata oluştu.")
     return redirect("anasayfa")
 
 
@@ -248,7 +247,6 @@ def HaberEkle(request):
         baslik_slug = slugify(request.POST['baslik']),
         )
         messages.success(request,"Haber başarıyla oluşturuldu.")
-        messages.error(request,"Bir hata oluştu.")
         return redirect('haberler')
         context = {'form':form,'haberler':haberler}
     context = {'form':form,'haberler':haberler}
@@ -277,7 +275,6 @@ def HaberDuzenle(request,my_slug):
                 instance.resim=request.FILES['file']
             instance.save()
             messages.success(request,"Haber başarıyla düzenlendi.")
-            messages.error(request,"Bir hata oluştu.")
             return redirect("haberler")
     context = {'instance':instance,'haberler':haberler}
     return render(request,"base/haber/haber-duzenle.html",context)
@@ -844,6 +841,7 @@ def ProfilFotoView(request,pk):
 def ProfilFotoDuzenle(request,pk):
     foto = ProfilFoto.objects.get(user_id=pk)
     onaydurum = OnayDurum.objects.get(kisi_id=pk)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if foto.username!=request.user.username:
         return redirect("404")
 
@@ -869,7 +867,7 @@ def ProfilFotoDuzenle(request,pk):
             
             
         
-    context = {'foto':foto,'form':form,'onaydurum':onaydurum}
+    context = {'foto':foto,'form':form,'onaydurum':onaydurum,'haberler':haberler}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
 
