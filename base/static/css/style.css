@@ -69,24 +69,6 @@ body .home aside {
   background-color: rgba(78, 78, 78, 0.35);
 }
 
-body .home .side-navbar {
-  -webkit-animation-name: s-left;
-          animation-name: s-left;
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-}
-
-body .home .haberler {
-  -webkit-animation-name: h-right;
-          animation-name: h-right;
-  -webkit-animation-duration: 0.8s;
-          animation-duration: 0.8s;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-}
-
 body .loading {
   height: 100vh;
   width: 100vw;
@@ -716,6 +698,12 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
 }
 
 @media only screen and (max-width: 1366px) {
+  .side-navbar ul {
+    list-style: none;
+  }
+  .side-navbar ul li {
+    list-style: none;
+  }
   .side-navbar ul li a {
     font-size: 14px;
     text-align: center;

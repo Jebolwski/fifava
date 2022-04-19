@@ -135,12 +135,19 @@
         inputa.classList.add("form-control");
         inputb.classList.add("form-control");
         inputc.classList.add("form-control");
-        if ("{{onaydurum.onaydurum}}" == "Kabul Et") {
+        console.log("{{request.user.is_superuser}}");
+        if ("{{request.user.is_superuser}}"=="True") {
+            console.log("admin");
+            console.log("prof_resim",inputa,"arkaplan",inputb);
             inputb.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
-            inputc.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+            inputa.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+             console.log("prof_resim",inputa,"arkaplan",inputb);
         } else {
+            console.log("değil");
+             console.log("prof_resim",inputa,"arkaplan",inputb);
             inputb.setAttribute("accept", "image/png, image/jpg, image/jpeg");
-            inputc.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+            inputa.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+             console.log("prof_resim",inputa,"arkaplan",inputb);
         }
 
         $(document).ready(function() {

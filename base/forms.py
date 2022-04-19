@@ -105,9 +105,9 @@ class ProfilFotoForm(forms.ModelForm):
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args, **kwargs)
-        for fields in self.fields:
-            self.fields['resim'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
-            self.fields['arka_plan'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
+        # for fields in self.fields:
+        #     self.fields['resim'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
+        #     self.fields['arka_plan'].widget.attrs.update({'accept':'image/png, image/jpg, image/jpeg'})
     
     
 

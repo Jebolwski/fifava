@@ -2,7 +2,6 @@
   background: rgb(210, 181, 104);
   border-radius: 20px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(184, 160, 94);
 }
@@ -54,16 +53,6 @@ body {
     background-size: 100vw 100%;
     aside {
       background-color: rgba(78, 78, 78, 0.35);
-    }
-    .side-navbar {
-      animation-name: s-left;
-      animation-duration: 0.8s;
-      animation-timing-function: ease-in-out;
-    }
-    .haberler {
-      animation-name: h-right;
-      animation-duration: 0.8s;
-      animation-timing-function: ease-in-out;
     }
   }
   .loading {
@@ -534,9 +523,15 @@ main {
 
 @media only screen and (max-width: 1366px) {
   .side-navbar {
-    ul li a {
-      font-size: 14px;
-      text-align: center;
+    ul {
+      list-style: none;
+      li {
+        list-style: none;
+        a {
+          font-size: 14px;
+          text-align: center;
+        }
+      }
     }
   }
   #fifava {

@@ -91,7 +91,7 @@
         {% if haberler %}
         <table class="table table-striped table-hover">
             <thead class="text-center">
-                <tr>
+                <tr class="th">
                     <th>Başlık</th>
                     <th>Açıklama</th>
                     <th class="d-none d-md-table-cell">Tarih</th>
@@ -105,7 +105,7 @@
             </thead>
             <tbody>
                 {% for haber in haberler %}
-                <tr class="text-center">
+                <tr class="tr text-center">
                     <td class="aciklama">{{haber.baslik}}</td>
                     <td class="aciklama">{{haber.aciklama}}</td>
 
@@ -158,7 +158,47 @@
         </ul>
     </aside>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
+    <script defer>
+        window.onbeforeunload = function() {
+            var scrollPos;
+            if (typeof window.pageYOffset != 'undefined') {
+                scrollPos = window.pageYOffset;
+            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                scrollPos = document.documentElement.scrollTop;
+            } else if (typeof document.body != 'undefined') {
+                scrollPos = document.body.scrollTop;
+            }
+            document.cookie = "scrollTop=" + scrollPos;
+        }
+        window.onload = function() {
+            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+                document.documentElement.scrollTop = parseInt(arr[1]);
+                document.body.scrollTop = parseInt(arr[1]);
+            }
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".tr",{
+            scrollTrigger:".tr",
+            opacity:0,
+            duration:1,
+            x:"-100%",
+            rotationX:"180",
+            ease:"power1"
+        })
+        gsap.from(".th",{
+            scrollTrigger:".tr",
+            opacity:0,
+            duration:1,
+            x:"100%",
+            rotationX:"180",
+            ease:"power1"
+        })
+
     </script>
 </body>
 
