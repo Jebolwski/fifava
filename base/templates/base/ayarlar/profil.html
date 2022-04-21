@@ -84,7 +84,7 @@
         {% else %}
         <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
-        <div class="profil-rest" style="height: 100%;" >
+        <div class="profil-rest" style="height: 100vh;" >
             {% if profil.resim %}
             <img src="{{profil.resim.url}}" class="profil-foto"> {%else%}
             <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"> {% endif %}
@@ -128,7 +128,7 @@
                 
                 {% if forumlari %}
                 <h5 class="text-center py-4">Oluşturduğu Forumlar</h5>
-                <table class="mt-5 table table-striped table-hover text-center">
+                <table class="mt-5 table table-striped table-hover text-center" style="height: 100vh;background-color: white;">
                 <thead>
                 <tr class="th">
                     {% if user.is_authenticated %}

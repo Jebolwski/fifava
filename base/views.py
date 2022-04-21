@@ -923,13 +923,25 @@ def BegenmemeForum(request,pk):
 @login_required(login_url='giris-yap')
 def BegenmeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    forum.likes.add(request.user.id)
+    print(forum.likes.all())
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
     return redirect("profil",slugify(request.user.username))
 
 @login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    forum.likes.remove(request.user.id)
+    print(forum.dislikes.all())
+    if request.user in forum.dislikes.all():
+        print("var",request.user)
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
     return redirect("profil",slugify(request.user.username))
 
 
