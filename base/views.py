@@ -874,25 +874,40 @@ def ProfilFotoDuzenle(request,pk):
 def Forumlar(request):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+    
     if request.method=='POST':
         arama = request.POST['arama']
         forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
-    
-    context = {'forumlar':forumlar,'haberler':haberler}
+    if request.user.is_authenticated:
+        onay_durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {'forumlar':forumlar,'haberler':haberler,'onaydurum':onay_durum}
+    else:
+        context = {'forumlar':forumlar,'haberler':haberler}
+
     return render(request,"base/forum/forumlar.html",context) 
 
 @login_required(login_url='giris-yap')
 def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
-    forum.dislikes.remove(request.user.id)
-    forum.likes.add(request.user.id)
+    print(forum.likes.all())
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
     return redirect("forum",forum.soru.id)
 
 @login_required(login_url='giris-yap')
 def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
-    forum.likes.remove(request.user.id)
-    forum.dislikes.add(request.user.id)
+    print(forum.likes.all())
+    if request.user in forum.dislikes.all():
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
+    
     return redirect("forum",forum.soru.id)
 
 @login_required(login_url='giris-yap')
@@ -930,7 +945,7 @@ def BegenmeProfilForum(request,pk):
         forum.likes.add(request.user.id)
         forum.dislikes.remove(request.user.id)
     
-    return redirect("profil",slugify(request.user.username))
+    return redirect("profil",forum.profil.username_slug)
 
 @login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
@@ -942,7 +957,7 @@ def BegenmemeProfilForum(request,pk):
     else:
         forum.dislikes.add(request.user.id)
         forum.likes.remove(request.user.id)
-    return redirect("profil",slugify(request.user.username))
+    return redirect("profil",forum.profil.username_slug)
 
 
 def ForumCevapla(request,pk):
@@ -1003,6 +1018,7 @@ def ForumSil(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def ForumEkle(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = ForumEkleForm()
     if request.method=="POST":
         data = request.POST.copy()
@@ -1017,7 +1033,13 @@ def ForumEkle(request):
             return redirect('forumlar')
         else:
             messages.error(request,"Bir hata oluştu.")
-    context={'form':form}
+    context={'form':form,'haberler':haberler}
     return render(request,"base/forum/forum-ekle.html",context)
 
+@login_required(login_url='giris-yap')
+def ForumOlusturulamaz(request):
+    onaydurum = OnayDurum.objects.get(kisi_id=request.user.id)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context={'onaydurum':onaydurum,'haberler':haberler}
+    return render(request,"base/forum/forum-eklenemez.html",context)
 

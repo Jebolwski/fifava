@@ -32,6 +32,7 @@ urlpatterns = [
     path("forum-profil/<int:pk>/begen/",views.BegenmeProfilForum,name="forum-begen-2"),
     path("forum-profil/<int:pk>/begenme/",views.BegenmemeProfilForum,name="forum-begenme-2"),
     path("forum-cevap/<int:pk>/sil/",views.ForumCevapSil,name="forum-cevap-sil"),
+    path("forum-eklenemez/",views.ForumOlusturulamaz,name="forum-eklenemez"),
 
 
 

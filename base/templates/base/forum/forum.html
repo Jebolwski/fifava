@@ -166,11 +166,21 @@
                     <p>{{foru.guncellenme_tarihi}}</p>
                     <hr>
                     {% if user.is_authenticated %}
-                    <p><a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up mx-2" style="color:rgb(31, 82, 31);"></i></a> {{foru.total_likes}} 
-                        <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down mx-2" style="color:rgb(82, 34, 31);"></i></a> {{foru.total_dislikes}}</p>
+                    <p>
+                        {% if request.user in foru.likes.all %}
+                        <a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up text-black mx-2"></i></a> {{foru.total_likes}} 
+                        {% else %}
+                        <a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up mx-2"></i></a> {{foru.total_likes}} 
+                        {% endif %}
+                        {% if request.user in foru.dislikes.all %}
+                        <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down text-black mx-2"></i></a> {{foru.total_dislikes}}
+                        {% else %}
+                        <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}
+                        {% endif %}
+                    </p>
                     {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2" style="color:rgb(31, 82, 31);" ></i></a> 
-                            {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"  style="color:rgb(82, 34, 31);"></i></a> {{foru.total_dislikes}}</p>
+                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
+                            {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}</p>
                     {% endif %}
         </div>
 

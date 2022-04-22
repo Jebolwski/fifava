@@ -1,7 +1,7 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-<title>Forumlar | FIFAVOX</title>
+<title>Forum Oluşturulamaz | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -79,79 +79,12 @@
         {% for message in messages %}
         <div class="message">{{message}}</div>
         {% endfor %}
-        <h4 class="pt-5 text-center">Forumlar</h4>
-        <form method="POST">
-            {% csrf_token %}
-            <table class="center col-sm-8 col-md-4 mb-5 mt-5">
-                <tr>
-                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
-                    <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
-                    {% if user.is_authenticated %}
-                    <td>
-                        {% if onaydurum.durum == "Kabul Et" %}
-                        <a href="{% url 'forum-ekle' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
-                        {% else %}
-                        <a href="{% url 'forum-eklenemez' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
-                        {% endif %}
-                    </td>
-                    {% endif %}
-                </tr>
-            </table>
-        </form>
-
-        {% if forumlar %}
-        <table class="mt-5 table table-striped table-hover text-center">
-            <thead>
-                <tr class="th">
-                    {% if user.is_authenticated %}
-                    <th></th>
-                    {% endif %}
-                    <th>Başlık</th>
-                    <th>Açıklama</th>
-                    <th class="d-none d-lg-table-cell">Tarih</th>
-                    <th class="d-none d-md-table-cell">Cevap Sayısı</th>
-                    <th>Bak</th>
-                    {% if user.is_authenticated %}
-                    <th>Sil</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>{% for forum in forumlar %}
-                <tr class="tr" title="{{forum.baslik}}">
-                    
-                    <td>
-                        {% if request.user in forum.likes.all %}
-                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> 
-                        {% endif %} 
-                        {% if request.user in forum.dislikes.all %}
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> 
-                        {% endif %} 
-                        <span class="mx-1">{{forum.puan}}</span>
-                        
-
-                    </td>
-                    
-                    <td class="aciklama">{{forum.baslik}}</td>
-                    <td class="aciklama">{{forum.soru}}</td>
-                    <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
-                    <td class="d-none d-md-table-cell">{{forum.yanit_sayi}}</td>
-                    <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-eye" title="Bak"></i></a></td>
-                    {% if user.is_authenticated %} {% if forum.profil.username == request.user.username or request.user.is_superuser %}
-                    <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
-                    {% else %}
-                    <td><i class="fa-solid fa-ban"></i></td>
-                    {% endif %} {% endif %}
-                </tr>{% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
+        <br>
+        <h4 class="text-center mt-5">Forum oluşturamazsınız. Onaylı kullanıcı değilsiniz.</h4>
+        <h5 class="text-center mt-4">Onay durumunuz : {{onaydurum.onaydurum}}</h5>
+        {% if onaydurum.onaydurum == "Cevapsız" %}
+        <h5 class="text-center mt-4">Onaylanmak için <a href="/form-cevapla/fifavox-roleplay-kayt-formu/" class="text-black">cevaplayın</a>.</h5>
         {% endif %}
-
 
     </main>
 
