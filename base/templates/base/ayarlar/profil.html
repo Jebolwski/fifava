@@ -82,12 +82,19 @@
         {% endfor %} {%if profil.arka_plan %}
         <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{{profil.arka_plan.url}}"></div>
         {% else %}
-        <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{% static 'images/default-background.jpg' %}"></div>
+        <div class="profil-background"><img class="col-12" style="min-height: 100px;"  src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
+        <div style="z-index: 10;position: absolute;background-color: gray;height: 100vh;width: 100vw;top: 0;right: 0;">
+            {% if profil.resim %}
+            <img src="{{profil.resim.url}}" class="profil-foto" onclick="profil_foto_buyu()">
+            {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"  onclick="profil_foto_buyu()"> {% endif %}
+        </div>
         <div class="profil-rest" style="height: 100vh;" >
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" style="z-index: 1;"> {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"" style="z-index: 1;"> {% endif %}
+            <img src="{{profil.resim.url}}" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;">
+            {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"  onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -247,6 +254,11 @@
                 trigger: 'hover',
             });
         });
+
+        function profil_foto_buyu(){
+            let photo = document.querySelector(".profil-foto");
+            
+        }
     </script>
 </body>
 

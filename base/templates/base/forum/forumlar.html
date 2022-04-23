@@ -88,7 +88,7 @@
                     <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
                     {% if user.is_authenticated %}
                     <td>
-                        {% if onaydurum.durum == "Kabul Et" %}
+                        {% if onaydurum.onaydurum == "Kabul Et" %}
                         <a href="{% url 'forum-ekle' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
                         {% else %}
                         <a href="{% url 'forum-eklenemez' %}"> <i class="fa-solid fa-comment-medical fa-lg pt-1 mx-2"></i></a>
