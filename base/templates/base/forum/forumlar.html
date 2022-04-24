@@ -82,7 +82,7 @@
         <h4 class="pt-5 text-center">Forumlar</h4>
         <form method="POST">
             {% csrf_token %}
-            <table class="center col-sm-8 col-md-4 mb-5 mt-5">
+            <table class="center col-8 col-sm-8 col-md-4 mb-5 mt-5">
                 <tr>
                     <td><input type="text" class="form-control col-10" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
                     <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
@@ -118,23 +118,18 @@
             </thead>
             <tbody>{% for forum in forumlar %}
                 <tr class="tr" title="{{forum.baslik}}">
-                    
+
                     <td>
                         {% if request.user in forum.likes.all %}
-                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> 
-                        {% endif %} 
-                        {% if request.user in forum.dislikes.all %}
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> 
-                        {% endif %} 
+                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> {% else %}
+                        <a href="{% url 'forum-begen-1' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> {% endif %} {% if request.user in forum.dislikes.all %}
+                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> {% else %}
+                        <a href="{% url 'forum-begenme-1' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> {% endif %}
                         <span class="mx-1">{{forum.puan}}</span>
-                        
+
 
                     </td>
-                    
+
                     <td class="aciklama">{{forum.baslik}}</td>
                     <td class="aciklama">{{forum.soru}}</td>
                     <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
@@ -197,18 +192,18 @@
             }
         }
 
-        
 
-        
+
+
         let height = window.innerHeight;
 
-                function kesfet_kay() {
-                    window.scrollTo({
-                        top: height,
-                        left: 0,
-                        behavior: 'smooth'
-                    });
-                }
+        function kesfet_kay() {
+            window.scrollTo({
+                top: height,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>

@@ -4,7 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
-    body{
+    body {
         overflow-y: auto;
     }
 </style>
@@ -80,21 +80,26 @@
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %} {%if profil.arka_plan %}
-        <div class="profil-background"><img class="col-12" style="min-height: 100px;" src="{{profil.arka_plan.url}}"></div>
+        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{{profil.arka_plan.url}}"></div>
         {% else %}
-        <div class="profil-background"><img class="col-12" style="min-height: 100px;"  src="{% static 'images/default-background.jpg' %}"></div>
+        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
-        <div style="z-index: 10;position: absolute;background-color: gray;height: 100vh;width: 100vw;top: 0;right: 0;">
-            {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" onclick="profil_foto_buyu()">
-            {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"  onclick="profil_foto_buyu()"> {% endif %}
+        <div class="profil-foto-buyuk" style="visibility: hidden;">
+            <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="cursor: pointer;" onclick="profil_foto_kapa()"></i> {% if profil.resim %}
+            <img src="{{profil.resim.url}}" class="col-4 offset-5 mt-5 pt-5" onclick="profil_foto_buyu()"> {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" class="col-4 offset-5 mt-5 pt-5" onclick="profil_foto_buyu()"> {% endif %}
         </div>
-        <div class="profil-rest" style="height: 100vh;" >
+        <div class="arkaplan-foto-buyuk" style="visibility: hidden;">
+            <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> {%if profil.arka_plan %}
+            <div class="profil-background"><img class="col-8 offset-6" style="min-height: 100px;" src="{{profil.arka_plan.url}}"></div>
+            {% else %}
+            <div class="profil-background"><img class="col-8 offset-6" style="min-height: 100px;" src="{% static 'images/default-background.jpg' %}"></div>
+            {% endif %}
+        </div>
+        <div class="profil-rest" style="height: 100vh;">
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;">
-            {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto"  onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
+            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -132,61 +137,56 @@
             </div>
 
             <div>
-                
+
                 {% if forumlari %}
                 <h5 class="text-center py-4">Oluşturduğu Forumlar</h5>
                 <table class="mt-5 table table-striped table-hover text-center" style="height: 100vh;background-color: white;">
-                <thead>
-                <tr class="th">
-                    {% if user.is_authenticated %}
-                    <th></th>
-                    {% endif %}
-                    <th>Başlık</th>
-                    <th>Açıklama</th>
-                    <th class="d-none d-lg-table-cell">Tarih</th>
-                    <th class="d-none d-md-table-cell">Cevap Sayısı</th>
-                    <th>Bak</th>
-                    {% if user.is_authenticated %}
-                    <th>Sil</th>
-                    {% endif %}
-                </tr>
-                </thead>
-                <tbody style="z-index: 10;" >{% for forum in forumlari %}
-                <tr class="tr" title="{{forum.baslik}}" >
-                    <td>
-                        {% if request.user in forum.likes.all %}
-                        <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> 
-                        {% endif %} 
-                        {% if request.user in forum.dislikes.all %}
-                        <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> 
-                        {% else %}
-                        <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> 
-                        {% endif %} 
-                        <span class="mx-1">{{forum.puan}}</span>
-                        
+                    <thead>
+                        <tr class="th">
+                            {% if user.is_authenticated %}
+                            <th></th>
+                            {% endif %}
+                            <th>Başlık</th>
+                            <th>Açıklama</th>
+                            <th class="d-none d-lg-table-cell">Tarih</th>
+                            <th class="d-none d-md-table-cell">Cevap Sayısı</th>
+                            <th>Bak</th>
+                            {% if user.is_authenticated %}
+                            <th>Sil</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody style="z-index: 10;">{% for forum in forumlari %}
+                        <tr class="tr" title="{{forum.baslik}}">
+                            <td>
+                                {% if request.user in forum.likes.all %}
+                                <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> {% else %}
+                                <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> {% endif %} {% if request.user in forum.dislikes.all %}
+                                <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> {% else %}
+                                <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> {% endif %}
+                                <span class="mx-1">{{forum.puan}}</span>
 
-                    </td>
-                    <td class="aciklama">{{forum.baslik}}</td>
-                    <td class="aciklama">{{forum.soru}}</td>
-                    <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
-                    <td class="d-none d-md-table-cell">{{forum.yanit_sayi}}</td>
-                    <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-eye" title="Bak"></i></a></td>
-                    {% if user.is_authenticated %} {% if forum.profil.username == request.user.username or request.user.is_superuser %}
-                    <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
-                    {% else %}
-                    <td><i class="fa-solid fa-ban"></i></td>
-                    {% endif %} {% endif %}
-                </tr>{% endfor %}
-                </tbody>
+
+                            </td>
+                            <td class="aciklama">{{forum.baslik}}</td>
+                            <td class="aciklama">{{forum.soru}}</td>
+                            <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
+                            <td class="d-none d-md-table-cell">{{forum.yanit_sayi}}</td>
+                            <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-eye" title="Bak"></i></a></td>
+                            {% if user.is_authenticated %} {% if forum.profil.username == request.user.username or request.user.is_superuser %}
+                            <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
+                            {% else %}
+                            <td><i class="fa-solid fa-ban"></i></td>
+                            {% endif %} {% endif %}
+                        </tr>{% endfor %}
+                    </tbody>
                 </table>
-                
+
                 {% else %}
                 <hr> {% if request.user.username == profil.username %}
-                <h5 class="text-center pt-5">Hiç forum oluşturmamışsınız. <a href="{% url 'forum-ekle' %}" class="text-black"> Forum oluşturun.</a></h5>
+                <h5 class="forum-olusturmamis text-center pt-5">Hiç forum oluşturmamışsınız. <a href="{% url 'forum-ekle' %}" class="text-black"> Forum oluşturun.</a></h5>
                 {% else %}
-                <h5 class="text-center pt-5">Bu kullanıcı hiç forum oluşturmamış...</h5>
+                <h5 class="forum-olusturmamis text-center pt-5">Bu kullanıcı hiç forum oluşturmamış...</h5>
                 {% endif %} {% endif %}
                 <br>
             </div>
@@ -239,10 +239,10 @@
 
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from(".profil-foto",{
-            scrollTrigger:".profil-foto",
+        gsap.from(".profil-foto", {
+            scrollTrigger: ".profil-foto",
             rotationX: -360,
-            duration:1,
+            duration: 1,
         })
 
         $(document).ready(function() {
@@ -255,9 +255,28 @@
             });
         });
 
-        function profil_foto_buyu(){
-            let photo = document.querySelector(".profil-foto");
-            
+        function profil_foto_buyu() {
+            let photo = document.querySelector(".profil-foto-buyuk");
+            photo.style.visibility = "visible"
+
+        }
+
+        function profil_foto_kapa() {
+            let photo = document.querySelector(".profil-foto-buyuk");
+            photo.style.visibility = "hidden"
+        }
+
+
+
+        function arkaplan_foto_buyu() {
+            let photo = document.querySelector(".arkaplan-foto-buyuk");
+            photo.style.visibility = "visible"
+
+        }
+
+        function arkaplan_foto_kapa() {
+            let photo = document.querySelector(".arkaplan-foto-buyuk");
+            photo.style.visibility = "hidden"
         }
     </script>
 </body>

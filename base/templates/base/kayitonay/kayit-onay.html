@@ -97,7 +97,7 @@
                 {% for i in onay %}
                 <tr>
                     <td>{{i.kisi}}</td>
-                    <td>
+                    <td class="aciklama">
                         {% if i.onaydurum %} {% if i.onaydurum == "Kabul Et" %}
                         <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
                         <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}

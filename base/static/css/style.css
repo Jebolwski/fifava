@@ -494,7 +494,7 @@ main .biyografi .top {
 }
 
 main .biyografi .profil-edit {
-  padding-left: 42vw;
+  margin-left: 42vw;
 }
 
 main .reply-to-comment {
@@ -503,6 +503,51 @@ main .reply-to-comment {
 
 main .visible {
   display: block;
+}
+
+main .profil-foto-buyuk {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(114, 108, 53, 0.5);
+}
+
+main .profil-foto-buyuk img {
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: none;
+}
+
+main .profil-foto-buyuk .profil-foto-kapa {
+  z-index: 1000;
+  position: absolute;
+  left: 2vw;
+  top: 2vh;
+}
+
+main .arkaplan-foto-buyuk {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(114, 108, 53, 0.5);
+}
+
+main .arkaplan-foto-buyuk img {
+  margin-top: 20vh;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: none;
+}
+
+main .arkaplan-foto-buyuk .arkaplan-foto-kapa {
+  z-index: 1000;
+  position: absolute;
+  left: 2vw;
+  top: 2vh;
 }
 
 main .fa-reply {
@@ -739,6 +784,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
     position: relative;
     top: -30vh;
   }
+  main .forum-olusturmamis {
+    font-size: 14px;
+  }
   body {
     overflow-x: hidden;
   }
@@ -779,6 +827,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   main .medya-adresleri {
     background-image: url("../images/medya-adresleri-phone.jpg");
   }
+  main .profil-edit {
+    margin-left: 38vw;
+  }
 }
 
 @media only screen and (max-width: 385px) {
@@ -787,6 +838,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   main #particles-js #fifava {
     height: 10vh;
+  }
+  main .forum-olusturmamis {
+    font-size: 11px;
   }
 }
 
