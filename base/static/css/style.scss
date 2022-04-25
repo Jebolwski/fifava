@@ -421,10 +421,18 @@ main {
             border-radius: none;
         }
         .profil-foto-kapa {
-            z-index: 1000;
+            z-index: 100;
             position: absolute;
             left: 2vw;
             top: 2vh;
+        }
+        .profil-foto-kapa-1 {
+            z-index: 20;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
         }
     }
     .arkaplan-foto-buyuk {
@@ -435,6 +443,7 @@ main {
         width: 100vw;
         background-color: rgba(114, 108, 53, 0.5);
         img {
+            z-index: 100;
             margin-top: 20vh;
             transform: translateX(-50%);
             border-radius: none;
@@ -444,6 +453,14 @@ main {
             position: absolute;
             left: 2vw;
             top: 2vh;
+        }
+        .arkaplan-foto-kapa-1 {
+            z-index: 20;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
         }
     }
     .fa-reply {

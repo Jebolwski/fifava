@@ -83,12 +83,12 @@ urlpatterns = [
     path("cevap-sil/<int:pk>/", views.CevapSil, name="cevap-sil"),
     path("cevap-detay/<int:pk>/", views.CevapDetay, name="cevap-detay"),
     path("cevaplanmis/", views.Cevaplanmis, name="cevaplanmis"),
-    path("cevaplanmis-duzenle/<int:pk>", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
+    path("cevaplanmis-duzenle/<int:pk>/", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 
 
      #!İLETİŞİM
     path("gelen-kutusu-cevaplama/<int:iletisim_id>",views.GelenKutusuCevaplama,name="gelen-kutusu-cevaplama"),
-    path("cevap/<int:pk>",views.CevabaCevap,name="cevaba-cevap"),
+    path("cevap/<int:pk>/",views.CevabaCevap,name="cevaba-cevap"),
     
     
     #!ŞİFRE İŞLEMLERİ

@@ -1018,6 +1018,9 @@ def ForumSil(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def ForumEkle(request):
+    onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
+    if onaydurum.onaydurum!="Kabul Et":
+        return redirect("forum-eklenemez")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = ForumEkleForm()
     if request.method=="POST":

@@ -521,10 +521,19 @@ main .profil-foto-buyuk img {
 }
 
 main .profil-foto-buyuk .profil-foto-kapa {
-  z-index: 1000;
+  z-index: 100;
   position: absolute;
   left: 2vw;
   top: 2vh;
+}
+
+main .profil-foto-buyuk .profil-foto-kapa-1 {
+  z-index: 20;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 main .arkaplan-foto-buyuk {
@@ -537,6 +546,7 @@ main .arkaplan-foto-buyuk {
 }
 
 main .arkaplan-foto-buyuk img {
+  z-index: 100;
   margin-top: 20vh;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -548,6 +558,15 @@ main .arkaplan-foto-buyuk .arkaplan-foto-kapa {
   position: absolute;
   left: 2vw;
   top: 2vh;
+}
+
+main .arkaplan-foto-buyuk .arkaplan-foto-kapa-1 {
+  z-index: 20;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 main .fa-reply {
