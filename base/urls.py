@@ -62,6 +62,7 @@ urlpatterns = [
     path("oyuncu-ekle/", views.KisiEkle, name="kisi-ekle"),
     path("oyuncu-duzenle/<slug:my_slug>/", views.KisiDuzenle, name="kisi-duzenle"),
     path("oyuncu-sil/<slug:my_slug>", views.KisiSil, name="kisi-sil"),
+    path("oyuncu-detay/<slug:my_slug>/", views.KisiDetay, name="kisi-detay"),
 
 
     #!HABERLER

@@ -8,11 +8,13 @@ from django.contrib.auth.models import User
 
 class Kullanici(models.Model):
     oyun_ad_soyad          = models.CharField(max_length=25,blank=False,null=False)
-    oyun_ad_soyad_slug          = models.SlugField(unique=True,null=False,blank=False)
+    oyun_ad_soyad_slug     = models.SlugField(unique=True,null=False,blank=False)
     meslek                 = models.CharField(max_length=25,blank=False,null=False)
+    dosya                  = models.ImageField(upload_to="oyuncu",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    goruldu = models.ManyToManyField(User,related_name='goruldu_oyuncu',default=None,blank=True)
 
     def __str__(self):
         return str(self.oyun_ad_soyad)
@@ -26,6 +28,7 @@ class Haberler(models.Model):
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    goruldu = models.ManyToManyField(User,related_name='goruldu_haber',default=None,blank=True)
 
     def __str__(self):
         return str(self.baslik)
@@ -86,6 +89,10 @@ class Sorular(models.Model):
     onay2                  = models.CharField(max_length=120,null=True,blank=True)
     onay3                  = models.CharField(max_length=120,null=True,blank=True)
     onay4                  = models.CharField(max_length=120,null=True,blank=True)
+
+
+    goruldu = models.ManyToManyField(User,related_name='goruldu_form',default=None,blank=True)
+    
     
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)   
@@ -144,9 +151,12 @@ class Iletisim(models.Model):
     dosya = models.ImageField(upload_to="iletisim",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
+    goruldu = models.ManyToManyField(User,related_name='goruldu_iletisim',default=None,blank=True)
 
     def __str__(self):
         return str(self.baslik)
+
+
 
 class Iletisim_cevap(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
@@ -154,6 +164,7 @@ class Iletisim_cevap(models.Model):
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     cevap = models.TextField(max_length=600)
+    goruldu = models.ManyToManyField(User,related_name='goruldu_iletisim_cevap',default=None,blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -184,6 +195,7 @@ class ForumSoru(models.Model):
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     likes = models.ManyToManyField(User,related_name='likes1',default=None,blank=True)
     dislikes = models.ManyToManyField(User,related_name='dislikes1',default=None,blank=True)
+    goruldu = models.ManyToManyField(User,related_name='goruldu_soru',default=None,blank=True)
 
 
     def __str__(self):
@@ -191,8 +203,6 @@ class ForumSoru(models.Model):
 
     def puan(self):
         return self.likes.count()-self.dislikes.count()
-
-
 
 
 class ForumSoruCevap(models.Model):

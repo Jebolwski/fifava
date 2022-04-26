@@ -32,7 +32,7 @@
   border: 1px solid #726c35;
 }
 
-* .btn-outline-dark:hover {
+* .btn-outline-dark:hover, * .btn-outline-dark:checked {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   background-color: #817952;
@@ -518,6 +518,7 @@ main .profil-foto-buyuk img {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   border-radius: none;
+  pointer-events: none;
 }
 
 main .profil-foto-buyuk .profil-foto-kapa {

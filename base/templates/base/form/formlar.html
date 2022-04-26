@@ -97,6 +97,7 @@
         <table class="table table-striped table-hover mb-3">
             <thead class="text-center">
                 <tr class="th">
+                    <th></th>
                     <th>Başlık</th>
                     <th class="d-none d-md-table-cell">Tarih</th>
                     <th class="d-none d-md-table-cell">Detay</th>
@@ -111,6 +112,13 @@
             <tbody>
                 {% for form in formlar %}
                 <tr class="tr text-center">
+                    {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
+                    <td>
+                        <span class="badge bg-dark">Yeni</span>
+                    </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td class="aciklama-uzun">{{form.baslik}}</td>
                     <td class="d-none d-md-table-cell">{{form.guncellenme_tarihi}}</td>
                     <td class="d-none d-md-table-cell"><a href="{% url 'form-detay' form.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></td>

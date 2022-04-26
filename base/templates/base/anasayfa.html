@@ -205,24 +205,24 @@
                         <div class="col-8 col-md-6 offset-2 offset-md-3">
                             <h3 class="text-center text-white pb-3">Bizimle İletişime Geçin</h3>
                             <div class="ad-soyad">
-                            <h5 class="pt-5 text-center text-white">Ad Soyad</h5>
-                            <br>
-                            <input type="text" class="form-control" required name="ad_soyad" maxlength="100">
+                                <h5 class="pt-5 text-center text-white">Ad Soyad</h5>
+                                <br>
+                                <input type="text" class="form-control" required name="ad_soyad" maxlength="100">
                             </div>
                             <div class="baslik">
-                            <h5 class="mt-5 text-center text-white">Başlık</h5>
-                            <br>
-                            <input type="text" class="form-control" required name="baslik" maxlength="100">
+                                <h5 class="mt-5 text-center text-white">Başlık</h5>
+                                <br>
+                                <input type="text" class="form-control" required name="baslik" maxlength="100">
                             </div>
                             <div class="form-aciklama">
-                            <h5 class="mt-5 text-center text-white">Açıklama</h5>
-                            <br>
-                            <textarea name="aciklama" class="form-control" maxlength="1000" rows="4"></textarea>
+                                <h5 class="mt-5 text-center text-white">Açıklama</h5>
+                                <br>
+                                <textarea name="aciklama" class="form-control" maxlength="1000" rows="4"></textarea>
                             </div>
                             <br>
                             <div class="dosya">
-                            <h5 class="mt-5 text-center text-white mb-3">Dosya</h5>
-                            <input type="file" id="file" name="file" class="form-control" />
+                                <h5 class="mt-5 text-center text-white mb-3">Dosya</h5>
+                                <input type="file" id="file" name="file" class="form-control" />
                             </div>
                             <input type="submit" value="İlet" class="ilet btn text-white center border mt-5 mb-5">
                         </div>
@@ -269,16 +269,18 @@
                             <tr>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                                 <th class="d-none d-lg-table-cell"></th>
+                                <th></th>
                                 <th>Gönderen</th>
                                 <th class="aciklama">Ad Soyad</th>
                                 <th>Başlık</th>
-                                <th class="d-none d-lg-table-cell">Açıklama</th>
                                 <th class="d-none d-lg-table-cell">Tarih</th>
                                 <th>Cevapla</th>
                                 <th class="d-none d-lg-table-cell"></th>
                                 <th class="d-none d-lg-table-cell"></th>
                                 <th class="d-none d-lg-table-cell"></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -286,12 +288,17 @@
                             <tr>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td class="d-none d-lg-table-cell"></td>
+                                {% if request.user not in cevap.goruldu.all and request.user.is_authenticated %}
+                                <td>
+                                    <span class="badge bg-dark">Yeni</span>
+                                </td>
+                                {% endif %}
                                 <td class="text-white">{% if cevap.user %} {{cevap.user}} {% else %} Kayıtsız Kullanıcı {% endif %}
                                 </td>
                                 <td class="text-white">{{cevap.ad_soyad}}</td>
                                 <td class="text-white">{{cevap.baslik}}</td>
-                                <td class="aciklama text-white d-none d-lg-table-cell">{{cevap.aciklama}}</td>
                                 <td class="text-white d-none d-lg-table-cell">{{cevap.guncellenme_tarihi}}</td>
                                 {% if cevap.user %}
                                 <td class="text-white"><a href="{% url 'gelen-kutusu-cevaplama' cevap.id %}"><i class="fa-solid fa-reply text-light"></i></a></td>
@@ -301,6 +308,7 @@
                                 <td class="d-none d-lg-table-cell"></td>
                                 <td class="d-none d-lg-table-cell"></td>
                                 <td class="d-none d-lg-table-cell"></td>
+                                <td></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -337,7 +345,13 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            {% if request.user not in c.goruldu.all and request.user.is_authenticated %}
+                            <td>
+                                <span class="badge bg-dark">Yeni</span>
+                            </td>
+                            {% else %}
                             <td></td>
+                            {% endif %}
                             <td class="text-white aciklama">{{c.iletisim}}</td>
                             <td class="text-white aciklama">{{c.cevap}}</td>
                             <td class="text-white d-none d-lg-table-cell">{{c.guncellenme_tarihi}}</td>
@@ -380,10 +394,10 @@
     </div>
 
 
-    
-    
-    
-    
+
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     <script defer>
@@ -408,81 +422,81 @@
 
         gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from(".card-r",{
-            scrollTrigger:".card-r",
-            opacity:0,
-            duration:1,
-            x:"100%"
+        gsap.from(".card-r", {
+            scrollTrigger: ".card-r",
+            opacity: 0,
+            duration: 1,
+            x: "100%"
         })
 
-        gsap.from(".card-l",{
-            scrollTrigger:".card-l",
-            opacity:0,
-            duration:1,
-            x:"-100%"
+        gsap.from(".card-l", {
+            scrollTrigger: ".card-l",
+            opacity: 0,
+            duration: 1,
+            x: "-100%"
         })
 
-        gsap.from(".side-navbar",{
-            scrollTrigger:".side-navbar",
-            opacity:0,
-            duration:1,
-            x:"-100%",
-            ease:"bounce"
+        gsap.from(".side-navbar", {
+            scrollTrigger: ".side-navbar",
+            opacity: 0,
+            duration: 1,
+            x: "-100%",
+            ease: "bounce"
         })
 
-        gsap.from(".haberler",{
-            scrollTrigger:".haberler",
-            opacity:0,
-            duration:1,
-            x:"100%",
-            ease:"bounce"
+        gsap.from(".haberler", {
+            scrollTrigger: ".haberler",
+            opacity: 0,
+            duration: 1,
+            x: "100%",
+            ease: "bounce"
         })
 
-        gsap.from(".ad-soyad",{
-            scrollTrigger:".ad-soyad",
-            opacity:0,
-            duration:1,
-            x:"-100%",
-            ease:"power1"
+        gsap.from(".ad-soyad", {
+            scrollTrigger: ".ad-soyad",
+            opacity: 0,
+            duration: 1,
+            x: "-100%",
+            ease: "power1"
         })
 
-        gsap.from(".baslik",{
-            scrollTrigger:".baslik",
-            opacity:0,
-            duration:1,
-            x:"100%",
-            ease:"power1"
+        gsap.from(".baslik", {
+            scrollTrigger: ".baslik",
+            opacity: 0,
+            duration: 1,
+            x: "100%",
+            ease: "power1"
         })
 
-        gsap.from(".form-aciklama",{
-            scrollTrigger:".form-aciklama",
-            opacity:0,
-            duration:1,
-            x:"-100%",
-            ease:"power1"
+        gsap.from(".form-aciklama", {
+            scrollTrigger: ".form-aciklama",
+            opacity: 0,
+            duration: 1,
+            x: "-100%",
+            ease: "power1"
         })
 
-        gsap.from(".dosya",{
-            scrollTrigger:".dosya",
-            opacity:0,
-            duration:1,
-            x:"100%",
-            ease:"power1"
+        gsap.from(".dosya", {
+            scrollTrigger: ".dosya",
+            opacity: 0,
+            duration: 1,
+            x: "100%",
+            ease: "power1"
         })
 
-        gsap.from(".ilet",{
-            scrollTrigger:".ilet",
-            opacity:0,
-            duration:1,
-            ease:"power1"
+        gsap.from(".ilet", {
+            scrollTrigger: ".ilet",
+            opacity: 0,
+            duration: 1,
+            ease: "power1"
         })
 
-        gsap.from(".linkler",{
-            scrollTrigger:".linkler",
-            opacity:0,
-            duration:1,
-            x:"-100%",
-            ease:"power1"
+        gsap.from(".linkler", {
+            scrollTrigger: ".linkler",
+            opacity: 0,
+            duration: 1,
+            x: "-100%",
+            ease: "power1"
         })
 
         $(window).on("load", function() {
@@ -522,6 +536,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     <script src="{% static 'js/app.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
-    
+
     {% endblock content %}
     <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->

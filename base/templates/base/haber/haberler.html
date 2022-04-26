@@ -92,6 +92,7 @@
         <table class="table table-striped table-hover">
             <thead class="text-center">
                 <tr class="th">
+                    <th></th>
                     <th>Başlık</th>
                     <th>Açıklama</th>
                     <th class="d-none d-md-table-cell">Tarih</th>
@@ -106,6 +107,13 @@
             <tbody>
                 {% for haber in haberler %}
                 <tr class="tr text-center">
+                    {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
+                    <td>
+                        <span class="badge bg-dark">Yeni</span>
+                    </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td class="aciklama">{{haber.baslik}}</td>
                     <td class="aciklama">{{haber.aciklama}}</td>
 

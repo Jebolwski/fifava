@@ -124,6 +124,7 @@ def Ev(request):
 def CevabaCevap(request,pk):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
+    cevaplara_cevap.goruldu.add(request.user.id)
     soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
     context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
     return render(request,"base/cevaba-cevap.html",context)
@@ -172,7 +173,7 @@ def KisiEkle(request):
     if request.method == 'POST':
         data = request.POST.copy()
         data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
-        form = OyuncuForm(data)
+        form = OyuncuForm(data,files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
@@ -184,14 +185,13 @@ def KisiEkle(request):
 
 @login_required(login_url='giris-yap')
 def KisiDuzenle(request,my_slug):
-    
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     form = OyuncuForm(instance=instance)
     if request.method == 'POST':
         data = request.POST.copy()
         data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
-        form = OyuncuForm(instance=instance,data = data)
+        form = OyuncuForm(instance=instance,data = data,files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request,"Oyuncu başarıyla düzenlendi.")
@@ -214,6 +214,12 @@ def KisiSil(request,my_slug):
         return redirect('kisiler')
     context = {"haberler":haberler,'kisi':instance}
     return render(request,"base/kisi/kisi-sil.html",context)
+
+def KisiDetay(request,my_slug):
+    kisi = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    kisi.goruldu.add(request.user.id)
+    context = {'kisi':kisi}
+    return render(request,"base/kisi/kisi-detay.html",context)
 
 
 #?HABER CRUD
@@ -256,6 +262,7 @@ def HaberEkle(request):
 def HaberDetay(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     haber = Haberler.objects.get(baslik_slug=my_slug)
+    haber.goruldu.add(request.user.id)
     context = {'haber':haber,'haberler':haberler}
     return render(request,"base/haber/haber-detay.html",context)
 
@@ -335,6 +342,7 @@ def FormDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form_instance = Sorular.objects.get(baslik_slug=my_slug)
     form = SorularForm(instance=form_instance)
+    form.goruldu.add(request.user.id)
     if request.method=="POST":
         data = request.POST.copy()
         data['baslik_slug'] = slugify(request.POST['baslik'])
@@ -394,6 +402,7 @@ def FormCevapla(request,my_slug):
 def FormDetay(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     soru=Sorular.objects.get(baslik_slug = my_slug)
+    soru.goruldu.add(request.user.id)
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
         context={'soru':soru,'haberler':haberler,'durum':durum}
@@ -407,6 +416,7 @@ def FormAnaliz(request,my_slug):
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = Sorular.objects.get(baslik_slug = my_slug)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
+    form.goruldu.add(request.user.id)
     if True:
         sorucount=0
         soru1=0
@@ -780,8 +790,8 @@ def Profil(request,my_slug):
     user = User.objects.get(username = profil_user.username)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
-    if OnayDurum.objects.all().filter(kisi_id=profil_user.id):
-        durum = OnayDurum.objects.get(kisi_id=profil_user.id)
+    if OnayDurum.objects.all().filter(kisi_id=profil_user.user.id):
+        durum = OnayDurum.objects.get(kisi_id=profil_user.user.id)
         context={'durum':durum,'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari}
     else:
         context={'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari}
@@ -964,6 +974,8 @@ def ForumCevapla(request,pk):
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if request.user.is_authenticated:
+        soru.goruldu.add(request.user.id)
     if request.method=='POST':
         list_post = list(request.POST)
         list_post.sort()
