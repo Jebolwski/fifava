@@ -98,13 +98,15 @@ body {
     text-align: center;
     font-size: 17px;
     i,
-    img {
+    img,
+    svg {
       transition: 1s;
     }
     transition: 1s;
     &:hover {
       i,
-      img {
+      img,
+      svg {
         transform: rotateZ(360deg);
         transition: 1s;
       }

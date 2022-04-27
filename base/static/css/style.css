@@ -129,13 +129,15 @@ body .loading img {
 }
 
 .side-navbar ul li a i,
-.side-navbar ul li a img {
+.side-navbar ul li a img,
+.side-navbar ul li a svg {
   -webkit-transition: 1s;
   transition: 1s;
 }
 
 .side-navbar ul li a:hover i,
-.side-navbar ul li a:hover img {
+.side-navbar ul li a:hover img,
+.side-navbar ul li a:hover svg {
   -webkit-transform: rotateZ(360deg);
           transform: rotateZ(360deg);
   -webkit-transition: 1s;
