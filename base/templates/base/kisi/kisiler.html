@@ -158,8 +158,8 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    <td>{{kisi.oyun_ad_soyad}}</td>
-                    <td>{{kisi.meslek}}</td>
+                    <td class="aciklama">{{kisi.oyun_ad_soyad}}</td>
+                    <td class="aciklama">{{kisi.meslek}}</td>
                     <td class="d-none d-md-table-cell">{{kisi.guncellenme_tarihi}}</td>
                     <td>
                         <a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a>

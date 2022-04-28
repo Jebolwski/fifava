@@ -1543,22 +1543,6 @@ def KayitOnay(request):
 
 @login_required(login_url='giris-yap')
 def KayitOnayFormDuzenle(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
-    instance = OnayDurum.objects.get(kisi_id=kisi.id)
-    form = OnayForm(instance=instance)
-    if request.method=="POST":
-        data = request.POST.copy()
-        data['kisi'] = str(kisi.id)
-        form = OnayForm(instance=instance,data=data)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Onay durumu güncellendi.")
-            return redirect("kayit-onay")
-        else:
-            messages.error(request,"Bir hata oluştu.")
-
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1591,6 +1575,23 @@ def KayitOnayFormDuzenle(request,pk):
                 oyuncu_bildirim=True
                 break
      
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
+    instance = OnayDurum.objects.get(kisi_id=kisi.id)
+    form = OnayForm(instance=instance)
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(instance=instance,data=data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu güncellendi.")
+            return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+
+    
     if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
         
         cevaplar = Cevaplar.objects.get(sorular_id=sorular.id,kayitli_id=kisi.id)
@@ -1616,23 +1617,6 @@ def KayitOnayFormDuzenle(request,pk):
 
 @login_required(login_url='giris-yap')
 def KayitOnayForm(request,pk):
-    kisi = User.objects.get(id=pk)
-    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
-        return redirect('kayit-onay-form-duzenle',kisi.id)
-    form = OnayForm()
-    if request.method=="POST":
-        data = request.POST.copy()
-        data['kisi'] = str(kisi.id)
-        form = OnayForm(data)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Onay durumu kaydedildi.")
-            return redirect("kayit-onay")
-        else:
-            messages.error(request,"Bir hata oluştu.")
-    
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1665,6 +1649,24 @@ def KayitOnayForm(request,pk):
                 oyuncu_bildirim=True
                 break
      
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
+        return redirect('kayit-onay-form-duzenle',kisi.id)
+    form = OnayForm()
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu kaydedildi.")
+            return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    
+    
     if Cevaplar.objects.all().filter(sorular_id=sorular.id):
         cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
         if OnayDurum.objects.all().filter(kisi_id=request.user.id):
@@ -2004,7 +2006,7 @@ def Forumlar(request):
 def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     print(forum.likes.all())
-    if request.user not in forum.likes.all():
+    if request.user in forum.likes.all():
         forum.likes.remove(request.user.id)
     else:
         forum.likes.add(request.user.id)
@@ -2016,7 +2018,7 @@ def Begenme(request,pk):
 def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
     print(forum.likes.all())
-    if request.user not in forum.dislikes.all():
+    if request.user in forum.dislikes.all():
         forum.dislikes.remove(request.user.id)
     else:
         forum.dislikes.add(request.user.id)
@@ -2027,9 +2029,9 @@ def Begenmeme(request,pk):
 @login_required(login_url='giris-yap')
 def BegenmeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    print(forum.likes.all())
-    if request.user not in forum.likes.all():
+    if request.user in forum.likes.all():
         forum.likes.remove(request.user.id)
+        print("evet")
     else:
         forum.likes.add(request.user.id)
         forum.dislikes.remove(request.user.id)
@@ -2039,9 +2041,7 @@ def BegenmeForum(request,pk):
 @login_required(login_url='giris-yap')    
 def BegenmemeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    print(forum.dislikes.all())
-    if request.user not in forum.dislikes.all():
-        print("var",request.user)
+    if request.user in forum.dislikes.all():
         forum.dislikes.remove(request.user.id)
     else:
         forum.dislikes.add(request.user.id)
@@ -2052,21 +2052,19 @@ def BegenmemeForum(request,pk):
 @login_required(login_url='giris-yap')
 def BegenmeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    print(forum.likes.all())
-    if request.user not in forum.likes.all():
+    if request.user in forum.likes.all():
         forum.likes.remove(request.user.id)
     else:
         forum.likes.add(request.user.id)
         forum.dislikes.remove(request.user.id)
     
-    return redirect("profil",forum.profil.username_slug)
+    return redirect("profil",slugify(forum.profil.user.username))
 
 @login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     print(forum.dislikes.all())
-    if request.user not in forum.dislikes.all():
-        print("var",request.user)
+    if request.user in forum.dislikes.all():
         forum.dislikes.remove(request.user.id)
     else:
         forum.dislikes.add(request.user.id)
@@ -2075,9 +2073,6 @@ def BegenmemeProfilForum(request,pk):
 
 
 def ForumCevapla(request,pk):
-    soru = ForumSoru.objects.get(id=pk)
-    forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2109,7 +2104,10 @@ def ForumCevapla(request,pk):
             if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
                 oyuncu_bildirim=True
                 break
-     
+    soru = ForumSoru.objects.get(id=pk)
+    forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    
     if request.user.is_authenticated:
         soru.goruldu.add(request.user.id)
     if request.method=='POST':

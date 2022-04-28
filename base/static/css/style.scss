@@ -374,7 +374,6 @@ main {
   .profil-rest {
     position: relative;
     z-index: 3;
-    height: 75vh;
     border-top: 3px solid rgb(114, 108, 53);
     background-color: white;
   }
@@ -612,10 +611,23 @@ main {
   }
 }
 
+@media only screen and (max-width: 988px) {
+  .side-navbar {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
 @media only screen and (max-width: 650px) {
   .side-navbar {
     ul li a {
       font-size: 20px;
+    }
+    svg {
+      width: 22px;
+      height: 22px;
     }
   }
   main {
@@ -710,6 +722,10 @@ main {
   .side-navbar {
     ul li a {
       font-size: 12px;
+    }
+    svg {
+      width: 14px;
+      height: 14px;
     }
   }
   main {

@@ -189,7 +189,7 @@ class ForumSoru(models.Model):
     onay_durum = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=250,null=False,blank=False)
     baslik_slug = models.SlugField(unique=True,null=False,blank=False)
-    soru = models.CharField(max_length=1000,null=False,blank=False)
+    soru = models.TextField(max_length=500,null=False,blank=False)
     yanit_sayi = models.CharField(max_length=12,null=True,blank=True,default="0")
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)

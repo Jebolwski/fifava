@@ -121,13 +121,17 @@
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
-        <div class="col-10 col-lg-6 offset-2 offset-lg-3">
+        <div class="col-8 col-lg-6 offset-2 offset-lg-3">
             <form method="POST">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col">
                         <h6 class="pt-5">Gönderen</h6>
+                        {% if iletisim.user == None %}
+                        <h6>Kayıtsız Kullanıcı</h6>
+                        {% else %}
                         <h6>{{iletisim.user}}</h6>
+                        {% endif %}
                     </div>
                     <div class="col">
                         <h6 class="pt-5">Ad Soyad</h6>
@@ -148,8 +152,13 @@
 
 
                 <h5 class="pt-5">Cevap</h5>
-                <textarea name="cevap" cols="30" rows="5" placeholder="Cevabınız..." class="form-control"></textarea>
+                {% if iletisim.user == None %}
+                <textarea name="cevap" rows="5" placeholder="Kayıtsız kullanıcıya cevap verilemez..." disabled class="form-control col-8"></textarea>
+                <input type="submit" disabled class="btn btn-outline-dark center mt-4" value="İlet">
+                {% else %}
+                <textarea name="cevap" rows="5" placeholder="Cevabınız..." class="form-control col-8"></textarea>
                 <input type="submit" class="btn btn-outline-dark center mt-4" value="İlet">
+                {% endif %}
             </form>
         </div>
     </main>

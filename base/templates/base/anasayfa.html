@@ -26,7 +26,7 @@
                 {% endif %}
                 <li><a href="{% url 'anasayfa' %}">
                         {% if ev_bildirim %}
-                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="22" height="22" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M94.5 110.688H75.6C70.373 110.688 66.15 115.184 66.15 120.75V148.422C66.15 155.371 60.8639 161 54.3375 161H37.8295C37.3866 161 36.9436 160.969 36.5006 160.937C36.1463 160.969 35.7919 161 35.4375 161H30.7125C24.189 161 18.9 155.371 18.9 148.422V113.203C18.9 112.92 18.9089 112.606 18.9266 112.323V90.4367H9.46477C4.14028 90.4367 0 86.0029 0 80.3428C0 77.5127 0.887119 74.9971 2.95608 72.7959L78.6712 2.52066C80.7384 0.315082 83.1009 0 85.1681 0C87.2353 0 89.5978 0.630164 91.3992 2.20557L154.183 60.9725C151.672 60.5951 149.103 60.375 146.475 60.375C119.365 60.375 97.0987 82.4811 94.7067 110.688H94.5ZM103.95 115.719C103.95 90.7197 122.998 70.4375 146.475 70.4375C169.952 70.4375 189 90.7197 189 115.719C189 140.718 169.952 161 146.475 161C122.998 161 103.95 140.718 103.95 115.719ZM146.475 145.906C150.403 145.906 153.562 142.542 153.562 138.359C153.562 134.177 150.403 130.812 146.475 130.812C142.547 130.812 139.387 134.177 139.387 138.359C139.387 142.542 142.547 145.906 146.475 145.906ZM141.484 90.5625V115.719C141.484 118.486 143.876 120.75 146.209 120.75C149.074 120.75 150.934 118.486 150.934 115.719V90.5625C150.934 87.7953 149.074 85.5312 146.209 85.5312C143.876 85.5312 141.484 87.7953 141.484 90.5625Z" fill="white"/>
                             <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
                         </svg>
@@ -263,7 +263,7 @@
                             <div class="form-aciklama">
                                 <h5 class="mt-5 text-center text-white">Açıklama</h5>
                                 <br>
-                                <textarea name="aciklama" class="form-control" maxlength="1000" rows="4"></textarea>
+                                <textarea name="aciklama" class="form-control" required maxlength="1000" rows="4"></textarea>
                             </div>
                             <br>
                             <div class="dosya">
@@ -319,8 +319,8 @@
                                 <th class="d-none d-lg-table-cell"></th>
                                 <th></th>
                                 <th>Gönderen</th>
-                                <th class="aciklama">Ad Soyad</th>
-                                <th>Başlık</th>
+                                <th class="aciklama d-none d-lg-table-cell">Ad Soyad</th>
+                                <th class="aciklama d-none d-md-table-cell">Başlık</th>
                                 <th class="d-none d-lg-table-cell">Tarih</th>
                                 <th>Cevapla</th>
                                 <th class="d-none d-lg-table-cell"></th>
@@ -345,14 +345,10 @@
                                 {% endif %}
                                 <td class="text-white">{% if cevap.user %} {{cevap.user}} {% else %} Kayıtsız Kullanıcı {% endif %}
                                 </td>
-                                <td class="text-white">{{cevap.ad_soyad}}</td>
-                                <td class="text-white">{{cevap.baslik}}</td>
+                                <td class="text-white d-none d-lg-table-cell">{{cevap.ad_soyad}}</td>
+                                <td class="text-white aciklama d-none d-md-table-cell">{{cevap.baslik}}</td>
                                 <td class="text-white d-none d-lg-table-cell">{{cevap.guncellenme_tarihi}}</td>
-                                {% if cevap.user %}
                                 <td class="text-white"><a href="{% url 'gelen-kutusu-cevaplama' cevap.id %}"><i class="fa-solid fa-reply text-light"></i></a></td>
-                                {% else %}
-                                <td class="text-white"><i class="fa-solid fa-circle-xmark text-black"></i></td>
-                                {% endif %}
                                 <td class="d-none d-lg-table-cell"></td>
                                 <td class="d-none d-lg-table-cell"></td>
                                 <td class="d-none d-lg-table-cell"></td>
@@ -580,6 +576,8 @@
                 placement: "top",
             });
         });
+
+
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     <script src="{% static 'js/app.js' %}"></script>
