@@ -171,20 +171,49 @@
                         <li>
                             <h4 data-toggle="popover" title="
                             {% if durum.onaydurum == 'Kabul Et' %}
-                            Onaylandın
+                                {% if request.user.username == durum.kisi.username %}
+                                Onaylandın
+                                {% else %}
+                                Onaylandı
+                                {% endif %}
                             {% elif durum.onaydurum == 'Bekle' %}
-                            Beklemedesin
+                                {% if request.user.username == durum.kisi.username %}
+                                Beklemedesin
+                                {% else %}
+                                Beklemede
+                                {% endif %}
                             {% elif durum.onaydurum == 'Reddet' %}
-                            Reddedildin
+                                {% if request.user.username == durum.kisi.username %}
+                                Reddedildin
+                                {% else %}
+                                Reddedildi
+                                {% endif %}
+                            {% elif durum.onaydurum == 'Yasakla' %}
+                                {% if request.user.username == durum.kisi.username %}
+                                Yasaklandın
+                                {% else %}
+                                Yasaklandı
+                                {% endif %}
                             {% elif durum.onaydurum == 'Cevapsız' %}
                             Onaylanmak için kayıt formunu cevaplayın.
                             {% else %}
-                            {% endif %}" class="profil-username">{{profil.username}} {% if durum %} {% if durum.onaydurum == "Kabul Et" %}
-                                <i class="fa-solid fa-circle-check px-2 fa-sm" title="Kabul Edildin"></i>{% elif durum.onaydurum == "Bekle" %}
-                                <i class="fa-solid fa-circle-pause px-2 fa-sm" title="Beklemedesin"></i>{% elif durum.onaydurum == "Yasakla" %}
-                                <i class="fa-solid fa-ban" title="Yasaklandın"></i> {% elif durum.onaydurum == "Reddet" %}
-                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" title="Reddedildin"></i>{% elif durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla."></i> {% endif %} {% else %} - Onaylanmak için Kayıt Formunu Doldur {% endif %}
+                            {% endif %}" class="profil-username">{{profil.username}} {% if durum %}
+                            <span class="d-none d-md-inline"> 
+                                {% if durum.onaydurum == "Kabul Et" %}
+                                <i class="fa-solid fa-circle-check px-2 fa-sm"></i>
+                                {% elif durum.onaydurum == "Bekle" %}
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm"></i>
+                                {% elif durum.onaydurum == "Yasakla" %}
+                                <i class="fa-solid fa-ban"></i> 
+                                {% elif durum.onaydurum == "Reddet" %}
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm"></i>
+                                {% elif durum.onaydurum == "Cevapsız" %}
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla."></i> 
+                                {% endif %} 
+                                {% else %} 
+                                - Onaylanmak için Kayıt Formunu Doldur 
+                                {% endif %}
+                            </span>
                             </h4>
                         </li>
                         {% if request.user.username == profil.username %}
@@ -204,7 +233,7 @@
             <div>
                 {% if forumlari %}
                 <h5 class="text-center py-4">Oluşturduğu Forumlar</h5>
-                <table class="mt-5 table table-striped table-hover text-center" style="height: 100vh;background-color: white;">
+                <table class="mt-5 table table-striped table-hover text-center" style="background-color: white;">
                     <thead>
                         <tr class="th">
                             {% if user.is_authenticated %}

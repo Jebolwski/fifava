@@ -69,6 +69,20 @@ body .home aside {
   background-color: rgba(78, 78, 78, 0.35);
 }
 
+body .truck {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 34;
+}
+
+body .ground {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 32;
+}
+
 body .loading {
   height: 100vh;
   width: 100vw;
@@ -153,6 +167,7 @@ main .one-container {
   background-size: 100vw 100vh;
   width: 100vw;
   height: 100vh;
+  z-index: 1;
 }
 
 main .kesfet-sayfa {
@@ -177,6 +192,7 @@ main .iletisim-sayfa .form-control:focus {
 main .iletisim-sayfa h4 {
   -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
+  font-size: 24px;
 }
 
 main .iletisim-sayfa h4:hover {
@@ -773,9 +789,6 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   main .profil-background {
     width: 91.67vw;
   }
-}
-
-@media only screen and (max-width: 988px) {
   .side-navbar svg {
     width: 18px;
     height: 18px;
@@ -818,6 +831,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   main .forum-olusturmamis {
     font-size: 14px;
+  }
+  main .iletisim-sayfa h4 {
+    font-size: 18px;
   }
   body {
     overflow-x: hidden;
@@ -877,6 +893,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   main .forum-olusturmamis {
     font-size: 11px;
+  }
+  main .iletisim-sayfa h4 {
+    font-size: 14px;
   }
 }
 

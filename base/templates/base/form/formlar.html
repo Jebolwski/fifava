@@ -165,7 +165,7 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    <td class="aciklama-uzun">{{form.baslik}}</td>
+                    <td class="aciklama">{{form.baslik}}</td>
                     <td class="d-none d-md-table-cell">{{form.guncellenme_tarihi}}</td>
                     <td class="d-none d-md-table-cell"><a href="{% url 'form-detay' form.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></td>
                     {% if user.is_superuser %}

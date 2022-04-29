@@ -11,6 +11,8 @@ class OyuncuForm(forms.ModelForm):
         attrs={'class': 'form-control'}))
     meslek              = forms.CharField(max_length=40, widget=forms.TextInput(
         attrs={'class': 'form-control'})) 
+    hikayesi            = forms.CharField(max_length=500, widget=forms.Textarea(
+        attrs={'class': 'form-control','rows':'7'})) 
     class Meta:
         model = Kullanici
         fields = '__all__'
@@ -95,7 +97,7 @@ class IletisimForm(forms.ModelForm):
     
     class Meta:
         model = Iletisim
-        fields=['ad_soyad','baslik','aciklama','dosya']
+        fields=['ad_soyad','baslik','aciklama']
 
 class ProfilFotoForm(forms.ModelForm):
 

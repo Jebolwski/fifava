@@ -125,12 +125,14 @@
             </ul>
         </aside>
 
-
+        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck">
+        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground+(2).png" class="ground">
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}
             <div class="anasayfa-message">{{message}}</div>
             {% endfor %}
             <div class="one-container">
+                
                 <div id="particles-js" style="height: 100vh;">
                     <svg id="fifava" viewBox="0 0 280 85" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_15_21)">
@@ -212,7 +214,7 @@
 </filter>
 </defs>
                     </svg>
-                    <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" onclick="kesfet_kay()">Keşfet</h4>
+                    <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" style="z-index: 100;" onclick="kesfet_kay()">Keşfet</h4>
                 </div>
             </div>
             <div class="kesfet-sayfa">
@@ -266,11 +268,11 @@
                                 <textarea name="aciklama" class="form-control" required maxlength="1000" rows="4"></textarea>
                             </div>
                             <br>
-                            <div class="dosya">
-                                <h5 class="mt-5 text-center text-white mb-3">Dosya</h5>
-                                <input type="file" id="file" name="file" class="form-control" />
-                            </div>
+                            {% if user.is_authenticated %}
                             <input type="submit" value="İlet" class="ilet btn text-white center border mt-5 mb-5">
+                            {% else %}
+                            <input type="submit" value="İletmek için giriş yapın." disabled style="opacity: 1;"  class="ilet btn text-white center border mt-5 mb-5">
+                            {% endif %}
                         </div>
                     </div>
                 </form>
@@ -445,25 +447,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     <script defer>
-        window.onbeforeunload = function() {
-            var scrollPos;
-            if (typeof window.pageYOffset != 'undefined') {
-                scrollPos = window.pageYOffset;
-            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-                scrollPos = document.documentElement.scrollTop;
-            } else if (typeof document.body != 'undefined') {
-                scrollPos = document.body.scrollTop;
-            }
-            document.cookie = "scrollTop=" + scrollPos;
-        }
-        window.onload = function() {
-            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
-                document.documentElement.scrollTop = parseInt(arr[1]);
-                document.body.scrollTop = parseInt(arr[1]);
-            }
-        }
-
+       
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.from(".card-r", {
@@ -487,6 +471,28 @@
             x: "-100%",
             ease: "bounce"
         })
+
+
+        gsap.from(".truck", {
+            scrollTrigger: ".truck",
+            opacity: 0,
+            duration: 1,
+            delay: 1,
+            x: "-5%",
+            y:"6%",
+            ease: "slow"
+        })
+
+
+        gsap.from(".ground", {
+            scrollTrigger: ".truck",
+            opacity: 0,
+            duration: 1,
+            x: "0",
+            y:"100%",
+            ease: "slow"
+        })
+
 
         gsap.from(".haberler", {
             scrollTrigger: ".haberler",
@@ -548,7 +554,6 @@
         });
 
         let height = window.innerHeight;
-        console.log(height);
 
         function kesfet_kay() {
             window.scrollTo({
@@ -580,7 +585,6 @@
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
-    <script src="{% static 'js/app.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
 
     {% endblock content %}

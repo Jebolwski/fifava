@@ -114,29 +114,38 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
-    <main class="col-8 offset-2">
-        <br> {% if kisi.dosya %}
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col col-6">
-                    <br>
-                    <h4 class="text-center mt-5 pt-lg-5 pb-5">{{kisi.oyun_ad_soyad}}</h4>
-                    <h4 class="text-center mt-2 mt-lg-5 pt-lg-5 mb-lg-5">{{kisi.meslek}}</h4>
-                </div>
-                <div class="col-8 col-lg-6 mt-5">
+    </aside>
+    <main class="col-10 offset-1">
+        {% for message in messages %}
+            <div class="anasayfa">{{message}}</div>
+            {% endfor %}
+        <h4 class="text-center pt-5">Oyuncu Özeti</h4>
+        <br>
+        <div class="container-fluid mt-2">
+            <div class="row">
+                <div class="col-10 offset-1 col-lg-5 offset-lg-1">
                     {% if kisi.dosya %}
-                    <h5><img class="col-12 col-lg-8 offset-lg-4 mt-lg-5" style="height: 70vh" src="{{kisi.dosya.url}}"></h5>
+                    <h5><img class="col-12 mt-5" style="height: 70vh;"  src="{{kisi.dosya.url}}"></h5>
+                    {% else %}
+                    <h5><img class="col-12 mt-5" style="height: 70vh;"  src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg"></h5>
                     {% endif %}
                 </div>
+                <div class="col-10 offset-1 col-lg-4 offset-lg-1">
+                    <br>
+                    <h5 class="text-center mt-5"><i>Adı Soyadı</i></h5>
+                    <h4 class="text-center">{{kisi.oyun_ad_soyad}}</h4>
+                    <h5 class="text-center mt-5 pt-5"><i>Mesleği</i></h5>
+                    <h4 class="text-center ">{{kisi.meslek}}</h4>
+                    <h5 class="text-center mt-5 pt-5"><i>Kayıt Tarihi</i></h5>
+                    <h5 class="text-center">{{kisi.olusturulma_tarihi}}</h5>
+                </div>
+            </div>
+            <div class="col-10 offset-1">
+                <h5 class="text-center mt-4">Hikayesi</h5>
+                <p class="text-center mt-2 mt-lg-5 mb-lg-5">{{kisi.hikayesi}}</p>
             </div>
         </div>
-        {% else %}
-        <div class="col-8 offset-2">
-            <h4 class="text-center mt-5 pt-5">Ad Soyad : {{kisi.oyun_ad_soyad}}</h4>
-            <h4 class="text-center mt-5 pt-5">Meslek : {{kisi.meslek}}</h4>
-        </div>
-        {% endif %}
+        
 
 
 

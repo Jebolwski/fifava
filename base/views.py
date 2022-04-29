@@ -2287,6 +2287,7 @@ def ForumOlusturulamaz(request):
                 break
      
     onaydurum = OnayDurum.objects.get(kisi_id=request.user.id)
+    print(onaydurum.onaydurum)
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     context={'onaydurum':onaydurum,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
