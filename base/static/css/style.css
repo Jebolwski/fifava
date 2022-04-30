@@ -83,6 +83,13 @@ body .ground {
   z-index: 32;
 }
 
+body .house {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 34;
+}
+
 body .loading {
   height: 100vh;
   width: 100vw;

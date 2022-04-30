@@ -125,8 +125,9 @@
             </ul>
         </aside>
 
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground+(2).png" class="ground">
+        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck d-none d-md-block">
+        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground+(2).png" class="ground d-md-block">
+        <img src="../../static/images/house.png" class="house d-none d-md-block">
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}
             <div class="anasayfa-message">{{message}}</div>
@@ -490,6 +491,16 @@
             duration: 1,
             x: "0",
             y:"100%",
+            ease: "slow"
+        })
+
+        gsap.from(".house", {
+            scrollTrigger: ".truck",
+            opacity: 0,
+            duration: 1,
+            delay: 1,
+            x: "5%",
+            y:"6%",
             ease: "slow"
         })
 
