@@ -75,6 +75,13 @@ body {
     height: 100vh;
     z-index: 34;
   }
+  .kesfet-svg {
+    position: absolute;
+    width: 100vw;
+    margin-top: 100vh;
+    height: 100vh;
+    z-index: 34;
+  }
 
   .loading {
     height: 100vh;
@@ -706,6 +713,12 @@ main {
     ul li a {
       font-size: 16px;
     }
+  }
+  .ground,
+  .truck,
+  .house,
+  .kesfet-svg {
+    display: none;
   }
   main {
     .one-container {

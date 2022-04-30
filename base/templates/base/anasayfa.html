@@ -125,9 +125,10 @@
             </ul>
         </aside>
 
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck d-none d-md-block">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground+(2).png" class="ground d-md-block">
-        <img src="../../static/images/house.png" class="house d-none d-md-block">
+        <img src="../../static/images/truck.png" class="truck">
+        <img src="../../static/images/ground.png" class="ground">
+        <img src="../../static/images/house.png" class="house">
+        <img src="../../static/images/kesfet.png" class="kesfet-svg">
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}
             <div class="anasayfa-message">{{message}}</div>
@@ -215,14 +216,14 @@
 </filter>
 </defs>
                     </svg>
-                    <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" style="z-index: 100;" onclick="kesfet_kay()">Keşfet</h4>
+                    <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" style="z-index: 100;padding: 0;" onclick="kesfet_kay()">Keşfet</h4>
                 </div>
             </div>
             <div class="kesfet-sayfa">
                 <div>
                     <div class="card-group pt-5 col-10 col-lg-7 offset-1 offset-lg-2">
 
-                        <div class="card-l card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card-l card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw;z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             <h4 class="card-title text-center text-white">Biz Kimiz ?</h4>
                             <img class="card-img-top rounded" src="{% static 'images/maymun1.png' %}" style="height: 40vh;width: 100%;">
                             <hr>
@@ -233,7 +234,7 @@
                         </div>
 
 
-                        <div class="card-r card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card-r card col-9 offset-1 mt-5 border" style="background-color: rgba(70,78,70,0.3);margin-left: 10vw;z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             <h4 class="card-title text-center text-white">Tarihçe</h4>
                             <img class="card-img-top rounded" src="{% static 'images/maymun2.png' %}" style="height: 40vh;width: 100%;">
                             <hr>
@@ -501,6 +502,14 @@
             delay: 1,
             x: "5%",
             y:"6%",
+            ease: "slow"
+        })
+
+        gsap.from(".kesfet-svg", {
+            scrollTrigger: ".kesfet-svg",
+            opacity: 0,
+            duration: 1,
+            y:"15%",
             ease: "slow"
         })
 

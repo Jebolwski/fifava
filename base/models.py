@@ -11,7 +11,6 @@ class Kullanici(models.Model):
     oyun_ad_soyad_slug     = models.SlugField(unique=True,null=False,blank=False)
     meslek                 = models.CharField(max_length=40,blank=False,null=False)
     dosya                  = models.ImageField(upload_to="oyuncu",null=True,blank=True)
-    hikayesi               = models.TextField(max_length=500,blank=False,null=False)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
@@ -102,6 +101,8 @@ class Sorular(models.Model):
     def __str__(self):
         return str(self.baslik)
         
+
+
 class Cevaplar(models.Model):
     
     baslik                 = models.CharField(max_length=60,null=False,blank=False)
@@ -186,7 +187,6 @@ class ProfilFoto(models.Model):
 
 class ForumSoru(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
-    onay_durum = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=250,null=False,blank=False)
     baslik_slug = models.SlugField(unique=True,null=False,blank=False)
     soru = models.TextField(max_length=500,null=False,blank=False)
@@ -196,10 +196,14 @@ class ForumSoru(models.Model):
     likes = models.ManyToManyField(User,related_name='likes1',default=None,blank=True)
     dislikes = models.ManyToManyField(User,related_name='dislikes1',default=None,blank=True)
     goruldu = models.ManyToManyField(User,related_name='goruldu_soru',default=None,blank=True)
-
+    
 
     def __str__(self):
         return str(self.baslik)
+
+    def onay_durum(self):
+        durum = OnayDurum.objects.get(kisi = self.profil.user)
+        return durum
 
     def puan(self):
         return self.likes.count()-self.dislikes.count()

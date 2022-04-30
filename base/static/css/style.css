@@ -90,6 +90,14 @@ body .house {
   z-index: 34;
 }
 
+body .kesfet-svg {
+  position: absolute;
+  width: 100vw;
+  margin-top: 100vh;
+  height: 100vh;
+  z-index: 34;
+}
+
 body .loading {
   height: 100vh;
   width: 100vw;
@@ -856,6 +864,12 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   .side-navbar ul li a {
     font-size: 16px;
+  }
+  .ground,
+  .truck,
+  .house,
+  .kesfet-svg {
+    display: none;
   }
   main .one-container {
     background-image: url("../images/fifavoxphone.jpg");
