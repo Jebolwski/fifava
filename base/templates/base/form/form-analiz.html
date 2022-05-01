@@ -126,17 +126,28 @@
         <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
         <div class="mt-5">
             <table class="table table-striped text-center">
+                
                 <tr>
-                    <td>Şıklı Soru Sayısı : {{sikli_soru_sayisi}}</td>
-                    <td>Şıklı Sorulara Genel Katılım Yüzdesi : {{yuzde|floatformat:2}}%</td>
+                    <td colspan="2">Cevap Sayısı : {{cevap.count}}</td>
                 </tr>
+                <tr>
+                    <td>Metinli Soru Sayısı: {{form.metinli_soru_sayisi}}</td>
+                    <td>Şıklı Soru Sayısı: {{form.sikli_soru_sayisi}}</td>
+                </tr>
+                {% if dizi %}
                 {% for i in dizi %}
                 <tr>
-                    <td colspan="2">Katılma Yüzdesi : {{i|floatformat:2}}%</td>
+                    <td colspan="2">{{ forloop.counter }}. Soruya Katılma Yüzdesi : {{i|floatformat:2}}%</td>
                 </tr>
                 {% endfor %}
+                {% endif %}
+                {% if yuzde %}
                 <tr>
-                    <td colspan="2">Metinli Soru Sayısı: {{sorusayac}}</td>
+                    <td colspan="2">Şıklı Sorulara Genel Katılım Yüzdesi : {{yuzde|floatformat:2}}%</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td colspan="2">Sitedeki Kullanıcıların Ankete Katılım Yüzdesi : {{form.kullanici_cevap_yuzdesi|floatformat:2}}%</td>
                 </tr>
             </table>
             <p class="offset-1 mt-5">

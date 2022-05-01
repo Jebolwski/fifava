@@ -100,6 +100,62 @@ class Sorular(models.Model):
 
     def __str__(self):
         return str(self.baslik)
+
+    def metinli_soru_sayisi(self):
+        sayi = 0
+        if self.soru10:
+            sayi+=1
+        if self.soru11:
+            sayi+=1
+        if self.soru12:
+            sayi+=1
+        if self.soru13:
+            sayi+=1
+        if self.soru14:
+            sayi+=1
+        if self.soru15:
+            sayi+=1
+        if self.soru16:
+            sayi+=1
+        if self.soru17:
+            sayi+=1
+        if self.soru18:
+            sayi+=1
+            
+        return sayi
+
+    def sikli_soru_sayisi(self):
+        sayi = 0
+        if self.soru1:
+            sayi+=1
+        if self.soru2:
+            sayi+=1
+        if self.soru3:
+            sayi+=1
+        if self.soru4:
+            sayi+=1
+        if self.soru5:
+            sayi+=1
+        if self.soru6:
+            sayi+=1
+        if self.soru7:
+            sayi+=1
+        if self.soru8:
+            sayi+=1
+        if self.soru9:
+            sayi+=1
+        if self.soru10:
+            sayi+=1
+        return sayi
+
+
+    def kullanici_cevap_yuzdesi(self):
+        cevap_sayi = Cevaplar.objects.filter(sorular=self).count()
+        user_sayi = User.objects.all().count()
+        oran = cevap_sayi/user_sayi
+        return oran*100
+
+
         
 
 

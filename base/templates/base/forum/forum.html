@@ -148,7 +148,7 @@
             <hr>
             <h5>{{soru.baslik}}</h5>
             <hr>
-            <p>{{soru.soru}}</p>
+            <p class="text-break">{{soru.soru}}</p>
             <hr>
             <p>{{soru.guncellenme_tarihi}}</p>
         </div>
@@ -195,7 +195,7 @@
             <hr>
             <!--!CEVAP CEVAPLAMA-->
             <form method="post">{% csrf_token %}
-                <p>{{foru.cevap}}
+                <p class="text-break">{{foru.cevap}}
                     <input type="checkbox" name="{{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
                     <label for="{{foru.id}}" style="cursor: pointer;" onclick="kay()"><i class="fa-solid fa-reply" id="reply"></i>
                         {% if foru.profil.username == request.user.username or request.user.is_superuser %}

@@ -1071,6 +1071,38 @@ def FormDetay(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def FormAnaliz(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = Sorular.objects.get(baslik_slug = my_slug)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
@@ -1279,38 +1311,7 @@ def FormAnaliz(request,my_slug):
             array.append(soru10*20) 
     # if len(Cevaplar.objects.all())>1:
     #     bolmesayac=bolmesayac-1
-    if True:
-        haber_bildirim=False
-        ev_bildirim=False
-        forum_bildirim=False
-        form_bildirim=False
-        oyuncu_bildirim=False
-        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
-        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
-        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
-        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
-        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
-        for iletisim in iletisim1:
-            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
-                ev_bildirim=True
-                break;
-        for haber in haberler1:
-            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
-                haber_bildirim=True
-                break;
-        for forum in forumlar1:
-            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
-                forum_bildirim=True
-                break
-        for form in formlar1:
-            if request.user not in form.goruldu.all() and request.user.is_authenticated:
-                form_bildirim=True
-                break
-        for oyuncu in oyuncular1:
-            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
-                oyuncu_bildirim=True
-                break
-       
+      
 
     yuzde=top/bolmesayac
     for i in range(0,len(array)):
