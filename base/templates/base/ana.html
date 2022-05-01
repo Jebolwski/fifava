@@ -18,6 +18,9 @@
     />
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+    </style>
   </head>
   <body>
     {% block content %} {% endblock content %}
@@ -30,15 +33,11 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script>
-      $(document).ready(function () {
-        $('[data-toggle="popover"').popover({
-          content:
-            "Onay Cevap Tarihi : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-          animation: true,
-          placement: "top",
-        });
-      });
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap"
+      rel="stylesheet"
+    />
   </body>
 </html>

@@ -18,7 +18,6 @@
 }
 
 * {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -93,9 +92,10 @@ body .house {
 body .kesfet-svg {
   position: absolute;
   width: 100vw;
-  margin-top: 100vh;
   height: 100vh;
+  margin-top: 99.77vh;
   z-index: 34;
+  margin-left: -0.1svw;
 }
 
 body .loading {
@@ -125,6 +125,10 @@ body .loading img {
           animation-iteration-count: infinite;
   -webkit-animation-duration: 0.8s;
           animation-duration: 0.8s;
+}
+
+body .responsive-text {
+  font-size: 22px;
 }
 
 .side-navbar {
@@ -781,6 +785,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   #fifava {
     height: 13vh;
   }
+  .responsive-text {
+    font-size: 18px;
+  }
 }
 
 @media only screen and (max-width: 988px) {
@@ -808,6 +815,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
     width: 18px;
     height: 18px;
   }
+  .responsive-text {
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 650px) {
@@ -817,6 +827,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   .side-navbar svg {
     width: 22px;
     height: 22px;
+  }
+  .kesfet-svg {
+    display: none;
   }
   main #particles-js #fifava {
     height: 11vh;
@@ -855,6 +868,9 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   body aside {
     font-size: 15px;
+  }
+  body .responsive-text {
+    font-size: 14px;
   }
 }
 
