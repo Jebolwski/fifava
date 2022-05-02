@@ -163,7 +163,7 @@
         </div>
         <div class="profil-rest" style="height: 100vh;">
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
+            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 30;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
             <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
             <div class="biyografi">
                 <div class="top">

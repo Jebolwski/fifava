@@ -133,7 +133,7 @@
                 <p class="pt-5 text-center">Profil Fotoğrafı</p>
                 <img src="{{foto.resim.url}}" class="rounded col-3 center"> {% else %}
                 <p class="mt-5 text-center">Kullanıcı Profil Fotoğrafı</p> {% endif %}
-                <p style="margin: 0;">{{form.resim}}</p>
+                <p style="margin: 0;" class="text-break">{{form.resim}}</p>
                 {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
                 {% else %}
@@ -142,7 +142,7 @@
                 <p class="pt-5 text-center">Arka Plan Fotoğrafı</p>
                 <img src="{{foto.arka_plan.url}}" class="rounded col-4 center"> {% else %}
                 <p class="pt-5 text-center">Kullanıcı Arkaplan Fotoğrafı</p> {% endif %}
-                <p style="margin: 0;">{{form.arka_plan}}</p>
+                <p style="margin: 0;" class="text-break">{{form.arka_plan}}</p>
                 {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
                 {% else %}
@@ -181,20 +181,15 @@
         inputa.classList.add("form-control");
         inputb.classList.add("form-control");
         inputc.classList.add("form-control");
-        console.log("{{request.user.is_superuser}}");
         if ("{{request.user.is_superuser}}"=="True") {
-            console.log("admin");
-            console.log("prof_resim",inputa,"arkaplan",inputb);
             inputb.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
             inputa.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
-             console.log("prof_resim",inputa,"arkaplan",inputb);
         } else {
-            console.log("değil");
-             console.log("prof_resim",inputa,"arkaplan",inputb);
             inputb.setAttribute("accept", "image/png, image/jpg, image/jpeg");
             inputa.setAttribute("accept", "image/png, image/jpg, image/jpeg");
-             console.log("prof_resim",inputa,"arkaplan",inputb);
         }
+
+
 
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
