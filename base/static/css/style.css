@@ -75,7 +75,8 @@ body .truck {
   z-index: 34;
 }
 
-body .ground {
+body .ground,
+body .top {
   position: absolute;
   width: 100vw;
   height: 100vh;

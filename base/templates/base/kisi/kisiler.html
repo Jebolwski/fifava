@@ -123,7 +123,7 @@
             {% csrf_token %}
             <table class="center col-8 col-sm-8 col-md-4 mb-5">
                 <tr>
-                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Kişinin Adı" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kişinin Adı" name="arama"></td>
                     <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
                     {% if user.is_superuser %}
                     <td>
@@ -158,7 +158,7 @@
                     {% else %}
                     <td></td>
                     {% endif %}
-                    <td class="aciklama">{{kisi.oyun_ad_soyad}}</td>
+                    <td class="aciklama oyun_ad_soyad">{{kisi.oyun_ad_soyad}}</td>
                     <td class="aciklama">{{kisi.meslek}}</td>
                     <td class="d-none d-md-table-cell">{{kisi.guncellenme_tarihi}}</td>
                     <td>
@@ -237,6 +237,18 @@
             rotationX: "180",
             ease: "power1"
         })
+    
+        let oyun_ad_soyad = document.querySelectorAll(".oyun_ad_soyad");
+        console.log(oyun_ad_soyad);
+        let arama = document.querySelector(".arama");
+        arama.addEventListener('keyup',function(){
+            for (let i = 0; i < `{{kisiler.count}}`; i++) {
+            console.log((oyun_ad_soyad[i].innerText));
+            }
+        })
+        
+
+
     </script>
 </body>
 

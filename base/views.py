@@ -206,6 +206,12 @@ def Kisiler(request):
     kisiler = Kullanici.objects.all().order_by('-meslek')
     haberler = Haberler.objects.all().order_by('guncellenme_tarihi')[:5]
     
+    ad_soyad_dizi=[]
+    for i in kisiler:
+        ad_soyad_dizi.append([i.oyun_ad_soyad])
+    
+    
+
     if request.method=="POST":
         arama = request.POST['arama']
         kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('-meslek')
@@ -242,7 +248,7 @@ def Kisiler(request):
                 oyuncu_bildirim=True
                 break
     
-    context = {'kisiler':kisiler,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+    context = {'kisiler':kisiler,'ad_soyad':ad_soyad_dizi,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/kisi/kisiler.html",context)
 
