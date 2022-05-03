@@ -124,10 +124,10 @@
             <table class="center col-8 col-sm-8 col-md-4 mb-5">
                 <tr>
                     <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kişinin Adı" name="arama"></td>
-                    <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
+                    <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                     {% if user.is_superuser %}
                     <td>
-                        <a href="{% url 'kisi-ekle' %}"> <i class="fa-solid fa-user-plus pt-1 ml-2"></i></a>
+                        <a href="{% url 'kisi-ekle' %}"> <i class="fa-solid fa-user-plus fa-lg pt-1 mx-3"></i></a>
                     </td>
                     {% endif %}
                 </tr>
@@ -150,7 +150,7 @@
             </thead>
             <tbody>
                 {% for kisi in kisiler %}
-                <tr class="tr text-center">
+                <tr class="kisi-tr tr text-center">
                     {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
                     <td>
                         <span class="badge bg-dark">Yeni</span>
@@ -175,6 +175,7 @@
         {% else %}
         <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
         {% endif %}
+        <div class="oyuncular"></div>
     </main>
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
         <ul>
@@ -237,16 +238,19 @@
             rotationX: "180",
             ease: "power1"
         })
-    
-        let oyun_ad_soyad = document.querySelectorAll(".oyun_ad_soyad");
-        console.log(oyun_ad_soyad);
+        let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
         arama.addEventListener('keyup',function(){
-            for (let i = 0; i < `{{kisiler.count}}`; i++) {
-            console.log((oyun_ad_soyad[i].innerText));
-            }
+            kisi_satir.forEach((kisi)=>{
+                
+                if(kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                    kisi.style.display=""
+                }
+                else{
+                    kisi.style.display="none"
+                }
+            })
         })
-        
 
 
     </script>

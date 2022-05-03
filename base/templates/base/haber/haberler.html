@@ -124,11 +124,11 @@
             {% csrf_token %}
             <table class="center col-8 col-sm-8 col-md-4 mb-5">
                 <tr>
-                    <td><input type="text" class="form-control col-10" placeholder="Aranacak Haberin Başlığı" name="arama"></td>
-                    <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td>
+                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Haberin Başlığı" name="arama"></td>
+                    <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                     {% if user.is_superuser %}
                     <td>
-                        <a href="{% url 'haber-ekle' %}"> <i class="fa-solid fa-circle-plus pt-1 ml-2"></i></a>
+                        <a href="{% url 'haber-ekle' %}"> <i class="fa-solid fa-circle-plus fa-lg pt-1 mx-3"></i></a>
                     </td>
                     {% endif %}
                 </tr>
@@ -152,7 +152,7 @@
             </thead>
             <tbody>
                 {% for haber in haberler %}
-                <tr class="tr text-center">
+                <tr class="kisi-tr tr text-center">
                     {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
                     <td>
                         <span class="badge bg-dark">Yeni</span>
@@ -235,7 +235,6 @@
         }
 
         gsap.registerPlugin(ScrollTrigger);
-
         gsap.from(".tr", {
             scrollTrigger: ".tr",
             opacity: 0,
@@ -252,6 +251,23 @@
             rotationX: "180",
             ease: "power1"
         })
+    
+    
+        let kisi_satir = document.querySelectorAll(".kisi-tr");
+        let arama = document.querySelector(".arama");
+        arama.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                
+                if(kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                    kisi.style.display=""
+                }
+                else{
+                    kisi.style.display="none"
+                }
+            })
+        })
+
+
     </script>
 </body>
 

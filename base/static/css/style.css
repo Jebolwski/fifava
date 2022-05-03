@@ -51,6 +51,16 @@
   font-weight: 300;
 }
 
+*::-moz-selection {
+  color: white;
+  background-color: #726c35;
+}
+
+*::selection {
+  color: white;
+  background-color: #726c35;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -76,7 +86,7 @@ body .truck {
 }
 
 body .ground,
-body .top {
+body .top-1 {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -96,7 +106,7 @@ body .kesfet-svg {
   height: 100vh;
   margin-top: 99.77vh;
   z-index: 34;
-  margin-left: -0.1svw;
+  margin-left: -0.1vw;
 }
 
 body .loading {
@@ -130,6 +140,32 @@ body .loading img {
 
 body .responsive-text {
   font-size: 22px;
+}
+
+body .wrapper {
+  /*This part is important for centering*/
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body .typing-demo {
+  width: 7ch;
+  -webkit-animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
+          animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+body .no-new-line {
+  display: inline;
+  white-space: nowrap;
 }
 
 .side-navbar {
@@ -769,6 +805,30 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
     opacity: 0;
     position: absolute;
     top: -100px;
+  }
+}
+
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@-webkit-keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
 }
 

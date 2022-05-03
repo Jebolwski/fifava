@@ -42,6 +42,10 @@
   h6 {
     font-weight: 300;
   }
+  &::selection {
+    color: white;
+    background-color: rgb(114, 108, 53);
+  }
 }
 
 body {
@@ -63,7 +67,7 @@ body {
     z-index: 34;
   }
   .ground,
-  .top {
+  .top-1 {
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -81,7 +85,7 @@ body {
     height: 100vh;
     margin-top: 99.77vh;
     z-index: 34;
-    margin-left: -0.1svw;
+    margin-left: -0.1vw;
   }
   .loading {
     height: 100vh;
@@ -107,6 +111,25 @@ body {
   }
   .responsive-text {
     font-size: 22px;
+  }
+  .wrapper {
+    /*This part is important for centering*/
+    display: flex;
+    justify-content: center;
+  }
+
+  .typing-demo {
+    width: 7ch;
+    animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-size: 1.2em;
+    font-weight: 300;
+  }
+  .no-new-line {
+    display: inline;
+    white-space: nowrap;
   }
 }
 
@@ -595,6 +618,18 @@ main {
     opacity: 0;
     position: absolute;
     top: -100px;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
   }
 }
 
