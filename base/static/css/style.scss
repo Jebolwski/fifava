@@ -91,7 +91,7 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: rgba(78, 78, 78, 0.35);
-    z-index: 1000;
+    z-index: 100;
     position: fixed;
     display: grid;
     place-content: center;
@@ -117,19 +117,13 @@ body {
     display: flex;
     justify-content: center;
   }
-
   .typing-demo {
-    width: 7ch;
+    width: 6ch;
     animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 3px solid;
-    font-size: 1.2em;
-    font-weight: 300;
-  }
-  .no-new-line {
-    display: inline;
-    white-space: nowrap;
+    border-right: 1px solid;
+    font-size: 1.1em;
   }
 }
 
@@ -324,8 +318,21 @@ main {
   }
   .anasayfa-message {
     text-align: center;
-    position: absolute;
-    background-color: red;
+    position: relative;
+    z-index: 200;
+    top: -100px;
+    animation: message 6s 0.5s;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: rgb(129, 121, 82);
+    border-radius: 20px;
+    color: white;
+  }
+  .anasayfa-message1 {
+    text-align: center;
+    position: relative;
+    z-index: 200;
     top: -100px;
     animation: message 6s 0.5s;
     margin-left: 50%;
@@ -506,7 +513,7 @@ main {
       border-radius: none;
     }
     .arkaplan-foto-kapa {
-      z-index: 1000;
+      z-index: 100;
       position: absolute;
       left: 2vw;
       top: 2vh;

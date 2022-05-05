@@ -4,7 +4,7 @@
 <title>Anasayfa | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body>
@@ -132,8 +132,9 @@
         <img src="../../static/images/top.png" class="top-1">
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}
-            <div class="anasayfa-message">{{message}}</div>
+            <div class="anasayfa-message" style="z-index: 100;">{{message}}</div>
             {% endfor %}
+            <div class="anasayfa-message" id="mesaj" style="z-index: 100;" >Mesajınız başarıyla iletildi.</div>
             <div class="one-container">
                 
                 <div id="particles-js" style="height: 100vh;">
@@ -256,35 +257,34 @@
 
             </div>
             <div class="iletisim-sayfa">
-                <form method="POST" class="iletisim-form" enctype="multipart/form-data">
-                    {% csrf_token %}
+                <div class="iletisim-form">
                     <div class="col-11 col-lg-10 offset-1 pt-5">
                         <div class="col-8 col-md-6 offset-2 offset-md-3">
                             <h3 class="text-center text-white pb-3">Bizimle İletişime Geçin</h3>
                             <div class="ad-soyad">
                                 <h5 class="pt-5 text-center text-white">Ad Soyad</h5>
                                 <br>
-                                <input type="text" class="form-control" required name="ad_soyad" maxlength="100">
+                                <input type="text" class="ad_soyad form-control" required name="ad_soyad" maxlength="100">
                             </div>
-                            <div class="baslik">
+                            <div>
                                 <h5 class="mt-5 text-center text-white">Başlık</h5>
                                 <br>
-                                <input type="text" class="form-control" required name="baslik" maxlength="100">
+                                <input type="text" class="baslik form-control" required name="baslik" maxlength="100">
                             </div>
                             <div class="form-aciklama">
                                 <h5 class="mt-5 text-center text-white">Açıklama</h5>
                                 <br>
-                                <textarea name="aciklama" class="form-control" required maxlength="1000" rows="4"></textarea>
+                                <textarea name="aciklama" id="aciklama" class="form-control" required maxlength="1000" cols="30" rows="4"></textarea>
                             </div>
                             <br>
                             {% if user.is_authenticated %}
-                            <input type="submit" value="İlet" class="ilet btn text-white center border mt-5 mb-5">
+                            <input type="submit" onclick="deneme(event)"  value="İlet" class="ilet btn text-white center border mt-5 mb-5">
                             {% else %}
                             <input type="submit" value="İletmek için giriş yapın." disabled style="opacity: 1;"  class="ilet btn text-white center border mt-5 mb-5">
                             {% endif %}
                         </div>
                     </div>
-                </form>
+                </div>
                 <div class="linkler">
                     <div class="offset-2 pt-5 pb-5">
                         <div class="row">
@@ -314,7 +314,7 @@
                     <br>
                 </div>
             </div>
-            {% if user.is_superuser %} {% if cevaplar %}
+            {% if user.is_superuser %}
             <div class="iletisim-cevaplari">
                 {% if cevaplar %}
                 <h4 class="text-center pt-5 text-white">Gelen Kutusu</h4>
@@ -340,7 +340,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody">
                             {% for cevap in cevaplar %}
                             <tr>
                                 <td></td>
@@ -373,7 +373,7 @@
                     {% endif %}
                 </div>
             </div>
-            {% endif %} {% endif %} {% if user.is_authenticated %} {% if cevaplara_cevap %}
+            {% endif %}{% if user.is_authenticated %} {% if cevaplara_cevap %}
             <div class="iletisim-cevaplara-cevaplari">
                 <h3 class="text-center text-white pt-5">İletilerinize Cevaplar</h3>
                 {% if cevaplara_cevap %}
@@ -481,7 +481,6 @@
             ease: "bounce"
         })
 
-
         gsap.from(".truck", {
             scrollTrigger: ".truck",
             opacity: 0,
@@ -491,7 +490,6 @@
             y:"6%",
             ease: "slow"
         })
-
 
         gsap.from(".ground", {
             scrollTrigger: ".truck",
@@ -527,7 +525,6 @@
             y:"-15%",
             ease: "slow",
         })
-
 
         gsap.from(".haberler", {
             scrollTrigger: ".haberler",
@@ -589,7 +586,7 @@
         });
 
         let height = window.innerHeight;
-
+       
         function kesfet_kay() {
             window.scrollTo({
                 top: height,
@@ -616,6 +613,36 @@
                 placement: "top",
             });
         });
+        
+        const deneme = async (event) =>{
+            const ad_soyad = event.target.parentNode.querySelector(".ad_soyad");
+            const baslik = event.target.parentNode.querySelector(".baslik");
+            const aciklama = event.target.parentNode.querySelector("#aciklama");
+            if (ad_soyad.value!="" && aciklama.value!="" && baslik.value!=""){
+              event.preventDefault();
+            let response = await fetch("http://127.0.0.1:8000/api/iletisim/ekle/",{
+                method:"POST",
+                headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                body: JSON.stringify({
+                    ad_soyad:ad_soyad.value,
+                    baslik:baslik.value,
+                    aciklama:aciklama.value,
+                    username:"{{request.user.username}}",
+                })
+            })
+            if(response.status===200){
+                ad_soyad.value="";
+                baslik.value="";
+                aciklama.value="";
+                let mesaj = document.querySelector("#mesaj");
+                mesaj.classList.add("anasayfa-message1");
+            }
+  
+            }
+        }
 
 
     </script>
@@ -623,4 +650,3 @@
     <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
 
     {% endblock content %}
-    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->

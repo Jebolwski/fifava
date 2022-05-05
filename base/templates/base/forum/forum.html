@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <title>{{soru.baslik}} | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 
@@ -120,7 +120,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
+    </aside>
 
 
     <main class="col-11 col-lg-10 offset-1">
@@ -208,18 +208,18 @@
                     <p>{{foru.guncellenme_tarihi}}</p>
                     <hr>
                     {% if user.is_authenticated %}
-                    <p>
+                    <div class="deneme">
                         {% if request.user in foru.likes.all %}
-                        <a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up text-black mx-2"></i></a> {{foru.total_likes}} 
+                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
                         {% else %}
-                        <a href="{% url 'forum-begen' foru.id %}"><i class="fa-solid fa-thumbs-up mx-2"></i></a> {{foru.total_likes}} 
+                       <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
                         {% endif %}
                         {% if request.user in foru.dislikes.all %}
-                        <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down text-black mx-2"></i></a> {{foru.total_dislikes}}
+                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
                         {% else %}
-                        <a href="{% url 'forum-begenme' foru.id %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}
+                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
                         {% endif %}
-                    </p>
+                    </div>
                     {% else %}
                         <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
                             {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}</p>
@@ -328,6 +328,160 @@
             console.log(screen.height);
             window.scrollTo(0, document.body.clientHeight);
             document.querySelector(".cevap-textarea").focus();
+        }
+
+        
+
+        const deneme = async (event,id) =>{
+            var begen_sayi=event.target.parentNode.querySelector(".begen_sayi");
+            var begen_icon=event.target.parentNode.querySelector(".begen");
+            var begenme_sayi=event.target.parentNode.querySelector(".begenme_sayi");
+            var begenme_icon=event.target.parentNode.querySelector(".begenme");
+            if (event.target.classList[0]=="begen"){
+                event.preventDefault();
+                let response = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begen/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begen_sayi.innerHTML=sayi;
+                }
+
+                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begenme/sayisi/`,{
+                    method:"GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begenme_sayi.innerHTML=sayi;
+                }
+                
+                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begen/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response2.status===200){
+                    let sayi = await response2.json();
+                    if(sayi=="begenildi"){
+                        begen_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenildi isaretlenmedi"){
+                        begen_icon.classList.remove("text-black");
+                    }
+                }
+            
+                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begenme/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response3.status===200){
+                    let sayi = await response3.json();
+                    if(sayi=="begenilmedi"){
+                        begenme_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenilmedi isaretlenmedi"){
+                        begenme_icon.classList.remove("text-black");
+                    }
+                }
+            
+            }
+            if (event.target.classList[0]=="begenme"){
+                event.preventDefault();
+                let response = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begenme/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begenme_sayi.innerHTML=sayi;
+                }
+
+                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begen/sayisi/`,{
+                    method:"GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begen_sayi.innerHTML=sayi;
+                }
+            
+                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begen/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response2.status===200){
+                    let sayi = await response2.json();
+                    if(sayi=="begenildi"){
+                        begen_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenildi isaretlenmedi"){
+                        begen_icon.classList.remove("text-black");
+                    }
+                }
+            
+                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/begenme/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response3.status===200){
+                    let sayi = await response3.json();
+                    if(sayi=="begenilmedi"){
+                        begenme_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenilmedi isaretlenmedi"){
+                        begenme_icon.classList.remove("text-black");
+                    }
+                }
+            
+            }
+        
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>

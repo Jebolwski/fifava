@@ -213,6 +213,8 @@ class Iletisim(models.Model):
     def __str__(self):
         return str(self.baslik)
 
+        
+
 
 
 class Iletisim_cevap(models.Model):
