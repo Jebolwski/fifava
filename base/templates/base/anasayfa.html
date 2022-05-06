@@ -134,7 +134,6 @@
             {% for message in messages %}
             <div class="anasayfa-message" style="z-index: 100;">{{message}}</div>
             {% endfor %}
-            <div class="anasayfa-message" id="mesaj" style="z-index: 100;" >Mesajınız başarıyla iletildi.</div>
             <div class="one-container">
                 
                 <div id="particles-js" style="height: 100vh;">
@@ -219,11 +218,7 @@
 </defs>
                     </svg>
                     <h4 id="kesfet" class="kesfet btn btn-outline-light btn-lg text-center col-3 pt-3 pb-3 offset-5" style="z-index: 100;padding: 0;" onclick="kesfet_kay()">
-                        <div class="wrapper">
-                            <div class="typing-demo">
                                 Keşfet
-                            </div>
-                        </div>
                     </h4>
                 </div>
             </div>
@@ -277,8 +272,12 @@
                                 <textarea name="aciklama" id="aciklama" class="form-control" required maxlength="1000" cols="30" rows="4"></textarea>
                             </div>
                             <br>
+                             <div class="basariyla_iletildi alert alert-danger alert-dismissible col-lg-8 offset-lg-2 fade show" style="background-color: rgba(218, 168, 185, 0.801);color: white;display: none;" role="alert">
+                                Mesajınız başarıyla iletildi.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
                             {% if user.is_authenticated %}
-                            <input type="submit" onclick="deneme(event)"  value="İlet" class="ilet btn text-white center border mt-5 mb-5">
+                            <input type="submit" onclick="deneme(event)"  value="İlet" class="ilet btn text-white center border mt-3 mb-5">
                             {% else %}
                             <input type="submit" value="İletmek için giriş yapın." disabled style="opacity: 1;"  class="ilet btn text-white center border mt-5 mb-5">
                             {% endif %}
@@ -314,7 +313,7 @@
                     <br>
                 </div>
             </div>
-            {% if user.is_superuser %}
+            {% if user.is_superuser and cevaplar %}
             <div class="iletisim-cevaplari">
                 {% if cevaplar %}
                 <h4 class="text-center pt-5 text-white">Gelen Kutusu</h4>
@@ -637,8 +636,21 @@
                 ad_soyad.value="";
                 baslik.value="";
                 aciklama.value="";
-                let mesaj = document.querySelector("#mesaj");
-                mesaj.classList.add("anasayfa-message1");
+                let mesaj = document.querySelector(".basariyla_iletildi");
+                mesaj.style.display = "";
+                gsap.to(".basariyla_iletildi", {
+                    scrollTrigger: ".basariyla_iletildi",
+                    opacity: 0,
+                    duration: 6,
+                    ease: "power1"
+                })
+                gsap.to(".ilet", {
+                    scrollTrigger: ".ilet",
+                    y:'-50px',
+                    duration: 1,
+                    delay:2,
+                    ease: "power1",
+                })
             }
   
             }
