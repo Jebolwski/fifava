@@ -1,5 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from base.api import serializers
+from base.api.serializers import ForumYanitSerializer
 
 from base.models import *
 
@@ -63,6 +65,30 @@ def ForumCevapBegenmeRenk(request,pk):
     return Response(begenme)
 
 
+@api_view(['POST','GET'])
+def ForumCevapla(request):
+    fake_data = request.data.copy()
+    user =User.objects.get(username=request.data['username'])
+    fake_data['profil'] = ProfilFoto.objects.get(user_id = user.id).id
+    fake_data['username'] = request.data['username']
+    fake_data['onay_durum'] = OnayDurum.objects.get(kisi_id=user.id)
+    sorted_data = sorted(list(request.data))
+    if sorted_data[0]!='cevaba_cevap':
+        fake_data['cevaba_cevap'] = ForumSoruCevap.objects.get(id=request.data['cevaba_cevap'])
+    serializer = ForumYanitSerializer(data = fake_data)
+    if serializer.is_valid():
+        serializer.save()
+    
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def ForumCevapGel(request):
+    profil = ProfilFoto.objects.get(username=request.data['username'])
+    print(profil)
+    forum_soru_cevap = list(ForumSoruCevap.objects.all().filter(profil_id=profil.id).order_by("-guncellenme_tarihi"))
+    print(forum_soru_cevap)
+    serializer = ForumYanitSerializer(forum_soru_cevap,many=False)
+    return Response(serializer.data)
 
 #!FORUM FONKSİYONLARI
 @api_view(['POST','GET'])

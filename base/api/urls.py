@@ -8,6 +8,8 @@ urlpatterns = [
     path("forum/cevap/<int:pk>/begenme/",views.ForumCevabiniBegenme,name="forum_cevabini_begenme"),
     path("forum/cevap/<int:pk>/begen/renk/",views.ForumCevapBegenRenk,name="forum_cevabini_begen_renk"),
     path("forum/cevap/<int:pk>/begenme/renk/",views.ForumCevapBegenmeRenk,name="forum_cevabini_begenme_renk"),
+    path("forum/cevap/ekle/",views.ForumCevapla,name="forum_cevaplama"),
+    path("forum/cevap/gel/",views.ForumCevapGel,name="forum_cevap_gel"),
     
     #!FORUM OTOMATİKLEŞTİRME 
     path("forum/<int:pk>/begen/",views.ForumBegen,name="forum__begen"),
@@ -17,5 +19,6 @@ urlpatterns = [
     
     #!FORUM OTOMATİKLEŞTİRME 
     path("iletisim/ekle/",views.IletisimCevaplama,name="iletisim_cevaplama"),
+
     
 ]

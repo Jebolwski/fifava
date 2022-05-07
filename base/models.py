@@ -214,9 +214,6 @@ class Iletisim(models.Model):
         return str(self.baslik)
 
         
-
-
-
 class Iletisim_cevap(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     iletisim = models.ForeignKey(Iletisim,on_delete=models.CASCADE,null=True,blank=True)

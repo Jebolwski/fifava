@@ -272,9 +272,8 @@
                                 <textarea name="aciklama" id="aciklama" class="form-control" required maxlength="1000" cols="30" rows="4"></textarea>
                             </div>
                             <br>
-                             <div class="basariyla_iletildi alert alert-danger alert-dismissible col-lg-8 offset-lg-2 fade show" style="background-color: rgba(218, 168, 185, 0.801);color: white;display: none;" role="alert">
+                             <div class="basariyla_iletildi alert alert-danger col-lg-8 offset-lg-2" style="background-color: rgba(218, 168, 185, 0.801);color: white;display: none;" role="alert">
                                 Mesajınız başarıyla iletildi.
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             {% if user.is_authenticated %}
                             <input type="submit" onclick="deneme(event)"  value="İlet" class="ilet btn text-white center border mt-3 mb-5">
@@ -641,14 +640,14 @@
                 gsap.to(".basariyla_iletildi", {
                     scrollTrigger: ".basariyla_iletildi",
                     opacity: 0,
-                    duration: 6,
+                    duration: 5,
                     ease: "power1"
                 })
                 gsap.to(".ilet", {
                     scrollTrigger: ".ilet",
-                    y:'-50px',
+                    y:'-58px',
                     duration: 1,
-                    delay:2,
+                    delay:5,
                     ease: "power1",
                 })
             }
