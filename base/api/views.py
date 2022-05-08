@@ -66,15 +66,14 @@ def ForumCevapBegenmeRenk(request,pk):
 
 
 @api_view(['POST','GET'])
-def ForumCevapla(request):
+def ForumCevapla(request,pk):
     fake_data = request.data.copy()
-    user =User.objects.get(username=request.data['username'])
-    fake_data['profil'] = ProfilFoto.objects.get(user_id = user.id).id
-    fake_data['username'] = request.data['username']
-    fake_data['onay_durum'] = OnayDurum.objects.get(kisi_id=user.id)
+    fake_data['profil'] = ProfilFoto.objects.get(user_id = pk).id
+    fake_data['onay_durum'] = OnayDurum.objects.get(kisi_id=pk)
     sorted_data = sorted(list(request.data))
     if sorted_data[0]!='cevaba_cevap':
         fake_data['cevaba_cevap'] = ForumSoruCevap.objects.get(id=request.data['cevaba_cevap'])
+    print(fake_data)
     serializer = ForumYanitSerializer(data = fake_data)
     if serializer.is_valid():
         serializer.save()
