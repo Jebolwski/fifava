@@ -9,9 +9,27 @@ from ..models import ForumSoruCevap, Iletisim
 
 class ForumYanitSerializer(ModelSerializer):
     
-    
+    url = serializers.SerializerMethodField('get_profil_url')
+    username = serializers.SerializerMethodField('get_username')
+    cevaba_cevap_cevap = serializers.SerializerMethodField('get_cevaba_cevap_cevap')
     class Meta:
         model       = ForumSoruCevap
-        fields      = ['id','username','profil','cevaba_cevap','forum','cevap']
+        fields      = "__all__"
 
+    def get_profil_url(self,forum):
+        if forum.profil.resim:
+            url = forum.profil.resim.url
+            return url
+        else:
+            return None
 
+    def get_username(self,forum):
+        username = forum.profil.user.username
+        return username
+
+    def get_cevaba_cevap_cevap(self,forum):
+        if forum.cevaba_cevap:
+            cevaba_cevap = forum.cevaba_cevap.cevap
+            return cevaba_cevap
+        else:
+            return None

@@ -149,50 +149,49 @@
         </div>
         <br> {% if forum %}
         <h5 class="offset-2 mb-2">Cevaplar</h5>
-        {% if forum %} {% for foru in forum %}
-
-        <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
-
-            {% if foru.cevaba_cevap %}
-            <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
-                <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
-                {% else %}
-                <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                </a>
-                {% endif %}
-                <label for="{{foru.soru}}" style="overflow: hidden;
+        <div class="cevaplar">
+            {% if forum %} {% for foru in forum %}
+            <div class=" border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
+                {% if foru.cevaba_cevap %}
+                <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
+                    <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                        <img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
+                    {% else %}
+                    <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                        <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                    </a>
+                    {% endif %}
+                    <label for="{{foru.soru}}" style="overflow: hidden;
         max-width: 200px;
         white-space: nowrap;
-        text-overflow: ellipsis;">{{foru.cevaba_cevap.cevap}}</label>
-            </p>
-            <hr> {% endif %}
+                    text-overflow: ellipsis;">{{foru.cevaba_cevap.cevap}}</label>
+                </p>
+                <hr> {% endif %}
 
-            <p>
-                {% if foru.profil.resim %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                    <img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                    <span>{{foru.profil.user.username}}</span>
-                    <span>
+                <p>
+                    {% if foru.profil.resim %}
+                    <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                        <img src="{{foru.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                        <span>{{foru.profil.user.username}}</span>
+                        <span>
                     
                     </span></a>{% else %}
-                <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
 
-                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                    <span>{{foru.profil.user.username}}</span>
-                    <span>
+                        <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                        <span>{{foru.profil.user.username}}</span>
+                        <span>
                     
                     </span></a>
-                {% endif %}
-            </p>
+                    {% endif %}
+                </p>
 
-            <hr>
-            <!--!CEVAP CEVAPLAMA-->
-            {% csrf_token %}
-            <p class="text-break">{{foru.cevap}}
-                <input type="checkbox" name="{{foru.id}}" onclick="kay()" class="cevaba_cevap_class {{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
-                <label for="{{foru.id}}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i>
+                <hr>
+                <!--!CEVAP CEVAPLAMA-->
+                {% csrf_token %}
+                <p class="text-break">{{foru.cevap}}
+                    <input type="checkbox" name="{{foru.id}}" onclick="kay()" class="cevaba_cevap_class {{foru.id}}" id="{{foru.id}}" style="visibility: hidden;" />
+                    <label for="{{foru.id}}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i>
                         {% if foru.profil.username == request.user.username or request.user.is_superuser %}
                         <a href="{% url 'forum-cevap-sil' foru.id %}"><i class="fa-solid fa-trash-can mx-3"></i></a>
                         {% endif %}
@@ -226,35 +225,34 @@
                         <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
                             {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}</p>
                     {% endif %}
-        </div>
+            </div>
 
 
                 {% endfor %} 
                 {% endif %}
 
                 <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-                    {% if request.user.is_authenticated %}
+                    <!-- {% if request.user.is_authenticated %}
                     <div class="col-10 col-lg-8 offset-1 offset-lg-2 is_authenticated"><textarea rows="5" class="cevap-textarea form-control" maxlength="200" name="cevap"></textarea></div>
-                    <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
+                    <input type="submit" onclick="cevapla()" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
                     <!--!FORM SONU-->
                     {% else %}
                     <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
                     <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled>
                     {% endif %}
-                
-        {% else %}
-        <div class="no-pre-responses">
-        <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-            {% if request.user.is_authenticated %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap"></textarea></div>
-            <input type="submit" onclick="cevapla()" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
-            {% else %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
-            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> 
-            {% endif %}
-        </div>
-        {% endif %}
-        
+                {% else %}
+                <div class="no-pre-responses">
+                <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
+                    
+                </div>
+                {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap"></textarea></div>
+                    <input type="submit" onclick="cevapla()" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
+                    {% else %}
+                    <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
+                    <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> 
+                    {% endif %}
         
     </main>
 
@@ -318,10 +316,8 @@
                 placement: "top",
             });
         });
-        var cevaba_cevap_id = null;
+        var cevaba_cevap_id = "-1";
         function kay() {
-            console.log(event.target.value);
-            console.log(event.target.classList[1]);
             window.scrollTo(0, document.body.clientHeight);
             document.querySelector(".cevap-textarea").focus();
             if (event.target.value=="on"){
@@ -501,6 +497,9 @@
             if (response.status==200){
                 let cevaplar = document.querySelector(".cevaplar");
                 let foru = await response.json();
+                cevap.value=""
+                console.log(foru.url);
+                console.log(foru.username);
                 cevaplar.innerHTML+=
                 `
                 <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4">
@@ -517,35 +516,35 @@
                     <label for="${foru.soru}" style="overflow: hidden;
                         max-width: 200px;
                         white-space: nowrap;
-                        text-overflow: ellipsis;">{{foru.cevaba_cevap.cevap}}</label>
-            </p>
-            <hr> {% endif %}
+                        text-overflow: ellipsis;">${foru.cevaba_cevap_cevap}</label>
+                </p>
+                <hr> {% endif %}
 
-            <p>
-                {% if '${foru.profil.resim}' %}
-                <a href="{% url 'profil' '${foru.profil.user.username}'|slugify %}" class="text-black text-decoration-none">
-                    <img src="${foru.profil.resim.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                    <span>${foru.profil.user.username}</span>
-                    <span>
+                <p>
+                    {% if '${foru.profil.resim}' %}
+                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
+                        <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                        <span>${foru.username}</span>
+                        <span>
                     
                     </span></a>{% else %}
-                <a href="{% url 'profil' '${foru.profil.user.username}'|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
 
-                    <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                    <span>${foru.profil.user.username}</span>
-                    <span>
+                        <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                        <span>${foru.username}</span>
+                        <span>
                     
                     </span></a>
-                {% endif %}
-            </p>
+                    {% endif %}
+                </p>
 
-            <hr>
-            <!--!CEVAP CEVAPLAMA-->
-            <form method="post">{% csrf_token %}
-                <p class="text-break">${foru.cevap}
-                    <input type="checkbox" name="${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                    <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i>
-                        {% if '${foru.profil.username}' == request.user.username or request.user.is_superuser %}
+                <hr>
+                <!--!CEVAP CEVAPLAMA-->
+                <form method="post">{% csrf_token %}
+                    <p class="text-break">${foru.cevap}
+                        <input type="checkbox" name="${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
+                        <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i>
+                        {% if '${foru.username}' == request.user.username or request.user.is_superuser %}
                         <i class="fa-solid fa-trash-can mx-3"></i></a>
                         {% endif %}
                     </p>

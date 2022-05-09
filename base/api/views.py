@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from cmath import log
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.api import serializers
@@ -67,17 +69,21 @@ def ForumCevapBegenmeRenk(request,pk):
 
 @api_view(['POST','GET'])
 def ForumCevapla(request,pk):
-    fake_data = request.data.copy()
-    fake_data['profil'] = ProfilFoto.objects.get(user_id = pk).id
-    fake_data['onay_durum'] = OnayDurum.objects.get(kisi_id=pk)
-    sorted_data = sorted(list(request.data))
-    if sorted_data[0]!='cevaba_cevap':
-        fake_data['cevaba_cevap'] = ForumSoruCevap.objects.get(id=request.data['cevaba_cevap'])
-    print(fake_data)
-    serializer = ForumYanitSerializer(data = fake_data)
-    if serializer.is_valid():
-        serializer.save()
+    cevaba_cevap1 = "-1"
+    if request.data['cevaba_cevap']!="-1":
+        cevaba_cevap1 = ForumSoruCevap.objects.get(id=int(request.data['cevaba_cevap'])),
+    else:
+        cevaba_cevap1 = None
     
+    ForumSoruCevap.objects.create(
+        profil = ProfilFoto.objects.get(user_id=pk),
+        onay_durum = OnayDurum.objects.get(kisi_id=pk),
+        cevaba_cevap = cevaba_cevap1,
+        soru = ForumSoru.objects.get(id=request.data['soru_id']),
+        cevap = request.data['cevap'],
+    )
+    forum1 = ForumSoruCevap.objects.filter(cevap=request.data['cevap']).order_by("-guncellenme_tarihi")[0]
+    serializer = ForumYanitSerializer(forum1,many=False)
     return Response(serializer.data)
 
 @api_view(['POST','GET'])
