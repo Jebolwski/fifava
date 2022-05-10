@@ -1,6 +1,4 @@
-﻿from distutils.command.upload import upload
-import re
-from urllib import request
+﻿from urllib import request
 from django.db import models
 from django.contrib.auth.models import User
 
