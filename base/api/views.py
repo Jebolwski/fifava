@@ -71,7 +71,7 @@ def ForumCevapBegenmeRenk(request,pk):
 def ForumCevapla(request,pk):
     cevaba_cevap1 = "-1"
     if request.data['cevaba_cevap']!="-1":
-        cevaba_cevap1 = ForumSoruCevap.objects.get(id=int(request.data['cevaba_cevap'])),
+        cevaba_cevap1 = ForumSoruCevap.objects.get(id=request.data['cevaba_cevap'])
     else:
         cevaba_cevap1 = None
     

@@ -27,6 +27,15 @@ INSTALLED_APPS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': '%d %B %Y %H:%M',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',

@@ -957,13 +957,6 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   main .profil-edit {
     margin-left: 38vw;
   }
-  main .ground,
-  main .truck,
-  main .house,
-  main .kesfet-svg,
-  main .top-1 {
-    display: none;
-  }
   body {
     overflow-x: hidden;
   }
@@ -972,6 +965,13 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   body .responsive-text {
     font-size: 14px;
+  }
+  body .ground,
+  body .truck,
+  body .house,
+  body .kesfet-svg,
+  body .top-1 {
+    display: none;
   }
 }
 
