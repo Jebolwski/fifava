@@ -559,6 +559,8 @@ def Haberlerim(request):
 
 @login_required(login_url='giris-yap')
 def HaberEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -655,6 +657,8 @@ def HaberDetay(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def HaberDuzenle(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     instance = Haberler.objects.get(baslik_slug=my_slug)
     if request.method == 'POST':
@@ -710,6 +714,8 @@ def HaberDuzenle(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def HaberSil(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     haber = Haberler.objects.get(baslik_slug=my_slug)
     if request.method=="POST":
@@ -1502,6 +1508,8 @@ def CevapSil(request,pk):
 
 @login_required(login_url='giris-yap')
 def KayitOnay(request):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2157,6 +2165,8 @@ def ForumCevapSil(request,pk):
 
 @login_required(login_url='giris-yap')
 def ForumSil(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2205,6 +2215,8 @@ def ForumSil(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def ForumEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False

@@ -12,7 +12,7 @@
 
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <li>
                 <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
             </li>
@@ -89,13 +89,13 @@
                         {% endif %}
                         <p class="d-none d-md-block">Formlar</p>
                     </a>
-            </li>{% if user.is_superuser and user.is_authenticated %}
+            </li>{% if request.user.is_superuser and user.is_authenticated %}
             <li>
                 <a href="{% url 'kayit-onay' %}">
                     <i class="fa-solid fa-circle-check"></i>
                     <p class="d-none d-md-block">Kayıt Onay</p>
                 </a>
-            </li>{% endif %} {% if user.is_authenticated %}
+            </li>{% endif %} {% if request.user.is_authenticated %}
             <li>
                 <a href="{% url 'ayarlar' %}">
                     <i class="fa-solid fa-gear"></i>
@@ -105,7 +105,7 @@
 
             {% endif %}
             <li>
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <a href="{% url 'cikis-yap' %}">
                     <i class=" fa-solid fa-arrow-right-from-bracket"></i>
                     <p class="d-none d-md-block"> Çıkış Yap</p>
