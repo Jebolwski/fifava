@@ -1,0 +1,1 @@
+_tkinter hatası CASCADE importundan kaynaklı.

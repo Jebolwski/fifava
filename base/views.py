@@ -1,56 +1,46 @@
-from pydoc import doc
+﻿from multiprocessing import context
 from django.shortcuts import render,redirect
-from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 
-from .forms import CevapForm,SorularForm,KayitForm
+from .forms import CevapForm, OnayForm, OyuncuForm, ProfilFotoForm,SorularForm,KayitForm,HaberForm,IletisimForm,ForumEkleForm
 
 from django.core.paginator import Paginator
 
 
 from .models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib import messages
 
 
-#?CLASS BASED VIEWS
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
-# def KayitOlma(request):
-#     form = KayitForm()
-#     if request.method == "POST":
-#         if form.is_valid():
-#             form.save()
-#             return redirect('giris-yap')
-#     context = {'form':form}
-#     return render(request,"base/kayit.html",context)
 
 
-def KayitOl(request):
-    form = KayitForm()
-    print(request.GET)
-    if request.method == 'POST':
-        print("valid :",request.POST)
-        form = KayitForm(request.POST)
-        if form.is_valid():
-            print("valid :",request.POST)
-            form.save()
-            messages.success(request, 'Başarıyla kayıt olundu.')
-            return redirect('giris-yap')
-        else:
-            messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
+def Bulunamadi(request,exception):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/404.html',context)
 
-    context = {
-        'form': form
-    }
-    return render(request, 'base/kayit.html', context)
+
+def Bulunamadi1(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/404.html',context)
+
+
+def Hata(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/500.html',context)
 
 
 def GirisYap(request):
-    if request.method=="POST":
-        print(request.POST)
+    if request.user.is_authenticated and OnayDurum.objects.get(kisi_id=request.user.id).onaydurum!="Yasakla":
+            return redirect('anasayfa')
+
+    if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -58,405 +48,2267 @@ def GirisYap(request):
             request, username=username, password=password)
 
         if person is not None:
-            login(request,person)
+            if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
+                messages.success(request,"Bu hesap yasaklandı.")
+                return redirect("giris-yap")
+            login(request, person)
+            messages.success(request, 'Başarıyla giriş yapıldı.')
             return redirect('anasayfa')
         else:
-            messages.error(request,"Kullanıcı adı veya şifre hatalı...")
-    return render(request,"base/giris.html")
-    
+            messages.error(request,'Kullanıcı adı veya şifre hatalı.')
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request, 'base/giris.html',context)
+
+
+def CikisYap(request):
+    logout(request)
+    messages.success(request,"Başarıyla çıkış yapıldı.")
+    return redirect("anasayfa")
+
+
+def KayitOl(request):
+    if request.user.is_authenticated:
+        return redirect("anasayfa")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = KayitForm()
+    if request.method == 'POST':
+        form = KayitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Başarıyla kayıt olundu.')
+            ProfilFoto.objects.update_or_create(
+                user=User.objects.get(username = request.POST['username']),
+                username=request.POST['username'],
+                username_slug=slugify(request.POST['username']),
+                biyografi=None,
+                resim=None,
+                arka_plan=None)
+            OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
+            return redirect('giris-yap')
+        else:
+            messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
+
+    context = {
+        'form': form,'haberler':haberler
+    }
+    return render(request, 'base/kayit.html', context)
+
+
 
 def Ev(request):
-    return render(request,"base/anasayfa.html")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = IletisimForm()
+    cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+    cevaplara_cevap = Iletisim_cevap.objects.all().filter(user_id = request.user.id) 
+    if request.method=='POST':
+        form = IletisimForm(request.POST)
+        if request.user.is_authenticated:    
+            form.instance.user = request.user
+        if request.FILES:
+            form.instance.dosya = request.FILES.get('file')
+        
 
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Bilgiler başarıyla kaydedildi.")
+            return redirect("anasayfa")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context={'haberler':haberler,'form':form,'cevaplar':cevaplar,
+            'cevaplara_cevap':cevaplara_cevap,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/anasayfa.html",context)
+
+
+def CevabaCevap(request,pk):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
+    cevaplara_cevap.goruldu.add(request.user.id)
+    soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
+    context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
+    return render(request,"base/cevaba-cevap.html",context)
+
+
+def NasilKatilabilirim(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context={'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/nasil-katilabilirim.html",context)
 
 #?KİŞİ CRUD
-class Kisiler(ListView):
-    model               = Kullanici
-    template_name       = 'base/kisi/kisiler.html'
-    context_object_name = 'kisiler'
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(context)
-       
-        search_input = self.request.GET.get('arama') or ''
-        if search_input:
-            context["kisiler"] = context["kisiler"].filter(
-                oyun_ad_soyad__contains=search_input)
-
-        context["search_input"] = search_input
-
-        return context
-
-class KisiEkle(LoginRequiredMixin,CreateView):
-    model               = Kullanici
-    fields              = "__all__"
-    template_name       = "base/kisi/kisi-ekle.html"
-    success_url         = reverse_lazy('kisiler')
-
-class KisiDetay(DetailView):
-    model               = Kullanici
-    context_object_name = 'kisi'
-    template_name       = "base/kisi/kisi-detay.html"
+def Kisiler(request):
+    kisiler = Kullanici.objects.all().order_by('-meslek')
+    haberler = Haberler.objects.all().order_by('guncellenme_tarihi')[:5]
     
-class KisiDuzenle(LoginRequiredMixin,UpdateView):
-    model               = Kullanici
-    template_name       = 'base/kisi/kisi-duzenle.html'
-    context_object_name = 'kisi'
-    fields              = '__all__'
-    success_url         = reverse_lazy('kisiler')
+    ad_soyad_dizi=[]
+    for i in kisiler:
+        ad_soyad_dizi.append([i.oyun_ad_soyad])
+    
+    
 
-class KisiSil(LoginRequiredMixin,DeleteView):
-    model               = Kullanici
-    template_name       = 'base/kisi/kisi-sil.html'
-    context_object_name = 'kisi'
-    success_url         = reverse_lazy('kisiler')
+    if request.method=="POST":
+        arama = request.POST['arama']
+        kisiler = Kullanici.objects.all().filter(oyun_ad_soyad__contains=arama).order_by('-meslek')
 
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context = {'kisiler':kisiler,'ad_soyad':ad_soyad_dizi,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/kisi/kisiler.html",context)
+
+@login_required(login_url='giris-yap')
+def EmailDegistir(request):
+    if request.method == 'POST':
+        eski_email = request.POST['eski-email']
+        yeni_email1 = request.POST['yeni-email1']
+        yeni_email2 = request.POST['yeni-email2']
+
+        if eski_email==request.user.email and yeni_email1==yeni_email2 and eski_email!=yeni_email1:
+            request.user.email = yeni_email1
+            request.user.save()
+            messages.success(request,'Emailiniz başarıyla değiştirildi.')
+            return redirect('ayarlar')
+        elif yeni_email1!=yeni_email2:
+            messages.success(request,'Yeni emailler uyuşmuyor...')
+        elif eski_email!=request.user.email:
+            messages.success(request,'Eski emailinizi yanlış girdiniz...')
+        else:
+            messages.success(request,'Bir hata oluştu.')
+
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+            
+    context={'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/ayarlar/email-degistir.html",context)
+
+@login_required(login_url='giris-yap')
+def KisiEkle(request):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+
+
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = OyuncuForm()
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        form = OyuncuForm(data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Oyuncu başarıyla oluşturuldu.")
+            return redirect('kisiler')
+        else:
+            messages.error(request,"Bir hata oluştu.")
+
+    
+    context = {'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/kisi/kisi-ekle.html",context)
+
+@login_required(login_url='giris-yap')
+def KisiDuzenle(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    form = OyuncuForm(instance=instance)
+    if request.method == 'POST':
+        data = request.POST.copy()
+        data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        form = OyuncuForm(instance=instance,data = data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Oyuncu başarıyla düzenlendi.")
+            return redirect("kisiler")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    
+    
+    context = {'form':form , 'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
+    return render(request,"base/kisi/kisi-duzenle.html",context)
+
+@login_required(login_url='giris-yap')
+def KisiSil(request,my_slug):
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    
+    if request.method == 'POST':
+        instance.delete()
+        messages.success(request,"Oyuncu başarıyla silindi.")
+        return redirect('kisiler')
+
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context = {"haberler":haberler,'kisi':instance,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/kisi/kisi-sil.html",context)
+
+def KisiDetay(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    kisi = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    kisi.goruldu.add(request.user.id)
+    context = {'kisi':kisi,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/kisi/kisi-detay.html",context)
 
 
 #?HABER CRUD
-class Haberler(ListView):
-    model               = Haberler
-    template_name       = 'base/haber/haberler.html'
-    context_object_name = 'haberler'
-
-
-class HaberEkle(LoginRequiredMixin,CreateView):
-    model               = Haberler
-    fields              = "__all__"
-    template_name       = "base/haber/haber-ekle.html"
-    success_url         = reverse_lazy('haberler')
-
-class HaberDetay(DetailView):
-    model               = Haberler
-    context_object_name = 'haber'
-    template_name       = "base/haber/haber-detay.html"
+def Haberlerim(request):
     
-class HaberDuzenle(LoginRequiredMixin,UpdateView):
-    model               = Haberler
-    template_name       = 'base/haber/haber-duzenle.html'
-    context_object_name = 'haber'
-    fields              = '__all__'
-    success_url         = reverse_lazy('haberler')
+    haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')
+    p = Paginator(haberler,10)
+    page = request.GET.get('page')
+    haber = p.get_page(page)
+    if request.method=='POST':
+        arama=request.POST['arama']
+        sorular=Haberler.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
+        p = Paginator(sorular,10)
+        page = request.GET.get('page')
+        haber = p.get_page(page)
+    
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber1 in haberler1:
+            if request.user not in haber1.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    
+    
 
-class HaberSil(LoginRequiredMixin,DeleteView):
-    model               = Haberler
-    template_name       = "base/haber/haber-sil.html"
-    context_object_name = "haber"
-    success_url         = reverse_lazy("haberler")
+    context = {'haberler':haber,'haberler1':haberler1,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/haber/haberler.html",context)
 
+
+@login_required(login_url='giris-yap')
+def HaberEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler2 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler2:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    form = HaberForm()
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    
+    if request.method=='POST':
+        Haberler.objects.create(
+        baslik=request.POST['baslik'],
+        aciklama=request.POST['aciklama'],
+        resim=request.FILES.get('file'),
+        baslik_slug = slugify(request.POST['baslik']),
+        )
+        messages.success(request,"Haber başarıyla oluşturuldu.")
+        return redirect('haberler')
+        context = {'form':form,'haberler':haberler}
+    
+    
+    
+    context = {'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/haber/haber-ekle.html",context)
+            
+
+def HaberDetay(request,my_slug):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haber = Haberler.objects.get(baslik_slug=my_slug)
+    haber.goruldu.add(request.user.id)
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler2 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler2:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context = {'haber':haber,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/haber/haber-detay.html",context)
+
+
+@login_required(login_url='giris-yap')
+def HaberDuzenle(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    instance = Haberler.objects.get(baslik_slug=my_slug)
+    if request.method == 'POST':
+            instance.baslik=request.POST['baslik']
+            instance.aciklama=request.POST['aciklama']
+            instance.baslik_slug = slugify(request.POST['baslik'])
+            temizle=request.POST.get('temizle')
+            if temizle=='on':
+                instance.resim.delete()
+            if request.FILES:
+                instance.resim=request.FILES['file']
+            instance.save()
+            messages.success(request,"Haber başarıyla düzenlendi.")
+            return redirect("haberler")
+    
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler2 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler2:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+
+    context = {'instance':instance,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/haber/haber-duzenle.html",context)
+
+
+@login_required(login_url='giris-yap')
+def HaberSil(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haber = Haberler.objects.get(baslik_slug=my_slug)
+    if request.method=="POST":
+        haber.delete()
+        messages.success(request,'Haber başarıyla silindi.')
+        return redirect('haberler')
+
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    
+    context={'haber':haber,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
+    return render(request,"base/haber/haber-sil.html",context)
 
 #!FORM
 def Formlar(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     sorular=Sorular.objects.all().order_by('-guncellenme_tarihi')
     cevaplananlar=Cevaplar.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
-    context={"formlar":sorular,"cevap":cevaplananlar}
+    p = Paginator(sorular,10)
+    page = request.GET.get('page')
+    soru = p.get_page(page)
+    if request.method=='POST':
+        arama=request.POST['arama']
+        sorular=Sorular.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
+        p = Paginator(sorular,10)
+        page = request.GET.get('page')
+        soru = p.get_page(page)
+    
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    
+    context={"formlar":soru,"cevap":cevaplananlar,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/form/formlar.html",context)
 
 
-
+@login_required(login_url='giris-yap')
 def FormEkle(request):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     form = SorularForm()
+
+    
+
+
     if request.method=="POST":
-        form = SorularForm(request.POST)
-        print("form valid değil")
+        
+        data = request.POST.copy()
+        data['baslik_slug'] = slugify(data['baslik'])
+        form = SorularForm(data)
         if form.is_valid():
             form.instance.user=request.user
             form.save()
-            print("form valid")
+            messages.success(request,"Anket başarıyla oluşturuldu.")
             return redirect("formlar")
-    context={"form":form}
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    context={"form":form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/form/form-ekle.html",context)
 
 
-def FormDuzenle(request,pk):
-    form_instance = Sorular.objects.get(id=pk)
+@login_required(login_url='giris-yap')
+def FormDuzenle(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form_instance = Sorular.objects.get(baslik_slug=my_slug)
     form = SorularForm(instance=form_instance)
+    form_instance.goruldu.add(request.user.id)
     if request.method=="POST":
-        form = SorularForm(request.POST,instance=form_instance)
+        data = request.POST.copy()
+        data['baslik_slug'] = slugify(request.POST['baslik'])
+        form = SorularForm(data,instance=form_instance)
         if form.is_valid():
             form.save()
             return redirect("formlar")
-    context={"form":form}
+    
+    context={"form":form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
     return render(request,"base/form/form-duzenle.html",context)
 
 
-def FormSil(request,pk):
-    form=Sorular.objects.get(id=pk)
+@login_required(login_url='giris-yap')
+def FormSil(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form=Sorular.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
         form.delete()
         return redirect("formlar")
-    context={'form':form}
+
+    
+    context={'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
     return render(request,"base/form/form-sil.html",context)
 
 
-def FormCevapla(request,pk):
-    form=CevapForm()
-    sorular=Sorular.objects.get(id=pk)
+@login_required(login_url='giris-yap')
+def FormCevapla(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    form = CevapForm()
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    sorular = Sorular.objects.get(baslik_slug = my_slug)
+    benim_cevaplarim = Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id)
+    if len(Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id))>0 :
+        return redirect('cevaplanmis')
     if request.method=="POST":
         form_copy=request.POST.copy()
         form_copy['kayitli']=str(request.user.id)
         form_copy['baslik']=sorular.baslik
+        form_copy['baslik_slugify']=slugify(sorular.baslik)
         form_copy['sorular']=sorular
         form=CevapForm(form_copy)
+        
+
         if form.is_valid():
             form.save()
+            if sorular.baslik == "FIFAVOX RolePlay Kayıt Formu":
+                onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
+                onaydurum.onaydurum = "Bekle"
+                onaydurum.save()
+            messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
         else:
-            print("valid degilmis")
-    context={'form':form,'sorular':sorular}
+            messages.error(request,"Bir hata oluştu.")
+    context={'form':form,'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
     return render(request,"base/form/form-cevapla.html",context)
 
 
-def FormDetay(request,pk):
-    soru=Sorular.objects.get(id=pk)
-    context={'soru':soru}
+def FormDetay(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    soru=Sorular.objects.get(baslik_slug = my_slug)
+    soru.goruldu.add(request.user.id)
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context={'soru':soru,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context={'soru':soru,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/form/form-detay.html",context)
 
 
-
-def FormAnaliz(request,pk):
-    form = Sorular.objects.get(id=pk)
+@login_required(login_url='giris-yap')
+def FormAnaliz(request,my_slug):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = Sorular.objects.get(baslik_slug = my_slug)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
-    
-    sorucount=0
-    soru1=0
-    soru2=0
-    soru3=0
-    soru4=0
-    soru5=0
-    soru6=0
-    soru7=0
-    soru8=0
-    soru9=0
-    soru10=0
+    form.goruldu.add(request.user.id)
+    if True:
+        sorucount=0
+        soru1=0
+        soru2=0
+        soru3=0
+        soru4=0
+        soru5=0
+        soru6=0
+        soru7=0
+        soru8=0
+        soru9=0
+        soru10=0
 
 
-    count1=0
-    count2=0
-    count3=0
-    count4=0
-    count5=0
-    count6=0
-    count7=0
-    count8=0
-    count9=0
-    count10=0
-    soru1_cevap=0
-    soru2_cevap=0
-    soru3_cevap=0
-    soru4_cevap=0
-    soru5_cevap=0
-    soru6_cevap=0
-    soru7_cevap=0
-    soru8_cevap=0
-    soru9_cevap=0
-    soru10_cevap=0
-    for i in cevap:
-        
-        if i.soru1_cevap!=None:
-            soru1_cevap+= int(i.soru1_cevap)
-            count1+=1
-        else:
-            # print("none :D")
-            pass
+        count1=0
+        count2=0
+        count3=0
+        count4=0
+        count5=0
+        count6=0
+        count7=0
+        count8=0
+        count9=0
+        count10=0
+        soru1_cevap=0
+        soru2_cevap=0
+        soru3_cevap=0
+        soru4_cevap=0
+        soru5_cevap=0
+        soru6_cevap=0
+        soru7_cevap=0
+        soru8_cevap=0
+        soru9_cevap=0
+        soru10_cevap=0
+        for i in cevap:
+
+            if i.soru1_cevap!=None:
+                soru1_cevap+= int(i.soru1_cevap)
+                count1+=1
 
 
-        if i.soru2_cevap!=None:
-            soru2_cevap += int(i.soru2_cevap)
-            count2+=1
-       
+            if i.soru2_cevap!=None:
+                soru2_cevap += int(i.soru2_cevap)
+                count2+=1
 
 
-        if i.soru3_cevap!=None:
-            soru3_cevap += int(i.soru3_cevap)
-            count3+=1
-        
+
+            if i.soru3_cevap!=None:
+                soru3_cevap += int(i.soru3_cevap)
+                count3+=1
 
 
-        if i.soru4_cevap!=None:
-            soru4_cevap += int(i.soru4_cevap)
-            count4+=1
-        
 
-            
-        if i.soru5_cevap!=None:
-            soru5_cevap += int(i.soru5_cevap)
-            count5+=1
-        
-
-        
-        if i.soru6_cevap!=None:
-            soru6_cevap += int(i.soru6_cevap)
-            count6+=1
-      
+            if i.soru4_cevap!=None:
+                soru4_cevap += int(i.soru4_cevap)
+                count4+=1
 
 
-        
-        if i.soru7_cevap!=None:
-            soru7_cevap+= int(i.soru7_cevap)
-            count7+=1
-      
+
+            if i.soru5_cevap!=None:
+                soru5_cevap += int(i.soru5_cevap)
+                count5+=1
 
 
-        if i.soru8_cevap!=None:
-            soru8_cevap+= int(i.soru8_cevap)
-            count8+=1
-      
 
-
-        if i.soru9_cevap!=None:
-            soru9_cevap+= int(i.soru9_cevap)
-            count9+=1
-       
-
-
-        if i.soru10_cevap!=None:
-            soru10_cevap+= int(i.soru10_cevap)
-            count10+=1
-       
+            if i.soru6_cevap!=None:
+                soru6_cevap += int(i.soru6_cevap)
+                count6+=1
 
 
 
 
-    if count1!=0:
-        soru1=soru1_cevap/count1
-    if count2!=0:
-        soru2=soru2_cevap/count2
-    if count3!=0:
-        soru3=soru3_cevap/count3
-    if count4!=0:
-        soru4=soru4_cevap/count4
-    if count5!=0:
-        soru5=soru5_cevap/count5
-    if count6!=0:
-        soru6=soru6_cevap/count6
-    if count7!=0:
-        soru7=soru7_cevap/count7
-    if count8!=0:
-        soru8=soru8_cevap/count8
-    if count9!=0:    
-        soru9=soru9_cevap/count9
-    if count10!=0:
-        soru10=soru10_cevap/count10
+            if i.soru7_cevap!=None:
+                soru7_cevap+= int(i.soru7_cevap)
+                count7+=1
 
 
-   
 
-    array=[]
-    if soru1!=0:
-        array.append(soru1*20)
-    if soru2!=0:
-        array.append(soru2*20)
-    if soru3!=0:
-        array.append(soru3*20)
-    if soru4!=0:
-        array.append(soru4*20)
-    if soru5!=0:
-        array.append(soru5*20)
-    if soru6!=0:
-        array.append(soru6*20)
-    if soru7!=0:
-        array.append(soru7*20)
-    if soru8!=0:
-        array.append(soru8*20)
-    if soru9!=0:
-        array.append(soru9*20)
-    if soru10!=0:
-        array.append(soru10*20) 
+            if i.soru8_cevap!=None:
+                soru8_cevap+= int(i.soru8_cevap)
+                count8+=1
+
+
+
+            if i.soru9_cevap!=None:
+                soru9_cevap+= int(i.soru9_cevap)
+                count9+=1
+
+
+
+            if i.soru10_cevap!=None:
+                soru10_cevap+= int(i.soru10_cevap)
+                count10+=1
+
+
+
+
+
+        if count1!=0:
+            soru1=soru1_cevap/count1
+        if count2!=0:
+            soru2=soru2_cevap/count2
+        if count3!=0:
+            soru3=soru3_cevap/count3
+        if count4!=0:
+            soru4=soru4_cevap/count4
+        if count5!=0:
+            soru5=soru5_cevap/count5
+        if count6!=0:
+            soru6=soru6_cevap/count6
+        if count7!=0:
+            soru7=soru7_cevap/count7
+        if count8!=0:
+            soru8=soru8_cevap/count8
+        if count9!=0:    
+            soru9=soru9_cevap/count9
+        if count10!=0:
+            soru10=soru10_cevap/count10
+
+
     
 
-    for i in cevap:
-        if i.soru11_cevap:
-            soru11_cevap = i.soru12_cevap
-            sorucount+=1
-        if i.soru13_cevap:
-           soru13_cevap = i.soru13_cevap
-           sorucount+=1
-        if i.soru14_cevap:
-            soru14_cevap = i.soru14_cevap
-            sorucount+=1
-        if i.soru15_cevap:
-            soru15_cevap = i.soru15_cevap
-            sorucount+=1
-        if i.soru16_cevap:
-            soru16_cevap = i.soru16_cevap
-            sorucount+=1
-        if i.soru17_cevap:
-            soru17_cevap = i.soru17_cevap
-            sorucount+=1
-        if i.soru18_cevap:
-            soru18_cevap = i.soru18_cevap
-            sorucount+=1
+        array=[]
+        if soru1!=0:
+            array.append(soru1*20)
+        if soru2!=0:
+            array.append(soru2*20)
+        if soru3!=0:
+            array.append(soru3*20)
+        if soru4!=0:
+            array.append(soru4*20)
+        if soru5!=0:
+            array.append(soru5*20)
+        if soru6!=0:
+            array.append(soru6*20)
+        if soru7!=0:
+            array.append(soru7*20)
+        if soru8!=0:
+            array.append(soru8*20)
+        if soru9!=0:
+            array.append(soru9*20)
+        if soru10!=0:
+            array.append(soru10*20) 
+
+
+        for i in cevap:
+            if i.soru11_cevap:
+                soru11_cevap = i.soru12_cevap
+                sorucount+=1
+            if i.soru13_cevap:
+               soru13_cevap = i.soru13_cevap
+               sorucount+=1
+            if i.soru14_cevap:
+                soru14_cevap = i.soru14_cevap
+                sorucount+=1
+            if i.soru15_cevap:
+                soru15_cevap = i.soru15_cevap
+                sorucount+=1
+            if i.soru16_cevap:
+                soru16_cevap = i.soru16_cevap
+                sorucount+=1
+            if i.soru17_cevap:
+                soru17_cevap = i.soru17_cevap
+                sorucount+=1
+            if i.soru18_cevap:
+                soru18_cevap = i.soru18_cevap
+                sorucount+=1
 
 
 
 
-    bolmesayac=0
-    for i in array:
-        if i!=None:
-            bolmesayac+=1
+        bolmesayac=1
+        for i in array:
+            if i!=None:
+                bolmesayac+=1
 
-    top=0
-    for i in array:
-        if i!=None:
-            top += i
-    
-    array=[]
-    if soru1!=0:
-        array.append(soru1*20)
-    if soru2!=0:
-        array.append(soru2*20)
-    if soru3!=0:
-        array.append(soru3*20)
-    if soru4!=0:
-        array.append(soru4*20)
-    if soru5!=0:
-        array.append(soru5*20)
-    if soru6!=0:
-        array.append(soru6*20)
-    if soru7!=0:
-        array.append(soru7*20)
-    if soru8!=0:
-        array.append(soru8*20)
-    if soru9!=0:
-        array.append(soru9*20)
-    if soru10!=0:
-        array.append(soru10*20) 
+        top=0
+        for i in array:
+            if i!=None:
+                top += i
 
-
+        array=[]
+        if soru1!=0:
+            array.append(soru1*20)
+        if soru2!=0:
+            array.append(soru2*20)
+        if soru3!=0:
+            array.append(soru3*20)
+        if soru4!=0:
+            array.append(soru4*20)
+        if soru5!=0:
+            array.append(soru5*20)
+        if soru6!=0:
+            array.append(soru6*20)
+        if soru7!=0:
+            array.append(soru7*20)
+        if soru8!=0:
+            array.append(soru8*20)
+        if soru9!=0:
+            array.append(soru9*20)
+        if soru10!=0:
+            array.append(soru10*20) 
+    # if len(Cevaplar.objects.all())>1:
+    #     bolmesayac=bolmesayac-1
+      
 
     yuzde=top/bolmesayac
-    print("Genel katılma yüzdesi :",yuzde,"%","Ankete katılan kişi sayısı :",len(cevap))
     for i in range(0,len(array)):
         if array[i]!=0:
             print("Soru "+str(i+1)+" katılma yüzdesi",array[i],"%")
-
-    for i in cevap:
-        print(i.soru10_cevap)
-
     cevaplar = Cevaplar.objects.all().order_by('-guncellenme_tarihi')
-    p = Paginator(cevaplar,1)
+    p = Paginator(Cevaplar.objects.all().filter(sorular_id=form.id),1)
     page = request.GET.get('page')
     cevaplar_hepsi = p.get_page(page)
-
-    context = {'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,
-    'dizi':array,'sorusayac':sorucount,'cevaplar_hepsi':cevaplar_hepsi,'cevaplar':cevaplar}
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {
+        'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,
+    'dizi':array,'sorusayac':sorucount,'cevaplar':cevaplar_hepsi,'cevaplarim':cevaplar,'haberler':haberler,'durum':durum,
+    'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {
+        'form':form,'cevap':cevap,'yuzde':yuzde,'sikli_soru_sayisi':bolmesayac,
+    'dizi':array,'sorusayac':sorucount,'cevaplar':cevaplar_hepsi,'cevaplarim':cevaplar,'haberler':haberler,
+    'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
     return render(request,"base/form/form-analiz.html",context)
 
 
+@login_required(login_url='giris-yap')
+def Cevaplanmis(request):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
+    return render(request,"base/form/cevaplanmis.html",context)
+
+
+@login_required(login_url='giris-yap')
+def CevaplanmisDuzenle(request,pk):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form_instance = Cevaplar.objects.get(id=pk)
+    form = CevapForm(instance=form_instance)
+    sorular = Sorular.objects.filter(id=form_instance.sorular_id)
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['baslik']=form_instance.baslik
+        form = CevapForm(data,instance=form_instance)
+        if form.is_valid():
+            form.save()
+            return redirect("formlar")
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context={'form':form,'sorular':sorular,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context={'form':form,'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
+
+    return render(request,"base/form/cevaplanmis-duzenle.html",context)
+
+
+@login_required(login_url='giris-yap')
 def CevapDetay(request,pk):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     cevap = Cevaplar.objects.get(id=pk)
-    print(cevap.sorular.soru1)
-    context = {'cevap':cevap}
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {'cevap':cevap,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {'cevap':cevap,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
     return render(request,"base/form/cevap-detay.html",context)
 
-
-
+@login_required(login_url='giris-yap')
 def CevapSil(request,pk):
     cevap=Cevaplar.objects.filter(id=pk)
     cevap.delete()
     return redirect("formlar")
+
+
+@login_required(login_url='giris-yap')
+def KayitOnay(request):
+    if not request.user.is_superuser:
+        return redirect("404")
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    onay = OnayDurum.objects.all().order_by("-onaydurum")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+        durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {'haberler':haberler,'onay':onay,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {'haberler':haberler,'onay':onay,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
+    return render(request,"base/kayitonay/kayit-onay.html",context)
+
+
+
+@login_required(login_url='giris-yap')
+def KayitOnayFormDuzenle(request,pk):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
+    instance = OnayDurum.objects.get(kisi_id=kisi.id)
+    form = OnayForm(instance=instance)
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(instance=instance,data=data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu güncellendi.")
+            return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+
+    
+    if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
+        
+        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id,kayitli_id=kisi.id)
+        if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+            durum = OnayDurum.objects.get(kisi_id=request.user.id)  
+            context = {'cevap':cevaplar,'sorular':sorular,'form':form,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
+        else:
+            context = {'cevap':cevaplar,'sorular':sorular,'form':form,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
+
+    else:
+        if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+            durum = OnayDurum.objects.get(kisi_id=request.user.id)  
+            context = {'sorular':sorular,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+        else:
+            context = {'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+
+    return render(request,"base/kayitonay/kayit-onay-form.html",context)
+
+
+@login_required(login_url='giris-yap')
+def KayitOnayForm(request,pk):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    kisi = User.objects.get(id=pk)
+    sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
+        return redirect('kayit-onay-form-duzenle',kisi.id)
+    form = OnayForm()
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['kisi'] = str(kisi.id)
+        form = OnayForm(data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Onay durumu kaydedildi.")
+            return redirect("kayit-onay")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    
+    
+    if Cevaplar.objects.all().filter(sorular_id=sorular.id):
+        cevaplar = Cevaplar.objects.get(sorular_id=sorular.id)
+        if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+            durum = OnayDurum.objects.get(kisi_id=request.user.id)
+            context = {'cevap':cevaplar,'sorular':sorular,'form':form,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+        else:
+            context = {'cevap':cevaplar,'sorular':sorular,'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+    else:
+        if OnayDurum.objects.all().filter(kisi_id=request.user.id):
+            durum = OnayDurum.objects.get(kisi_id=request.user.id)
+            context = {'sorular':sorular,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+        else:
+            context = {'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
+
+    return render(request,"base/kayitonay/kayit-onay-form.html",context)
+
+
+def Profil(request,my_slug):
+    profil_user = ProfilFoto.objects.get(username_slug=my_slug)
+    user = User.objects.get(username = profil_user.username)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
+
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+
+    if OnayDurum.objects.all().filter(kisi_id=profil_user.user.id):
+        durum = OnayDurum.objects.get(kisi_id=profil_user.user.id)
+        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context={'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/ayarlar/profil.html",context)  
+
+@login_required(login_url='giris-yap')
+def Ayarlar(request):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    
+
+    context = {'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/ayarlar/ayarlar.html",context)  
+
+
+@login_required(login_url='giris-yap')
+def GelenKutusuCevaplama(request,iletisim_id):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    iletisim= Iletisim.objects.get(id=iletisim_id)
+    iletisim.goruldu.add(request.user.id)
+    if request.method=='POST':
+        Iletisim_cevap.objects.create(
+            user=User.objects.get(id=iletisim.user.id),
+            cevap=request.POST['cevap'],
+            iletisim=iletisim,
+        )
+        messages.success(request,"Cevabınız kaydedildi.")
+        return redirect("anasayfa")
+    context={'iletisim':iletisim,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/gelen-kutusu-cevaplama.html",context)
+
+@login_required(login_url='giris-yap')
+def ProfilFotoView(request,pk):
+    onaydurum = OnayDurum.objects.get(kisi_id=pk)
+    
+    if ProfilFoto.objects.all().filter(user_id=pk):
+        return redirect("profil-foto-duzenle",ProfilFoto.objects.get(user_id=pk).user.id)
+    
+    form = ProfilFotoForm()
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['user'] = User.objects.get(id=pk)
+        form = ProfilFotoForm(data=data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Profiliniz güncellendi.")
+            return redirect("ayarlar")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+        
+        
+    if ProfilFoto.objects.all().filter(user_id=pk):
+        foto = ProfilFoto.objects.get(user_id=pk)
+        context = {'form':form,'foto':foto,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {'form':form,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/ayarlar/profil-foto.html",context)
+
+@login_required(login_url='giris-yap')
+def ProfilFotoDuzenle(request,pk):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+        
+    foto = ProfilFoto.objects.get(user_id=pk)
+    onaydurum = OnayDurum.objects.get(kisi_id=pk)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    if foto.username!=request.user.username:
+        return redirect("404")
+
+    if foto.user!=request.user:
+        return redirect("404")
+
+    ins = ProfilFoto.objects.get(user_id=pk)
+    form = ProfilFotoForm(instance=ins)
+    
+    if request.method=='POST':
+        data = request.POST.copy()
+        data['user'] = User.objects.get(id=pk)
+        data['username'] = User.objects.get(id=pk).username
+        data['username_slug'] = slugify(User.objects.get(id=pk).username)
+        form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Profil fotoğrafınız güncellendi.")
+            return redirect("profil",slugify(request.user.username))
+        else:
+            messages.error(request,"Girdileriniz doğru değil, girdiğiniz dosyaların türünü kontrol ediniz.")
+        
+        
+            
+        
+    context = {'foto':foto,'form':form,'onaydurum':onaydurum,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/ayarlar/profil-foto.html",context)
+
+
+def Forumlar(request):
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    if request.method=='POST':
+        arama = request.POST['arama']
+        forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
+    if request.user.is_authenticated:
+        onay_durum = OnayDurum.objects.get(kisi_id=request.user.id)
+        context = {'forumlar':forumlar,'haberler':haberler,'onaydurum':onay_durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    else:
+        context = {'forumlar':forumlar,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+
+    return render(request,"base/forum/forumlar.html",context) 
+
+@login_required(login_url='giris-yap')
+def Begenme(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    print(forum.likes.all())
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
+    return redirect("forum",forum.soru.id)
+
+@login_required(login_url='giris-yap')
+def Begenmeme(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    print(forum.likes.all())
+    if request.user in forum.dislikes.all():
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
+    
+    return redirect("forum",forum.soru.id)
+
+@login_required(login_url='giris-yap')
+def BegenmeForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+        print("evet")
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
+    return redirect("forumlar")
+    
+@login_required(login_url='giris-yap')    
+def BegenmemeForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    if request.user in forum.dislikes.all():
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
+    
+    return redirect("forumlar")
+
+@login_required(login_url='giris-yap')
+def BegenmeProfilForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    if request.user in forum.likes.all():
+        forum.likes.remove(request.user.id)
+    else:
+        forum.likes.add(request.user.id)
+        forum.dislikes.remove(request.user.id)
+    
+    return redirect("profil",slugify(forum.profil.user.username))
+
+@login_required(login_url='giris-yap')
+def BegenmemeProfilForum(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
+    print(forum.dislikes.all())
+    if request.user in forum.dislikes.all():
+        forum.dislikes.remove(request.user.id)
+    else:
+        forum.dislikes.add(request.user.id)
+        forum.likes.remove(request.user.id)
+    return redirect("profil",forum.profil.username_slug)
+
+
+def ForumCevapla(request,pk):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum1 in forumlar1:
+            if request.user not in forum1.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    soru = ForumSoru.objects.get(id=pk)
+    forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    
+    if request.user.is_authenticated:
+        soru.goruldu.add(request.user.id)
+    if request.method=='POST':
+        list_post = list(request.POST)
+        list_post.sort()
+        if list_post[0] == "cevap":
+            ForumSoruCevap.objects.create(
+                profil=ProfilFoto.objects.get(user_id=request.user),
+                onay_durum=OnayDurum.objects.get(kisi_id=request.user),
+                soru=soru,
+                cevap=request.POST['cevap'],
+                cevaba_cevap = None,
+            )  
+        else:
+            ForumSoruCevap.objects.create(
+                profil=ProfilFoto.objects.get(user_id=request.user),
+                onay_durum=OnayDurum.objects.get(kisi_id=request.user),
+                soru=soru,
+                cevap=request.POST['cevap'],
+                cevaba_cevap = ForumSoruCevap.objects.get(id=int(list_post[0])),
+            )
+        soru.yanit_sayi = str(int(soru.yanit_sayi)+1)
+        soru.save()
+    context = {'forum':forum,'soru':soru,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/forum/forum.html",context) 
+
+@login_required(login_url='giris-yap')
+def ForumCevapSil(request,pk):
+    forum = ForumSoruCevap.objects.get(id=pk)
+    soru = ForumSoru.objects.get(id=forum.soru_id)
+    if len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))>0:
+        sayi = len(ForumSoruCevap.objects.filter(cevaba_cevap=forum.id))
+        soru.yanit_sayi = str(int(soru.yanit_sayi)-sayi-1)
+    else:
+        soru.yanit_sayi = str(int(soru.yanit_sayi)-1)
+    soru.save()
+    forum.delete()
+    return redirect("forum",forum.soru_id) 
+
+@login_required(login_url='giris-yap')
+def ForumSil(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum1 in forumlar1:
+            if request.user not in forum1.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    forum = ForumSoru.objects.get(baslik_slug=my_slug)
+    if request.method=='POST':
+        if request.user.is_superuser  or forum.profil.username==request.user.username:
+            forum.delete()
+            messages.success(request,"Forum başarıyla silindi.")
+            return redirect("forumlar")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+        
+    context={'forum':forum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/forum/forum-sil.html",context)
+
+
+@login_required(login_url='giris-yap')
+def ForumEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
+    if onaydurum.onaydurum!="Kabul Et":
+        return redirect("forum-eklenemez")
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    form = ForumEkleForm()
+    if request.method=="POST":
+        data = request.POST.copy()
+        data['profil']=str(request.user.id)
+        data['baslik_slug']=slugify(data['baslik'])
+        data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user)
+        
+        form = ForumEkleForm(data)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Formunuz başarıyla oluşturuldu.")
+            return redirect('forumlar')
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    context={'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/forum/forum-ekle.html",context)
+
+@login_required(login_url='giris-yap')
+def ForumOlusturulamaz(request):
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break;
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break;
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+     
+    onaydurum = OnayDurum.objects.get(kisi_id=request.user.id)
+    print(onaydurum.onaydurum)
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    context={'onaydurum':onaydurum,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/forum/forum-eklenemez.html",context)
+

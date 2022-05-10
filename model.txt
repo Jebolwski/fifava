@@ -1,0 +1,4 @@
+Kullanıcı
+-Kullanıcı Adı
+-Oyun Ad Soyad
+-Meslek

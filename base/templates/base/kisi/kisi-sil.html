@@ -1,60 +1,146 @@
- {% extends 'base/ana.html' %}
- {% block content %}
- <title>Kişi Sil | FIFAVA</title>
-  </head>
-  <body>
-     <aside class="side-navbar col-2" >
-      <ul class="p-0 text-center">
-        <li><a href="{% url 'anasayfa' %}"><p>Anasayfa</p></a></li>
-        <li><a href="{% url 'kisiler' %}"><p>Oyuncular</p> </a></li>
-        <li>
-          <a href="">
-          <p>Nasıl Katılabilirim</p> 
-        </a>
-        </li>
-        {% if user.is_superuser %}
-          <li>
-            <a href="{% url 'haberler' %}">
-              <p>Haberler</p> 
-            </a>
-          </li>
-        {% endif %}
-          <li>
-            <a href="{% url 'formlar' %}">
-              <p>Anketler</p> 
-            </a>
-          </li>
-        <li>
-        {% if user.is_authenticated %}
-        <a href="{% url 'cikis-yap' %}"> <p> Çıkış Yap</p></a>
-        {% else %}
-        <a href="{% url 'giris-yap' %}"><p>Giriş Yap</p> </a>
-        {% endif %}
-        </li>
-      </ul>
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+<title>Oyuncu Sil | FIFAVOX</title>
+</head>
+
+<body>
+    <aside class="side-navbar col-1">
+            <ul class="p-0 text-center">
+                
+
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
+                </li>
+                {% else %}
+                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+                {% endif %}
+                <li><a href="{% url 'anasayfa' %}">
+                        {% if ev_bildirim %}
+                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M94.5 110.688H75.6C70.373 110.688 66.15 115.184 66.15 120.75V148.422C66.15 155.371 60.8639 161 54.3375 161H37.8295C37.3866 161 36.9436 160.969 36.5006 160.937C36.1463 160.969 35.7919 161 35.4375 161H30.7125C24.189 161 18.9 155.371 18.9 148.422V113.203C18.9 112.92 18.9089 112.606 18.9266 112.323V90.4367H9.46477C4.14028 90.4367 0 86.0029 0 80.3428C0 77.5127 0.887119 74.9971 2.95608 72.7959L78.6712 2.52066C80.7384 0.315082 83.1009 0 85.1681 0C87.2353 0 89.5978 0.630164 91.3992 2.20557L154.183 60.9725C151.672 60.5951 149.103 60.375 146.475 60.375C119.365 60.375 97.0987 82.4811 94.7067 110.688H94.5ZM103.95 115.719C103.95 90.7197 122.998 70.4375 146.475 70.4375C169.952 70.4375 189 90.7197 189 115.719C189 140.718 169.952 161 146.475 161C122.998 161 103.95 140.718 103.95 115.719ZM146.475 145.906C150.403 145.906 153.562 142.542 153.562 138.359C153.562 134.177 150.403 130.812 146.475 130.812C142.547 130.812 139.387 134.177 139.387 138.359C139.387 142.542 142.547 145.906 146.475 145.906ZM141.484 90.5625V115.719C141.484 118.486 143.876 120.75 146.209 120.75C149.074 120.75 150.934 118.486 150.934 115.719V90.5625C150.934 87.7953 149.074 85.5312 146.209 85.5312C143.876 85.5312 141.484 87.7953 141.484 90.5625Z" fill="white"/>
+                            <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
+                        </svg>
+                        {% else %}
+                        <i class=" fa-solid fa-house-user"></i>
+                        {% endif %}
+                        <p class="d-none d-md-block">Anasayfa</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'kisiler' %}">
+                        {% if oyuncu_bildirim %}
+                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M70.5428 82.6875C70.5428 76.1463 65.2493 70.8602 58.7303 70.8602L53.1562 70.875C40.1108 70.875 29.5312 81.4546 29.5312 94.5295V112.171C29.5312 125.249 40.1256 135.844 53.1562 135.844H59.0625C65.5815 135.844 70.875 130.543 70.875 124.009L70.5428 82.6875ZM94.5 0C41.676 0 1.69177 43.9647 0.00767813 94.5L0 109.266C0 114.175 3.96826 118.125 8.52715 118.125C13.086 118.125 17.7188 114.175 17.7188 109.266V94.5C17.7188 52.1596 52.1743 17.7926 94.5 17.7926C136.84 17.7926 171.281 52.1596 171.281 94.5V147.656C171.281 155.811 164.67 162.422 156.516 162.422H115.652C112.588 157.143 106.94 153.562 100.406 153.562H89.2582C80.6905 153.562 72.8314 159.354 71.2183 167.771C69.0293 179.107 77.6672 189 88.2615 189H100.406C106.947 189 112.599 185.415 115.667 180.141H156.516C174.456 180.141 189 165.596 189 147.656V94.5C187.302 43.9647 147.324 0 94.5 0ZM135.844 135.844C148.889 135.844 159.469 125.249 159.469 112.171V94.5369C159.469 81.4693 148.874 70.875 135.844 70.875H129.938C123.418 70.875 118.125 76.1685 118.125 82.7023V123.994C118.125 130.565 123.404 135.844 129.938 135.844H135.844Z" fill="white"/>
+                        <circle cx="151.5" cy="151.5" r="37.5" fill="#723535"/>
+                        </svg>
+                        {% else %}
+                        <i class=" fa-solid fa-headset"></i>
+                        {% endif %}
+                        <p class="d-none d-md-block">Oyuncular</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'nasil-katilabilirim' %}">
+                        <i class="fa-solid fa-question"></i>
+                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'forumlar' %}">
+                        {% if forum_bildirim %}
+                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M94.5 0.48027C42.3035 0.48027 0.332228 34.8546 0.332228 77.2615C0.332228 95.5783 8.21338 112.322 21.3622 125.508C16.7479 144.102 1.32891 160.676 1.14434 160.861C0.313771 161.691 0.0830582 162.977 0.590627 164.085C1.05168 165.192 2.07494 165.844 3.27465 165.844C27.7302 165.844 45.7627 154.12 55.1758 146.874C67.2209 151.396 80.6539 154.032 94.8215 154.032C147.018 154.032 188.989 119.654 188.989 77.5827C188.989 35.5117 146.696 0.48027 94.5 0.48027ZM46.9178 89.074C40.3655 89.074 35.1053 83.8138 35.1053 77.5937C35.1053 71.3737 40.3655 65.7812 46.9178 65.7812C53.47 65.7812 58.7303 71.0415 58.7303 77.5937C58.7303 84.146 53.7838 89.074 46.9178 89.074ZM94.5 89.074C87.9478 89.074 83.0197 83.8138 83.0197 77.5937C83.0197 71.3737 88.28 65.7812 94.5 65.7812C100.72 65.7812 105.98 71.0415 105.98 77.5937C105.98 84.146 101.071 89.074 94.5 89.074ZM141.418 89.074C134.866 89.074 129.605 83.8138 129.605 77.5937C129.605 71.3737 134.866 65.7812 141.418 65.7812C147.97 65.7812 153.23 71.0415 153.23 77.5937C153.23 84.146 148.284 89.074 141.418 89.074Z" fill="white"/>
+                        <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
+                        </svg>
+                        {% else %}
+                        <i class="fa-solid fa-comment-dots"></i>
+                        {% endif %}
+                        <p class="d-none d-md-block">Forumlar</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'haberler' %}">
+                        {% if haber_bildirim %}
+                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M177.188 0.8125H47.25C40.7162 0.8125 35.4375 6.10229 35.4375 12.625V136.656C35.4375 139.905 32.7945 142.562 29.5312 142.562C26.268 142.562 23.625 139.905 23.625 136.656V24.4375H11.8125C5.28979 24.4375 0 29.7162 0 36.25V142.562C0 155.612 10.5759 166.188 23.625 166.188H165.375C178.424 166.188 189 155.612 189 142.562V12.625C189 6.10229 183.721 0.8125 177.188 0.8125ZM100.406 142.562H64.9688C61.7203 142.562 59.0625 139.905 59.0625 136.656C59.0625 133.408 61.7203 130.75 64.9688 130.75H100.406C103.668 130.75 106.312 133.394 106.312 136.656C106.312 139.905 103.655 142.562 100.406 142.562ZM100.406 107.125H64.9688C61.7203 107.125 59.0625 104.467 59.0625 101.219C59.0625 97.9703 61.7203 95.3125 64.9688 95.3125H100.406C103.655 95.3125 106.312 97.9703 106.312 101.219C106.312 104.467 103.655 107.125 100.406 107.125ZM159.469 142.562H124.031C120.77 142.562 118.125 139.918 118.125 136.656C118.125 133.394 120.77 130.75 124.031 130.75H159.469C162.73 130.75 165.375 133.394 165.375 136.656C165.375 139.905 162.717 142.562 159.469 142.562ZM159.469 107.125H124.031C120.783 107.125 118.125 104.467 118.125 101.219C118.125 97.9703 120.783 95.3125 124.031 95.3125H159.469C162.717 95.3125 165.375 97.9703 165.375 101.219C165.375 104.467 162.717 107.125 159.469 107.125ZM165.375 65.7812C165.375 69.0297 162.717 71.6875 159.469 71.6875H64.9688C61.7203 71.6875 59.0625 69.0297 59.0625 65.7812V30.3438C59.0625 27.0953 61.7203 24.4375 64.9688 24.4375H159.469C162.717 24.4375 165.375 27.0953 165.375 30.3438V65.7812Z" fill="white"/>
+                        <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
+                        </svg>
+                        {% else %}
+                        <i class="fa-solid fa-newspaper"></i>
+                        {% endif %}
+                        <p class="d-none d-md-block">Haberler</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'formlar' %}">
+                        {% if form_bildirim %}
+                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M162 0C176.892 0 189 10.5519 189 23.5714V141.429C189 154.43 176.892 165 162 165H27C12.0867 165 0 154.43 0 141.429V23.5714C0 10.5519 12.0867 0 27 0H162ZM54 70.7143C46.5328 70.7143 40.5 75.981 40.5 82.5V117.857C40.5 124.376 46.5328 129.643 54 129.643C61.4672 129.643 67.5 124.376 67.5 117.857V82.5C67.5 75.981 61.4672 70.7143 54 70.7143ZM81 117.857C81 124.376 87.0328 129.643 94.5 129.643C101.967 129.643 108 124.376 108 117.857V47.1429C108 40.6239 101.967 35.3571 94.5 35.3571C87.0328 35.3571 81 40.6239 81 47.1429V117.857ZM135 94.2857C127.533 94.2857 121.5 99.5525 121.5 106.071V117.857C121.5 124.376 127.533 129.643 135 129.643C142.467 129.643 148.5 124.376 148.5 117.857V106.071C148.5 99.5525 142.467 94.2857 135 94.2857Z" fill="white"/>
+                        <circle cx="151.5" cy="139.5" r="37.5" fill="#723535"/>
+                        </svg>
+                        {% else %}
+                        <i class=" fa-solid fa-square-poll-vertical"></i>
+                        {% endif %}
+                        <p class="d-none d-md-block">Formlar</p>
+                    </a>
+                </li>{% if user.is_superuser and user.is_authenticated %}
+                <li>
+                    <a href="{% url 'kayit-onay' %}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <p class="d-none d-md-block">Kayıt Onay</p>
+                    </a>
+                </li>{% endif %} {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'ayarlar' %}">
+                        <i class="fa-solid fa-gear"></i>
+                        <p class="d-none d-md-block">Ayarlar</p>
+                    </a>
+                </li>
+
+                {% endif %}
+                <li>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'cikis-yap' %}">
+                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
+                        <p class="d-none d-md-block"> Çıkış Yap</p>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'giris-yap' %}">
+                        <i class=" fa-solid fa-right-to-bracket"></i>
+                        <p class="d-none d-md-block">Giriş Yap</p>
+                    </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </aside>    <main class="col-11 col-lg-10 offset-1">
+        <form method="post">
+            {% csrf_token %}
+            <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
+            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2 mt-4">
+                <li><a href="{% url 'kisiler' %}" class="btn btn-outline-dark">Vazgeç</a></li>
+                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
+            </ul>
+        </form>
+    </main>
+
+
+    <aside class="haberler col-1 offset-11 d-none d-lg-block">
+            <ul>
+                <p class="text-center h5">Haberler</p>
+                <hr> {% for haber in haberler %}
+                <li>
+
+                    <table>
+                        <tr>
+                            <td>
+                                {% if haber.resim %}<a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+                {% endfor %}
+            </ul>
     </aside>
-    <main class="col-10 col-lg-8 offset-2">
-      <form method="post">
-        {% csrf_token %}
-        <h3 class="text-center pt-5">'{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?</h3>
-        <input type="submit" value="Sil" class="submit btn btn-outline-dark mt-4 col-2">  
-      </form>  
-  </main>  
-  <aside class="haberler col-2 offset-10  d-none d-lg-block">
-      <ul>
-          <p class="text-center h5">Haberler</p>
-        {% for haber in haberler %}
-        <li>
-            
-            <table>
-                <tr>
-                    <td>{{haber.baslik}}</td>
-                    <td><img src="https://media.istockphoto.com/vectors/newspaper-cover-page-vector-id187925868?k=20&m=187925868&s=612x612&w=0&h=xn8eHpzq2KMomzY5YROMoKSZKxcYWNjGZOw25cUV28Y=" title="haber" alt="haber"></td>
-                </tr>
-            </table>
-        </li>
-        {% endfor %}
-      </ul>
-    </aside>
-{% endblock content %}
- 
+    {% endblock content %}
