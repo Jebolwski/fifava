@@ -615,7 +615,7 @@
             const aciklama = event.target.parentNode.querySelector("#aciklama");
             if (ad_soyad.value != "" && aciklama.value != "" && baslik.value != "") {
                 event.preventDefault();
-                let response = await fetch("http://127.0.0.1:8000/api/iletisim/ekle/", {
+                let response = await fetch("http://fifavox-1.herokuapp.com/api/iletisim/ekle/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
