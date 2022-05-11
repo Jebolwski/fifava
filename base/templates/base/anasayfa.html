@@ -617,7 +617,9 @@
                 event.preventDefault();
                 let response = await fetch("http://fifavox-1.herokuapp.com/api/iletisim/ekle/", {
                     method: "POST",
+                    mode: 'same-origin',
                     headers: {
+                        "Accept": "application/json",
                         "Content-Type": "application/json",
                         "X-CSRFToken": "{{csrf_token}}"
                     },
