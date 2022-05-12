@@ -394,11 +394,12 @@
             var begenme_icon=event.target.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
-                let response = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/`,{
+                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -410,10 +411,12 @@
                     begen_sayi.innerHTML=sayi;
                 }
 
-                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/`,{
+                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/`,{
                     method:"GET",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                 })
                 if(response1.status===200){
@@ -421,11 +424,12 @@
                     begenme_sayi.innerHTML=sayi;
                 }
                 
-                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/renk/`,{
+                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -442,11 +446,12 @@
                     }
                 }
             
-                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/renk/`,{
+                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -466,10 +471,12 @@
             }
             else if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/`,{
+                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -481,10 +488,12 @@
                     begenme_sayi.innerHTML=sayi;
                 }
 
-                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/`,{
+                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/`,{
                     method:"GET",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                 })
                 if(response1.status===200){
@@ -492,10 +501,12 @@
                     begen_sayi.innerHTML=sayi;
                 }
             
-                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/renk/`,{
+                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -512,10 +523,12 @@
                     }
                 }
             
-                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/renk/`,{
+                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
                     method:"POST",
+                    mode: 'same-origin',
                     headers: {
-                      "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"

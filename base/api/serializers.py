@@ -41,9 +41,11 @@ class ForumYanitSerializer(ModelSerializer):
             return None
 
     def get_foru_cevaba_cevap_profil_resim_url(self,forum):
-        if forum.cevaba_cevap and forum.cevaba_cevap.resim:
+        if forum.cevaba_cevap and forum.cevaba_cevap.profil.resim:
             cevaba_cevap_resim = forum.cevaba_cevap.profil.resim.url
             return cevaba_cevap_resim
+        else:
+            return None
 
     def get_total_likes(self,forum):
         total_likes = forum.likes.all().count()
