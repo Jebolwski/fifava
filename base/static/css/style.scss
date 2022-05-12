@@ -1,884 +1,892 @@
 ::-webkit-scrollbar-thumb {
-    background: rgb(210, 181, 104);
-    border-radius: 20px;
+  background: rgb(210, 181, 104);
+  border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(184, 160, 94);
+  background: rgb(184, 160, 94);
 }
 
 ::-webkit-scrollbar {
-    width: 9px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
-    box-shadow: inset 0 0 3px rgb(85, 85, 85);
+  background: transparent;
+  box-shadow: inset 0 0 3px rgb(85, 85, 85);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    .btn-outline-dark {
-        transition: 0.3s;
-        color: rgb(129, 121, 82);
-        border: 1px solid rgb(114, 108, 53);
-        &:hover,
-        &:checked {
-            transition: 0.3s;
-            background-color: rgb(129, 121, 82);
-            border: 1px solid rgb(92, 81, 37);
-        }
-        &:focus {
-            outline: 4px solid rgba(163, 147, 0, 0.5);
-            border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(129, 121, 82);
-            color: white;
-        }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  .btn-outline-dark {
+    transition: 0.3s;
+    color: rgb(129, 121, 82);
+    border: 1px solid rgb(114, 108, 53);
+    &:hover,
+    &:checked {
+      transition: 0.3s;
+      background-color: rgb(129, 121, 82);
+      border: 1px solid rgb(92, 81, 37);
     }
-    h4,
-    h5,
-    h6 {
-        font-weight: 300;
+    &:focus {
+      outline: 4px solid rgba(163, 147, 0, 0.5);
+      border: 1px solid rgb(119, 119, 31);
+      background-color: rgb(129, 121, 82);
+      color: white;
     }
-    &::selection {
-        color: white;
-        background-color: rgb(114, 108, 53);
-    }
+  }
+  h4,
+  h5,
+  h6 {
+    font-weight: 300;
+  }
+  &::selection {
+    color: white;
+    background-color: rgb(114, 108, 53);
+  }
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
+  aside {
+    background-color: rgb(129, 121, 82);
+    font-size: 15px;
+  }
+  .home {
+    background-size: 100vw 100%;
     aside {
-        background-color: rgb(129, 121, 82);
-        font-size: 15px;
+      background-color: rgba(78, 78, 78, 0.35);
     }
-    .home {
-        background-size: 100vw 100%;
-        aside {
-            background-color: rgba(78, 78, 78, 0.35);
-        }
+  }
+  .truck {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 34;
+  }
+  .ground,
+  .top-1 {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 32;
+  }
+  .house {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 34;
+  }
+  .kesfet-svg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 99.77vh;
+    z-index: 34;
+    margin-left: -0.1vw;
+  }
+  .loading {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(78, 78, 78, 0.35);
+    z-index: 100;
+    position: fixed;
+    display: grid;
+    place-content: center;
+    h3 {
+      text-align: center;
+      margin-top: 4vw;
+      margin-bottom: 4vw;
+      color: white;
     }
-    .truck {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        z-index: 34;
+    img {
+      width: 20vw;
+      min-width: 150px;
+      animation-name: loading;
+      animation-iteration-count: infinite;
+      animation-duration: 0.8s;
     }
-    .ground,
-    .top-1 {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        z-index: 32;
-    }
-    .house {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        z-index: 34;
-    }
-    .kesfet-svg {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        margin-top: 99.77vh;
-        z-index: 34;
-        margin-left: -0.1vw;
-    }
-    .loading {
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(78, 78, 78, 0.35);
-        z-index: 100;
-        position: fixed;
-        display: grid;
-        place-content: center;
-        h3 {
-            text-align: center;
-            margin-top: 4vw;
-            margin-bottom: 4vw;
-            color: white;
-        }
-        img {
-            width: 20vw;
-            min-width: 150px;
-            animation-name: loading;
-            animation-iteration-count: infinite;
-            animation-duration: 0.8s;
-        }
-    }
-    .responsive-text {
-        font-size: 22px;
-    }
-    .wrapper {
-        /*This part is important for centering*/
-        display: flex;
-        justify-content: center;
-    }
-    .typing-demo {
-        width: 6ch;
-        animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 1px solid;
-        font-size: 1.1em;
-    }
+  }
+  .responsive-text {
+    font-size: 22px;
+  }
+  .wrapper {
+    /*This part is important for centering*/
+    display: flex;
+    justify-content: center;
+  }
+  .typing-demo {
+    width: 6ch;
+    animation: typing 2s steps(6), blink 0.5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 1px solid;
+    font-size: 1.1em;
+  }
 }
 
 .side-navbar {
-    z-index: 100;
-    left: 0;
-    position: fixed;
-    ul {
-        height: 100vh;
-        display: flex;
-        margin-top: 0;
-        flex-direction: column;
-        justify-content: space-evenly;
+  z-index: 100;
+  left: 0;
+  position: fixed;
+  ul {
+    height: 100vh;
+    display: flex;
+    margin-top: 0;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  ul li a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 17px;
+    i,
+    img,
+    svg {
+      transition: 1s;
     }
-    ul li a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-        font-size: 17px;
-        i,
-        img,
-        svg {
-            transition: 1s;
-        }
+    transition: 1s;
+    &:hover {
+      i,
+      img,
+      svg {
+        transform: rotateZ(360deg);
         transition: 1s;
-        &:hover {
-            i,
-            img,
-            svg {
-                transform: rotateZ(360deg);
-                transition: 1s;
-            }
-        }
+      }
     }
-    .logo-side-navbar {
-        cursor: pointer;
-    }
+  }
+  .logo-side-navbar {
+    cursor: pointer;
+  }
 }
 
 main {
-    .one-container {
-        background-image: url("../images/background2.jpg");
-        background-size: 100vw 100vh;
-        width: 100vw;
-        height: 100vh;
-        z-index: 1;
+  .one-container {
+    background-image: url("../images/background2.jpg");
+    background-size: 100vw 100vh;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+  }
+  .kesfet-sayfa {
+    min-height: 100vh;
+    width: 100vw;
+    background-image: url("../images/background.jpg");
+    background-size: 100vw 100%;
+  }
+  .iletisim-sayfa {
+    .form-control {
+      &:focus {
+        background-color: rgba(143, 143, 143, 0.35);
+      }
     }
-    .kesfet-sayfa {
-        min-height: 100vh;
-        width: 100vw;
-        background-image: url("../images/background.jpg");
-        background-size: 100vw 100%;
+    h4 {
+      transition: 0.2s ease-in;
+      font-size: 24px;
+      &:hover {
+        transform: scale(1.05);
+        transition: 0.2s ease-in;
+      }
     }
-    .iletisim-sayfa {
-        .form-control {
-            &:focus {
-                background-color: rgba(143, 143, 143, 0.35);
-            }
+    h5 {
+      a {
+        color: white;
+        transition: 0.2s ease-in;
+        &:hover {
+          color: rgb(216, 151, 173);
+          transition: 0.2s ease-out;
         }
-        h4 {
+        i {
+          color: rgb(216, 151, 173);
+          transition: 0.2s ease-out;
+          &:hover {
+            transform: scale(1.2);
             transition: 0.2s ease-in;
-            font-size: 24px;
-            &:hover {
-                transform: scale(1.05);
-                transition: 0.2s ease-in;
-            }
+            color: rgb(175, 175, 175);
+          }
         }
-        h5 {
-            a {
-                color: white;
-                transition: 0.2s ease-in;
-                &:hover {
-                    color: rgb(216, 151, 173);
-                    transition: 0.2s ease-out;
-                }
-                i {
-                    color: rgb(216, 151, 173);
-                    transition: 0.2s ease-out;
-                    &:hover {
-                        transform: scale(1.2);
-                        transition: 0.2s ease-in;
-                        color: rgb(175, 175, 175);
-                    }
-                }
-            }
-        }
-        min-height: 100vh;
-        height: 100%;
-        width: 100vw;
-        background-image: url("../images/iletisim.png");
-        background-size: 100vw 100%;
-        input {
-            background-color: rgba(128, 128, 128, 0.35);
-        }
-        .form-control {
-            color: white;
-        }
-        textarea {
-            background-color: rgba(78, 78, 78, 0.35);
-        }
+      }
     }
-    .iletisim-cevaplari {
-        min-height: 100vh;
-        height: 100vh;
-        width: 100vw;
-        background-image: url("../images/cevaplama.jpg");
-        background-size: 100vw 100%;
-        table {
-            background-color: rgba(78, 78, 78, 0.35);
-            tr,
-            th,
-            td {
-                color: white;
-            }
-            tbody {
-                tr>td {
-                    color: white;
-                }
-            }
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+    background-image: url("../images/iletisim.png");
+    background-size: 100vw 100%;
+    input {
+      background-color: rgba(128, 128, 128, 0.35);
+    }
+    .form-control {
+      color: white;
+    }
+    textarea {
+      background-color: rgba(78, 78, 78, 0.35);
+    }
+  }
+  .iletisim-cevaplari {
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../images/cevaplama.jpg");
+    background-size: 100vw 100%;
+    table {
+      background-color: rgba(78, 78, 78, 0.35);
+      tr,
+      th,
+      td {
+        color: white;
+      }
+      tbody {
+        tr > td {
+          color: white;
         }
+      }
     }
-    .iletisim-cevaplara-cevaplari {
-        min-height: 100vh;
-        height: 100vh;
-        width: 100vw;
-        background-image: url("../images/iletisim-cevap-cevap.jpg");
-        background-size: 100vw 100%;
-        table {
-            background-color: rgba(87, 87, 87, 0.35);
-            tr,
-            th,
-            td {
-                color: white;
-            }
-            tbody {
-                tr>td {
-                    color: white;
-                }
-            }
+  }
+  .iletisim-cevaplara-cevaplari {
+    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../images/iletisim-cevap-cevap.jpg");
+    background-size: 100vw 100%;
+    table {
+      background-color: rgba(87, 87, 87, 0.35);
+      tr,
+      th,
+      td {
+        color: white;
+      }
+      tbody {
+        tr > td {
+          color: white;
         }
+      }
     }
-    .home-main {
-        height: 200vh;
+  }
+  .home-main {
+    height: 200vh;
+  }
+  i {
+    color: rgb(129, 121, 82);
+  }
+  #particles-js {
+    height: 100vh;
+    #fifava {
+      position: absolute;
+      margin-top: 22vh;
+      height: 16vh;
+      margin-left: 50vw;
+      transform: translateX(-50%);
     }
-    i {
-        color: rgb(129, 121, 82);
-    }
-    #particles-js {
-        height: 100vh;
-        #fifava {
-            position: absolute;
-            margin-top: 22vh;
-            height: 16vh;
-            margin-left: 50vw;
-            transform: translateX(-50%);
-        }
-        #kesfet {
-            position: absolute;
-            margin-top: 80vh;
-            width: 10vw;
-            min-width: 90px;
-            margin-left: 50vw;
-            transform: translateX(-50%);
-            transition: 0.3s;
-            font-size: 1.125rem;
-            &:hover {
-                background-color: rgba(78, 78, 78, 0.35);
-                color: white;
-                transition: 0.3s;
-            }
-        }
-    }
-    table a {
-        color: black;
+    #kesfet {
+      position: absolute;
+      margin-top: 80vh;
+      width: 10vw;
+      min-width: 90px;
+      margin-left: 50vw;
+      transform: translateX(-50%);
+      transition: 0.3s;
+      font-size: 1.125rem;
+      &:hover {
+        background-color: rgba(78, 78, 78, 0.35);
+        color: white;
         transition: 0.3s;
-        &:hover {
-            color: rgb(66, 66, 66);
-            transition: 0.3s;
+      }
+    }
+  }
+  table a {
+    color: black;
+    transition: 0.3s;
+    &:hover {
+      color: rgb(66, 66, 66);
+      transition: 0.3s;
+    }
+  }
+  .message {
+    text-align: center;
+    position: absolute;
+    top: -100px;
+    animation: message 6s 0.5s;
+    margin-left: 41.67%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: rgb(129, 121, 82);
+    border-radius: 20px;
+    color: white;
+  }
+  .anasayfa-message {
+    text-align: center;
+    position: absolute;
+    top: -100px;
+    animation: message 6s 0.5s;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: rgb(129, 121, 82);
+    border-radius: 20px;
+    color: white;
+  }
+  .anasayfa-message1 {
+    text-align: center;
+    position: absolute;
+    top: -100px;
+    animation: message 6s 0.5s;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: rgb(129, 121, 82);
+    border-radius: 20px;
+    color: white;
+  }
+  .aciklama {
+    overflow: hidden;
+    max-width: 70px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .aciklama-orta {
+    overflow: hidden;
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .aciklama-uzun {
+    overflow: hidden;
+    max-width: 140px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  p {
+    a {
+      i {
+        transition: 0.4s;
+      }
+      &:hover {
+        i {
+          color: rgb(114, 108, 53);
+          transition: 0.4s;
         }
+      }
     }
-    .message {
-        text-align: center;
-        position: absolute;
-        top: -100px;
-        animation: message 6s 0.5s;
-        margin-left: 41.67%;
-        transform: translateX(-50%);
-        padding: 10px;
-        background-color: rgb(129, 121, 82);
-        border-radius: 20px;
-        color: white;
+  }
+  form {
+    img {
+      min-width: 100px;
+      width: 25vw;
     }
-    .anasayfa-message {
-        text-align: center;
-        position: absolute;
-        top: -100px;
-        animation: message 6s 0.5s;
-        margin-left: 50%;
-        transform: translateX(-50%);
-        padding: 10px;
-        background-color: rgb(129, 121, 82);
-        border-radius: 20px;
-        color: white;
+  }
+  .main-center {
+    margin-left: 41.67%;
+    transform: translateX(-50%);
+  }
+  .center {
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+  .submit {
+    margin-left: 48%;
+    transform: translateX(-50%);
+    transform: translateY();
+  }
+  .tab-pane {
+    height: 70vh;
+  }
+  .setting-bar {
+    color: rgb(114, 108, 53);
+    border: 1px solid rgb(114, 108, 53);
+    border-bottom: transparent;
+    &:hover {
+      transition: 0.3s;
+      background-color: rgb(129, 121, 82);
+      border: 1px solid #77771f;
+      color: white;
     }
-    .anasayfa-message1 {
-        text-align: center;
-        position: absolute;
-        top: -100px;
-        animation: message 6s 0.5s;
-        margin-left: 50%;
-        transform: translateX(-50%);
-        padding: 10px;
-        background-color: rgb(129, 121, 82);
-        border-radius: 20px;
-        color: white;
+    &:focus {
+      outline: 4px solid rgba(163, 147, 0, 0.5);
+      border: 1px solid rgb(119, 119, 31);
+      background-color: rgb(129, 121, 82);
+      color: white;
     }
-    .aciklama {
-        overflow: hidden;
-        max-width: 70px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    &.active {
+      border: 1px solid rgb(119, 119, 31);
+      background-color: rgb(129, 121, 82);
+      color: white;
     }
-    .aciklama-orta {
-        overflow: hidden;
-        max-width: 100px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+  }
+  .nasil-katilabilirim {
+    animation-name: sidenavbarhiddentitle;
+    animation-duration: 2s;
+  }
+  .profil-background {
+    height: 25vh;
+    width: 83.34vw;
+    position: relative;
+    z-index: 1;
+    img {
+      position: relative;
+      z-index: 0;
+      margin-top: 0;
     }
-    .aciklama-uzun {
-        overflow: hidden;
-        max-width: 140px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+  }
+  .profil-rest {
+    position: relative;
+    z-index: 3;
+    border-top: 3px solid rgb(114, 108, 53);
+    background-color: white;
+  }
+  .profil-foto {
+    position: relative;
+    width: 12vw;
+    height: 22vh;
+    margin-left: 7vw;
+    top: -10vh;
+    border-radius: 49%;
+    outline: 3px solid rgb(114, 108, 53);
+  }
+  .biyografi {
+    .profil-biyografi {
+      position: relative;
+      top: -12vh;
+      left: -2vw;
     }
-    p {
-        a {
-            i {
-                transition: 0.4s;
-            }
-            &:hover {
-                i {
-                    color: rgb(114, 108, 53);
-                    transition: 0.4s;
-                }
-            }
-        }
+    .profil-katilma {
+      position: relative;
+      top: -11vh;
+      left: 5vw;
     }
-    form {
-        img {
-            min-width: 100px;
-            width: 25vw;
-        }
+    .top {
+      position: relative;
+      top: -18vh;
     }
-    .main-center {
-        margin-left: 41.67%;
-        transform: translateX(-50%);
+    .profil-edit {
+      margin-left: 42vw;
     }
-    .center {
-        margin-left: 50%;
-        transform: translateX(-50%);
+  }
+  .reply-to-comment {
+    display: none;
+  }
+  .visible {
+    display: block;
+  }
+  .profil-foto-buyuk {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(114, 108, 53, 0.5);
+    img {
+      transform: translateX(-50%);
+      border-radius: none;
+      pointer-events: none;
     }
-    .submit {
-        margin-left: 48%;
-        transform: translateX(-50%);
-        transform: translateY();
+    .profil-foto-kapa {
+      z-index: 100;
+      position: absolute;
+      left: 2vw;
+      top: 2vh;
     }
-    .tab-pane {
-        height: 70vh;
+    .profil-foto-kapa-1 {
+      z-index: 20;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
     }
-    .setting-bar {
-        color: rgb(114, 108, 53);
-        border: 1px solid rgb(114, 108, 53);
-        border-bottom: transparent;
-        &:hover {
-            transition: 0.3s;
-            background-color: rgb(129, 121, 82);
-            border: 1px solid #77771f;
-            color: white;
-        }
-        &:focus {
-            outline: 4px solid rgba(163, 147, 0, 0.5);
-            border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(129, 121, 82);
-            color: white;
-        }
-        &.active {
-            border: 1px solid rgb(119, 119, 31);
-            background-color: rgb(129, 121, 82);
-            color: white;
-        }
+  }
+  .arkaplan-foto-buyuk {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(114, 108, 53, 0.5);
+    img {
+      z-index: 100;
+      margin-top: 20vh;
+      transform: translateX(-50%);
+      border-radius: none;
     }
-    .nasil-katilabilirim {
-        animation-name: sidenavbarhiddentitle;
-        animation-duration: 2s;
+    .arkaplan-foto-kapa {
+      z-index: 100;
+      position: absolute;
+      left: 2vw;
+      top: 2vh;
     }
-    .profil-background {
-        height: 25vh;
-        width: 83.34vw;
-        position: relative;
-        z-index: 1;
-        img {
-            position: relative;
-            z-index: 0;
-            margin-top: 0;
-        }
+    .arkaplan-foto-kapa-1 {
+      z-index: 20;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
     }
-    .profil-rest {
-        position: relative;
-        z-index: 3;
-        border-top: 3px solid rgb(114, 108, 53);
-        background-color: white;
+  }
+  .fa-reply {
+    transition: 0.2s;
+    &:active,
+    &:focus,
+    &:visited,
+    &:hover,
+    &::after {
+      color: black;
     }
-    .profil-foto {
-        position: relative;
-        width: 12vw;
-        height: 22vh;
-        margin-left: 7vw;
-        top: -10vh;
-        border-radius: 49%;
-        outline: 3px solid rgb(114, 108, 53);
-    }
-    .biyografi {
-        .profil-biyografi {
-            position: relative;
-            top: -12vh;
-            left: -2vw;
-        }
-        .profil-katilma {
-            position: relative;
-            top: -11vh;
-            left: 5vw;
-        }
-        .top {
-            position: relative;
-            top: -18vh;
-        }
-        .profil-edit {
-            margin-left: 42vw;
-        }
-    }
-    .reply-to-comment {
-        display: none;
-    }
-    .visible {
-        display: block;
-    }
-    .profil-foto-buyuk {
-        position: fixed;
-        z-index: 10;
-        top: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(114, 108, 53, 0.5);
-        img {
-            transform: translateX(-50%);
-            border-radius: none;
-            pointer-events: none;
-        }
-        .profil-foto-kapa {
-            z-index: 100;
-            position: absolute;
-            left: 2vw;
-            top: 2vh;
-        }
-        .profil-foto-kapa-1 {
-            z-index: 20;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-    }
-    .arkaplan-foto-buyuk {
-        position: fixed;
-        z-index: 10;
-        top: 0;
-        height: 100vh;
-        width: 100vw;
-        background-color: rgba(114, 108, 53, 0.5);
-        img {
-            z-index: 100;
-            margin-top: 20vh;
-            transform: translateX(-50%);
-            border-radius: none;
-        }
-        .arkaplan-foto-kapa {
-            z-index: 100;
-            position: absolute;
-            left: 2vw;
-            top: 2vh;
-        }
-        .arkaplan-foto-kapa-1 {
-            z-index: 20;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-    }
-    .fa-reply {
-        transition: 0.2s;
-        &:active,
-        &:focus,
-        &:visited,
-        &:hover,
-        &::after {
-            color: black;
-        }
-    }
+  }
+  .kisi-detay-foto {
+    height: 70vh;
+    border: 3px solid rgb(114, 108, 53);
+  }
 }
 
 .haberler {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    color: white;
-    p {
-        font-size: 22px;
-    }
-    ul {
-        list-style: none;
-        margin-top: 30px;
-        padding: 0;
-        li {
-            border-radius: 6px;
-            margin-bottom: 20px;
-            margin-top: 20px;
-            tr td {
-                img {
-                    margin-left: 0.665vw;
-                    width: 7vw;
-                    height: 12vh;
-                    min-width: 40px;
-                    border-radius: 6px;
-                }
-            }
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  color: white;
+  p {
+    font-size: 22px;
+  }
+  ul {
+    list-style: none;
+    margin-top: 30px;
+    padding: 0;
+    li {
+      border-radius: 6px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      tr td {
+        img {
+          margin-left: 0.665vw;
+          width: 7vw;
+          height: 12vh;
+          min-width: 40px;
+          border-radius: 6px;
         }
+      }
     }
+  }
 }
 
 @keyframes loading {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes sidenavbarhiddentitle {
-    0% {
-        opacity: 0;
-    }
-    95% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 1;
+  }
 }
 
 @keyframes h-right {
-    from {
-        right: -474px;
-    }
-    to {
-        right: 0;
-    }
+  from {
+    right: -474px;
+  }
+  to {
+    right: 0;
+  }
 }
 
 @keyframes s-left {
-    from {
-        margin-left: -100%;
-    }
-    to {
-        margin-left: 0;
-    }
+  from {
+    margin-left: -100%;
+  }
+  to {
+    margin-left: 0;
+  }
 }
 
 @keyframes message {
-    0% {
-        position: absolute;
-        top: -100px;
-    }
-    50% {
-        position: absolute;
-        top: 40px;
-        opacity: 0.8;
-    }
-    75% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 0;
-        position: absolute;
-        top: -100px;
-    }
+  0% {
+    position: absolute;
+    top: -100px;
+  }
+  50% {
+    position: absolute;
+    top: 40px;
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    position: absolute;
+    top: -100px;
+  }
 }
 
 @keyframes typing {
-    from {
-        width: 0;
-    }
+  from {
+    width: 0;
+  }
 }
 
 @keyframes blink {
-    50% {
-        border-color: transparent;
-    }
+  50% {
+    border-color: transparent;
+  }
 }
 
 @media only screen and (max-width: 1366px) {
-    .side-navbar {
-        ul {
-            list-style: none;
-            li {
-                list-style: none;
-                a {
-                    font-size: 14px;
-                    text-align: center;
-                }
-            }
+  .side-navbar {
+    ul {
+      list-style: none;
+      li {
+        list-style: none;
+        a {
+          font-size: 14px;
+          text-align: center;
         }
+      }
     }
-    #fifava {
-        height: 13vh;
-    }
-    .responsive-text {
-        font-size: 18px;
-    }
+  }
+  #fifava {
+    height: 13vh;
+  }
+  .responsive-text {
+    font-size: 18px;
+  }
 }
 
 @media only screen and (max-width: 988px) {
-    main {
-        #particles-js {
-            #fifava {
-                height: 15vh;
-            }
-            #kesfet {
-                position: absolute;
-                margin-top: 80vh;
-                width: 10vw;
-                min-width: 90px;
-                margin-left: 48.835vw;
-                transform: translateX(-50%);
-                font-size: 1.125rem;
-                &:hover {
-                    background-color: rgba(78, 78, 78, 0.35);
-                    color: white;
-                }
-            }
+  main {
+    #particles-js {
+      #fifava {
+        height: 15vh;
+      }
+      #kesfet {
+        position: absolute;
+        margin-top: 80vh;
+        width: 10vw;
+        min-width: 90px;
+        margin-left: 48.835vw;
+        transform: translateX(-50%);
+        font-size: 1.125rem;
+        &:hover {
+          background-color: rgba(78, 78, 78, 0.35);
+          color: white;
         }
-        .profil-background {
-            width: 91.67vw;
-        }
+      }
     }
-    .side-navbar {
-        svg {
-            width: 18px;
-            height: 18px;
-        }
+    .profil-background {
+      width: 91.67vw;
     }
-    .responsive-text {
-        font-size: 15px;
+    .kisi-detay-foto {
+      height: 35vh;
+      border: 3px solid rgb(114, 108, 53);
     }
+  }
+  .side-navbar {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  .responsive-text {
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 650px) {
-    .side-navbar {
-        ul li a {
-            font-size: 20px;
-        }
-        svg {
-            width: 22px;
-            height: 22px;
-        }
+  .side-navbar {
+    ul li a {
+      font-size: 20px;
     }
-    .kesfet-svg {
-        display: none;
+    svg {
+      width: 22px;
+      height: 22px;
     }
-    main {
-        #particles-js {
-            #fifava {
-                height: 11vh;
-            }
-        }
-        .biyografi {
-            .profil-username {
-                font-size: 17px;
-            }
-            .profil-biyografi {
-                font-size: 15px;
-            }
-        }
-        .profil-foto {
-            width: 14vw;
-            height: 15vh;
-            top: -5vh;
-        }
-        .top {
-            margin-top: 8vh;
-        }
-        .biyografi {
-            .profil-biyografi {
-                position: relative;
-                top: -14vh;
-                left: -2vw;
-            }
-            .profil-katilma {
-                position: relative;
-                top: -30vh;
-            }
-        }
-        .forum-olusturmamis {
-            font-size: 14px;
-        }
-        .iletisim-sayfa {
-            h4 {
-                font-size: 18px;
-            }
-        }
-        .one-container {
-            background-image: url("../images/fifavoxphone.jpg");
-            background-size: 100vw 100vh;
-        }
-        .kesfet-sayfa {
-            min-height: 100vh;
-            width: 100vw;
-            background-image: url("../images/fifavoxphone2.jpg");
-            background-size: 100vw 100%;
-        }
-        .iletisim-sayfa {
-            background-image: url("../images/iletisimphone.jpg");
-        }
-        .iletisim-cevaplari {
-            background-image: url("../images/phonecevaplama.jpg");
-        }
-        .iletisim-cevaplara-cevaplari {
-            background-image: url("../images/telefon-cevap-cevap.jpg");
-        }
-        .medya-adresleri {
-            background-image: url("../images/medya-adresleri-phone.jpg");
-        }
-        .profil-edit {
-            margin-left: 38vw;
-        }
+  }
+  .kesfet-svg {
+    display: none;
+  }
+  main {
+    #particles-js {
+      #fifava {
+        height: 11vh;
+      }
     }
-    body {
-        aside {
-            font-size: 15px;
-        }
-        overflow-x: hidden;
-        .responsive-text {
-            font-size: 14px;
-        }
-        .ground,
-        .truck,
-        .house,
-        .kesfet-svg,
-        .top-1 {
-            display: none;
-        }
+    .biyografi {
+      .profil-username {
+        font-size: 17px;
+      }
+      .profil-biyografi {
+        font-size: 15px;
+      }
     }
+    .profil-foto {
+      width: 14vw;
+      height: 15vh;
+      top: -5vh;
+    }
+    .top {
+      margin-top: 8vh;
+    }
+    .biyografi {
+      .profil-biyografi {
+        position: relative;
+        top: -14vh;
+        left: -2vw;
+      }
+      .profil-katilma {
+        position: relative;
+        top: -30vh;
+      }
+    }
+    .forum-olusturmamis {
+      font-size: 14px;
+    }
+    .iletisim-sayfa {
+      h4 {
+        font-size: 18px;
+      }
+    }
+    .one-container {
+      background-image: url("../images/fifavoxphone.jpg");
+      background-size: 100vw 100vh;
+    }
+    .kesfet-sayfa {
+      min-height: 100vh;
+      width: 100vw;
+      background-image: url("../images/fifavoxphone2.jpg");
+      background-size: 100vw 100%;
+    }
+    .iletisim-sayfa {
+      background-image: url("../images/iletisimphone.jpg");
+    }
+    .iletisim-cevaplari {
+      background-image: url("../images/phonecevaplama.jpg");
+    }
+    .iletisim-cevaplara-cevaplari {
+      background-image: url("../images/telefon-cevap-cevap.jpg");
+    }
+    .medya-adresleri {
+      background-image: url("../images/medya-adresleri-phone.jpg");
+    }
+    .profil-edit {
+      margin-left: 38vw;
+    }
+  }
+  body {
+    aside {
+      font-size: 15px;
+    }
+    overflow-x: hidden;
+    .responsive-text {
+      font-size: 14px;
+    }
+    .ground,
+    .truck,
+    .house,
+    .kesfet-svg,
+    .top-1 {
+      display: none;
+    }
+  }
 }
 
 @media only screen and (max-width: 450px) {
-    #fifava {
-        height: 9vh;
+  #fifava {
+    height: 9vh;
+  }
+  .side-navbar {
+    ul li a {
+      font-size: 16px;
     }
-    .side-navbar {
-        ul li a {
-            font-size: 16px;
-        }
+  }
+  main {
+    .one-container {
+      background-image: url("../images/fifavoxphone.jpg");
+      background-size: 100vw 100vh;
     }
-    main {
-        .one-container {
-            background-image: url("../images/fifavoxphone.jpg");
-            background-size: 100vw 100vh;
-        }
-        form {
-            img {
-                width: 50vw;
-            }
-        }
-        .kesfet-sayfa {
-            min-height: 100vh;
-            width: 100vw;
-            background-image: url("../images/fifavoxphone2.jpg");
-            background-size: 100vw 100%;
-        }
-        .iletisim-sayfa {
-            background-image: url("../images/iletisimphone.jpg");
-        }
-        .iletisim-cevaplari {
-            background-image: url("../images/phonecevaplama.jpg");
-        }
-        .iletisim-cevaplara-cevaplari {
-            background-image: url("../images/telefon-cevap-cevap.jpg");
-        }
-        .medya-adresleri {
-            background-image: url("../images/medya-adresleri-phone.jpg");
-        }
-        .profil-edit {
-            margin-left: 38vw;
-        }
+    form {
+      img {
+        width: 50vw;
+      }
     }
+    .kesfet-sayfa {
+      min-height: 100vh;
+      width: 100vw;
+      background-image: url("../images/fifavoxphone2.jpg");
+      background-size: 100vw 100%;
+    }
+    .iletisim-sayfa {
+      background-image: url("../images/iletisimphone.jpg");
+    }
+    .iletisim-cevaplari {
+      background-image: url("../images/phonecevaplama.jpg");
+    }
+    .iletisim-cevaplara-cevaplari {
+      background-image: url("../images/telefon-cevap-cevap.jpg");
+    }
+    .medya-adresleri {
+      background-image: url("../images/medya-adresleri-phone.jpg");
+    }
+    .profil-edit {
+      margin-left: 38vw;
+    }
+  }
 }
 
 @media only screen and (max-width: 385px) {
-    .side-navbar {
-        ul li a {
-            font-size: 12px;
-        }
-        svg {
-            width: 14px;
-            height: 14px;
-        }
+  .side-navbar {
+    ul li a {
+      font-size: 12px;
     }
-    main {
-        #particles-js {
-            #fifava {
-                height: 10vh;
-            }
-        }
-        .forum-olusturmamis {
-            font-size: 11px;
-        }
-        .iletisim-sayfa {
-            h4 {
-                font-size: 14px;
-            }
-        }
+    svg {
+      width: 14px;
+      height: 14px;
     }
+  }
+  main {
+    #particles-js {
+      #fifava {
+        height: 10vh;
+      }
+    }
+    .forum-olusturmamis {
+      font-size: 11px;
+    }
+    .iletisim-sayfa {
+      h4 {
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 350px) {
-    main {
-        #particles-js {
-            #fifava {
-                height: 6vh;
-            }
-        }
-        .cevaplandi {
-            font-size: 12px;
-        }
+  main {
+    #particles-js {
+      #fifava {
+        height: 6vh;
+      }
     }
+    .cevaplandi {
+      font-size: 12px;
+    }
+  }
 }
 
 @media only screen and (max-width: 200px) {
-    .side-navbar {
-        ul li a {
-            font-size: 7px;
-        }
+  .side-navbar {
+    ul li a {
+      font-size: 7px;
     }
+  }
 }

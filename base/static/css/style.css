@@ -660,6 +660,11 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   color: black;
 }
 
+main .kisi-detay-foto {
+  height: 70vh;
+  border: 3px solid #726c35;
+}
+
 .haberler {
   position: fixed;
   top: 0;
@@ -879,6 +884,10 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
   }
   main .profil-background {
     width: 91.67vw;
+  }
+  main .kisi-detay-foto {
+    height: 35vh;
+    border: 3px solid #726c35;
   }
   .side-navbar svg {
     width: 18px;

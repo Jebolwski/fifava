@@ -232,18 +232,17 @@
                 {% endif %}
         </div>
                 <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-                    <!-- {% if request.user.is_authenticated %}
+                   <!-- {% if request.user.is_authenticated %}
                     <div class="col-10 col-lg-8 offset-1 offset-lg-2 is_authenticated"><textarea rows="5" class="cevap-textarea form-control" maxlength="200" name="cevap"></textarea></div>
                     <input type="submit" onclick="cevapla()" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
-                    <!--!FORM SONU-->
+                    
                     {% else %}
                     <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" name="cevap" disabled></textarea></div>
                     <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled>
-                    {% endif %}
+                    {% endif %}-->
                 {% else %}
                 <div class="no-pre-responses">
-                <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-                    
+                    <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
                 </div>
                 {% endif %}
                     {% if request.user.is_authenticated %}
@@ -337,7 +336,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -364,7 +362,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -385,7 +382,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -409,7 +405,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -436,7 +431,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -457,7 +451,6 @@
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
-                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"

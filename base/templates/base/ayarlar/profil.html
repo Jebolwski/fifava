@@ -163,8 +163,8 @@
         </div>
         <div class="profil-rest" style="height: 100vh;">
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 30;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
+            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 100;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;z-index: 100;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -252,14 +252,30 @@
                     <tbody style="z-index: 10;">{% for forum in forumlari %}
                         <tr class="tr" title="{{forum.baslik}}">
                             <td>
-                                {% if request.user in forum.likes.all %}
-                                <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md text-black" title="Beğen"></i></a> {% else %}
-                                <a href="{% url 'forum-begen-2' forum.id %}" style="cursor: pointer;"><i class="fa-solid fa-circle-chevron-up fa-md" title="Beğen"></i></a> {% endif %} <span class="mx-1">{{forum.likes.all.count}}</span> {% if request.user in forum.dislikes.all %}
-                                <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md text-black" title="Beğenme"></i></a> {% else %}
-                                <a href="{% url 'forum-begenme-2' forum.id %}"><i class="fa-solid fa-circle-chevron-down fa-md" title="Beğenme"></i></a> {% endif %} <span class="mx-1">{{forum.dislikes.all.count}}</span>
+                        {% if request.user.is_authenticated %}
+                        {% if request.user in forum.likes.all %}
+                        <i class="begen fa-solid fa-circle-chevron-up fa-md text-black" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                        {% else %}
+                        <i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                        {% endif %}
+                        <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                        
+                        
+                        {% if request.user in forum.dislikes.all %}
+                        <i class="begenme fa-solid fa-circle-chevron-down fa-md text-black" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
+                        {% else %}
+                        <i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
+                        {% endif %}
+                        <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+                        {% else %}
+                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer" title="Beğen"></i></a>
+                        <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer"   title="Beğenme"></i></a> 
+                        <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+                        {% endif %}
 
+                    </td>
 
-                            </td>
                             <td class="aciklama">{{forum.baslik}}</td>
                             <td class="aciklama">{{forum.soru}}</td>
                             <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
@@ -370,6 +386,157 @@
             let photo = document.querySelector(".arkaplan-foto-buyuk");
             photo.style.display = "none"
         }
+    
+         const deneme = async (event,id) =>{
+            var begen_sayi=event.target.parentNode.querySelector(".begen_sayi");
+            var begen_icon=event.target.parentNode.querySelector(".begen");
+            var begenme_sayi=event.target.parentNode.querySelector(".begenme_sayi");
+            var begenme_icon=event.target.parentNode.querySelector(".begenme");
+            if (event.target.classList[0]=="begen"){
+                event.preventDefault();
+                let response = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begen_sayi.innerHTML=sayi;
+                }
+
+                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/`,{
+                    method:"GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begenme_sayi.innerHTML=sayi;
+                }
+                
+                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response2.status===200){
+                    let sayi = await response2.json();
+                    if(sayi=="begenildi"){
+                        begen_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenildi isaretlenmedi"){
+                        begen_icon.classList.remove("text-black");
+                    }
+                }
+            
+                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response3.status===200){
+                    let sayi = await response3.json();
+                    if(sayi=="begenilmedi"){
+                        begenme_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenilmedi isaretlenmedi"){
+                        begenme_icon.classList.remove("text-black");
+                    }
+                }
+            
+            }
+            else if (event.target.classList[0]=="begenme"){
+                event.preventDefault();
+                let response = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begenme_sayi.innerHTML=sayi;
+                }
+
+                let response1 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/`,{
+                    method:"GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begen_sayi.innerHTML=sayi;
+                }
+            
+                let response2 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begen/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response2.status===200){
+                    let sayi = await response2.json();
+                    if(sayi=="begenildi"){
+                        begen_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenildi isaretlenmedi"){
+                        begen_icon.classList.remove("text-black");
+                    }
+                }
+            
+                let response3 = await fetch(`http://127.0.0.1:8000/api/forum/${id}/begenme/renk/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response3.status===200){
+                    let sayi = await response3.json();
+                    if(sayi=="begenilmedi"){
+                        begenme_icon.classList.add("text-black");
+                    }
+                    else if(sayi=="begenilmedi isaretlenmedi"){
+                        begenme_icon.classList.remove("text-black");
+                    }
+                }
+            
+            }
+        
+        }
+   
+   
     </script>
 </body>
 
