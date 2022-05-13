@@ -137,6 +137,8 @@
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
             </ul>
             {% endif %}
+
+
             <h5 class="text-center mt-5">Meslek</h5>
             <ul class="list-unstyled d-grid col-6 center mb-5">
                 <li>{{form.meslek}}</li>
@@ -151,6 +153,9 @@
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.meslek.errors}}</li>
             </ul>
             {% endif %}
+
+
+
             <h5 class="text-center mt-5">Dosya</h5>
             <ul class="list-unstyled d-grid col-6 center">
                 <li>{{form.dosya}}</li>
@@ -163,6 +168,22 @@
             {% if form.dosya.errors %}
             <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.dosya.errors}}</li>
+            </ul>
+            {% endif %}
+
+
+            <h5 class="text-center mt-5">Hikaye</h5>
+            <ul class="list-unstyled d-grid col-6 center">
+                <li>{{form.hikaye}}</li>
+                <li style="position: relative;margin-left: 100%;margin-top: -255px;">
+                    <span data-toggle="popover3" title="Kurallar" class="profil-username" data-html="true">
+                        <i class="fa-solid fa-info p-3 fa-sm"></i>
+                    </span>
+                </li>
+            </ul>
+            {% if form.hikaye.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.hikaye.errors}}</li>
             </ul>
             {% endif %}
             <input type="submit" value="Kişi Ekle" class="center btn btn-outline-dark mt-5">
@@ -213,6 +234,15 @@
         $(document).ready(function() {
             $('[data-toggle="popover2"').popover({
                 content: `● Kabul edilen dosya türleri jpg ve png dir.`,
+                animation: true,
+                trigger: 'hover',
+                placement: "right",
+            });
+        });
+
+        $(document).ready(function() {
+            $('[data-toggle="popover3"').popover({
+                content: `● Maksimum uzunluk 200 karakterdir.`,
                 animation: true,
                 trigger: 'hover',
                 placement: "right",

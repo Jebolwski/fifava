@@ -1,3 +1,4 @@
+import re
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.api import serializers
@@ -83,6 +84,14 @@ def ForumCevapla(request,pk):
     forum1 = ForumSoruCevap.objects.filter(cevap=request.data['cevap']).order_by("-guncellenme_tarihi")[0]
     serializer = ForumYanitSerializer(forum1,many=False)
     return Response(serializer.data)
+
+@api_view(["POST"])
+def ForumCevapSil(request,pk):
+    forumcevap = ForumSoruCevap.objects.get(id=pk)
+    user_id = request.data['user_id']
+    if (forumcevap.profil==ProfilFoto.objects.get(user_id=user_id)) or User.objects.get(id=user_id).is_superuser:
+        forumcevap.delete()
+        return Response("Silindi")
 
 @api_view(['POST','GET'])
 def ForumCevapGel(request):

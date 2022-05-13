@@ -10,6 +10,7 @@ urlpatterns = [
     path("forum/cevap/<int:pk>/begenme/renk/",views.ForumCevapBegenmeRenk,name="forum_cevabini_begenme_renk"),
     path("forum/cevap/<int:pk>/ekle/",views.ForumCevapla,name="forum_cevaplama"),
     path("forum/cevap/gel/",views.ForumCevapGel,name="forum_cevap_gel"),
+    path("forum/cevap/<int:pk>/sil/",views.ForumCevapSil,name="forum_cevap_gel"),
     
     #!FORUM OTOMATİKLEŞTİRME 
     path("forum/<int:pk>/begen/",views.ForumBegen,name="forum__begen"),

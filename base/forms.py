@@ -11,6 +11,8 @@ class OyuncuForm(forms.ModelForm):
         attrs={'class': 'form-control'}))
     meslek              = forms.CharField(max_length=40, widget=forms.TextInput(
         attrs={'class': 'form-control'})) 
+    hikaye              = forms.CharField(max_length=200, widget=forms.Textarea(
+        attrs={'class': 'form-control'})) 
     class Meta:
         model = Kullanici
         fields = '__all__'
