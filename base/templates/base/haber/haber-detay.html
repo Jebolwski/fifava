@@ -141,9 +141,8 @@
                     <table>
                         <tr>
                             <td>
-                                {% if haber.resim %}
                                 <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
                             </td>
                         </tr>
                     </table>

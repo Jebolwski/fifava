@@ -231,7 +231,7 @@ class ProfilFoto(models.Model):
     username = models.CharField(max_length=160,null=True,blank=True)
     username_slug = models.CharField(max_length=160,null=True,blank=True)
     biyografi = models.CharField(max_length=160,null=True,blank=True)
-    resim = models.ImageField(upload_to="profil_foto",null=True,blank=True)
+    resim = models.ImageField(upload_to="profil_foto",null=False,blank=False,default='profil_foto/default-profile.jpg')
     arka_plan = models.ImageField(upload_to="arka_plan",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)

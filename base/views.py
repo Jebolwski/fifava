@@ -18,19 +18,19 @@ from django.contrib import messages
 
 
 def Bulunamadi(request,exception):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/404.html',context)
 
 
 def Bulunamadi1(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/404.html',context)
 
 
 def Hata(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
 
@@ -55,7 +55,7 @@ def GirisYap(request):
             return redirect('anasayfa')
         else:
             messages.error(request,'Kullanıcı adı veya şifre hatalı.')
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)
 
@@ -69,7 +69,7 @@ def CikisYap(request):
 def KayitOl(request):
     if request.user.is_authenticated:
         return redirect("anasayfa")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = KayitForm()
     if request.method == 'POST':
         form = KayitForm(request.POST)
@@ -96,7 +96,7 @@ def KayitOl(request):
 
 
 def Ev(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = IletisimForm()
     cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
     cevaplara_cevap = Iletisim_cevap.objects.all().filter(user_id = request.user.id) 
@@ -154,7 +154,7 @@ def Ev(request):
 
 
 def CevabaCevap(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
     cevaplara_cevap.goruldu.add(request.user.id)
     soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
@@ -163,7 +163,7 @@ def CevabaCevap(request,pk):
 
 
 def NasilKatilabilirim(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -341,7 +341,7 @@ def KisiEkle(request):
                 break
 
 
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = OyuncuForm()
     if request.method == 'POST':
         data = request.POST.copy()
@@ -393,7 +393,7 @@ def KisiDuzenle(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     form = OyuncuForm(instance=instance)
     if request.method == 'POST':
@@ -416,7 +416,7 @@ def KisiDuzenle(request,my_slug):
 @login_required(login_url='giris-yap')
 def KisiSil(request,my_slug):
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     
     if request.method == 'POST':
@@ -494,7 +494,7 @@ def KisiDetay(request,my_slug):
                 break
     
     kisi = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     kisi.goruldu.add(request.user.id)
     context = {'kisi':kisi,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
@@ -593,7 +593,7 @@ def HaberEkle(request):
                 break
     
     form = HaberForm()
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     
     if request.method=='POST':
         Haberler.objects.create(
@@ -614,9 +614,6 @@ def HaberEkle(request):
             
 
 def HaberDetay(request,my_slug):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
-    haber = Haberler.objects.get(baslik_slug=my_slug)
-    haber.goruldu.add(request.user.id)
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -649,6 +646,10 @@ def HaberDetay(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    haber = Haberler.objects.get(baslik_slug=my_slug)
+    haber.goruldu.add(request.user.id)
+    
     context = {'haber':haber,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/haber/haber-detay.html",context)
@@ -658,7 +659,7 @@ def HaberDetay(request,my_slug):
 def HaberDuzenle(request,my_slug):
     if not request.user.is_superuser:
         return redirect("404")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     instance = Haberler.objects.get(baslik_slug=my_slug)
     if request.method == 'POST':
             instance.baslik=request.POST['baslik']
@@ -715,7 +716,7 @@ def HaberDuzenle(request,my_slug):
 def HaberSil(request,my_slug):
     if not request.user.is_superuser:
         return redirect("404")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     haber = Haberler.objects.get(baslik_slug=my_slug)
     if request.method=="POST":
         haber.delete()
@@ -762,7 +763,7 @@ def HaberSil(request,my_slug):
 
 #!FORM
 def Formlar(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     sorular=Sorular.objects.all().order_by('-guncellenme_tarihi')
     cevaplananlar=Cevaplar.objects.all().filter(kayitli_id=request.user.id).order_by('-guncellenme_tarihi')
     p = Paginator(sorular,10)
@@ -847,7 +848,7 @@ def FormEkle(request):
                 oyuncu_bildirim=True
                 break
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = SorularForm()
 
     
@@ -904,7 +905,7 @@ def FormDuzenle(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form_instance = Sorular.objects.get(baslik_slug=my_slug)
     form = SorularForm(instance=form_instance)
     form_instance.goruldu.add(request.user.id)
@@ -956,7 +957,7 @@ def FormSil(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form=Sorular.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
         form.delete()
@@ -1004,7 +1005,7 @@ def FormCevapla(request,my_slug):
                 break
     
     form = CevapForm()
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     sorular = Sorular.objects.get(baslik_slug = my_slug)
     benim_cevaplarim = Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id)
     if len(Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id))>0 :
@@ -1067,7 +1068,7 @@ def FormDetay(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     soru=Sorular.objects.get(baslik_slug = my_slug)
     soru.goruldu.add(request.user.id)
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
@@ -1114,7 +1115,7 @@ def FormAnaliz(request,my_slug):
                 oyuncu_bildirim=True
                 break
      
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = Sorular.objects.get(baslik_slug = my_slug)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
     form.goruldu.add(request.user.id)
@@ -1383,7 +1384,7 @@ def Cevaplanmis(request):
                 oyuncu_bildirim=True
                 break
      
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
         context = {'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -1397,7 +1398,7 @@ def Cevaplanmis(request):
 
 @login_required(login_url='giris-yap')
 def CevaplanmisDuzenle(request,pk):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form_instance = Cevaplar.objects.get(id=pk)
     form = CevapForm(instance=form_instance)
     sorular = Sorular.objects.filter(id=form_instance.sorular_id)
@@ -1486,7 +1487,7 @@ def CevapDetay(request,pk):
                 oyuncu_bildirim=True
                 break
      
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     cevap = Cevaplar.objects.get(id=pk)
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
@@ -1542,7 +1543,7 @@ def KayitOnay(request):
                 break
      
     onay = OnayDurum.objects.all().order_by("-onaydurum")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
         context = {'haberler':haberler,'onay':onay,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -1589,7 +1590,7 @@ def KayitOnayFormDuzenle(request,pk):
                 oyuncu_bildirim=True
                 break
      
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     kisi = User.objects.get(id=pk)
     sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
     instance = OnayDurum.objects.get(kisi_id=kisi.id)
@@ -1665,7 +1666,7 @@ def KayitOnayForm(request,pk):
      
     kisi = User.objects.get(id=pk)
     sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if len(OnayDurum.objects.all().filter(kisi_id=kisi.id))>0:
         return redirect('kayit-onay-form-duzenle',kisi.id)
     form = OnayForm()
@@ -1705,7 +1706,7 @@ def KayitOnayForm(request,pk):
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
     user = User.objects.get(username = profil_user.username)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
 
     if True:
@@ -1785,7 +1786,7 @@ def Ayarlar(request):
                 break
      
 
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     
 
     context = {'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -1937,7 +1938,7 @@ def ProfilFotoDuzenle(request,pk):
         
     foto = ProfilFoto.objects.get(user_id=pk)
     onaydurum = OnayDurum.objects.get(kisi_id=pk)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if foto.username!=request.user.username:
         return redirect("404")
 
@@ -1969,7 +1970,7 @@ def ProfilFotoDuzenle(request,pk):
 
 
 def Forumlar(request):
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
     if True:
         haber_bildirim=False
@@ -2120,7 +2121,7 @@ def ForumCevapla(request,pk):
                 break
     soru = ForumSoru.objects.get(id=pk)
     forum = ForumSoruCevap.objects.all().filter(soru_id=soru.id)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     
     if request.user.is_authenticated:
         soru.goruldu.add(request.user.id)
@@ -2251,7 +2252,7 @@ def ForumEkle(request):
     onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
     if onaydurum.onaydurum!="Kabul Et":
         return redirect("forum-eklenemez")
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = ForumEkleForm()
     if request.method=="POST":
         data = request.POST.copy()
@@ -2306,7 +2307,7 @@ def ForumOlusturulamaz(request):
      
     onaydurum = OnayDurum.objects.get(kisi_id=request.user.id)
     print(onaydurum.onaydurum)
-    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context={'onaydurum':onaydurum,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/forum/forum-eklenemez.html",context)
