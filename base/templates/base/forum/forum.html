@@ -487,7 +487,7 @@
 
         const cevapla = async () => {
             const cevap = document.querySelector(".cevap-textarea");
-            let response = await fetch("https://fifavox-1.herokuapp.com/api/forum/cevap/{{request.user.id}}/ekle/",{
+            let response = await fetch("http://127.0.0.1:8000/api/forum/cevap/{{request.user.id}}/ekle/",{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
@@ -504,9 +504,9 @@
             if (response.status==200){
                 cevaba_cevap_id="-1"
                 let cevaplar = document.querySelector(".cevaplar");
-                console.log(cevaplar);
                 let foru = await response.json();
                 cevap.value=""
+                console.log(foru);
                 if (foru.cevaba_cevap!=null){
                     if(foru.url){
                          cevaplar.innerHTML+=
@@ -526,7 +526,7 @@
                 {% endif %}
                 <p>
                     
-                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
                         <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                         <span>${foru.username}</span>
                         <span>
@@ -544,7 +544,6 @@
                         {% endif %}
                     </p>
                 <hr>
-                
                     <p>${foru.guncellenme_tarihi}</p>
                     <hr>
                     {% if user.is_authenticated %}
@@ -573,6 +572,7 @@
                 `
 
                     }
+                    
                     else{
                         cevaplar.innerHTML+=
                         `
@@ -591,7 +591,7 @@
                 {% endif %}
                 <p>
                     
-                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
                         <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                         <span>${foru.username}</span>
                         <span>
@@ -651,7 +651,7 @@
                 
                 <p>
                     
-                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
                         <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                         <span>${foru.username}</span>
                         <span>
@@ -698,6 +698,7 @@
                 `
                              
                     }
+                    
                     else{
                         cevaplar.innerHTML+=
                          `
@@ -705,7 +706,7 @@
                 
                 <p>
                     
-                    <a href="{% url 'profil' '${foru.username}'|slugify %}" class="text-black text-decoration-none">
+                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
                         <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                         <span>${foru.username}</span>
                         <span>
@@ -758,17 +759,15 @@
                 
 
                 let checkbox = document.getElementsByName(`checkbox_${foru.cevaba_cevap}`)[0];
-                console.log(checkbox);
                 if(checkbox){
                     checkbox.checked=false;
                 }
-                console.log(checkbox);
             }
         }
         
 
         const cevap_sil = async (id) =>{
-            let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/sil/`,{
+            let response = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/sil/`,{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {

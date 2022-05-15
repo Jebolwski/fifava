@@ -119,7 +119,7 @@
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
-        <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
+        <h4 class="text-center pt-4 pb-5">Oyuncu Ekle</h4>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -242,7 +242,7 @@
 
         $(document).ready(function() {
             $('[data-toggle="popover3"').popover({
-                content: `● Maksimum uzunluk 200 karakterdir.`,
+                content: `● Maksimum uzunluk 800 karakterdir.`,
                 animation: true,
                 trigger: 'hover',
                 placement: "right",

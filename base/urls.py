@@ -17,7 +17,8 @@ urlpatterns = [
 
     #!PROFİL
     path("profil/<slug:my_slug>/",views.Profil,name="profil"),
-    path("profil-foto/<int:pk>",views.ProfilFotoView,name="profil-foto"),
+    path("profil/<int:pk>/",views.Profil1,name="profil-1"),
+    path("profil-foto/<int:pk>/",views.ProfilFotoView,name="profil-foto"),
     path("profil-foto-duzenle/<int:pk>/",views.ProfilFotoDuzenle,name="profil-foto-duzenle"),
 
     #!FORUMLAR

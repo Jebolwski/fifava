@@ -260,6 +260,24 @@
         }
         
         
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".tr", {
+            scrollTrigger: ".tr",
+            opacity: 0,
+            duration: 1,
+            x: "-100%",
+            rotationX: "180",
+            ease: "power1"
+        })
+        gsap.from(".th", {
+            scrollTrigger: ".th",
+            opacity: 0,
+            duration: 1,
+            x: "100%",
+            rotationX: "180",
+            ease: "power1"
+        })
+        
         let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
         arama.addEventListener('keyup',function(){
@@ -438,8 +456,24 @@
                 }
             
             }
-        
-        }
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from(".tr", {
+                scrollTrigger: ".tr",
+                opacity: 0,
+                duration: 1,
+                x: "-100%",
+                rotationX: "180",
+                ease: "power1"
+            })
+            gsap.from(".th", {
+                scrollTrigger: ".tr",
+                opacity: 0,
+                duration: 1,
+                x: "100%",
+                rotationX: "180",
+                ease: "power1"
+            })
+            }   
    
    
    </script>
