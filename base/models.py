@@ -244,7 +244,6 @@ class ForumSoru(models.Model):
     baslik = models.CharField(max_length=250,null=False,blank=False)
     baslik_slug = models.SlugField(unique=True,null=False,blank=False)
     soru = models.TextField(max_length=500,null=False,blank=False)
-    yanit_sayi = models.CharField(max_length=12,null=True,blank=True,default="0")
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     likes = models.ManyToManyField(User,related_name='likes1',default=None,blank=True)
@@ -261,6 +260,10 @@ class ForumSoru(models.Model):
 
     def puan(self):
         return self.likes.count()-self.dislikes.count()
+
+    def cevap_sayisi(self):
+        uzunluk = len(ForumSoruCevap.objects.filter(soru_id=self.id))
+        return uzunluk
 
 
 class ForumSoruCevap(models.Model):

@@ -96,25 +96,6 @@ def KayitOl(request):
 
 
 def Ev(request):
-    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    form = IletisimForm()
-    cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
-    cevaplara_cevap = Iletisim_cevap.objects.all().filter(user_id = request.user.id) 
-    if request.method=='POST':
-        form = IletisimForm(request.POST)
-        if request.user.is_authenticated:    
-            form.instance.user = request.user
-        if request.FILES:
-            form.instance.dosya = request.FILES.get('file')
-        
-
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Bilgiler başarıyla kaydedildi.")
-            return redirect("anasayfa")
-        else:
-            messages.error(request,"Bir hata oluştu.")
-    
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -147,9 +128,38 @@ def Ev(request):
                 oyuncu_bildirim=True
                 break
     
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    form = IletisimForm()
+    cevaplar = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+    cevaplara_cevap = Iletisim_cevap.objects.all().filter(user_id = request.user.id)
+
+    gonderdikleriniz=None
+
+    if request.user.is_superuser:
+        gonderdikleriniz = Iletisim.objects.all().filter(user_id=request.user.id)
+    else:
+        gonderdikleriniz = Iletisim_cevap.objects.all().filter(user_id=request.user.id)
+    print(gonderdikleriniz)
+    if request.method=='POST':
+        form = IletisimForm(request.POST)
+        if request.user.is_authenticated:    
+            form.instance.user = request.user
+        if request.FILES:
+            form.instance.dosya = request.FILES.get('file')
+        
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Bilgiler başarıyla kaydedildi.")
+            return redirect("anasayfa")
+        else:
+            messages.error(request,"Bir hata oluştu.")
+    
+    
     context={'haberler':haberler,'form':form,'cevaplar':cevaplar,
             'cevaplara_cevap':cevaplara_cevap,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim
+            ,'gonderdikleriniz':gonderdikleriniz}
     return render(request,"base/anasayfa.html",context)
 
 

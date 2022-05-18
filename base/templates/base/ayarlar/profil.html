@@ -22,7 +22,7 @@
                 {% endif %}
                 <li>
                     <a href="{% url 'anasayfa' %}">
-                        {% if ev_bildirim %}
+                        {% if ev_bildirim and request.user.is_superuser %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M94.5 110.688H75.6C70.373 110.688 66.15 115.184 66.15 120.75V148.422C66.15 155.371 60.8639 161 54.3375 161H37.8295C37.3866 161 36.9436
                              160.969 36.5006 160.937C36.1463 160.969 35.7919 161 35.4375 161H30.7125C24.189 161 18.9 155.371 
@@ -102,7 +102,7 @@
                         {% endif %}
                         <p class="d-none d-md-block">Formlar</p>
                     </a>
-                </li>{% if requestuser.is_superuser and request.user.is_authenticated %}
+                </li>{% if request.user.is_superuser and request.user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">
                         <i class="fa-solid fa-circle-check"></i>
@@ -254,7 +254,7 @@
                             <td>
                         {% if request.user.is_authenticated %}
                         {% if request.user in forum.likes.all %}
-                        <i class="begen fa-solid fa-circle-chevron-up fa-md text-black" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                        <i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
                         {% else %}
                         <i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
                         {% endif %}
@@ -262,7 +262,7 @@
                         
                         
                         {% if request.user in forum.dislikes.all %}
-                        <i class="begenme fa-solid fa-circle-chevron-down fa-md text-black" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
+                        <i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
                         {% else %}
                         <i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
                         {% endif %}
@@ -345,13 +345,6 @@
             }
         }
 
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from(".profil-foto", {
-            scrollTrigger: ".profil-foto",
-            rotationX: -360,
-            duration: 1,
-        })
 
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
@@ -394,12 +387,11 @@
             var begenme_icon=event.target.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/`,{
+                let response = await fetch(`https://fifavox.com/api/forum/${id}/begen/`,{
                     method:"POST",
-                    mode: 'same-origin',
                     headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
                     },
                     body: JSON.stringify({
                             username:"{{request.user.username}}"
@@ -409,14 +401,20 @@
                 if(response.status===200){
                     let sayi = await response.json();
                     begen_sayi.innerHTML=sayi;
+                    if (begen_icon.style.color=="black"){
+                    begen_icon.style.color="";
+                    }
+                    else{
+                        begen_icon.style.color="black";
+                        begenme_icon.style.color="";
+                    }
+                
                 }
 
-                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/`,{
+                let response1 = await fetch(`https://fifavox.com/api/forum/${id}/begenme/`,{
                     method:"GET",
-                    mode: 'same-origin',
                     headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
+                      "Content-Type": "application/json",
                     },
                 })
                 if(response1.status===200){
@@ -424,54 +422,52 @@
                     begenme_sayi.innerHTML=sayi;
                 }
                 
-                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
+                //     method:"POST",
+                //     headers: {
+                //       "Content-Type": "application/json",
+                //       "X-CSRFToken": "{{csrf_token}}"
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response2.status===200){
-                    let sayi = await response2.json();
-                    if(sayi=="begenildi"){
-                        begen_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenildi isaretlenmedi"){
-                        begen_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response2.status===200){
+                //     let sayi = await response2.json();
+                //     if(sayi=="begenildi"){
+                //         begen_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenildi isaretlenmedi"){
+                //         begen_icon.classList.remove("text-black");
+                //     }
+                // }
             
-                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
+                //     method:"POST",
+                //     headers: {
+                //       "Content-Type": "application/json",
+                //       "X-CSRFToken": "{{csrf_token}}"
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response3.status===200){
-                    let sayi = await response3.json();
-                    if(sayi=="begenilmedi"){
-                        begenme_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenilmedi isaretlenmedi"){
-                        begenme_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response3.status===200){
+                //     let sayi = await response3.json();
+                //     if(sayi=="begenilmedi"){
+                //         begenme_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenilmedi isaretlenmedi"){
+                //         begenme_icon.classList.remove("text-black");
+                //     }
+                // }
             
             }
             else if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/`,{
+                let response = await fetch(`https://fifavox.com/api/forum/${id}/begenme/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -486,9 +482,16 @@
                 if(response.status===200){
                     let sayi = await response.json();
                     begenme_sayi.innerHTML=sayi;
+                    if (begenme_icon.style.color=="black"){
+                    begenme_icon.style.color="";
+                    }
+                    else{
+                        begenme_icon.style.color="black";
+                        begen_icon.style.color="";
+                    }
                 }
 
-                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/`,{
+                let response1 = await fetch(`https://fifavox.com/api/forum/${id}/begen/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -501,53 +504,52 @@
                     begen_sayi.innerHTML=sayi;
                 }
             
-                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response2.status===200){
-                    let sayi = await response2.json();
-                    if(sayi=="begenildi"){
-                        begen_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenildi isaretlenmedi"){
-                        begen_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response2.status===200){
+                //     let sayi = await response2.json();
+                //     if(sayi=="begenildi"){
+                //         begen_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenildi isaretlenmedi"){
+                //         begen_icon.classList.remove("text-black");
+                //     }
+                // }
             
-                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response3.status===200){
-                    let sayi = await response3.json();
-                    if(sayi=="begenilmedi"){
-                        begenme_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenilmedi isaretlenmedi"){
-                        begenme_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response3.status===200){
+                //     let sayi = await response3.json();
+                //     if(sayi=="begenilmedi"){
+                //         begenme_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenilmedi isaretlenmedi"){
+                //         begenme_icon.classList.remove("text-black");
+                //     }
+                // }
             
-            }
-        
-        }
+                }
+            }  
    
    
     </script>

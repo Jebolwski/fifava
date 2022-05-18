@@ -20,7 +20,7 @@
             <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
             {% endif %}
             <li><a href="{% url 'anasayfa' %}">
-                        {% if ev_bildirim %}
+                        {% if ev_bildirim and request.user.is_superuser %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M94.5 110.688H75.6C70.373 110.688 66.15 115.184 66.15 120.75V148.422C66.15 155.371 60.8639 161 54.3375 161H37.8295C37.3866 161 36.9436 160.969 36.5006 160.937C36.1463 160.969 35.7919 161 35.4375 161H30.7125C24.189 161 18.9 155.371 18.9 148.422V113.203C18.9 112.92 18.9089 112.606 18.9266 112.323V90.4367H9.46477C4.14028 90.4367 0 86.0029 0 80.3428C0 77.5127 0.887119 74.9971 2.95608 72.7959L78.6712 2.52066C80.7384 0.315082 83.1009 0 85.1681 0C87.2353 0 89.5978 0.630164 91.3992 2.20557L154.183 60.9725C151.672 60.5951 149.103 60.375 146.475 60.375C119.365 60.375 97.0987 82.4811 94.7067 110.688H94.5ZM103.95 115.719C103.95 90.7197 122.998 70.4375 146.475 70.4375C169.952 70.4375 189 90.7197 189 115.719C189 140.718 169.952 161 146.475 161C122.998 161 103.95 140.718 103.95 115.719ZM146.475 145.906C150.403 145.906 153.562 142.542 153.562 138.359C153.562 134.177 150.403 130.812 146.475 130.812C142.547 130.812 139.387 134.177 139.387 138.359C139.387 142.542 142.547 145.906 146.475 145.906ZM141.484 90.5625V115.719C141.484 118.486 143.876 120.75 146.209 120.75C149.074 120.75 150.934 118.486 150.934 115.719V90.5625C150.934 87.7953 149.074 85.5312 146.209 85.5312C143.876 85.5312 141.484 87.7953 141.484 90.5625Z" fill="white"/>
                             <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
@@ -158,21 +158,20 @@
             {% if forum %} 
                 {% for foru in forum %}
                 <div class="border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-{{foru.cevaba_cevap.id}}" id="-{{foru.id}}">
-                    {% if foru.cevaba_cevap %}
-                    <p style="color: gray;" class="cevaplandi">Cevaplandı : {% if foru.cevaba_cevap.profil.resim %}
-                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                            <img src="{{foru.cevaba_cevap.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
-                        {% else %}
-                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                            <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                        </a>
+                    <p style="color: gray;" class="cevaplandi">
+                        <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
+                        
+                        {% if foru.cevaba_cevap %}
+                        ve
+                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-decoration-none">  @{{foru.cevaba_cevap.profil.user.username|lower}}</a> 
                         {% endif %}
-                        <label for="{{foru.soru}}" style="overflow: hidden;
-        max-width: 200px;
-        white-space: nowrap;
-                        text-overflow: ellipsis;">{{foru.cevaba_cevap.cevap}}</label>
-                        </p>
-                        <hr> {% endif %}
+                        <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
+                            adlı kullanıcıya yanıt olarak
+                        </span>
+                    </p>
+
+                    
+                        <hr> 
                     
                         <p>
                             {% if foru.profil.resim %}
@@ -210,20 +209,24 @@
                         {% if user.is_authenticated %}
                         <div class="deneme">
                         {% if request.user.is_authenticated %}
-                        {% if request.user in foru.likes.all and request.user.is_authenticated %}
-                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
-                        {% else %}
-                        <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
-                        {% endif %}
-                        {% if request.user in foru.dislikes.all and request.user.is_authenticated %}
-                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
-                        {% else %}
-                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
-                        {% endif %}
-                        {% else %}
-                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">{{foru.total_likes}}</span> 
-                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">{{foru.total_dislikes}}</span> 
 
+                            {% if request.user in foru.likes.all and request.user.is_authenticated %}
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
+                            {% else %}
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
+                            {% endif %}
+
+
+                            {% if request.user in foru.dislikes.all and request.user.is_authenticated %}
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+                            {% else %}
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+                            {% endif %}
+                        
+                        {% else %}
+
+                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">{{foru.total_likes}}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">{{foru.total_dislikes}}</span> 
 
                         {% endif %}
                         </div>
@@ -329,7 +332,7 @@
             var begenme_icon=event.target.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begen/`,{
+                let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -344,9 +347,17 @@
                 if(response.status===200){
                     let sayi = await response.json();
                     begen_sayi.innerHTML=sayi;
+                    if (begen_icon.style.color=="black"){
+                    begen_icon.style.color="";
+                    }
+                    else{
+                        begen_icon.style.color="black";
+                        begenme_icon.style.color="";
+                    }
+                
                 }
 
-                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begenme/`,{
+                let response1 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -359,54 +370,57 @@
                     begenme_sayi.innerHTML=sayi;
                 }
                 
-                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begen/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                
+
+
+                // let response2 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response2.status===200){
-                    let sayi = await response2.json();
-                    if(sayi=="begenildi"){
-                        begen_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenildi isaretlenmedi"){
-                        begen_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response2.status===200){
+                //     let sayi = await response2.json();
+                //     if(sayi=="begenildi"){
+                //         begen_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenildi isaretlenmedi"){
+                //         begen_icon.classList.remove("text-black");
+                //     }
+                // }
             
-                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begenme/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response3 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response3.status===200){
-                    let sayi = await response3.json();
-                    if(sayi=="begenilmedi"){
-                        begenme_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenilmedi isaretlenmedi"){
-                        begenme_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response3.status===200){
+                //     let sayi = await response3.json();
+                //     if(sayi=="begenilmedi"){
+                //         begenme_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenilmedi isaretlenmedi"){
+                //         begenme_icon.classList.remove("text-black");
+                //     }
+                // }
             
             }
             if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begenme/`,{
+                let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -421,9 +435,16 @@
                 if(response.status===200){
                     let sayi = await response.json();
                     begenme_sayi.innerHTML=sayi;
+                    if (begenme_icon.style.color=="black"){
+                    begenme_icon.style.color="";
+                    }
+                    else{
+                        begenme_icon.style.color="black";
+                        begen_icon.style.color="";
+                    }
                 }
 
-                let response1 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begen/`,{
+                let response1 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -435,50 +456,52 @@
                     let sayi = await response1.json();
                     begen_sayi.innerHTML=sayi;
                 }
-            
-                let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begen/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                
+                
+
+                // let response2 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response2.status===200){
-                    let sayi = await response2.json();
-                    if(sayi=="begenildi"){
-                        begen_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenildi isaretlenmedi"){
-                        begen_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response2.status===200){
+                //     let sayi = await response2.json();
+                //     if(sayi=="begenildi"){
+                //         begen_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenildi isaretlenmedi"){
+                //         begen_icon.classList.remove("text-black");
+                //     }
+                // }
             
-                let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/cevap/${id}/begenme/renk/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
+                // let response3 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/renk/`,{
+                //     method:"POST",
+                //     mode: 'same-origin',
+                //     headers: {
+                //         "Accept": "application/json",
+                //         "Content-Type": "application/json",
+                //     },
+                //     body: JSON.stringify({
+                //             username:"{{request.user.username}}"
+                //         })
                     
-                })
-                if(response3.status===200){
-                    let sayi = await response3.json();
-                    if(sayi=="begenilmedi"){
-                        begenme_icon.classList.add("text-black");
-                    }
-                    else if(sayi=="begenilmedi isaretlenmedi"){
-                        begenme_icon.classList.remove("text-black");
-                    }
-                }
+                // })
+                // if(response3.status===200){
+                //     let sayi = await response3.json();
+                //     if(sayi=="begenilmedi"){
+                //         begenme_icon.classList.add("text-black");
+                //     }
+                //     else if(sayi=="begenilmedi isaretlenmedi"){
+                //         begenme_icon.classList.remove("text-black");
+                //     }
+                // }
             
             }
         
@@ -487,7 +510,7 @@
 
         const cevapla = async () => {
             const cevap = document.querySelector(".cevap-textarea");
-            let response = await fetch("http://127.0.0.1:8000/api/forum/cevap/{{request.user.id}}/ekle/",{
+            let response = await fetch("https://fifavox.com/api/forum/cevap/{{request.user.id}}/ekle/",{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
@@ -508,30 +531,27 @@
                 cevap.value=""
                 console.log(foru);
                 if (foru.cevaba_cevap!=null){
-                    if(foru.url){
                          cevaplar.innerHTML+=
                             `
                 <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}"  id="-${foru.id}">
-                {% if '${foru.cevaba_cevap}' %}
-                <p style="color: gray;" class="cevaplandi">Cevaplandı : 
-                    <a href="{% url 'profil' '${foru.cevaba_cevap_username}'|slugify %}" class="text-black text-decoration-none">
-                        <img src="${foru.cevaba_cevap_profil_resim_url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
-                    
-                    <label for="${foru.soru}" style="overflow: hidden;
-                        max-width: 200px;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;">${foru.cevaba_cevap_cevap}</label>
-                </p>
+                <p style="color: gray;" class="cevaplandi">
+                        <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
+                        ve
+                        <a class="text-decoration-none">  @${foru.cevaba_cevap_username.toLowerCase()}</a> 
+                        <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
+                            adlı kullanıcılara yanıt olarak
+                        </span>
+                    </p>
                 <hr> 
-                {% endif %}
                 <p>
-                    
-                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'profil' request.user.username|slugify %}" class="text-black text-decoration-none">
                         <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
                         <span>${foru.username}</span>
                         <span>
                     
                     </span></a>
+                    {% endif %}
                 </p>
                 <hr>
                 <!--!CEVAP CEVAPLAMA-->
@@ -548,21 +568,28 @@
                     <hr>
                     {% if user.is_authenticated %}
                     <div class="deneme">
+
                         {% if request.user.is_authenticated %}
-                        {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+
+                            {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+                            {% else %}
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                            {% endif %}
+
+
+                            {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                            {% else %}
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                            {% endif %}
+
                         {% else %}
-                        <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
-                        {% endif %}
-                        {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% else %}
-                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% endif %}
-                        {% else %}
-                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
-                        {% endif %}
+
+                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                        
+                            {% endif %}
                     </div>
                     {% else %}
                         <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
@@ -570,191 +597,72 @@
                     {% endif %}
                 </div>
                 `
-
-                    }
-                    
-                    else{
-                        cevaplar.innerHTML+=
-                        `
-                <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}" id="-${foru.id}">
-                {% if '${foru.cevaba_cevap}' %}
-                <p style="color: gray;" class="cevaplandi">Cevaplandı : 
-                    <a href="{% url 'profil' '${foru.cevaba_cevap_username}'|slugify %}" class="text-black text-decoration-none">
-                        <img src="${foru.cevaba_cevap_profil_resim_url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;"></a>
-                    
-                    <label for="${foru.soru}" style="overflow: hidden;
-                        max-width: 200px;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;">${foru.cevaba_cevap_cevap}</label>
-                </p>
-                <hr> 
-                {% endif %}
-                <p>
-                    
-                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
-                        <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                        <span>${foru.username}</span>
-                        <span>
-                    
-                    </span></a>
-                    
-                </p>
-                <hr>
-                <!--!CEVAP CEVAPLAMA-->
-                <form method="post">{% csrf_token %}
-                    <p class="text-break">${foru.cevap}
-                        <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
-                        {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
-                        {% endif %}
-                    </p>
-                <hr>
-                
-                    <p>${foru.guncellenme_tarihi}</p>
-                    <hr>
-                    {% if user.is_authenticated %}
-                    <div class="deneme">
-                        {% if request.user.is_authenticated %}
-                        {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
-                        {% else %}
-                        <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
-                        {% endif %}
-                        {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% else %}
-                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% endif %}
-                        {% else %}
-                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
-                        {% endif %}
-                    </div>
-                    {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
-                            ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
-                    {% endif %}
-                </div>
-                `
-
-                    }
-                  
                 }
                 else{
-
-                    if(foru.url)
-                    {
                         cevaplar.innerHTML+=
                          `
-                <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}" id="-${foru.id}">
-                
-                <p>
-                    
-                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
-                        <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                        <span>${foru.username}</span>
-                        <span>
-                    
-                    </span></a>
-                </p>
-                <hr>
-                <!--!CEVAP CEVAPLAMA-->
-                <form method="post">{% csrf_token %}
-                    <p class="text-break">${foru.cevap}
-                        <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
-                        {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
-                        {% endif %}
+                        <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}" id="-${foru.id}">
+                        <p style="color: gray;" class="cevaplandi">
+                        <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
+                        <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
+                            adlı kullanıcıya yanıt olarak
+                        </span>
                     </p>
-                <hr>
-                
-                    <p>${foru.guncellenme_tarihi}</p>
-                    <hr>
-                    {% if user.is_authenticated %}
-                    <div class="deneme">
-                        {% if request.user.is_authenticated %}
-                        {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
-                        {% else %}
-                        <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
-                        {% endif %}
-                        {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% else %}
-                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% endif %}
-                        {% else %}
-                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
-                        {% endif %}
-                    </div>
-                    {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
-                            ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
-                    {% endif %}
-                </div>
-                `
-                             
-                    }
-                    
-                    else{
-                        cevaplar.innerHTML+=
-                         `
-                <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}" id="-${foru.id}">
-                
-                <p>
-                    
-                    <a href="{% url 'profil' '{{request.user.username}}'|slugify %}" class="text-black text-decoration-none">
-                        <img src="{% static 'images/default-profile.jpg' %}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
-                        <span>${foru.username}</span>
-                        <span>
-                    
-                    </span></a>
-                   
-                </p>
-                <hr>
-                <!--!CEVAP CEVAPLAMA-->
-                <form method="post">{% csrf_token %}
-                    <p class="text-break">${foru.cevap}
-                        <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
-                        {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
-                        {% endif %}
-                    </p>
-                <hr>
-                
-                    <p>${foru.guncellenme_tarihi}</p>
-                    <hr>
-                    {% if user.is_authenticated %}
-                    <div class="deneme">
-                        {% if request.user.is_authenticated %}
-                        {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                        <i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
-                        {% else %}
-                        <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
-                        {% endif %}
-                        {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                        <i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% else %}
-                        <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
-                        {% endif %}
-                        {% else %}
-                        <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                        <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
-                        {% endif %}
-                    </div>
-                    {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
-                            ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
-                    {% endif %}
-                </div>
-                `
+                        <p>
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'profil' request.user.username|slugify %}" class="text-black text-decoration-none">
+                                <img src="${foru.url}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;">
+                                <span>${foru.username}</span>
+                                <span>
+                                
+                            </span></a>
+                            {% endif %}
+                        </p>
+                        <hr>
+                        <!--!CEVAP CEVAPLAMA-->
+                        <form method="post">{% csrf_token %}
+                            <p class="text-break">${foru.cevap}
+                                <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
+                                <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
+                                {% if request.user.is_superuser %}
+                                <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
+                                {% endif %}
+                            </p>
+                        <hr>
+                        
+                            <p>${foru.guncellenme_tarihi}</p>
+                            <hr>
+                            {% if user.is_authenticated %}
+                            <div class="deneme">
+                                {% if request.user.is_authenticated %}
+                                
+                                    {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
+                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+                                    {% else %}
+                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                                    {% endif %}
+                                
+                                    {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
+                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                                    {% else %}
+                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                                    {% endif %}
+                                
+                                
+                                {% else %}
 
-                    }
-                     
+
+                                    <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                                
+                                {% endif %}
+                            </div>
+                            {% else %}
+                                <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
+                                    ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
+                            {% endif %}
+                        </div>
+                        `
                 }
                 
 
@@ -767,7 +675,7 @@
         
 
         const cevap_sil = async (id) =>{
-            let response = await fetch(`http://127.0.0.1:8000/api/forum/cevap/${id}/sil/`,{
+            let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/sil/`,{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
