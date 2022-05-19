@@ -127,7 +127,7 @@
         {% endfor %}
         <form method="POST">
             {% csrf_token %}
-            <h4 class="text-center py-5">'{{forum.baslik}}' baslikli forumu silmek istediğinize emin misiniz?</h4>
+            <h4 class="text-center pt-5 pb-4">'{{forum.baslik}}' baslikli forumu silmek istediğinize emin misiniz?</h4>
             <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
                 <li><a href="{% url 'forumlar' %}" class="btn btn-outline-dark">Vazgeç</a></li>
                 <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>

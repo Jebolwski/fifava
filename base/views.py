@@ -136,10 +136,9 @@ def Ev(request):
     gonderdikleriniz=None
 
     if request.user.is_superuser:
-        gonderdikleriniz = Iletisim.objects.all().filter(user_id=request.user.id)
-    else:
         gonderdikleriniz = Iletisim_cevap.objects.all().filter(user_id=request.user.id)
-    print(gonderdikleriniz)
+    else:
+        gonderdikleriniz = Iletisim.objects.all().filter(user_id=request.user.id)
     if request.method=='POST':
         form = IletisimForm(request.POST)
         if request.user.is_authenticated:    
@@ -1602,6 +1601,7 @@ def KayitOnayFormDuzenle(request,pk):
      
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     kisi = User.objects.get(id=pk)
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     sorular = Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu")
     instance = OnayDurum.objects.get(kisi_id=kisi.id)
     form = OnayForm(instance=instance)
@@ -1615,7 +1615,7 @@ def KayitOnayFormDuzenle(request,pk):
             return redirect("kayit-onay")
         else:
             messages.error(request,"Bir hata oluştu.")
-
+ 
     
     if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
         
@@ -1623,10 +1623,10 @@ def KayitOnayFormDuzenle(request,pk):
         if OnayDurum.objects.all().filter(kisi_id=request.user.id):
             durum = OnayDurum.objects.get(kisi_id=request.user.id)  
             context = {'cevap':cevaplar,'sorular':sorular,'form':form,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
+            'forum_bildirim':forum_bildirim,'haberler':haberler,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
         else:
             context = {'cevap':cevaplar,'sorular':sorular,'form':form,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
+            'forum_bildirim':forum_bildirim,'haberler':haberler,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim} 
 
     else:
         if OnayDurum.objects.all().filter(kisi_id=request.user.id):
@@ -1636,7 +1636,6 @@ def KayitOnayFormDuzenle(request,pk):
         else:
             context = {'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
-
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
 
@@ -2086,7 +2085,6 @@ def Forumlar(request):
 @login_required(login_url='giris-yap')
 def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
-    print(forum.likes.all())
     if request.user in forum.likes.all():
         forum.likes.remove(request.user.id)
     else:
@@ -2098,7 +2096,6 @@ def Begenme(request,pk):
 @login_required(login_url='giris-yap')
 def Begenmeme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
-    print(forum.likes.all())
     if request.user in forum.dislikes.all():
         forum.dislikes.remove(request.user.id)
     else:
@@ -2112,7 +2109,6 @@ def BegenmeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
     if request.user in forum.likes.all():
         forum.likes.remove(request.user.id)
-        print("evet")
     else:
         forum.likes.add(request.user.id)
         forum.dislikes.remove(request.user.id)
@@ -2144,7 +2140,6 @@ def BegenmeProfilForum(request,pk):
 @login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
-    print(forum.dislikes.all())
     if request.user in forum.dislikes.all():
         forum.dislikes.remove(request.user.id)
     else:
@@ -2231,8 +2226,6 @@ def ForumCevapSil(request,pk):
 
 @login_required(login_url='giris-yap')
 def ForumSil(request,my_slug):
-    if not request.user.is_superuser:
-        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2265,6 +2258,9 @@ def ForumSil(request,my_slug):
                 oyuncu_bildirim=True
                 break
      
+    if not request.user.is_superuser:
+        return redirect("404")
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forum = ForumSoru.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
         if request.user.is_superuser  or forum.profil.username==request.user.username:
@@ -2275,7 +2271,7 @@ def ForumSil(request,my_slug):
             messages.error(request,"Bir hata oluştu.")
         
     context={'forum':forum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+            'forum_bildirim':forum_bildirim,'haberler':haberler,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/forum/forum-sil.html",context)
 
 
@@ -2372,7 +2368,6 @@ def ForumOlusturulamaz(request):
                 break
      
     onaydurum = OnayDurum.objects.get(kisi_id=request.user.id)
-    print(onaydurum.onaydurum)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context={'onaydurum':onaydurum,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
