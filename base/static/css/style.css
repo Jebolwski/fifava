@@ -709,6 +709,10 @@ main .haber-img {
   color: white;
 }
 
+.haberler img {
+  border: 2px solid #3a3a38;
+}
+
 .haberler p {
   font-size: 22px;
 }
@@ -933,7 +937,7 @@ main .haber-img {
     border: 3px solid #44441a;
   }
   50% {
-    border: 3px solid #969696;
+    border: 3px solid #83783c;
   }
   75% {
     border: 3px solid #44441a;
@@ -951,7 +955,7 @@ main .haber-img {
     border: 3px solid #44441a;
   }
   50% {
-    border: 3px solid #969696;
+    border: 3px solid #83783c;
   }
   75% {
     border: 3px solid #44441a;
