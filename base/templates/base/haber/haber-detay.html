@@ -149,14 +149,14 @@
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
             <ul>
                 <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
+                <hr> {% for haber1 in haberler %}
                 <li>
 
                     <table>
                         <tr>
                             <td>
-                                <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>
+                                <a href="{% url 'haber-detay' haber1.baslik|slugify %}">
+                                    <img src="{{haber1.resim.url}}" class="{{haber1.id}}" title="{{haber1.baslik}}" alt="haber"></a>
                             </td>
                         </tr>
                     </table>
@@ -165,8 +165,12 @@
             </ul>
         </aside>
   <script>
-       
-    </script>
+      
+      let foto=document.getElementsByClassName("{{haber.id}}");
+      console.log(foto[0]);
+      foto[0].style.border="3px outset white";
+  
+  </script>
   </body>
 
 </html>

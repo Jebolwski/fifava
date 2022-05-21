@@ -513,7 +513,7 @@ def KisiDetay(request,my_slug):
 #?HABER CRUD
 def Haberlerim(request):
     
-    haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
+    haberler2 = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')
     p = Paginator(haberler,10)
     page = request.GET.get('page')
@@ -560,7 +560,7 @@ def Haberlerim(request):
     
     
 
-    context = {'haberler':haber,'haberler1':haberler1,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+    context = {'haberler':haber,'haberler1':haberler1,'haberler2':haberler2,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/haber/haberler.html",context)
 
