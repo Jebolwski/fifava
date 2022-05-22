@@ -56,6 +56,8 @@ body {
   .home {
     background-size: 100vw 100%;
     aside {
+      position: fixed;
+      height: 100%;
       background-color: rgba(78, 78, 78, 0.35);
       ul li {
         svg {
@@ -156,6 +158,7 @@ body {
   z-index: 100;
   left: 0;
   position: fixed;
+
   ul {
     height: 100vh;
     display: flex;

@@ -13,15 +13,13 @@
 
     <div class="home">
         <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
-
-
+            <ul class="p-0 text-center h-100">
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
                 </li>
                 {% else %}
-                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9 "></li>
+                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9"></li>
                 {% endif %}
                 <li>
                     <a href="{% url 'anasayfa' %}">
@@ -81,7 +79,6 @@
                         <p class="d-none d-md-block">Haberler</p>
                     </a>
                 </li>
-
                 <li>
                     <a href="{% url 'formlar' %}">
                         {% if form_bildirim %}
@@ -107,7 +104,6 @@
                         <p class="d-none d-md-block">Ayarlar</p>
                     </a>
                 </li>
-
                 {% endif %}
                 <li>
                     {% if user.is_authenticated %}
@@ -589,8 +585,8 @@
             scrollTrigger: ".kesfet-svg-1",
             opacity: 0,
             duration: 1,
-            delay:1,
-            ease:"slow"
+            delay:1.5,
+            ease:"power1"
         })
 
         gsap.from(".top-1", {

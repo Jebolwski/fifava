@@ -75,6 +75,8 @@ body .home {
 }
 
 body .home aside {
+  position: fixed;
+  height: 100%;
   background-color: rgba(78, 78, 78, 0.35);
 }
 

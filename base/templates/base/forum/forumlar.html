@@ -221,7 +221,41 @@
         {% else %}
         <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
         {% endif %}
+        {% for forum in forumlar %}
+        <div class="col-10 offset-1 border p-3 rounded mt-3">
+            {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
+                <span class="badge bg-dark">Yeni</span>
+                <hr>
+            {% endif %}
+            <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2">{{forum.profil.user.username}}</span> 
+            </a>
+            <hr>
+            {{forum.baslik}}
+            <hr>
+            {{forum.guncellenme_tarihi}}
+            <hr>
+            <ul class="list-unstyled d-flex justify-content-around">
+                <li><i class="fa-solid fa-comment"></i> {{forum.cevap_sayisi}}</li>
+                <li>
+                    {% if request.user in forum.likes.all %}
+                        <i class="begen fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                    {% else %}
+                        <i class="begen fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                    {% endif %}
 
+                    <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> </li></li>
+                <li>
+                    {% if request.user in forum.likes.all %}
+                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                    {% else %}
+                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                    {% endif %}
+
+                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> </li>
+            </ul>
+        </div>
+        {% endfor %}
 
     </main>
 
