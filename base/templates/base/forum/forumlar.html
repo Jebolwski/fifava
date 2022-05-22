@@ -146,117 +146,80 @@
             </table>
         </form>
 
+        
+        
         {% if forumlar %}
-        <table class="mt-5 table table-striped table-hover text-center">
-            <thead>
-                <tr class="th">
-                    <th></th>
-                    <th></th>
-                    <th>Başlık</th>
-                    <th class="d-none d-md-table-cell">Açıklama</th>
-                    <th class="d-none d-lg-table-cell">Tarih</th>
-                    <th class="d-none d-md-table-cell">Cevap Sayısı</th>
-                    <th>Bak</th>
-                    {% if user.is_authenticated %}
-                    <th>Sil</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>{% for forum in forumlar %}
-                <tr class="kisi-tr tr text-center" title="{{forum.baslik}}">
 
-                    {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
-                    <td>
+            {% for forum in forumlar %}
+                <div class="col-10 offset-1 border p-3 rounded mt-3 bg-light">
+                    
+                        
+                        {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                         <span class="badge bg-dark">Yeni</span>
-                    </td>
-                    {% else %}
-                    <td></td>
-                    {% endif %}
-                    <td>
-                        {% if request.user.is_authenticated %}
-
-                            {% if request.user in forum.likes.all %}
-                            <i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
-                            {% else %}
-                            <i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
-                            {% endif %}
-                            <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
-                        
-                        
-                            {% if request.user in forum.dislikes.all %}
-                            <i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
-                            {% else %}
-                            <i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i> 
-                            {% endif %}
-                            <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
-
-
-
-
-
-                        {% else %}
-
-                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-circle-chevron-up fa-md" style="cursor:pointer" title="Beğen"></i></a>
-                            <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
-                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-circle-chevron-down fa-md" style="cursor:pointer"   title="Beğenme"></i></a> 
-                            <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
-                        
+                        <hr>
                         {% endif %}
 
-                    </td>
+                        <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                                <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2">{{forum.profil.user.username}}</span> 
+                        </a>
+                        <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
+                            <div>
 
-                    <td class="aciklama">{{forum.baslik}}</td>
-                    <td class="aciklama d-none d-md-table-cell">{{forum.soru}}</td>
-                    <td class="d-none d-lg-table-cell">{{forum.guncellenme_tarihi}}</td>
-                    <td class="d-none d-md-table-cell">{{forum.cevap_sayisi}}</td>
-                    <td><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-eye" title="Bak"></i></a></td>
-                    {% if user.is_authenticated %} {% if forum.profil.username == request.user.username or request.user.is_superuser %}
-                    <td><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-circle-minus"></i></a></td>
-                    {% else %}
-                    <td><i class="fa-solid fa-ban"></i></td>
-                    {% endif %} {% endif %}
-                </tr>{% endfor %}
-            </tbody>
-        </table>
+                                <hr>
+                                {{forum.baslik}}
+                                <hr>
+                                {{forum.guncellenme_tarihi}}
+                            </div> 
+                            <hr>
+                        </a>
+                        
+                        <ul class="list-unstyled d-flex justify-content-around">
+                            {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
+                                <span class="badge bg-dark">Yeni</span>
+                                <hr>
+                            {% endif %}
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-comment"></i></a> {{forum.cevap_sayisi}}</li>
+                                <li>
+                                    {% if request.user in forum.dislikes.all %}
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                    {% else %}
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                    {% endif %}
+                                    <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
+                                </li>
+                                <li>
+                                    {% if request.user in forum.likes.all %}
+                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                    {% else %}
+                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                    {% endif %}
+                                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Beğen"></i></a>
+                                    <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
+                                </li>
+                                <li>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğen"></i></a>
+                                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                                </li>
+                                <li>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğenme"></i></a> 
+                                    <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+                                </li>
+                                {% endif %}
+                        </ul>
+                    
+                </div>
+            {% endfor %}
+
         {% else %}
-        <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
+
+            <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
+
         {% endif %}
-        {% for forum in forumlar %}
-        <div class="col-10 offset-1 border p-3 rounded mt-3">
-            {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
-                <span class="badge bg-dark">Yeni</span>
-                <hr>
-            {% endif %}
-            <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2">{{forum.profil.user.username}}</span> 
-            </a>
-            <hr>
-            {{forum.baslik}}
-            <hr>
-            {{forum.guncellenme_tarihi}}
-            <hr>
-            <ul class="list-unstyled d-flex justify-content-around">
-                <li><i class="fa-solid fa-comment"></i> {{forum.cevap_sayisi}}</li>
-                <li>
-                    {% if request.user in forum.likes.all %}
-                        <i class="begen fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
-                    {% else %}
-                        <i class="begen fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
-                    {% endif %}
-
-                    <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> </li></li>
-                <li>
-                    {% if request.user in forum.likes.all %}
-                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
-                    {% else %}
-                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
-                    {% endif %}
-
-                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> </li>
-            </ul>
-        </div>
-        {% endfor %}
-
     </main>
 
 
@@ -328,10 +291,10 @@
         }
     
         const deneme = async (event,id) =>{
-            var begen_sayi=event.target.parentNode.querySelector(".begen_sayi");
-            var begen_icon=event.target.parentNode.querySelector(".begen");
-            var begenme_sayi=event.target.parentNode.querySelector(".begenme_sayi");
-            var begenme_icon=event.target.parentNode.querySelector(".begenme");
+            var begen_sayi=event.target.parentNode.parentNode.querySelector(".begen_sayi");
+            var begen_icon=event.target.parentNode.parentNode.querySelector(".begen");
+            var begenme_sayi=event.target.parentNode.parentNode.querySelector(".begenme_sayi");
+            var begenme_icon=event.target.parentNode.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
                 let response = await fetch(`https://fifavox.com/api/forum/${id}/begen/`,{
@@ -369,48 +332,7 @@
                     begenme_sayi.innerHTML=sayi;
                 }
                 
-                // let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
-                //     method:"POST",
-                //     headers: {
-                //       "Content-Type": "application/json",
-                //       "X-CSRFToken": "{{csrf_token}}"
-                //     },
-                //     body: JSON.stringify({
-                //             username:"{{request.user.username}}"
-                //         })
-                    
-                // })
-                // if(response2.status===200){
-                //     let sayi = await response2.json();
-                //     if(sayi=="begenildi"){
-                //         begen_icon.classList.add("text-black");
-                //     }
-                //     else if(sayi=="begenildi isaretlenmedi"){
-                //         begen_icon.classList.remove("text-black");
-                //     }
-                // }
-            
-                // let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
-                //     method:"POST",
-                //     headers: {
-                //       "Content-Type": "application/json",
-                //       "X-CSRFToken": "{{csrf_token}}"
-                //     },
-                //     body: JSON.stringify({
-                //             username:"{{request.user.username}}"
-                //         })
-                    
-                // })
-                // if(response3.status===200){
-                //     let sayi = await response3.json();
-                //     if(sayi=="begenilmedi"){
-                //         begenme_icon.classList.add("text-black");
-                //     }
-                //     else if(sayi=="begenilmedi isaretlenmedi"){
-                //         begenme_icon.classList.remove("text-black");
-                //     }
-                // }
-            
+                
             }
             else if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
@@ -451,50 +373,7 @@
                     begen_sayi.innerHTML=sayi;
                 }
             
-                // let response2 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begen/renk/`,{
-                //     method:"POST",
-                //     mode: 'same-origin',
-                //     headers: {
-                //         "Accept": "application/json",
-                //         "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify({
-                //             username:"{{request.user.username}}"
-                //         })
-                    
-                // })
-                // if(response2.status===200){
-                //     let sayi = await response2.json();
-                //     if(sayi=="begenildi"){
-                //         begen_icon.classList.add("text-black");
-                //     }
-                //     else if(sayi=="begenildi isaretlenmedi"){
-                //         begen_icon.classList.remove("text-black");
-                //     }
-                // }
-            
-                // let response3 = await fetch(`https://fifavox-1.herokuapp.com/api/forum/${id}/begenme/renk/`,{
-                //     method:"POST",
-                //     mode: 'same-origin',
-                //     headers: {
-                //         "Accept": "application/json",
-                //         "Content-Type": "application/json",
-                //     },
-                //     body: JSON.stringify({
-                //             username:"{{request.user.username}}"
-                //         })
-                    
-                // })
-                // if(response3.status===200){
-                //     let sayi = await response3.json();
-                //     if(sayi=="begenilmedi"){
-                //         begenme_icon.classList.add("text-black");
-                //     }
-                //     else if(sayi=="begenilmedi isaretlenmedi"){
-                //         begenme_icon.classList.remove("text-black");
-                //     }
-                // }
-            
+                
                 }
             }   
    

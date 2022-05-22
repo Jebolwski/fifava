@@ -722,7 +722,7 @@ main .kisi-detay-foto {
 main .haber-img {
   width: 50vw;
   height: 50vh;
-  border: 3px solid #726c35;
+  border: 4px solid #726c35;
   -webkit-animation-name: haber_border_animation;
           animation-name: haber_border_animation;
   -webkit-animation-duration: 3s;
@@ -983,37 +983,47 @@ main .haber-img {
 
 @-webkit-keyframes haber_border_animation {
   0% {
-    border: 3px solid #77771f;
+    border: 4px solid #726c35;
+    border-right: 4px solid #474715;
   }
-  25% {
-    border: 3px solid #44441a;
+  30% {
+    border: 4px solid #726c35;
+    border-bottom: 4px solid #474715;
   }
   50% {
-    border: 3px solid #83783c;
+    border: 4px solid #726c35;
+    border-left: 4px solid #474715;
   }
-  75% {
-    border: 3px solid #44441a;
+  70% {
+    border: 4px solid #726c35;
+    border-top: 4px solid #474715;
   }
   100% {
-    border: 3px solid #77771f;
+    border: 4px solid #726c35;
+    border-right: 4px solid #474715;
   }
 }
 
 @keyframes haber_border_animation {
   0% {
-    border: 3px solid #77771f;
+    border: 4px solid #726c35;
+    border-right: 4px solid #474715;
   }
-  25% {
-    border: 3px solid #44441a;
+  30% {
+    border: 4px solid #726c35;
+    border-bottom: 4px solid #474715;
   }
   50% {
-    border: 3px solid #83783c;
+    border: 4px solid #726c35;
+    border-left: 4px solid #474715;
   }
-  75% {
-    border: 3px solid #44441a;
+  70% {
+    border: 4px solid #726c35;
+    border-top: 4px solid #474715;
   }
   100% {
-    border: 3px solid #77771f;
+    border: 4px solid #726c35;
+    border-right: 4px solid #474715;
   }
 }
 

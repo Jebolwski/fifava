@@ -584,7 +584,7 @@ main {
   .haber-img {
     width: 50vw;
     height: 50vh;
-    border: 3px solid rgb(114, 108, 53);
+    border: 4px solid rgb(114, 108, 53);
     animation-name: haber_border_animation;
     animation-duration: 3s;
     animation-iteration-count: infinite;
@@ -723,19 +723,24 @@ main {
 
 @keyframes haber_border_animation {
   0% {
-    border: 3px solid#77771f;
+    border: 4px solid rgb(114, 108, 53);
+    border-right: 4px solid rgb(71, 71, 21);
   }
-  25% {
-    border: 3px solid#44441a;
+  30% {
+    border: 4px solid rgb(114, 108, 53);
+    border-bottom: 4px solid rgb(71, 71, 21);
   }
   50% {
-    border: 3px solid #83783c;
+    border: 4px solid rgb(114, 108, 53);
+    border-left: 4px solid rgb(71, 71, 21);
   }
-  75% {
-    border: 3px solid #44441a;
+  70% {
+    border: 4px solid rgb(114, 108, 53);
+    border-top: 4px solid rgb(71, 71, 21);
   }
   100% {
-    border: 3px solid #77771f;
+    border: 4px solid rgb(114, 108, 53);
+    border-right: 4px solid rgb(71, 71, 21);
   }
 }
 
