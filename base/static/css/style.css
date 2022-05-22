@@ -78,6 +78,20 @@ body .home aside {
   background-color: rgba(78, 78, 78, 0.35);
 }
 
+body .home aside ul li svg {
+  -webkit-box-shadow: 2px 2px 25px 2px #333332;
+          box-shadow: 2px 2px 25px 2px #333332;
+  background-color: rgba(51, 51, 50, 0.212);
+  border-radius: 4px;
+}
+
+body .home aside ul li i {
+  -webkit-box-shadow: 2px 2px 25px 2px #333332;
+          box-shadow: 2px 2px 25px 2px #333332;
+  background-color: rgba(51, 51, 50, 0.212);
+  border-radius: 20px;
+}
+
 body .full-background {
   position: absolute;
   width: 100vw;
@@ -113,6 +127,15 @@ body .kesfet-svg {
   height: 100vh;
   margin-top: 99.77vh;
   z-index: 34;
+  margin-left: -0.1vw;
+}
+
+body .kesfet-svg-1 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  margin-top: 99.77vh;
+  z-index: 35;
   margin-left: -0.1vw;
 }
 
@@ -199,11 +222,18 @@ body .typing-demo {
   transition: 1s;
 }
 
+.side-navbar ul li a img {
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+
 .side-navbar ul li a i,
-.side-navbar ul li a img,
 .side-navbar ul li a svg {
-  -webkit-transition: 1s;
-  transition: 1s;
+  -webkit-transition: 2s;
+  transition: 2s;
+  -webkit-box-shadow: 2px 2px 20px 3px #686233;
+          box-shadow: 2px 2px 20px 3px #686233;
+  background-color: rgba(104, 98, 51, 0.527);
 }
 
 .side-navbar ul li a:hover i,
@@ -568,11 +598,11 @@ main .profil-foto {
   margin-left: 7vw;
   top: -10vh;
   border-radius: 49%;
-  outline: 3px solid #726c35;
+  border: 3px solid #726c35;
   -webkit-animation-name: profil_foto_animation;
           animation-name: profil_foto_animation;
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
   -webkit-animation-timing-function: ease-in;
@@ -710,7 +740,7 @@ main .haber-img {
 }
 
 .haberler img {
-  border: 2px solid #3a3a38;
+  border: 2px inset #3a3a38;
 }
 
 .haberler p {
@@ -887,22 +917,32 @@ main .haber-img {
   0% {
     -webkit-box-shadow: 2px 2px 20px 3px gray;
             box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid #726c35;
+    border-right: 3px solid #474715;
   }
   30% {
     -webkit-box-shadow: 2px 2px 30px 4px #828282;
             box-shadow: 2px 2px 30px 4px #828282;
+    border: 3px solid #726c35;
+    border-bottom: 3px solid #474715;
   }
   50% {
     -webkit-box-shadow: 2px 2px 25px 5px #8c8c8c;
             box-shadow: 2px 2px 25px 5px #8c8c8c;
+    border: 3px solid #726c35;
+    border-left: 3px solid #474715;
   }
   70% {
     -webkit-box-shadow: 2px 2px 30px 4px #868686;
             box-shadow: 2px 2px 30px 4px #868686;
+    border: 3px solid #726c35;
+    border-top: 3px solid #474715;
   }
   100% {
     -webkit-box-shadow: 2px 2px 20px 3px gray;
             box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid #726c35;
+    border-right: 3px solid #474715;
   }
 }
 
@@ -910,22 +950,32 @@ main .haber-img {
   0% {
     -webkit-box-shadow: 2px 2px 20px 3px gray;
             box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid #726c35;
+    border-right: 3px solid #474715;
   }
   30% {
     -webkit-box-shadow: 2px 2px 30px 4px #828282;
             box-shadow: 2px 2px 30px 4px #828282;
+    border: 3px solid #726c35;
+    border-bottom: 3px solid #474715;
   }
   50% {
     -webkit-box-shadow: 2px 2px 25px 5px #8c8c8c;
             box-shadow: 2px 2px 25px 5px #8c8c8c;
+    border: 3px solid #726c35;
+    border-left: 3px solid #474715;
   }
   70% {
     -webkit-box-shadow: 2px 2px 30px 4px #868686;
             box-shadow: 2px 2px 30px 4px #868686;
+    border: 3px solid #726c35;
+    border-top: 3px solid #474715;
   }
   100% {
     -webkit-box-shadow: 2px 2px 20px 3px gray;
             box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid #726c35;
+    border-right: 3px solid #474715;
   }
 }
 
@@ -1026,7 +1076,8 @@ main .haber-img {
     width: 22px;
     height: 22px;
   }
-  .kesfet-svg {
+  .kesfet-svg,
+  .kesfet-svg-1 {
     display: none;
   }
   main #particles-js #fifava {

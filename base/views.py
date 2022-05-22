@@ -212,7 +212,7 @@ def NasilKatilabilirim(request):
 #?KİŞİ CRUD
 def Kisiler(request):
     kisiler = Kullanici.objects.all().order_by('-meslek')
-    haberler = Haberler.objects.all().order_by('guncellenme_tarihi')[:5]
+    haberler = Haberler.objects.all().order_by('-guncellenme_tarihi')[:5]
     
     ad_soyad_dizi=[]
     for i in kisiler:

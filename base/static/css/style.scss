@@ -57,6 +57,18 @@ body {
     background-size: 100vw 100%;
     aside {
       background-color: rgba(78, 78, 78, 0.35);
+      ul li {
+        svg {
+          box-shadow: 2px 2px 25px 2px rgb(51, 51, 50);
+          background-color: rgba(51, 51, 50, 0.212);
+          border-radius: 4px;
+        }
+        i {
+          box-shadow: 2px 2px 25px 2px rgb(51, 51, 50);
+          background-color: rgba(51, 51, 50, 0.212);
+          border-radius: 20px;
+        }
+      }
     }
   }
   .full-background {
@@ -90,6 +102,14 @@ body {
     height: 100vh;
     margin-top: 99.77vh;
     z-index: 34;
+    margin-left: -0.1vw;
+  }
+  .kesfet-svg-1 {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 99.77vh;
+    z-index: 35;
     margin-left: -0.1vw;
   }
   .loading {
@@ -148,10 +168,14 @@ body {
     text-decoration: none;
     text-align: center;
     font-size: 17px;
+    img {
+      transition: 2s;
+    }
     i,
-    img,
     svg {
-      transition: 1s;
+      transition: 2s;
+      box-shadow: 2px 2px 20px 3px rgb(104, 98, 51);
+      background-color: rgba(104, 98, 51, 0.527);
     }
     transition: 1s;
     &:hover {
@@ -454,9 +478,9 @@ main {
     margin-left: 7vw;
     top: -10vh;
     border-radius: 49%;
-    outline: 3px solid rgb(114, 108, 53);
+    border: 3px solid rgb(114, 108, 53);
     animation-name: profil_foto_animation;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in;
   }
@@ -572,7 +596,7 @@ main {
   height: 100vh;
   color: white;
   img {
-    border: 2px solid rgb(58, 58, 56);
+    border: 2px inset rgb(58, 58, 56);
   }
   p {
     font-size: 22px;
@@ -669,18 +693,28 @@ main {
 @keyframes profil_foto_animation {
   0% {
     box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid rgb(114, 108, 53);
+    border-right: 3px solid rgb(71, 71, 21);
   }
   30% {
     box-shadow: 2px 2px 30px 4px rgb(130, 130, 130);
+    border: 3px solid rgb(114, 108, 53);
+    border-bottom: 3px solid rgb(71, 71, 21);
   }
   50% {
     box-shadow: 2px 2px 25px 5px rgb(140, 140, 140);
+    border: 3px solid rgb(114, 108, 53);
+    border-left: 3px solid rgb(71, 71, 21);
   }
   70% {
     box-shadow: 2px 2px 30px 4px rgb(134, 134, 134);
+    border: 3px solid rgb(114, 108, 53);
+    border-top: 3px solid rgb(71, 71, 21);
   }
   100% {
     box-shadow: 2px 2px 20px 3px gray;
+    border: 3px solid rgb(114, 108, 53);
+    border-right: 3px solid rgb(71, 71, 21);
   }
 }
 
@@ -772,7 +806,8 @@ main {
       height: 22px;
     }
   }
-  .kesfet-svg {
+  .kesfet-svg,
+  .kesfet-svg-1 {
     display: none;
   }
   main {

@@ -129,6 +129,7 @@
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground.png" class="ground">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/house.png" class="house">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/kesfet.png" class="kesfet-svg">
+        <img src="../../static/images/background.jpg" class="kesfet-svg-1">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/top.png" class="top-1">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/background2.jpg" class="full-background">
         <main class="col-11 col-lg-10 ">
@@ -582,6 +583,14 @@
             duration: 1,
             y: "15%",
             ease: "slow",
+        })
+
+        gsap.from(".kesfet-svg-1", {
+            scrollTrigger: ".kesfet-svg-1",
+            opacity: 0,
+            duration: 1,
+            delay:1,
+            ease:"slow"
         })
 
         gsap.from(".top-1", {
