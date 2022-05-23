@@ -733,6 +733,22 @@ main .haber-img {
           animation-timing-function: ease-in;
 }
 
+main .cevaplama-parent {
+  position: fixed;
+  height: 100vh;
+  z-index: 10;
+  width: 82.9vw;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.486);
+}
+
+main .cevaplama-parent .cevaplama {
+  margin-top: 3vh;
+  z-index: 11;
+  background-color: whitesmoke;
+  border-radius: 12px;
+}
+
 .haberler {
   position: fixed;
   top: 0;
@@ -922,7 +938,7 @@ main .haber-img {
     border: 3px solid #726c35;
     border-right: 3px solid #474715;
   }
-  30% {
+  25% {
     -webkit-box-shadow: 2px 2px 30px 4px #828282;
             box-shadow: 2px 2px 30px 4px #828282;
     border: 3px solid #726c35;
@@ -934,7 +950,7 @@ main .haber-img {
     border: 3px solid #726c35;
     border-left: 3px solid #474715;
   }
-  70% {
+  75% {
     -webkit-box-shadow: 2px 2px 30px 4px #868686;
             box-shadow: 2px 2px 30px 4px #868686;
     border: 3px solid #726c35;
@@ -955,7 +971,7 @@ main .haber-img {
     border: 3px solid #726c35;
     border-right: 3px solid #474715;
   }
-  30% {
+  25% {
     -webkit-box-shadow: 2px 2px 30px 4px #828282;
             box-shadow: 2px 2px 30px 4px #828282;
     border: 3px solid #726c35;
@@ -967,7 +983,7 @@ main .haber-img {
     border: 3px solid #726c35;
     border-left: 3px solid #474715;
   }
-  70% {
+  75% {
     -webkit-box-shadow: 2px 2px 30px 4px #868686;
             box-shadow: 2px 2px 30px 4px #868686;
     border: 3px solid #726c35;
@@ -1070,6 +1086,9 @@ main .haber-img {
   main .kisi-detay-foto {
     height: 35vh;
     border: 3px solid #726c35;
+  }
+  main .cevaplama-parent {
+    width: 91.24vw;
   }
   .side-navbar svg {
     width: 18px;

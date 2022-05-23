@@ -118,7 +118,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
+    </aside>
 
 
     <main class="col-11 col-lg-10 offset-1">
@@ -145,28 +145,57 @@
                 </tr>
             </table>
         </form>
+        <div class="cevaplama-parent" >
+          <div class="cevaplama col-10 offset-1 border p-3 mb-4">
+              <span class="soru_id" style="display: none;"></span>
+              <i class="fa-solid fa-xmark fa-xl ms-3 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
+              <br>
+            <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 soru_profil_url rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <span class="ms-2 soru_username">Yönetici</span> 
+            <div class="ms-4" style="border-left:3px solid rgb(114, 108, 53);padding-left:40px;margin-top: 20px;">
+                
 
+                <hr>
+                <span class="soru_baslik">
+                    merhaba bu benim forum sorum
+                </span>
+                <hr>
+                <span class="soru_aciklama">
+                    merhaba bu benim forum aciklamam
+                </span>
+                <hr>
+                @<span class="at_soru_username">yönetici</span>
+                adlı kullanıcıya yanıtınız
+            </div>
+            <br>
+            <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/" class="col-2 col-lg-1 rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <span class="ms-2">Messi</span>
+            <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
+            <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
+        </div>  
+        </div>
         
         
         {% if forumlar %}
 
             {% for forum in forumlar %}
-                <div class="col-10 offset-1 border p-3 rounded mt-3 bg-light">
+                <div class="{{forum.id}} col-10 offset-1 border p-3 rounded mb-4 bg-light">
                     
-                        
+                        <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
-                        <span class="badge bg-dark">Yeni</span>
-                        <hr>
+                            <span class="badge bg-dark">Yeni</span>
                         {% endif %}
-
                         <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                                <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2">{{forum.profil.user.username}}</span> 
+                        
+                        <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2 soru_profil_url" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2 soru_username">{{forum.profil.user.username}}</span> 
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
                             <div>
 
                                 <hr>
-                                {{forum.baslik}}
+                                <span class="soru_baslik text-break">{{forum.baslik}}</span>
+                                <hr>
+                                <span class="soru_aciklama text-break">{{forum.soru}}</span>
                                 <hr>
                                 {{forum.guncellenme_tarihi}}
                             </div> 
@@ -174,17 +203,14 @@
                         </a>
                         
                         <ul class="list-unstyled d-flex justify-content-around">
-                            {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
-                                <span class="badge bg-dark">Yeni</span>
-                                <hr>
-                            {% endif %}
+                           
                                 {% if request.user.is_authenticated %}
-                                <li><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-comment"></i></a> {{forum.cevap_sayisi}}</li>
+                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
@@ -198,15 +224,15 @@
                                 </li>
                                 {% else %}
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Beğen"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Yorum"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğen"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğenme"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğenme"></i></a> 
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğen"></i></a> 
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
                                 </li>
                                 {% endif %}
@@ -242,8 +268,12 @@
             {% endfor %}
         </ul>
     </aside>
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
+    
+    
     <script defer>
         window.onbeforeunload = function() {
             var scrollPos;
@@ -377,8 +407,76 @@
                 }
             }   
    
+        let kutu_parent = document.querySelector(".cevaplama-parent");
+        kutu_parent.style.display="none";
+        const cevapla_kapa = async (event) =>{ 
+            let kutu_parent = document.querySelector(".cevaplama-parent");
+            kutu_parent.style.display="none";
+            const cevap = document.querySelector(".cevap-textarea");
+            cevap.value="";
+        }
+        
+        
+        const cevapla = async (event) =>{
+            let kutu = document.querySelector(".cevaplama");
+            let kutu_parent = document.querySelector(".cevaplama-parent");
+            let cevaplanacak = event.target.parentNode.parentNode.parentNode;
+            let soru_username = kutu.querySelector(".soru_username");
+            let at_soru_username = kutu.querySelector(".at_soru_username");
+            let soru_baslik = kutu.querySelector(".soru_baslik");
+            let soru_aciklama = kutu.querySelector(".soru_aciklama");
+            let soru_profil_url = kutu.querySelector(".soru_profil_url");
+            let soru_id = kutu.querySelector(".soru_id");
+            
+            soru_id.innerHTML  =  cevaplanacak.querySelector(".soru_id").innerHTML;
+            soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML;
+            at_soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML.toLowerCase();
+            soru_baslik.innerHTML  =  cevaplanacak.querySelector(".soru_baslik").innerHTML;
+            soru_aciklama.innerHTML  =  cevaplanacak.querySelector(".soru_aciklama").innerHTML;
+            soru_profil_url.src  =  cevaplanacak.querySelector(".soru_profil_url").src;
+            kutu_parent.style.display="block";
+            
+            
+        }
+
+
+        const cevap_olustur = async () =>{
+            let kutu = document.querySelector(".cevaplama");
+            let soru_id = kutu.querySelector(".soru_id");
+            const cevap = document.querySelector(".cevap-textarea");
+            let response = await fetch("https://fifavox.com/api/forum/cevap/{{request.user.id}}/ekle/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            soru_id: soru_id.innerHTML,
+                            cevap: cevap.value,
+                            cevaba_cevap:"-1",
+                        })
+                    
+            })
+            if (response.status===200){
+                
+                
+                let divimiz = document.getElementsByClassName(soru_id.innerHTML)[0];
+                let cevap_sayi = divimiz.querySelector(".cevap_sayi");
+                cevap_sayi.innerHTML=String(parseInt(cevap_sayi.innerHTML)+1);
+                cevapla_kapa();
+                cevap.value="";
+            
+            }
+            
+        }        
+
+
+
+        
+
    
-   </script>
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     {% endblock content %}

@@ -102,6 +102,8 @@ def ForumCevapGel(request):
     serializer = ForumYanitSerializer(forum_soru_cevap,many=False)
     return Response(serializer.data)
 
+
+
 #!FORUM FONKSİYONLARI
 @api_view(['POST','GET'])
 def ForumBegen(request,pk):
@@ -171,4 +173,5 @@ def IletisimCevaplama(request):
         user = User.objects.get(username=data['username']),
     )
     return Response("Oluşturuldu!")
+
 

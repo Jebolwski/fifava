@@ -590,6 +590,20 @@ main {
     animation-iteration-count: infinite;
     animation-timing-function: ease-in;
   }
+  .cevaplama-parent {
+    position: fixed;
+    height: 100vh;
+    z-index: 10;
+    width: 82.9vw;
+    top: 0;
+    background-color: rgba(98, 145, 199, 0.486);
+    .cevaplama {
+      margin-top: 3vh;
+      z-index: 11;
+      background-color: rgb(245, 245, 245);
+      border-radius: 12px;
+    }
+  }
 }
 
 .haberler {
@@ -699,7 +713,7 @@ main {
     border: 3px solid rgb(114, 108, 53);
     border-right: 3px solid rgb(71, 71, 21);
   }
-  30% {
+  25% {
     box-shadow: 2px 2px 30px 4px rgb(130, 130, 130);
     border: 3px solid rgb(114, 108, 53);
     border-bottom: 3px solid rgb(71, 71, 21);
@@ -709,7 +723,7 @@ main {
     border: 3px solid rgb(114, 108, 53);
     border-left: 3px solid rgb(71, 71, 21);
   }
-  70% {
+  75% {
     box-shadow: 2px 2px 30px 4px rgb(134, 134, 134);
     border: 3px solid rgb(114, 108, 53);
     border-top: 3px solid rgb(71, 71, 21);
@@ -791,6 +805,9 @@ main {
     .kisi-detay-foto {
       height: 35vh;
       border: 3px solid rgb(114, 108, 53);
+    }
+    .cevaplama-parent {
+      width: 91.24vw;
     }
   }
   .side-navbar {

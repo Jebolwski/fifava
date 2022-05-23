@@ -2037,6 +2037,9 @@ def ProfilFotoDuzenle(request,pk):
 def Forumlar(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+    cevap_profil_url="";
+    if request.user.is_authenticated:
+        cevap_profil_url=ProfilFoto.objects.get(user_id=request.user.id).resim
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2074,10 +2077,10 @@ def Forumlar(request):
         forumlar = ForumSoru.objects.all().filter(baslik__contains=arama).order_by('guncellenme_tarihi')
     if request.user.is_authenticated:
         onay_durum = OnayDurum.objects.get(kisi_id=request.user.id)
-        context = {'forumlar':forumlar,'haberler':haberler,'onaydurum':onay_durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+        context = {'forumlar':forumlar,'cevap_profil_url':cevap_profil_url,'haberler':haberler,'onaydurum':onay_durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     else:
-        context = {'forumlar':forumlar,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+        context = {'forumlar':forumlar,'cevap_profil_url':cevap_profil_url,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
     return render(request,"base/forum/forumlar.html",context) 

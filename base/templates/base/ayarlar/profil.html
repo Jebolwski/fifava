@@ -234,7 +234,7 @@
             {% if forumlari %}
             <h4 class="text-center my-5">Forumları</h4>
             {% for forum in forumlari %}
-                <div class="col-10 offset-1 border p-3 rounded mt-3 bg-light">
+                <div class="col-10 offset-1 border p-3 rounded mb-4 bg-light">
                     
                         
 
@@ -254,12 +254,12 @@
                         
                         <ul class="list-unstyled d-flex justify-content-around">
                                 {% if request.user.is_authenticated %}
-                                <li><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-comment"></i></a> {{forum.cevap_sayisi}}</li>
+                                <li><a href="{% url 'forum' forum.id %}"><i class="fa-solid fa-comment" title="Yorum"></i></a> {{forum.cevap_sayisi}}</li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
@@ -273,16 +273,16 @@
                                 </li>
                                 {% else %}
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Beğen"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Yorum"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğen"></i></a>
-                                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğenme"></i></a>
+                                    <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğenme"></i></a> 
-                                    <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğen"></i></a> 
+                                    <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
                                 </li>
                                 {% endif %}
                         </ul>
