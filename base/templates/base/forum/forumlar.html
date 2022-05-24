@@ -170,6 +170,7 @@
                 adlı kullanıcıya yanıtınız
             </div>
             <br>
+            
             <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/"  class="col-2 col-lg-1 rounded border ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
@@ -298,7 +299,7 @@
             }
         }
         
-        
+        console.log("{{cevap_profil_url}}");
        
         let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
@@ -370,7 +371,7 @@
             }
             else if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(window.location.origin+`https://fifavox.com/api/forum/${id}/begenme/`,{
+                let response = await fetch(window.location.origin+`/api/forum/${id}/begenme/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -394,7 +395,7 @@
                     }
                 }
 
-                let response1 = await fetch(window.location.origin+`https://fifavox.com/api/forum/${id}/begen/`,{
+                let response1 = await fetch(window.location.origin+`/api/forum/${id}/begen/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
