@@ -604,6 +604,12 @@ main {
       border-radius: 12px;
     }
   }
+  .mesajiniz-olustu {
+    position: fixed;
+    top: 80vh;
+    left: 0;
+    border: 5px solid rgb(39, 39, 39);
+  }
 }
 
 .haberler {

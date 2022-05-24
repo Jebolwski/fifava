@@ -169,7 +169,7 @@
             </div>
             <br>
             <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/" class="col-2 col-lg-1 rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
-            <span class="ms-2">Messi</span>
+            <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
             <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
         </div>  
@@ -178,6 +178,7 @@
         
         {% if forumlar %}
 
+            <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
                 <div class="{{forum.id}} col-10 offset-1 border p-3 rounded mb-4 bg-light">
                     
@@ -246,6 +247,7 @@
             <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
 
         {% endif %}
+        
     </main>
 
 
@@ -464,7 +466,20 @@
                 let divimiz = document.getElementsByClassName(soru_id.innerHTML)[0];
                 let cevap_sayi = divimiz.querySelector(".cevap_sayi");
                 cevap_sayi.innerHTML=String(parseInt(cevap_sayi.innerHTML)+1);
+
+                
                 cevapla_kapa();
+                gsap.from(".mesajiniz-olustu", {
+                    scrollTrigger: ".mesajiniz-olustu",
+                    display: 'block',
+                    duration: 4,
+                })
+                gsap.to(".mesajiniz-olustu", {
+                    opacity: 0,
+                    delay:3,
+                    duration:1,
+                    ease:"slow",
+                })
                 cevap.value="";
             
             }

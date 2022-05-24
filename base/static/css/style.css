@@ -749,6 +749,13 @@ main .cevaplama-parent .cevaplama {
   border-radius: 12px;
 }
 
+main .mesajiniz-olustu {
+  position: fixed;
+  top: 80vh;
+  left: 0;
+  border: 5px solid #272727;
+}
+
 .haberler {
   position: fixed;
   top: 0;

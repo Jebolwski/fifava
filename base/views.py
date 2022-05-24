@@ -1714,6 +1714,9 @@ def KayitOnayForm(request,pk):
 
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
+    cevap_profil_url="";
+    if request.user.is_authenticated:
+        cevap_profil_url=ProfilFoto.objects.get(user_id=request.user.id).resim
 
     user = User.objects.get(username = profil_user.username)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
@@ -1754,10 +1757,10 @@ def Profil(request,my_slug):
 
     if OnayDurum.objects.all().filter(kisi_id=profil_user.user.id):
         durum = OnayDurum.objects.get(kisi_id=profil_user.user.id)
-        context={'durum':durum,'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+        context={'durum':durum,'haberler':haberler,'cevap_profil_url':cevap_profil_url,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     else:
-        context={'haberler':haberler,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+        context={'haberler':haberler,'cevap_profil_url':cevap_profil_url,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/profil.html",context)  
 
