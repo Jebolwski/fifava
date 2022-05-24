@@ -756,6 +756,16 @@ main .mesajiniz-olustu {
   border: 5px solid #272727;
 }
 
+main .cevapla_kapa_parent {
+  width: 31px;
+  height: 25px;
+  border-radius: 30px;
+}
+
+main .cevapla_kapa_parent:hover {
+  background-color: rgba(114, 102, 35, 0.288);
+}
+
 .haberler {
   position: fixed;
   top: 0;

@@ -691,7 +691,7 @@
             const aciklama = event.target.parentNode.querySelector("#aciklama");
             if (ad_soyad.value != "" && aciklama.value != "" && baslik.value != "") {
                 event.preventDefault();
-                let response = await fetch("https://fifavox.com/api/iletisim/ekle/", {
+                let response = await fetch(window.location.origin+"/api/iletisim/ekle/", {
                     method: "POST",
                     mode: 'same-origin',
                     headers: {

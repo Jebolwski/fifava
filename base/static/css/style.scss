@@ -610,6 +610,14 @@ main {
     left: 0;
     border: 5px solid rgb(39, 39, 39);
   }
+  .cevapla_kapa_parent {
+    width: 31px;
+    height: 25px;
+    border-radius: 30px;
+    &:hover {
+      background-color: rgba(114, 102, 35, 0.288);
+    }
+  }
 }
 
 .haberler {

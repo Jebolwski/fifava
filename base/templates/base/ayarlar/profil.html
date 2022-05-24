@@ -237,9 +237,11 @@
             <div class="cevaplama-parent" >
                 <div class="cevaplama col-10 offset-1 border p-3 mb-4">
                 <span class="soru_id" style="display: none;"></span>
-                <i class="fa-solid fa-xmark fa-xl ms-3 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
+                    <div class="cevapla_kapa_parent">
+                        <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
+                    </div>
                 <br>
-                <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 soru_profil_url rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+                <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 border soru_profil_url rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
                 <span class="ms-2 soru_username">Yönetici</span> 
                 <div class="ms-4" style="border-left:3px solid rgb(114, 108, 53);padding-left:40px;margin-top: 20px;">
                 
@@ -257,7 +259,7 @@
                 adlı kullanıcıya yanıtınız
             </div>
             <br>
-            <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/" class="col-2 col-lg-1 rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/" class="col-2 col-lg-1 border rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
             <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
@@ -409,7 +411,7 @@
             var begenme_icon=event.target.parentNode.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox.com/api/forum/${id}/begen/`,{
+                let response = await fetch(window.location.origin+`/api/forum/${id}/begen/`,{
                     method:"POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -433,7 +435,7 @@
                 
                 }
 
-                let response1 = await fetch(`https://fifavox.com/api/forum/${id}/begenme/`,{
+                let response1 = await fetch(window.location.origin+`/api/forum/${id}/begenme/`,{
                     method:"GET",
                     headers: {
                       "Content-Type": "application/json",
@@ -448,7 +450,7 @@
             }
             else if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox.com/api/forum/${id}/begenme/`,{
+                let response = await fetch(window.location.origin+`/api/forum/${id}/begenme/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -472,7 +474,7 @@
                     }
                 }
 
-                let response1 = await fetch(`https://fifavox.com/api/forum/${id}/begen/`,{
+                let response1 = await fetch(window.location.origin+`/api/forum/${id}/begen/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -521,12 +523,12 @@
             
         }
 
-
+        console.log(window.location.origin);
         const cevap_olustur = async () =>{
             let kutu = document.querySelector(".cevaplama");
             let soru_id = kutu.querySelector(".soru_id");
             const cevap = document.querySelector(".cevap-textarea");
-            let response = await fetch("https://fifavox.com/api/forum/cevap/{{request.user.id}}/ekle/",{
+            let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {

@@ -332,7 +332,7 @@
             var begenme_icon=event.target.parentNode.querySelector(".begenme");
             if (event.target.classList[0]=="begen"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/`,{
+                let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/begen/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -357,7 +357,7 @@
                 
                 }
 
-                let response1 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/`,{
+                let response1 = await fetch(window.location.origin+`/api/forum/cevap/${id}/begenme/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -378,7 +378,7 @@
             }
             if (event.target.classList[0]=="begenme"){
                 event.preventDefault();
-                let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begenme/`,{
+                let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/begenme/`,{
                     method:"POST",
                     mode: 'same-origin',
                     headers: {
@@ -402,7 +402,7 @@
                     }
                 }
 
-                let response1 = await fetch(`https://fifavox.com/api/forum/cevap/${id}/begen/`,{
+                let response1 = await fetch(window.location.origin+`/api/forum/cevap/${id}/begen/`,{
                     method:"GET",
                     mode: 'same-origin',
                     headers: {
@@ -425,7 +425,7 @@
 
         const cevapla = async () => {
             const cevap = document.querySelector(".cevap-textarea");
-            let response = await fetch("https://fifavox.com/api/forum/cevap/{{request.user.id}}/ekle/",{
+            let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
@@ -590,7 +590,7 @@
         
 
         const cevap_sil = async (id) =>{
-            let response = await fetch(`https://fifavox.com/api/forum/cevap/${id}/sil/`,{
+            let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/sil/`,{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
