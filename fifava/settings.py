@@ -9,7 +9,7 @@ SECRET_KEY = "django-insecure-%0$s52dr2w=5jq=fui1xhrnwo__kk#w*x2dvl*j9q*k1q(edh$
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["fifavox.com","www.fifavox.com","127.0.0.1","fifavox-1.herokuapp.com"]
+ALLOWED_HOSTS = ["fifavox.com","www.fifavox.com","127.0.0.1","fifavox-1.herokuapp.com",'https://fifavox.netlify.app/']
 
 
 # Application definition
