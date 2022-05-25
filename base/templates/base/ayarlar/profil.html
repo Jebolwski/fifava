@@ -1,4 +1,4 @@
-{% extends 'base/ana.html' %} {% load static %} {% block content %}
+﻿{% extends 'base/ana.html' %} {% load static %} {% block content %}
 <title>{{profil.username}} | FIFAVOX</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -259,7 +259,7 @@
                 adlı kullanıcıya yanıtınız
             </div>
             <br>
-            <img src="http://127.0.0.1:8000/media/{{cevap_profil_url}}/" class="col-2 col-lg-1 border rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}" class="col-2 col-lg-1 border rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
             <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
