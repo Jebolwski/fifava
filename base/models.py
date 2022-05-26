@@ -9,7 +9,7 @@ class Kullanici(models.Model):
     oyun_ad_soyad_slug     = models.SlugField(unique=True,null=False,blank=False)
     meslek                 = models.CharField(max_length=40,blank=False,null=False)
     dosya                  = models.ImageField(upload_to="oyuncu",null=True,blank=True)
-    hikaye                 = models.TextField(max_length=800,blank=False,null=False)
+    hikaye                 = models.TextField(max_length=5200,blank=False,null=False)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
@@ -20,9 +20,9 @@ class Kullanici(models.Model):
 
 
 class Haberler(models.Model):
-    baslik                 = models.CharField(max_length=30,null=False,blank=False)
+    baslik                 = models.CharField(max_length=100,null=False,blank=False)
     baslik_slug            = models.SlugField(unique=True,null=False,blank=False)
-    aciklama               = models.TextField(max_length=250,null=True,blank=True)
+    aciklama               = models.TextField(max_length=5000,null=True,blank=True)
     resim                  = models.ImageField(upload_to="haberler",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)

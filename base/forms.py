@@ -11,7 +11,7 @@ class OyuncuForm(forms.ModelForm):
         attrs={'class': 'form-control'}))
     meslek              = forms.CharField(max_length=40, widget=forms.TextInput(
         attrs={'class': 'form-control'})) 
-    hikaye              = forms.CharField(max_length=200, widget=forms.Textarea(
+    hikaye              = forms.CharField(max_length=5200, widget=forms.Textarea(
         attrs={'class': 'form-control'})) 
     class Meta:
         model = Kullanici
@@ -66,9 +66,9 @@ class CevapForm(forms.ModelForm):
             self.fields['onay4_cevap'].widget.attrs.update({'class':'input4 form-check-input','checked':False})
 
 class HaberForm(forms.ModelForm):
-    baslik=forms.CharField(max_length=40, widget=forms.TextInput(
+    baslik=forms.CharField(max_length=100, widget=forms.TextInput(
         attrs={'class': 'form-control'}))
-    aciklama=forms.CharField(max_length=250, widget=forms.TextInput(
+    aciklama=forms.CharField(max_length=5000, widget=forms.TextInput(
         attrs={'class': 'form-control'}))
     class Meta:
         model=Haberler

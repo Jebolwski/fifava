@@ -66,7 +66,7 @@ body {
 }
 
 body aside {
-  background-color: #817952;
+  background: linear-gradient(177deg, #817952 0%, #615b3d 100%);
   font-size: 15px;
 }
 
@@ -77,19 +77,16 @@ body .home {
 body .home aside {
   position: fixed;
   height: 100%;
-  background-color: rgba(78, 78, 78, 0.35);
+  background: #3e3e3e;
+  background: linear-gradient(356deg, rgba(62, 62, 62, 0.30576) 0%, rgba(90, 90, 90, 0.30576) 100%);
 }
 
 body .home aside ul li svg {
-  -webkit-box-shadow: 2px 2px 25px 2px #333332;
-          box-shadow: 2px 2px 25px 2px #333332;
   background-color: rgba(51, 51, 50, 0.212);
   border-radius: 4px;
 }
 
 body .home aside ul li i {
-  -webkit-box-shadow: 2px 2px 25px 2px #333332;
-          box-shadow: 2px 2px 25px 2px #333332;
   background-color: rgba(51, 51, 50, 0.212);
   border-radius: 20px;
 }
@@ -233,8 +230,6 @@ body .typing-demo {
 .side-navbar ul li a svg {
   -webkit-transition: 2s;
   transition: 2s;
-  -webkit-box-shadow: 2px 2px 20px 3px #686233;
-          box-shadow: 2px 2px 20px 3px #686233;
   background-color: rgba(104, 98, 51, 0.527);
 }
 
@@ -1173,7 +1168,7 @@ main .cevapla_kapa_parent:hover {
   main .iletisim-sayfa {
     background-image: url("../images/iletisimphone.jpg");
   }
-  main .iletisim-cevaplari {
+  main aside .iletisim-cevaplari {
     background-image: url("../images/phonecevaplama.jpg");
   }
   main .iletisim-cevaplara-cevaplari {

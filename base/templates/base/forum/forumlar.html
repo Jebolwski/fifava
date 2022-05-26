@@ -306,7 +306,6 @@
             }
         }
         
-        console.log("{{cevap_profil_url}}");
        
         let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
@@ -426,10 +425,11 @@
             kutu_parent.style.display="none";
             const cevap = document.querySelector(".cevap-textarea");
             cevap.value="";
+            
         }
         
-        
         const cevapla = async (event) =>{
+            
             let kutu = document.querySelector(".cevaplama");
             let kutu_parent = document.querySelector(".cevaplama-parent");
             let cevaplanacak = event.target.parentNode.parentNode.parentNode;
@@ -439,7 +439,6 @@
             let soru_aciklama = kutu.querySelector(".soru_aciklama");
             let soru_profil_url = kutu.querySelector(".soru_profil_url");
             let soru_id = kutu.querySelector(".soru_id");
-            
             soru_id.innerHTML  =  cevaplanacak.querySelector(".soru_id").innerHTML;
             soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML;
             at_soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML.toLowerCase();
