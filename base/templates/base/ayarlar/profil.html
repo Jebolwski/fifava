@@ -134,7 +134,7 @@
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
+        <div class="message col-6 col-sm-6 col-md-4 col-3 text-center" style="z-index: 100;">{{message}}</div>
         {% endfor %} {%if profil.arka_plan %}
         <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{{profil.arka_plan.url}}"></div>
         {% else %}
@@ -144,18 +144,18 @@
         <div class="buyukler">
             <div class="profil-foto-buyuk" style="display: none;"> 
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="col-4 offset-5 mt-5 pt-5" onclick="profil_foto_buyu()" title="profil-foto"> 
+            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" onclick="profil_foto_buyu()" title="profil-foto"> 
             {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" title="profil-foto" onclick="profil_foto_buyu()" class="col-4 offset-5 mt-5 pt-5"> 
+            <img src="{% static 'images/default-profile.jpg' %}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" title="profil-foto" onclick="profil_foto_buyu()" > 
             {% endif %}
             <div class="profil-foto-kapa-1" onclick="profil_foto_kapa()"><br/></div>
             <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="cursor: pointer;" onclick="profil_foto_kapa()"></i>
             </div>
             <div class="arkaplan-foto-buyuk" style="display: none;">
             {%if profil.arka_plan %}
-            <div class="profil-background"><img class="col-8 offset-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
+            <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
             {% else %}
-            <div class="profil-background"><img class="col-8 offset-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
+            <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
             {% endif %}
             <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
             <div class="arkaplan-foto-kapa-1" onclick="arkaplan_foto_kapa()">
@@ -295,7 +295,10 @@
                         </a>
                         
                         <ul class="list-unstyled d-flex justify-content-around">
-                           
+                                {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
+                                    <li><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
+                                {% endif %}
+
                                 {% if request.user.is_authenticated %}
                                 <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
@@ -523,7 +526,6 @@
             
         }
 
-        console.log(window.location.origin);
         const cevap_olustur = async () =>{
             let kutu = document.querySelector(".cevaplama");
             let soru_id = kutu.querySelector(".soru_id");

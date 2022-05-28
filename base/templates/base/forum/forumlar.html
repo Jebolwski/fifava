@@ -201,10 +201,12 @@
                         <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2 soru_profil_url" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2 soru_username">{{forum.profil.user.username}}</span> 
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
-                            <div>
-
+                            <div class="bordered">
                                 <hr>
-                                <span class="soru_baslik text-break">{{forum.baslik}}</span>
+                                <span class="soru_baslik text-break">
+                                    {{forum.baslik}} 
+                                    
+                                </span>
                                 <hr>
                                 <span class="soru_aciklama text-break">{{forum.soru}}</span>
                                 <hr>
@@ -216,6 +218,13 @@
                         <ul class="list-unstyled d-flex justify-content-around">
                            
                                 {% if request.user.is_authenticated %}
+
+
+                                {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
+                                    <li><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
+                                {% endif %}
+
+
                                 <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}

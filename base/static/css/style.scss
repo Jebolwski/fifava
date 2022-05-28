@@ -62,22 +62,11 @@ body {
     aside {
       position: fixed;
       height: 100%;
-      background: rgb(62, 62, 62);
       background: linear-gradient(
         356deg,
         rgba(62, 62, 62, 0.30575980392156865) 0%,
         rgba(90, 90, 90, 0.30575980392156865) 100%
       );
-      ul li {
-        svg {
-          background-color: rgba(51, 51, 50, 0.212);
-          border-radius: 4px;
-        }
-        i {
-          background-color: rgba(51, 51, 50, 0.212);
-          border-radius: 20px;
-        }
-      }
     }
   }
   .full-background {
@@ -184,7 +173,6 @@ body {
     i,
     svg {
       transition: 2s;
-      background-color: rgba(104, 98, 51, 0.527);
     }
     transition: 1s;
     &:hover {
@@ -601,6 +589,7 @@ main {
     height: 100vh;
     z-index: 10;
     width: 82.9vw;
+    overflow-y: auto;
     top: 0;
     background-color: rgba(98, 145, 199, 0.486);
     .cevaplama {
@@ -730,28 +719,18 @@ main {
 @keyframes profil_foto_animation {
   0% {
     box-shadow: 2px 2px 20px 3px gray;
-    border: 3px solid rgb(114, 108, 53);
-    border-right: 3px solid rgb(71, 71, 21);
   }
   25% {
     box-shadow: 2px 2px 30px 4px rgb(130, 130, 130);
-    border: 3px solid rgb(114, 108, 53);
-    border-bottom: 3px solid rgb(71, 71, 21);
   }
   50% {
     box-shadow: 2px 2px 25px 5px rgb(140, 140, 140);
-    border: 3px solid rgb(114, 108, 53);
-    border-left: 3px solid rgb(71, 71, 21);
   }
   75% {
     box-shadow: 2px 2px 30px 4px rgb(134, 134, 134);
-    border: 3px solid rgb(114, 108, 53);
-    border-top: 3px solid rgb(71, 71, 21);
   }
   100% {
     box-shadow: 2px 2px 20px 3px gray;
-    border: 3px solid rgb(114, 108, 53);
-    border-right: 3px solid rgb(71, 71, 21);
   }
 }
 

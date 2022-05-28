@@ -2024,7 +2024,7 @@ def ProfilFotoDuzenle(request,pk):
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request,"Profil fotoğrafınız güncellendi.")
+            messages.success(request,"Profiliniz başarıyla güncellendi.")
             return redirect("profil",slugify(request.user.username))
         else:
             messages.error(request,"Girdileriniz doğru değil, girdiğiniz dosyaların türünü kontrol ediniz.")
@@ -2264,8 +2264,6 @@ def ForumSil(request,my_slug):
                 oyuncu_bildirim=True
                 break
      
-    if not request.user.is_superuser:
-        return redirect("404")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forum = ForumSoru.objects.get(baslik_slug=my_slug)
     if request.method=='POST':
@@ -2283,8 +2281,6 @@ def ForumSil(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def ForumEkle(request):
-    if not request.user.is_superuser:
-        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2324,9 +2320,9 @@ def ForumEkle(request):
     form = ForumEkleForm()
     if request.method=="POST":
         data = request.POST.copy()
-        data['profil']=str(request.user.id)
+        data['profil']=ProfilFoto.objects.get(user_id=request.user.id)
         data['baslik_slug']=slugify(data['baslik'])
-        data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user)
+        data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user.id)
         
         form = ForumEkleForm(data)
         if form.is_valid():
