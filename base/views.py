@@ -69,11 +69,22 @@ def CikisYap(request):
 
 
 def KayitOl(request):
+   
+
+
     if request.user.is_authenticated:
         return redirect("anasayfa")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = KayitForm()
-    if request.method == 'POST':
+    if request.method == 'POST': 
+        dizi=[]
+        for i in User.objects.all():
+            dizi.append(i.email)
+        if request.POST['email'] in dizi:
+            messages.error(request, 'Girdiğiniz email kullanımda.')
+            return redirect('kayit-ol')
+        
+        
         form = KayitForm(request.POST)
         if form.is_valid():
             form.save()
