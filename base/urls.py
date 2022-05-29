@@ -62,7 +62,7 @@ urlpatterns = [
     path("oyuncular/", views.Kisiler, name="kisiler"),
     path("oyuncu-ekle/", views.KisiEkle, name="kisi-ekle"),
     path("oyuncu-duzenle/<slug:my_slug>/", views.KisiDuzenle, name="kisi-duzenle"),
-    path("oyuncu-sil/<slug:my_slug>", views.KisiSil, name="kisi-sil"),
+    path("oyuncu-sil/<slug:my_slug>/", views.KisiSil, name="kisi-sil"),
     path("oyuncu-detay/<slug:my_slug>/", views.KisiDetay, name="kisi-detay"),
 
 
@@ -77,7 +77,7 @@ urlpatterns = [
     #!FORMLAR
     path("formlar/", views.Formlar, name="formlar"),
     path("form-ekle/", views.FormEkle, name="form-ekle"),
-    path("form-duzenle/<slug:my_slug>", views.FormDuzenle, name="form-duzenle"),
+    path("form-duzenle/<slug:my_slug>/", views.FormDuzenle, name="form-duzenle"),
     path("form-sil/<slug:my_slug>/", views.FormSil, name="form-sil"),
     path("form-cevapla/<slug:my_slug>/", views.FormCevapla, name="form-cevapla"),
     path("form-detay/<slug:my_slug>/", views.FormDetay, name="form-detay"),

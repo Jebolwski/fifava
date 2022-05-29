@@ -312,6 +312,13 @@ main {
       margin-left: 50vw;
       transform: translateX(-50%);
     }
+    #fifava1 {
+      position: absolute;
+      margin-top: 22vh;
+      width: 19vw;
+      margin-left: 50vw;
+      transform: translateX(-50%);
+    }
     #kesfet {
       position: absolute;
       margin-top: 80vh;
@@ -773,6 +780,10 @@ main {
   #fifava {
     height: 13vh;
   }
+  #fifava1 {
+    margin-top: 22vh;
+    width: 21vw;
+  }
   .responsive-text {
     font-size: 18px;
   }
@@ -783,6 +794,9 @@ main {
     #particles-js {
       #fifava {
         height: 15vh;
+      }
+      #fifava1 {
+        width: 30vw;
       }
       #kesfet {
         position: absolute;
@@ -838,6 +852,10 @@ main {
     #particles-js {
       #fifava {
         height: 11vh;
+      }
+      #fifava1 {
+        margin-top: 22vh;
+        width: 48vw;
       }
     }
     .biyografi {

@@ -384,6 +384,15 @@ main #particles-js #fifava {
           transform: translateX(-50%);
 }
 
+main #particles-js #fifava1 {
+  position: absolute;
+  margin-top: 22vh;
+  width: 19vw;
+  margin-left: 50vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
 main #particles-js #kesfet {
   position: absolute;
   margin-top: 80vh;
@@ -1038,6 +1047,10 @@ main .cevapla_kapa_parent:hover {
   #fifava {
     height: 13vh;
   }
+  #fifava1 {
+    margin-top: 22vh;
+    width: 21vw;
+  }
   .responsive-text {
     font-size: 18px;
   }
@@ -1046,6 +1059,9 @@ main .cevapla_kapa_parent:hover {
 @media only screen and (max-width: 988px) {
   main #particles-js #fifava {
     height: 15vh;
+  }
+  main #particles-js #fifava1 {
+    width: 30vw;
   }
   main #particles-js #kesfet {
     position: absolute;
@@ -1094,6 +1110,10 @@ main .cevapla_kapa_parent:hover {
   }
   main #particles-js #fifava {
     height: 11vh;
+  }
+  main #particles-js #fifava1 {
+    margin-top: 22vh;
+    width: 48vw;
   }
   main .biyografi .profil-username {
     font-size: 17px;

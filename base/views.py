@@ -1,4 +1,5 @@
-﻿from django.shortcuts import render,redirect
+﻿import re
+from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.utils.text import slugify
@@ -27,6 +28,7 @@ def Bulunamadi1(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/404.html',context)
+
 
 
 def Hata(request):
@@ -317,6 +319,8 @@ def EmailDegistir(request):
 
 @login_required(login_url='giris-yap')
 def KisiEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -370,6 +374,8 @@ def KisiEkle(request):
 
 @login_required(login_url='giris-yap')
 def KisiDuzenle(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -424,7 +430,8 @@ def KisiDuzenle(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def KisiSil(request,my_slug):
-    
+    if not request.user.is_superuser:
+        return redirect("404")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     
@@ -825,6 +832,8 @@ def Formlar(request):
 
 @login_required(login_url='giris-yap')
 def FormEkle(request):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -882,6 +891,8 @@ def FormEkle(request):
 
 @login_required(login_url='giris-yap')
 def FormDuzenle(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -934,6 +945,8 @@ def FormDuzenle(request,my_slug):
 
 @login_required(login_url='giris-yap')
 def FormSil(request,my_slug):
+    if not request.user.is_superuser:
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2232,6 +2245,9 @@ def ForumCevapSil(request,pk):
 
 @login_required(login_url='giris-yap')
 def ForumSil(request,my_slug):
+    forum = ForumSoru.objects.get(baslik_slug=my_slug)
+    if not((request.user.is_superuser)  or (forum.profil.username==request.user.username)):
+        return redirect("404")
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2265,7 +2281,7 @@ def ForumSil(request,my_slug):
                 break
      
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    forum = ForumSoru.objects.get(baslik_slug=my_slug)
+    
     if request.method=='POST':
         if request.user.is_superuser  or forum.profil.username==request.user.username:
             forum.delete()
