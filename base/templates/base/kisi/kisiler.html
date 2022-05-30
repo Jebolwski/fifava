@@ -123,7 +123,7 @@
             {% csrf_token %}
             <table class="center col-8 col-sm-8 col-md-4 mb-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kişinin Adı" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-10" maxlength="40" placeholder="Aranacak Kişinin Adı" name="arama"></td>
                     <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                     {% if user.is_superuser %}
                     <td>
@@ -226,18 +226,18 @@
             scrollTrigger: ".tr",
             opacity: 0,
             duration: 1,
-            x: "-100%",
-            rotationX: "180",
+            y:"30",
             ease: "power1"
         })
         gsap.from(".th", {
-            scrollTrigger: ".tr",
+            scrollTrigger: ".th",
             opacity: 0,
             duration: 1,
-            x: "100%",
-            rotationX: "180",
+            y:"-40",
             ease: "power1"
         })
+    
+        
         let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
         arama.addEventListener('keyup',function(){

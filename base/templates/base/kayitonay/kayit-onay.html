@@ -135,9 +135,9 @@
             {% csrf_token %}
             <table class="center col-10 col-sm-8 col-md-7 mb-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kullanıcının Kullanıcı Adı" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kullanıcının Kullanıcı Adı" maxlength="150" name="arama"></td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-10" placeholder="Aranacak Kullanıcının Onay Durumu" name="arama1"></td>
+                    <td><input type="text" class="arama1 form-control col-10" placeholder="Aranacak Kullanıcının Onay Durumu" maxlength="12" name="arama1"></td>
                     <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                 </tr>
             </table>

@@ -248,16 +248,16 @@
         </div>
                 
                    
-        
+        <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevaplamak için bir girdi girin.</span>
 
         <div class="cevaplama-area">
             <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
             {% if request.user.is_authenticated %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" required name="cevap"></textarea></div>
-            <input type="submit" onclick="cevapla()" value="Cevapla" class="btn btn-outline-dark my-5 offset center">
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" maxlength="200" class="cevap-textarea form-control" required name="cevap"></textarea></div>
+            <input type="submit" onclick="cevapla()" value="Cevapla"  maxlength="200"  class="btn btn-outline-dark my-5 offset center">
             {% else %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" class="cevap-textarea form-control" required  name="cevap" disabled></textarea></div>
-            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center" disabled> 
+            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5"  maxlength="200"  class="cevap-textarea form-control" required  name="cevap" disabled></textarea></div>
+            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"  maxlength="200"  disabled> 
             {% endif %}
         </div>
     </main>
@@ -283,7 +283,7 @@
         </ul>
     </aside>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script defer>
         window.onbeforeunload = function() {
             var scrollPos;
@@ -432,6 +432,7 @@
 
         const cevapla = async () => {
             const cevap = document.querySelector(".cevap-textarea");
+            if(cevap.value!="" && cevap.value!=null){
             let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{
                 method:"POST",
                 mode: 'same-origin',
@@ -593,6 +594,22 @@
                     checkbox.checked=false;
                 }
             }
+            }
+            else{
+                gsap.from(".mesajiniz-olustu", {
+                    scrollTrigger: ".mesajiniz-olustu",
+                    display: 'block',
+                    opacity:1,
+                    duration: 4,
+                })
+                gsap.to(".mesajiniz-olustu", {
+                    opacity: 0,
+                    delay:3,
+                    duration:1,
+                    ease:"slow",
+                })
+            }
+        
         }
         
 
@@ -621,7 +638,8 @@
         }
     
         
-    
+        
+
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     {% endblock content %}
