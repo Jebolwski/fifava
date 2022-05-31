@@ -252,11 +252,11 @@
                                 </li>
                                 <li>
                                     <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğenme"></i></a>
-                                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                                    <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
                                     <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğen"></i></a> 
-                                    <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+                                    <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
                                 </li>
                                 {% endif %}
                         </ul>
