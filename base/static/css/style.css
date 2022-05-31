@@ -368,7 +368,15 @@ main .gonderdikleriniz {
 }
 
 main i {
-  color: #817952;
+  color: #887f52;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+main i:hover {
+  color: #44433b;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 main #particles-js {

@@ -301,7 +301,12 @@ main {
     background-size: cover;
   }
   i {
-    color: rgb(129, 121, 82);
+    color: rgb(136, 127, 82);
+    transition: 0.2s;
+    &:hover {
+      color: rgba(68, 67, 59, 1);
+      transition: 0.2s;
+    }
   }
   #particles-js {
     height: 100vh;

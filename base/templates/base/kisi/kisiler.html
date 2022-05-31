@@ -121,13 +121,15 @@
         <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
         <form method="POST">
             {% csrf_token %}
-            <table class="center col-8 col-sm-8 col-md-4 mb-5">
+            <table class="center col-10 col-sm-8 col-md-6 mb-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-10" maxlength="40" placeholder="Aranacak Kişinin Adı" name="arama"></td>
-                    <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
+                    <td><input type="text" class="arama form-control col-12" maxlength="40" placeholder="Aranacak Kişinin Adı" name="arama"></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
+                    <td><input type="text" class="arama1 form-control col-12" placeholder="Aranacak Kişinin Mesleği" maxlength="12" name="arama1"></td>
                     {% if user.is_superuser %}
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>
-                        <a href="{% url 'kisi-ekle' %}"> <i class="fa-solid fa-user-plus fa-lg pt-1 mx-3"></i></a>
+                        <a href="{% url 'kisi-ekle' %}"> <i class="fa-solid fa-user-plus fa-lg pt-1"></i></a>
                     </td>
                     {% endif %}
                 </tr>
@@ -240,10 +242,11 @@
         
         let kisi_satir = document.querySelectorAll(".kisi-tr");
         let arama = document.querySelector(".arama");
+        let arama1 = document.querySelector(".arama1");
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
                 
-                if(kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.children[2].innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
                     kisi.style.display=""
                 }
                 else{
@@ -252,6 +255,17 @@
             })
         })
 
+
+        arama1.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.children[2].innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                    kisi.style.display="";
+                }
+                else{
+                    kisi.style.display="none";
+                }
+            })
+        })
 
     </script>
 </body>

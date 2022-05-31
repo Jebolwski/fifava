@@ -136,9 +136,11 @@
         <h4 class="pt-5 text-center">Forumlar</h4>
         <form method="POST">
             {% csrf_token %}
-            <table class="center col-8 col-sm-8 col-md-4 mb-5 mt-5">
+            <table class="center col-8 col-sm-8 col-md-6 mb-5 mt-5">
                 <tr>
                     <td><input type="text" class="arama form-control col-10" maxlength="100" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
+                    <td><input type="text" class="arama1 form-control col-10" maxlength="100" placeholder="Aranacak Forumun Sahibi" name="arama1"></td>
                     <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                     {% if user.is_authenticated %}
                     <td>
@@ -159,7 +161,7 @@
                     <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
                 </div>
               <br>
-            <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 border soru_profil_url rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 border soru_profil_url rounded ms-1" style="height: 50px;width:50px;">
             <span class="ms-2 soru_username">Yönetici</span> 
             <div class="ms-4" style="border-left:3px solid rgb(114, 108, 53);padding-left:40px;margin-top: 20px;">
                 
@@ -178,7 +180,7 @@
             </div>
             <br>
             
-            <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}"  class="col-2 col-lg-1 rounded border ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
+            <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}"  class="col-2 col-lg-1 rounded border ms-1" style="height: 50px;width:50px;">
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
             <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
@@ -190,22 +192,23 @@
 
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
-                <div class="{{forum.id}} col-10 offset-1 border p-3 rounded mb-4 bg-light">
+                <div class="{{forum.id}} forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
                     
                         <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                             <span class="badge bg-dark">Yeni</span>
                         {% endif %}
                         <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                        
-                        <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 rounded mx-2 soru_profil_url" style="min-height: 50px;height: 2.98vh;width: 50px;"><span class="ms-2 soru_username">{{forum.profil.user.username}}</span> 
+                        <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
+                        <span class="ms-2 soru_username">
+                        {{forum.profil.user.username}}
+                        </span> 
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
                             <div class="bordered">
                                 <hr>
                                 <span class="soru_baslik text-break">
                                     {{forum.baslik}} 
-                                    
                                 </span>
                                 <hr>
                                 <span class="soru_aciklama text-break">{{forum.soru}}</span>
@@ -316,12 +319,22 @@
         }
         
        
-        let kisi_satir = document.querySelectorAll(".kisi-tr");
+        let kisi_satir = document.querySelectorAll(".forumlar_1");
         let arama = document.querySelector(".arama");
+        let arama1 = document.querySelector(".arama1");
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                
-                if(kisi.children[2].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.querySelector(".soru_baslik").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".soru_username").innerHTML.toLowerCase().includes(arama1.value.toLowerCase())){
+                    kisi.style.display=""
+                }
+                else{
+                    kisi.style.display="none"
+                }
+            })
+        })
+        arama1.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".soru_username").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".soru_baslik").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
                     kisi.style.display=""
                 }
                 else{
