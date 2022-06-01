@@ -188,12 +188,13 @@
         </div>
         
         
+              
+        
         {% if forumlar %}
-
+            
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
-                <div class="{{forum.id}} forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
-                    
+                <div class="forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
                         <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                             <span class="badge bg-dark">Yeni</span>
@@ -216,18 +217,42 @@
                                 {{forum.guncellenme_tarihi}}
                             </div> 
                             <hr>
-                        </a>
-                        
+                        </a>    
+                        <div class="gorenler-parent d-none" style="position: fixed;
+                            overflow-y: auto;
+                            top: 0;
+                            left: 0;
+                            width: 100vw;
+                            height: 100%;
+                            z-index: 11;
+                            background-color: rgba(98, 145, 199, 0.336);"
+                            >
+                           <div class="gorenler  col-8 offset-2 border p-3 rounded" style="background-color: white;
+                            overflow-y: auto;
+                            margin-top: 20vh;">
+                            <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
+                            <h4 class="ms-2">Görenler</h4>
+                            {% if forum.goruldu.all.count > 0 %}
+                            {% for kisiler in forum.goruldu.all %}
+                                <hr>
+                                <a href="{% url 'profil' kisiler.username|slugify %}" target="_blank" class="ms-2 text-black text-decoration-none">{{kisiler.username}}</a>
+                            {% endfor %}
+                            {% else %}
+                            <hr>
+                            <p class="ms-3">Forum görülmemiş.</p>
+                            {% endif %}
+                        </div>  
+                        </div>
+                                              
                         <ul class="list-unstyled d-flex justify-content-around">
                            
                                 {% if request.user.is_authenticated %}
-
 
                                 {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
                                     <li><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
                                 {% endif %}
 
-
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
                                 <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
@@ -246,6 +271,7 @@
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
                                 {% else %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" style="cursor: pointer;"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
                                 <li>
                                     <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Yorum"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
@@ -318,7 +344,10 @@
             }
         }
         
+
+
        
+
         let kisi_satir = document.querySelectorAll(".forumlar_1");
         let arama = document.querySelector(".arama");
         let arama1 = document.querySelector(".arama1");
@@ -515,8 +544,27 @@
             }
             
         }        
-
+        
+        const gorenleri_goster = async (event) =>{
+           let gorenler_all = document.querySelectorAll(".gorenler-parent");
+           console.log(gorenler_all);
+           gorenler_all.forEach(gorenler => {
+               if(!("d-none" in gorenler.classList)){
+                    gorenler.classList.add("d-none");
+               }
+               
+           });
+           let div = event.target.parentNode.parentNode.parentNode.querySelector(".gorenler-parent");
+           console.log(div);
+           div.classList.remove("d-none");
+        }
    
+        const gorenleri_kapa = async (event) =>{
+            let div = event.target.parentNode.parentNode;
+            div.classList.add("d-none");
+        }
+    
+    
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
