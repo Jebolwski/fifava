@@ -143,6 +143,9 @@
                         <i class="fa-solid fa-info p-3 fa-sm"></i>
                     </span>
                 </li>
+                {% if form.baslik.errors %}
+                    <p class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.baslik.errors}}</p>
+                {% endif %}
             </ul>
             <!-- <p class="col-6 offset-3">{{form.baslik}}</p> -->
             <h5 class="text-center mt-5">Soru</h5>
@@ -183,9 +186,10 @@
         let soru = document.getElementById("id_soru")
         soru.classList.add("form-control")
         baslik.classList.add("form-control")
+        baslik.maxLength=100;
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
-                content: `● Maksimum uzunluk 250 karakterdir.`,
+                content: `● Maksimum uzunluk 100 karakterdir.`,
                 animation: true,
                 placement: "right",
                 trigger: 'hover',
@@ -201,6 +205,7 @@
                 placement: "right",
             });
         });
+
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>

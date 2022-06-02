@@ -2255,8 +2255,8 @@ def ForumCevapSil(request,pk):
     return redirect("forum",forum.soru_id) 
 
 @login_required(login_url='giris-yap')
-def ForumSil(request,my_slug):
-    forum = ForumSoru.objects.get(baslik_slug=my_slug)
+def ForumSil(request,pk):
+    forum = ForumSoru.objects.get(id=pk)
     if not((request.user.is_superuser)  or (forum.profil.username==request.user.username)):
         return redirect("404")
     if True:
@@ -2348,9 +2348,9 @@ def ForumEkle(request):
     if request.method=="POST":
         data = request.POST.copy()
         data['profil']=ProfilFoto.objects.get(user_id=request.user.id)
-        data['baslik_slug']=slugify(data['baslik'])
         data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user.id)
         
+        print(request.POST)
         form = ForumEkleForm(data)
         if form.is_valid():
             form.save()

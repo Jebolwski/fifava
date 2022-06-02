@@ -194,7 +194,7 @@
             
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
-                <div class="forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
+                <div class="{{forum.id}} forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
                         <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                             <span class="badge bg-dark">Yeni</span>
@@ -203,6 +203,21 @@
                         <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
                         <span class="ms-2 soru_username">
                         {{forum.profil.user.username}}
+                        <span class="d-none d-md-inline"> 
+                                {% if forum.onay_durum.onaydurum == "Kabul Et" %}
+                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Bekle" %}
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Yasakla" %}
+                                <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
+                                {% elif forum.onay_durum.onaydurum == "Reddet" %}
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                {% else %} 
+                                - Onaylanmak için Kayıt Formunu Doldur 
+                                {% endif %}
+                            </span>
                         </span> 
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
@@ -218,18 +233,9 @@
                             </div> 
                             <hr>
                         </a>    
-                        <div class="gorenler-parent d-none" style="position: fixed;
-                            overflow-y: auto;
-                            top: 0;
-                            left: 0;
-                            width: 100vw;
-                            height: 100%;
-                            z-index: 11;
-                            background-color: rgba(98, 145, 199, 0.336);"
+                        <div class="gorenler-parent d-none"
                             >
-                           <div class="gorenler  col-8 offset-2 border p-3 rounded" style="background-color: white;
-                            overflow-y: auto;
-                            margin-top: 20vh;">
+                           <div class="gorenler  col-8 offset-2 border p-3 rounded">
                             <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
                             <h4 class="ms-2">Görenler</h4>
                             {% if forum.goruldu.all.count > 0 %}
@@ -249,7 +255,7 @@
                                 {% if request.user.is_authenticated %}
 
                                 {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
-                                    <li><a href="{% url 'forum-sil' forum.baslik|slugify %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
+                                    <li><a href="{% url 'forum-sil' forum.id %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
                                 {% endif %}
 
                                 <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>

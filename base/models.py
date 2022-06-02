@@ -242,7 +242,6 @@ class ProfilFoto(models.Model):
 class ForumSoru(models.Model):
     profil = models.ForeignKey(ProfilFoto,on_delete=models.CASCADE,null=True,blank=True)
     baslik = models.CharField(max_length=100,null=False,blank=False)
-    baslik_slug = models.SlugField(unique=True,null=False,blank=False)
     soru = models.TextField(max_length=1000,null=False,blank=False)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
