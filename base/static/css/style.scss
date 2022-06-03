@@ -488,10 +488,6 @@ main {
     top: -10vh;
     border-radius: 49%;
     border: 3px solid rgb(114, 108, 53);
-    animation-name: profil_foto_animation;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in;
   }
   .biyografi {
     .profil-biyografi {
@@ -887,9 +883,10 @@ main {
       }
     }
     .profil-foto {
-      width: 14vw;
-      height: 15vh;
+      width: 19vw;
+      height: 13vh;
       top: -5vh;
+      left: -3vw;
     }
     .top {
       margin-top: 8vh;

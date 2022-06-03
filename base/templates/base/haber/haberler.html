@@ -148,46 +148,39 @@
             </table>
         </form>
         {% if haberler %}
-        <table class="table table-striped table-hover">
-            <thead class="text-center">
-                <tr class="th">
-                    <th></th>
-                    <th class="aciklama">Başlık</th>
-                    <th class="aciklama">Açıklama</th>
-                    <th class="d-none d-md-table-cell">Tarih</th>
-
-                    <th class="aciklama">Detay</th>
-                    {% if user.is_superuser %}
-                    <th class="aciklama">Düzenle</th>
-                    <th class="aciklama">Sil</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
+       
+            
+          
                 {% for haber in haberler %}
-                <tr class="kisi-tr tr text-center">
-                    {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
-                    <td>
-                        <span class="badge bg-dark">Yeni</span>
-                    </td>
+                <div class="haber col-10 col-lg-8 offset-1 offset-lg-2 border bg-light p-3 mt-4 mb-1">
+                    
+                    <p class="haber_baslik text-center">{{haber.baslik}}</p>
+                    <hr>
+                    <p class="text-break">{{haber.aciklama}}</p>
+                    {% if haber.resim %}
+                    <hr>
+                    <img src="{{haber.resim.url}}" class="col-12 border rounded">
+                    {% endif %}
+                    <hr>
+                    {% if request.user.is_superuser %}
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li><a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></li>
+                        <li><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-pen-to-square"></i></a></li>
+                        <li><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-calendar-minus"></i></a></li>
+                    </ul>
+                    <hr>
+                    <p class="text-center">{{haber.guncellenme_tarihi}}</p>
                     {% else %}
-                    <td></td>
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li><a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></li>
+                        <li>{{haber.guncellenme_tarihi}}</li>
+                    </ul>
                     {% endif %}
-                    <td class="aciklama">{{haber.baslik}}</td>
-                    <td class="aciklama">{{haber.aciklama}}</td>
-
-                    <td class="d-none d-md-table-cell">{{haber.guncellenme_tarihi}}</td>
-                    <td>
-                        <a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a>
-                    </td>
-                    {% if user.is_superuser %}
-                    <td><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-pen-to-square"></i></a> </td>
-                    <td><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-calendar-minus"></i></a> </td>
-                    {% endif %}
-                </tr>
+                </div>
+                
                 {% endfor %}
-            </tbody>
-        </table>
+            
+    
         <p class="offset-1 mt-5">
             {% if haberler.has_previous%}
             <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if haberler.has_previous%}
@@ -264,16 +257,16 @@
         })
     
     
-        let kisi_satir = document.querySelectorAll(".kisi-tr");
+        let kisi_satir = document.querySelectorAll(".haber_baslik");
         let arama = document.querySelector(".arama");
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
                 
-                if(kisi.children[1].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
-                    kisi.style.display=""
+                if(kisi.innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                    kisi.parentNode.style.display=""
                 }
                 else{
-                    kisi.style.display="none"
+                    kisi.parentNode.style.display="none"
                 }
             })
         })

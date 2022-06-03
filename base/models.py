@@ -155,8 +155,6 @@ class Sorular(models.Model):
         return oran*100
 
 
-        
-
 
 class Cevaplar(models.Model):
     
