@@ -134,13 +134,13 @@
             <div class="col-10 col-lg-8 offset-1 offset-lg-2">
                 <h3 class="text-center h4">{{haber.baslik}}</h3>
                 <h4 class="responsive-text text-center h4 mt-5 mb-4">{{haber.aciklama}}</h4>
-                {% if haber.resim %}
-                <p class="text-center" style="overflow: hidden">
-                    <img src="{{haber.resim.url}}"  class="haber-img" class="col-12 col-sm-8 col-md-6 col-lg-4 mt-3">
-                </p>
-                {% endif %}
-                <p class="offset-6 offset-lg-8">{{haber.olusturulma_tarihi}}</p>
             </div>
+            {% if haber.resim %}
+            <p class="text-center" style="overflow: hidden">
+                <img src="{{haber.resim.url}}"  class="haber-img" class="col-12 mt-3">
+            </p>
+            {% endif %}
+            <p class="offset-4 offset-lg-8">{{haber.olusturulma_tarihi}}</p>
         </form>
     </main>
 
@@ -169,7 +169,6 @@
   <script>
       
       let foto=document.getElementsByClassName("{{haber.id}}");
-      console.log(foto[0]);
       foto[0].style.border="2px outset white";
   
   </script>
