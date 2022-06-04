@@ -40,6 +40,7 @@ urlpatterns = [
     #!AYARLAR
     path("ayarlar/",views.Ayarlar,name="ayarlar"),
     path("bulunamadi/",views.Bulunamadi1,name="404"),
+    path("hata1/",views.Hata1,name="500"),
 
 
 

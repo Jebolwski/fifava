@@ -138,15 +138,15 @@
         {% if kisiler %}
         
                 {% for kisi in kisiler %}
-                <div class="kisi_div border p-3 col-10 col-lg-8 offset-1 offset-lg-2 mt-4 bg-light">
+                    <div class="kisi_div  border p-3 col-10 col-lg-8 offset-1 offset-lg-2 mt-4 mb-3 bg-light">
                     <div class="row">
-                        <div class="col col-8 col-md-6 mt-2 ms-2">
-                            <p class="pt-2 kisi_ad">{{kisi.oyun_ad_soyad}}</p>
-                            <p class="pt-3 kisi_meslek">{{kisi.meslek}}</p>
-                            <p class="pt-4"><i>{{kisi.olusturulma_tarihi}}</i></p>
+                        <div class="col col-8 col-lg-6 mt-4 ms-2">
+                            <h4 class="pt-3 mt-2 kisi_ad card-title">{{kisi.oyun_ad_soyad}}</h4>
+                            <h4 class="pt-4 kisi_meslek">{{kisi.meslek}}</h4>
+                            <h5 class="pt-4"><i>{{kisi.olusturulma_tarihi}}</i></h5>
                         </div>
                         {% if request.user.is_superuser %}
-                        <div class="col col-2 offset-9 offset-md-6" style="margin-top:-147px">
+                        <div class="col col-2 offset-9 offset-md-6 card-footer" style="margin-top:-147px">
                             <ul class="list-unstyled d-flex flex-column align-content-around">
                                 <li class="mt-2"><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a></li>
                                 <li class="mt-4"><a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-pen"></i></a></li>
@@ -162,15 +162,15 @@
                         {% endif %}
                         <div class="offset-8">
                             {% if kisi.dosya %}
-                                <img src="{{kisi.dosya.url}}" class="kisiler-foto rounded d-none d-md-block">
+                                <img src="{{kisi.dosya.url}}" class="kisiler-foto rounded d-none d-md-block card-img-top ">
                             {% else %}
-                                <img src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" class="kisiler-foto rounded d-none d-md-block">
+                                <img src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" class="kisiler-foto rounded d-none d-md-block card-img-top ">
                             {% endif %}
                         </div>
                     </div>
                     
                     
-                </div>
+                    </div>
                 {% endfor %}
         {% else %}
         <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
@@ -197,7 +197,6 @@
         </ul>
     </aside>
 
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     <script defer>

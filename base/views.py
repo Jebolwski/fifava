@@ -36,6 +36,11 @@ def Hata(request):
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
 
+def Hata1(request):
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/500.html',context)
+
 
 def GirisYap(request):
     if request.user.is_authenticated and OnayDurum.objects.get(kisi_id=request.user.id).onaydurum!="Yasakla":

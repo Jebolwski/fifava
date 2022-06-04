@@ -777,10 +777,10 @@ main .gorenler-parent {
 }
 
 main .kisiler-foto {
-  width: 180px;
-  margin-left: 16px;
-  height: 190px;
-  margin-top: -175px;
+  width: 13.2vw;
+  margin-left: 9px;
+  height: 260px;
+  margin-top: -200px;
   border: 2px solid #726c35;
 }
 
@@ -1114,8 +1114,8 @@ main .kisiler-foto {
   }
   main .kisiler-foto {
     width: 140px;
-    height: 190px;
-    margin-top: -175px;
+    height: 220px;
+    margin-top: -205px;
     border: 2px solid #726c35;
   }
   .side-navbar svg {
