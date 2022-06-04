@@ -776,6 +776,14 @@ main .gorenler-parent {
   background-color: rgba(98, 145, 199, 0.336);
 }
 
+main .kisiler-foto {
+  width: 180px;
+  margin-left: 16px;
+  height: 190px;
+  margin-top: -175px;
+  border: 2px solid #726c35;
+}
+
 .haberler {
   position: fixed;
   top: 0;
@@ -1103,6 +1111,12 @@ main .gorenler-parent {
   }
   main .cevaplama-parent {
     width: 91.24vw;
+  }
+  main .kisiler-foto {
+    width: 140px;
+    height: 190px;
+    margin-top: -175px;
+    border: 2px solid #726c35;
   }
   .side-navbar svg {
     width: 18px;

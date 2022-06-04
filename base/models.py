@@ -32,6 +32,8 @@ class Haberler(models.Model):
     def __str__(self):
         return str(self.baslik)
 
+
+
 ONAY_DURUM = (
     ('Kabul Et','Kabul Et'),
     ('Bekle','Bekle'),
@@ -39,6 +41,8 @@ ONAY_DURUM = (
     ('Yasakla','Yasakla'),
     ('Cevapsız','Cevapsız'),
 )
+
+
 
 ANKET_SECIMLERI = (
     ('1','Kesinlikle Katılmıyorum'),
@@ -63,7 +67,6 @@ class OnayDurum(models.Model):
 class Sorular(models.Model):
     baslik                 = models.CharField(max_length=60,null=False,blank=False)
     onaydurum              = models.ForeignKey(OnayDurum,on_delete=models.CASCADE,null=True,blank=True)
-    baslik_slug            = models.SlugField(unique=True,null=True,blank=True)
     
     soru1                  = models.TextField(max_length=200,null=True,blank=True)
     soru2                  = models.TextField(max_length=200,null=True,blank=True)

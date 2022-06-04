@@ -636,6 +636,13 @@ main {
     z-index: 11;
     background-color: rgba(98, 145, 199, 0.336);
   }
+  .kisiler-foto {
+    width: 180px;
+    margin-left: 16px;
+    height: 190px;
+    margin-top: -175px;
+    border: 2px solid rgb(114, 108, 53);
+  }
 }
 
 .haberler {
@@ -837,6 +844,12 @@ main {
     }
     .cevaplama-parent {
       width: 91.24vw;
+    }
+    .kisiler-foto {
+      width: 140px;
+      height: 190px;
+      margin-top: -175px;
+      border: 2px solid rgb(114, 108, 53);
     }
   }
   .side-navbar {

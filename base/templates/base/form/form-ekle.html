@@ -131,6 +131,14 @@
                 <label class="pt-5">Formun Başlığı</label>
                 <ul class="list-unstyled d-grid col-12 center mb-5">
                     <li>{{form.baslik}}</li>
+                    {% for eror in form.errors %}
+                    <span>{{eror}}</span>
+                    {% endfor %}
+                    {% if form.baslik.errors %}
+                        <ul class="list-unstyled">
+                            <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.baslik.errors}}</li>
+                        </ul> 
+                    {% endif %}
                     <li style="position: relative;margin-left: 100%;margin-top: -40px;">
                         <span data-toggle="popover" title="Kurallar" class="profil-username" data-html="true">
                         <i class="fa-solid fa-info p-3 fa-sm"></i>
@@ -140,6 +148,7 @@
                 <h4 class="mt-4 mb-5">Şıklı Sorular</h4>
                 <label>Soru 1</label>
                 <div class="pb-5">{{ form.soru1 }}</div>
+                {{form.soru1.errors}}
                 <label>Soru 2</label>
                 <div class="pb-5">{{ form.soru2 }}</div>
                 <label>Soru 3</label>

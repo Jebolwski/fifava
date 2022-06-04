@@ -886,8 +886,8 @@ def FormEkle(request):
     if request.method=="POST":
         
         data = request.POST.copy()
-        data['baslik_slug'] = slugify(data['baslik'])
         form = SorularForm(data)
+        print(data)
         if form.is_valid():
             form.instance.user=request.user
             form.save()
@@ -901,7 +901,7 @@ def FormEkle(request):
 
 
 @login_required(login_url='giris-yap')
-def FormDuzenle(request,my_slug):
+def FormDuzenle(request,pk):
     if not request.user.is_superuser:
         return redirect("404")
     if True:
@@ -937,12 +937,11 @@ def FormDuzenle(request,my_slug):
                 break
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    form_instance = Sorular.objects.get(baslik_slug=my_slug)
+    form_instance = Sorular.objects.get(id=pk)
     form = SorularForm(instance=form_instance)
     form_instance.goruldu.add(request.user.id)
     if request.method=="POST":
         data = request.POST.copy()
-        data['baslik_slug'] = slugify(request.POST['baslik'])
         form = SorularForm(data,instance=form_instance)
         if form.is_valid():
             form.save()
@@ -955,7 +954,7 @@ def FormDuzenle(request,my_slug):
 
 
 @login_required(login_url='giris-yap')
-def FormSil(request,my_slug):
+def FormSil(request,pk):
     if not request.user.is_superuser:
         return redirect("404")
     if True:
@@ -991,7 +990,7 @@ def FormSil(request,my_slug):
                 break
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    form=Sorular.objects.get(baslik_slug=my_slug)
+    form=Sorular.objects.get(id=pk)
     if request.method=='POST':
         form.delete()
         return redirect("formlar")
@@ -1004,7 +1003,7 @@ def FormSil(request,my_slug):
 
 
 @login_required(login_url='giris-yap')
-def FormCevapla(request,my_slug):
+def FormCevapla(request,pk):
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1039,7 +1038,7 @@ def FormCevapla(request,my_slug):
     
     form = CevapForm()
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    sorular = Sorular.objects.get(baslik_slug = my_slug)
+    sorular = Sorular.objects.get(id = pk)
     benim_cevaplarim = Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id)
     if len(Cevaplar.objects.filter(kayitli_id=request.user.id,sorular_id=sorular.id))>0 :
         return redirect('cevaplanmis')
@@ -1068,7 +1067,7 @@ def FormCevapla(request,my_slug):
     return render(request,"base/form/form-cevapla.html",context)
 
 
-def FormDetay(request,my_slug):
+def FormDetay(request,pk):
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1102,7 +1101,7 @@ def FormDetay(request,my_slug):
                 break
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    soru=Sorular.objects.get(baslik_slug = my_slug)
+    soru=Sorular.objects.get(id = pk)
     soru.goruldu.add(request.user.id)
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
@@ -1115,7 +1114,7 @@ def FormDetay(request,my_slug):
 
 
 @login_required(login_url='giris-yap')
-def FormAnaliz(request,my_slug):
+def FormAnaliz(request,pk):
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1149,7 +1148,7 @@ def FormAnaliz(request,my_slug):
                 break
      
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    form = Sorular.objects.get(baslik_slug = my_slug)
+    form = Sorular.objects.get(id = pk)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
     form.goruldu.add(request.user.id)
     if True:
@@ -2350,7 +2349,6 @@ def ForumEkle(request):
         data['profil']=ProfilFoto.objects.get(user_id=request.user.id)
         data['onay_durum'] = OnayDurum.objects.get(kisi_id=request.user.id)
         
-        print(request.POST)
         form = ForumEkleForm(data)
         if form.is_valid():
             form.save()
