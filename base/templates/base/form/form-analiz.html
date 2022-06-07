@@ -168,6 +168,7 @@
             </p>
 
             <div class="cevaplar text-center">
+                {% if cevaplar %}
                 {% for cevap in cevaplar %}
                 <h4 class="pb-3">Anket Sahibi : {{cevap.kayitli}}</h4>
                 <table class="table table-striped table-hover mt-4">
@@ -346,6 +347,9 @@
                     </tr>
                 </table>
                 {% endfor %}
+                {% else %}
+                <h4 class="text-center">Form cevaplanmamış.</h4>
+                {% endif %}
             </div>
     </main>
 

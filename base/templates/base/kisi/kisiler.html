@@ -140,15 +140,15 @@
         {% if kisiler %}
             <div class="col-10 offset-1" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
                 {% for kisi in kisiler %}
-                        <div class="card col-5 mt-5 mb-4 border" style="background-color: rgba(212, 212, 212, 0.3);z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                            <h4 class="card-title text-center">{{kisi.oyun_ad_soyad}}</h4>
+                        <div class="card kisi_div col-5 mt-5 mb-4 border" style="background-color: rgba(212, 212, 212, 0.3);z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                            <h4 class="kisi_ad card-title text-center">{{kisi.oyun_ad_soyad}}</h4>
                             {% if kisi.dosya %}
                             <img class="card-img-top rounded" src="{{kisi.dosya.url}}" style="width: 40%;margin-left:30%;" >
                             {% else %}
                             <img class="card-img-top rounded col-2" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" style="width: 40%;margin-left:30%;">
                             {% endif %}
                             <div class="card-footer text-center">
-                                <h4 class="card-text text-center">{{kisi.meslek}}</h4>
+                                <h4 class="kisi_meslek card-text text-center">{{kisi.meslek}}</h4>
                             </div>
                             <h4 class="text-center card-text">{{kisi.olusturulma_tarihi}}</h4>
                             <hr>
@@ -171,7 +171,7 @@
                     <!-- <div class="kisi_div border p-3 col-10 col-lg-8 offset-1 offset-lg-2 mt-4 mb-3 bg-light">
                     <div class="row">
                         <div class="col col-8 col-lg-6 mt-4 ms-2">
-                            <h4 class="pt-3 mt-2 kisi_ad card-title">{{kisi.oyun_ad_soyad}}</h4>
+                            <h4 class="pt-3 mt-2 kisi_ad ">{{kisi.oyun_ad_soyad}}</h4>
                             <h4 class="pt-4 kisi_meslek">{{kisi.meslek}}</h4>
                             <h5 class="pt-4"><i>{{kisi.olusturulma_tarihi}}</i></h5>
                         </div>
