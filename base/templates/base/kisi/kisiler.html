@@ -141,20 +141,20 @@
             <div class="col-10 offset-1" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
                 {% for kisi in kisiler %}
                         <div class="card kisi_div col-5 mt-5 mb-4 border" style="background-color: rgba(212, 212, 212, 0.3);z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                            <h4 class="kisi_ad card-title text-center">{{kisi.oyun_ad_soyad}}</h4>
+                            <p class="kisi_ad card-title text-center">{{kisi.oyun_ad_soyad}}</p>
                             {% if kisi.dosya %}
-                            <img class="card-img-top rounded" src="{{kisi.dosya.url}}" style="width: 40%;margin-left:30%;" >
+                            <img class="card-img-top card-img-top-1 rounded" src="{{kisi.dosya.url}}" >
                             {% else %}
-                            <img class="card-img-top rounded col-2" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" style="width: 40%;margin-left:30%;">
+                            <img class="card-img-top card-img-top-1 rounded col-2" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" >
                             {% endif %}
                             <div class="card-footer text-center">
-                                <h4 class="kisi_meslek card-text text-center">{{kisi.meslek}}</h4>
+                                <p class="kisi_meslek card-text text-center">{{kisi.meslek}}</p>
                             </div>
-                            <h4 class="text-center card-text">{{kisi.olusturulma_tarihi}}</h4>
-                            <hr>
+                            <p class="text-center card-text d-none d-md-block">{{kisi.olusturulma_tarihi}}</p>
+                            <hr class="d-none d-md-block">
                             {% if request.user.is_superuser %}
                             <div>
-                                <ul class="list-unstyled d-flex justify-content-around">
+                                <ul class="list-unstyled great-list" >
                                     <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a></li>
                                     <li><a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-pen"></i></a></li>
                                     <li><a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-xmark"></i></a></li>
@@ -162,7 +162,7 @@
                             </div>
                             {% else %}
                             <div>
-                                <ul class="list-unstyled d-flex justify-content-around">
+                                <ul class="list-unstyled great-list">
                                     <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info fa-lg"></i></a></li>
                                 </ul>
                             </div>

@@ -36,10 +36,13 @@ def Hata(request):
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
 
+
+
 def Hata1(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
+
 
 
 def GirisYap(request):
@@ -67,6 +70,7 @@ def GirisYap(request):
     return render(request, 'base/giris.html',context)
 
 
+
 def CikisYap(request):
     logout(request)
     messages.success(request,"Başarıyla çıkış yapıldı.")
@@ -74,8 +78,6 @@ def CikisYap(request):
 
 
 def KayitOl(request):
-   
-
 
     if request.user.is_authenticated:
         return redirect("anasayfa")
@@ -87,6 +89,14 @@ def KayitOl(request):
             dizi.append(i.email)
         if request.POST['email'] in dizi:
             messages.error(request, 'Girdiğiniz email kullanımda.')
+            return redirect('kayit-ol')
+
+    if request.method == 'POST': 
+        dizi1=[]
+        for i in User.objects.all():
+            dizi1.append(i.username.lower())
+        if request.POST['username'].lower() in dizi1:
+            messages.error(request, 'Girdiğiniz kullanıcı adı kullanımda.')
             return redirect('kayit-ol')
         
         
@@ -892,7 +902,6 @@ def FormEkle(request):
         
         data = request.POST.copy()
         form = SorularForm(data)
-        print(data)
         if form.is_valid():
             form.instance.user=request.user
             form.save()

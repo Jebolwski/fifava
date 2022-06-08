@@ -723,6 +723,7 @@ main .haber-img {
   border: 4px solid #726c35;
   -webkit-animation-name: haber_border_animation;
           animation-name: haber_border_animation;
+  border-radius: 7px;
   -webkit-animation-duration: 3s;
           animation-duration: 3s;
   -webkit-animation-iteration-count: infinite;
@@ -788,6 +789,22 @@ main .kisiler-foto {
   height: 260px;
   margin-top: -200px;
   border: 2px solid #726c35;
+}
+
+main .card-img-top-1 {
+  width: 40%;
+  margin-left: 30%;
+}
+
+main .great-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .haberler {
@@ -1254,6 +1271,10 @@ main .kisiler-foto {
   }
   main .profil-edit {
     margin-left: 38vw;
+  }
+  main .card-img-top-1 {
+    width: 70%;
+    margin-left: 15%;
   }
   body {
     overflow-x: hidden;
