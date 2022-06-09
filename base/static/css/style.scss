@@ -48,6 +48,7 @@
 }
 
 body {
+  background-color: rgb(245, 245, 245);
   overflow-x: hidden;
   aside {
     background: linear-gradient(
@@ -81,6 +82,15 @@ body {
     height: 100vh;
     z-index: 34;
   }
+  .bottom-dag {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 51;
+    animation-name: ground_animation1;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
   .ground,
   .top-1 {
     position: absolute;
@@ -99,11 +109,8 @@ body {
     width: 100vw;
     height: 100vh;
     margin-top: 99.6vh;
-    z-index: 50;
+    z-index: 34;
     margin-left: -0.1vw;
-    animation-name: ground_animation;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
   }
   .kesfet-svg-1 {
     position: absolute;
@@ -800,21 +807,21 @@ main {
   }
 }
 
-@keyframes ground_animation {
+@keyframes ground_animation1 {
   0% {
-    background: rgba(153, 144, 65, 0.35);
+    background: rgba(192, 181, 86, 0.35);
   }
   30% {
-    background: rgba(153, 132, 65, 0.35);
+    background: rgba(192, 158, 45, 0.35);
   }
   50% {
-    background: rgba(137, 141, 54, 0.35);
+    background: rgba(167, 140, 53, 0.363);
   }
   70% {
-    background: rgba(124, 108, 55, 0.35);
+    background: rgba(192, 158, 45, 0.35);
   }
   100% {
-    background: rgba(153, 144, 65, 0.35);
+    background: rgba(192, 181, 86, 0.35);
   }
 }
 

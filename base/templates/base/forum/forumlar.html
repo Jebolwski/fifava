@@ -191,7 +191,6 @@
               
         
         {% if forumlar %}
-            
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
                 <div class="{{forum.id}} forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
@@ -295,11 +294,8 @@
                     
                 </div>
             {% endfor %}
-
         {% else %}
-
             <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
-
         {% endif %}
         
     </main>
