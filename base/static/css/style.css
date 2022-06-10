@@ -722,6 +722,7 @@ main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-re
 main .kisi-detay-foto {
   height: 70vh;
   border: 3px solid #726c35;
+  border-radius: 3px;
 }
 
 main .haber-img {
@@ -809,9 +810,8 @@ main .great-list {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .haberler {

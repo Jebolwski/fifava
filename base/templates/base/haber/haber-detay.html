@@ -133,14 +133,14 @@
             {% csrf_token %}
             <div class="col-10 col-lg-8 offset-1 offset-lg-2">
                 <h3 class="text-center h4">{{haber.baslik}}</h3>
-                <h4 class="responsive-text text-center h4 mt-5 mb-4">{{haber.aciklama}}</h4>
+                <h4 class="responsive-text text-center h4 mt-5 mb-4" style="font-weight: 400">{{haber.aciklama}}</h4>
             </div>
             {% if haber.resim %}
             <p class="text-center" style="overflow: hidden">
                 <img src="{{haber.resim.url}}"  class="haber-img" class="col-12 mt-3">
             </p>
             {% endif %}
-            <p class="offset-4 offset-lg-8">{{haber.olusturulma_tarihi}}</p>
+            <p class="offset-4 offset-lg-8"><i>{{haber.olusturulma_tarihi}}</i></p>
         </form>
     </main>
 
