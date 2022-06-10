@@ -62,7 +62,6 @@
 }
 
 body {
-  background-color: whitesmoke;
   overflow-x: hidden;
 }
 
@@ -1298,7 +1297,8 @@ main .great-list {
   body .house,
   body .kesfet-svg,
   body .top-1,
-  body .full-background {
+  body .full-background,
+  body .bottom-dag {
     display: none;
   }
 }

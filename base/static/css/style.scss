@@ -48,7 +48,6 @@
 }
 
 body {
-  background-color: rgb(245, 245, 245);
   overflow-x: hidden;
   aside {
     background: linear-gradient(
@@ -1013,7 +1012,8 @@ main {
     .house,
     .kesfet-svg,
     .top-1,
-    .full-background {
+    .full-background,
+    .bottom-dag {
       display: none;
     }
   }
