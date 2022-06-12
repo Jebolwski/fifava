@@ -660,7 +660,12 @@ main {
   }
   .great-list {
     display: flex;
+    align-items: center;
     justify-content: space-around;
+  }
+  .great-list-1 {
+    display: grid;
+    align-items: center;
     align-content: center;
   }
 }

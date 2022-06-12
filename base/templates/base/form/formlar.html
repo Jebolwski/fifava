@@ -149,9 +149,12 @@
         
                 {% for form in formlar %}
                 
-                    <div class="col-10 col-md-8 offset-1 offset-md-2 border p-3 mt-4 bg-light">
+                    <div class="col-10 col-md-8 offset-1 offset-md-2 border  mt-4 bg-light">
+                        {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
+                            <p class="text-center badge bg-dark col-12">Yeni</p>
+                        {% endif %}
                         <ul class="d-flex list-unstyled justify-content-around">
-                            <li class="form-baslik text-break text-center">{{form.baslik}}</li>
+                            <li class="form-baslik text-break text-center mt-3">{{form.baslik}}</li>
                         </ul>
                         <hr>
                         <ul class="d-flex list-unstyled justify-content-around">
