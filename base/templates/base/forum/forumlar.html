@@ -6,7 +6,7 @@
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
-<meta property="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="FIFAFOX | Forumlar" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
@@ -201,7 +201,7 @@
         {% if forumlar %}
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
-                <div class="{{forum.id}} forumlar_1 col-10 offset-1 border p-3 rounded mb-4 bg-light">
+                <div class="{{forum.id}} forumlar_1 col-10 offset-1 border border-dark p-3 rounded mb-4 bg-light">
                         <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                             <span class="badge bg-dark">Yeni</span>

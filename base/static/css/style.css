@@ -194,6 +194,7 @@ body .typing-demo {
 }
 
 .side-navbar {
+  border-right: 2px solid black;
   z-index: 100;
   left: 0;
   position: fixed;
@@ -602,7 +603,7 @@ main .profil-background img {
 main .profil-rest {
   position: relative;
   z-index: 3;
-  border-top: 3px solid #726c35;
+  border-top: 2px solid black;
   background-color: white;
 }
 
@@ -613,7 +614,7 @@ main .profil-foto {
   margin-left: 7vw;
   top: -10vh;
   border-radius: 49%;
-  border: 3px solid #726c35;
+  border: 2px solid black;
 }
 
 main .biyografi .profil-biyografi {
@@ -826,6 +827,7 @@ main .great-list-1 {
 }
 
 .haberler {
+  border-left: 2px solid black;
   position: fixed;
   top: 0;
   right: 0;

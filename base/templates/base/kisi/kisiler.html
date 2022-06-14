@@ -4,7 +4,7 @@
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
-<meta property="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="FIFAFOX | Oyuncular" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
@@ -148,7 +148,7 @@
         {% if kisiler %}
             <div class="col-10 offset-1" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
                 {% for kisi in kisiler %}
-                        <div class="card kisi_div col-5 mt-5 mb-4 border" style="background-color: rgba(212, 212, 212, 0.3);z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card kisi_div col-5 mt-5 mb-4 border border-dark rounded" style="background-color: rgba(212, 212, 212, 0.3);z-index: 100;" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
                                 <p class="text-center badge bg-dark">Yeni</p>
                             {% endif %}

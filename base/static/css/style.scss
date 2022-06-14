@@ -160,6 +160,7 @@ body {
 }
 
 .side-navbar {
+  border-right: 2px solid black;
   z-index: 100;
   left: 0;
   position: fixed;
@@ -486,7 +487,7 @@ main {
   .profil-rest {
     position: relative;
     z-index: 3;
-    border-top: 3px solid rgb(114, 108, 53);
+    border-top: 2px solid black;
     background-color: white;
   }
   .profil-foto {
@@ -496,7 +497,7 @@ main {
     margin-left: 7vw;
     top: -10vh;
     border-radius: 49%;
-    border: 3px solid rgb(114, 108, 53);
+    border: 2px solid black;
   }
   .biyografi {
     .profil-biyografi {
@@ -671,6 +672,7 @@ main {
 }
 
 .haberler {
+  border-left: 2px solid black;
   position: fixed;
   top: 0;
   right: 0;

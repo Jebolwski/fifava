@@ -4,7 +4,7 @@
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
-<meta property="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="FIFAFOX | Formlar" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
@@ -157,7 +157,7 @@
         
                 {% for form in formlar %}
                 
-                    <div class="col-10 col-md-8 offset-1 offset-md-2 border  mt-4 bg-light">
+                    <div class="col-10 col-md-8 offset-1 offset-md-2 border border-dark rounded mt-4 bg-light">
                         {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
                             <p class="text-center badge bg-dark col-12">Yeni</p>
                         {% endif %}
