@@ -50,11 +50,16 @@ def GirisYap(request):
             return redirect('anasayfa')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username1 = request.POST.get('username')
+        if len(User.objects.filter(username=username1))>0:
+            username1 = request.POST.get('username')
+        else:
+            username1 = User.objects.get(email=username1).username
         password = request.POST.get('password')
+        
 
         person = authenticate(
-            request, username=username, password=password)
+            request,username=username1, password=password)
 
         if person is not None:
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
@@ -64,7 +69,7 @@ def GirisYap(request):
             messages.success(request, 'Başarıyla giriş yapıldı.')
             return redirect('anasayfa')
         else:
-            messages.error(request,'Kullanıcı adı veya şifre hatalı.')
+            messages.error(request,'Kullanıcı adı, email veya şifre hatalı.')
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)

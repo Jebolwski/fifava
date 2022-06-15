@@ -150,34 +150,57 @@
                 </tr>
             </table>
         </form>
-        <table class="table table-striped table-hover text-center">
-            <thead>
-                <tr class="th">
-                    <td class="aciklama">Kullanıcı Adı</td>
-                    <td class="aciklama">Onay Durumu</td>
-                    <td class="aciklama">Kayıt Formu</td>
-                    <td class="d-none d-md-table-cell">Kayıt Tarihi</td>
-                </tr>
-            </thead>
-            <tbody>
+        
                 {% for i in onay %}
-                <tr class="kisi-tr tr">
-                    <td>{{i.kisi}}</td>
-                    <td class="aciklama">
-                        {% if i.onaydurum %} {% if i.onaydurum == "Kabul Et" %}
-                        <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
-                        <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}
-                        <i class="fa-solid fa-ban px-2"></i> Yasaklı {% elif i.onaydurum == "Reddet" %}
-                        <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% elif i.onaydurum == "Cevapsız" %}
-                        <i class="fa-solid fa-comment-slash"></i> Cevaplanmadı {% endif %} {% endif %}
-                    </td>
-                    <td><a href="{% url 'kayit-onay-form' i.kisi.id  %}"><i class="fa-solid fa-square-poll-vertical"></i></a></td>
-                    <td class="d-none d-md-table-cell">{{i.kisi.date_joined}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
 
+                <div class="kisi_div col-8 offset-2 col-lg-10 offset-lg-1 bg-light rounded border border-dark px-3 pt-3 mt-4">
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li title="Kullanıcı Adı" class="kullanici_adi"><a href="{% url 'profil' i.kisi|slugify %}" class="text-black" style="text-decoration: underline gray;">{{i.kisi}}</a></li>
+                        <li title="Email"><i>{{i.kisi.email}}</i></li>
+                        
+                        <li>
+                            <p title="Onay Durumu" class="onay_durumu">
+                                {% if i.onaydurum %} 
+                                    {% if i.onaydurum == "Kabul Et" %}
+                                        <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
+                                        <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}
+                                        <i class="fa-solid fa-ban px-2"></i> Yasaklı {% elif i.onaydurum == "Reddet" %}
+                                        <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% elif i.onaydurum == "Cevapsız" %}
+                                        <i class="fa-solid fa-comment-slash"></i> Cevaplanmadı 
+                                    {% endif %} 
+                                {% endif %}
+                            </p>
+                        </li>
+                    </ul>
+                    <hr>
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li>
+                            <p title="Kayıt Tarihi">{{i.kisi.date_joined}}</p>
+                        </li>
+                        <li>
+                            {% if i.kisi.last_login %}
+                            <p title="En Son Giriş Tarihi">{{i.kisi.last_login}}</p>
+                            {% else %}
+                            <p title="En Son Giriş Tarihi">Hiç giriş yapmadı.</p>
+                            {% endif %}
+                        </li>
+                        {% if i.kisi.is_superuser %}
+                        <li>
+                            <p title="Rolü">Yönetici</p>
+                        </li>
+                        {% else %}
+                        <li>
+                            <p title="Rolü">Normal Kullanıcı</p>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'kayit-onay-form' i.kisi.id  %}" title="Kayıt Formu"><i class="fa-solid fa-square-poll-vertical fa-lg"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                
+                {% endfor %}
+           
     </main>
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
@@ -205,13 +228,13 @@
     <script>
         
     
-        let kisi_satir = document.querySelectorAll(".kisi-tr");
+        let kisi_satir = document.querySelectorAll(".kisi_div");
         let arama = document.querySelector(".arama");
+        
         let arama1 = document.querySelector(".arama1");
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                
-                if(kisi.children[1].innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.children[0].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
                     kisi.style.display=""
                 }
                 else{
@@ -222,7 +245,7 @@
 
         arama1.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                if(kisi.children[1].innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.children[0].innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
                     kisi.style.display="";
                 }
                 else{

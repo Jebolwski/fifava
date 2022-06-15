@@ -29,12 +29,17 @@
     background-color: rgb(114, 108, 53);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgb(210, 181, 104);
-    border-radius: 20px;
+    background: linear-gradient(
+      177deg,
+      rgb(141, 132, 84) 0%,
+
+      rgb(126, 116, 70) 100%
+    );
+    outline: 1px solid rgb(104, 100, 51);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(184, 160, 94);
+    background: rgb(110, 96, 58);
   }
 
   ::-webkit-scrollbar {
@@ -60,6 +65,7 @@ body {
   .home {
     background-size: 100vw 100%;
     aside {
+      border: 0;
       position: fixed;
       height: 100%;
       background: linear-gradient(
