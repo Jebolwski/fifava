@@ -154,11 +154,11 @@
                             {% endif %}
 
 
-                            <p class="kisi_ad card-title text-center">{{kisi.oyun_ad_soyad}}</p>
+                            <h5 class="kisi_ad card-title text-center py-2">{{kisi.oyun_ad_soyad}}</h5>
                             {% if kisi.dosya %}
-                            <img class="card-img-top card-img-top-1 rounded" src="{{kisi.dosya.url}}" >
+                            <img class="card-img-top card-img-top-1 rounded border" src="{{kisi.dosya.url}}" >
                             {% else %}
-                            <img class="card-img-top card-img-top-1 rounded col-2 mb-3" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" >
+                            <img class="card-img-top card-img-top-1 rounded col-2 mb-3 border" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" >
                             {% endif %}
                             <div class="card-footer text-center">
                                 <p class="kisi_meslek card-text text-center">{{kisi.meslek}}</p>
@@ -166,8 +166,8 @@
                             <p class="text-center card-text d-none d-md-block mt-3" style="margin: 0">{{kisi.olusturulma_tarihi}}</p>
                             <hr class="d-none d-md-block">
                             {% if request.user.is_superuser %}
-                            <div class="great-list-1">
-                                <ul class="list-unstyled d-flex justify-content-around" >
+                            <div>
+                                <ul class="great-list" >
                                     <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a></li>
                                     <li><a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-pen"></i></a></li>
                                     <li><a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-xmark"></i></a></li>

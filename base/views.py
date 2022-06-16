@@ -556,12 +556,6 @@ def Haberlerim(request):
     p = Paginator(haberler,10)
     page = request.GET.get('page')
     haber = p.get_page(page)
-    if request.method=='POST':
-        arama=request.POST['arama']
-        sorular=Haberler.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
-        p = Paginator(sorular,10)
-        page = request.GET.get('page')
-        haber = p.get_page(page)
     
     if True:
         haber_bildirim=False
@@ -816,12 +810,6 @@ def Formlar(request):
     p = Paginator(sorular,10)
     page = request.GET.get('page')
     soru = p.get_page(page)
-    if request.method=='POST':
-        arama=request.POST['arama']
-        sorular=Sorular.objects.filter(baslik__icontains=arama).order_by('-guncellenme_tarihi')
-        p = Paginator(sorular,10)
-        page = request.GET.get('page')
-        soru = p.get_page(page)
     
     if True:
         haber_bildirim=False

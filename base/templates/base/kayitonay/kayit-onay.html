@@ -156,7 +156,7 @@
                 <div class="kisi_div col-8 offset-2 col-lg-10 offset-lg-1 bg-light rounded border border-dark px-3 pt-3 mt-4">
                     <ul class="list-unstyled d-flex justify-content-around">
                         <li title="Kullanıcı Adı" class="kullanici_adi"><a href="{% url 'profil' i.kisi|slugify %}" class="text-black" style="text-decoration: underline gray;">{{i.kisi}}</a></li>
-                        <li title="Email"><i>{{i.kisi.email}}</i></li>
+                        <li title="Email" class="d-none d-md-block"><i>{{i.kisi.email}}</i></li>
                         
                         <li>
                             <p title="Onay Durumu" class="onay_durumu">
@@ -174,12 +174,12 @@
                     </ul>
                     <hr>
                     <ul class="list-unstyled d-flex justify-content-around">
-                        <li>
-                            <p title="Kayıt Tarihi">{{i.kisi.date_joined}}</p>
+                        <li class="d-none d-md-block">
+                            <p title="Kayıt Tarihi" >{{i.kisi.date_joined}}</p>
                         </li>
-                        <li>
+                        <li class="d-none d-md-block">
                             {% if i.kisi.last_login %}
-                            <p title="En Son Giriş Tarihi">{{i.kisi.last_login}}</p>
+                            <p title="En Son Giriş Tarihi" >{{i.kisi.last_login}}</p>
                             {% else %}
                             <p title="En Son Giriş Tarihi">Hiç giriş yapmadı.</p>
                             {% endif %}
