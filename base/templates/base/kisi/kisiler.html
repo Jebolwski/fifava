@@ -167,7 +167,7 @@
                             <hr class="d-none d-md-block">
                             {% if request.user.is_superuser %}
                             <div>
-                                <ul class="great-list" >
+                                <ul class="great-list list-unstyled" >
                                     <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a></li>
                                     <li><a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-pen"></i></a></li>
                                     <li><a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-xmark"></i></a></li>
