@@ -156,11 +156,8 @@
             </table>
         </form>
         {% if haberler %}
-       
-            
-          
                 {% for haber in haberler %}
-                <div class="haber col-10 col-lg-8 offset-1 offset-lg-2 border border-dark rounded bg-light p-3 mt-4 mb-1">
+                <div class="haber forumlar_1 col-10 col-lg-8 offset-1 offset-lg-2 border border-dark rounded p-3 mt-4 mb-1">
                     
                     <p class="haber_baslik text-center">{{haber.baslik}}</p>
                     <hr>
@@ -187,8 +184,6 @@
                 </div>
                 
                 {% endfor %}
-            
-    
         <p class="offset-1 mt-5">
             {% if haberler.has_previous%}
             <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if haberler.has_previous%}

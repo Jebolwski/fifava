@@ -817,6 +817,26 @@ main .great-list {
   list-style: none;
 }
 
+main .forumlar_1 {
+  background-color: #fafafa;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+main .forumlar_1:hover {
+  background-color: #ececec;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+main .forumlar_1 {
+  background-color: #fafafa;
+}
+
+main .forumlar_1:hover {
+  background-color: #ececec;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;

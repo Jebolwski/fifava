@@ -157,7 +157,7 @@
         
                 {% for form in formlar %}
                 
-                    <div class="col-10 col-md-8 offset-1 offset-md-2 border border-dark rounded mt-4 bg-light">
+                    <div class="col-10 col-md-8 offset-1 offset-md-2 forumlar_2 border border-dark rounded mt-4">
                         {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
                             <p class="text-center badge bg-dark col-12">Yeni</p>
                         {% endif %}
