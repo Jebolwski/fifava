@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body><div class="cursor"></div>
 
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
@@ -166,7 +166,7 @@
           <div class="cevaplama col-10 offset-1 border p-3 mb-4">
               <span class="soru_id" style="display: none;"></span>
                 <div class="cevapla_kapa_parent">
-                    <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
+                    <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" ></i>
                 </div>
               <br>
             <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 border soru_profil_url rounded ms-1" style="height: 50px;width:50px;">
@@ -213,15 +213,15 @@
                         </span> 
                             <span class="d-none d-md-inline"> 
                                 {% if forum.onay_durum.onaydurum == "Kabul Et" %}
-                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-check px-2 fa-sm" ></i>
                                 {% elif forum.onay_durum.onaydurum == "Bekle" %}
-                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm" ></i>
                                 {% elif forum.onay_durum.onaydurum == "Yasakla" %}
-                                <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
+                                <i class="fa-solid fa-ban" ></i> 
                                 {% elif forum.onay_durum.onaydurum == "Reddet" %}
-                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" ></i>
                                 {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." ></i> 
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
@@ -243,7 +243,7 @@
                         <div class="gorenler-parent d-none"
                             >
                            <div class="gorenler  col-8 offset-2 border p-3 rounded">
-                            <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
+                            <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)"></i>
                             <h4 class="ms-2">Görenler</h4>
                             {% if forum.goruldu.all.count > 0 %}
                             {% for kisiler in forum.goruldu.all %}
@@ -265,36 +265,36 @@
                                     <li><a href="{% url 'forum-sil' forum.id %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
                                 {% endif %}
 
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
-                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı"  onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)"  title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
                                     {% if request.user in forum.likes.all %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                        <i class="begen fa-solid fa-heart fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
                                     {% else %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begen fa-solid fa-heart fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
                                     {% endif %}
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
                                 {% else %}
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" style="cursor: pointer;"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" ></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Yorum"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment"  title="Yorum"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğenme"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack"  title="Beğenme"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğen"></i></a> 
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart"   title="Beğen"></i></a> 
                                     <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
                                 </li>
                                 {% endif %}
@@ -557,7 +557,6 @@
         
         const gorenleri_goster = async (event) =>{
            let gorenler_all = document.querySelectorAll(".gorenler-parent");
-           console.log(gorenler_all);
            gorenler_all.forEach(gorenler => {
                if(!("d-none" in gorenler.classList)){
                     gorenler.classList.add("d-none");
@@ -565,7 +564,6 @@
                
            });
            let div = event.target.parentNode.parentNode.parentNode.querySelector(".gorenler-parent");
-           console.log(div);
            div.classList.remove("d-none");
         }
    

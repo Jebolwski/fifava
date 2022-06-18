@@ -1,7 +1,14 @@
 * {
+  cursor: none;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  .nav-item {
+    cursor: none;
+  }
+  .btn {
+    cursor: none;
+  }
   .btn-outline-dark {
     transition: 0.3s;
     color: rgb(129, 121, 82);
@@ -163,6 +170,39 @@ body {
     border-right: 1px solid;
     font-size: 1.1em;
   }
+  .cursor {
+    position: fixed;
+    height: 28px;
+    width: 28px;
+    top: -50px;
+    left: -50px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid black;
+    z-index: 101;
+    pointer-events: none;
+    transition: 0.2s;
+    transition-property: backgorund, transform;
+    transform: scale(1);
+  }
+  .backgroundWhite {
+    background: rgba(204, 204, 204, 0.35);
+    border: 2px solid black;
+    transform: scale(1.2);
+  }
+  .backgroundBlack {
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.308);
+    transform: scale(1.4);
+  }
+  .backgroundImg {
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(95, 95, 95, 0.308);
+    transform: scale(1.3);
+  }
+  .cursorClick {
+    animation: click 0.6s ease;
+  }
 }
 
 .side-navbar {
@@ -201,7 +241,6 @@ body {
     }
   }
   .logo-side-navbar {
-    cursor: pointer;
   }
 }
 
@@ -540,7 +579,6 @@ main {
     img {
       transform: translateX(-50%);
       border-radius: none;
-      pointer-events: none;
     }
     .profil-foto-kapa {
       z-index: 100;
@@ -672,10 +710,10 @@ main {
   }
   .forumlar_1 {
     background-color: rgb(250, 250, 250);
-    transition: 0.3s ease;
+    transition: 0.2s ease;
     &:hover {
       background-color: rgb(236, 236, 236);
-      transition: 0.3s ease;
+      transition: 0.2s ease;
     }
   }
   .forumlar_1 {
@@ -844,6 +882,18 @@ main {
   }
   100% {
     background: rgba(192, 181, 86, 0.35);
+  }
+}
+
+@keyframes click {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+    background-color: rgba(194, 194, 194, 0.459);
+  }
+  100% {
   }
 }
 

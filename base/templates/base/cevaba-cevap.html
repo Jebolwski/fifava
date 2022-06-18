@@ -6,7 +6,9 @@
 
 </head>
 
-<body>
+<body><div class="cursor"></div>
+    
+
     <div class="loading col-12">
         <img src="{% static 'images/logo.png' %}">
     </div>
@@ -124,6 +126,7 @@
         </aside>
 
     <main class="col-11 col-lg-10 offset-1">
+
         {% for message in messages %}
         <div class="anasayfa-message">{{message}}</div>
         {% endfor %}
@@ -168,13 +171,15 @@
     </aside>
 
 
-    <script>
+        <script defer>
+        
+
+
         $(window).on("load", function() {
             $('.loading').fadeOut(800);
         });
 
         let height = window.innerHeight;
-        console.log(height);
 
         function kesfet_kay() {
             window.scrollTo({

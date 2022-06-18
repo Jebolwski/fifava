@@ -13,7 +13,7 @@
 
 </head>
 
-<body>
+<body><div class="cursor"></div>
     <div class="loading col-12">
         <img src="{% static 'images/logo.png' %}">
     </div>
@@ -177,7 +177,10 @@
     </div>
 
 
-    <script>
+        <script defer>
+        
+
+
         $(window).on("load", function() {
             $('.loading').fadeOut(800);
         });

@@ -10,7 +10,7 @@
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 </head>
 
-<body>
+<body><div class="cursor"></div>
 
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
@@ -157,7 +157,7 @@
         
                 {% for form in formlar %}
                 
-                    <div class="col-10 col-md-8 offset-1 offset-md-2 forumlar_2 border border-dark rounded mt-4">
+                    <div class="col-10 col-md-8 offset-1 offset-md-2 forumlar_1 border border-dark rounded mt-4">
                         {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
                             <p class="text-center badge bg-dark col-12">Yeni</p>
                         {% endif %}
@@ -302,7 +302,6 @@
         let arama = document.querySelector(".arama");
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                console.log(kisi.parentNode.parentNode);
                 if(kisi.innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
                     kisi.parentNode.parentNode.style.display=""
                 }

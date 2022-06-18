@@ -1,8 +1,17 @@
 * {
+  cursor: none;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+* .nav-item {
+  cursor: none;
+}
+
+* .btn {
+  cursor: none;
 }
 
 * .btn-outline-dark {
@@ -194,6 +203,54 @@ body .typing-demo {
   font-size: 1.1em;
 }
 
+body .cursor {
+  position: fixed;
+  height: 28px;
+  width: 28px;
+  top: -50px;
+  left: -50px;
+  border-radius: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border: 3px solid black;
+  z-index: 101;
+  pointer-events: none;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  -webkit-transition-property: backgorund, -webkit-transform;
+  transition-property: backgorund, -webkit-transform;
+  transition-property: backgorund, transform;
+  transition-property: backgorund, transform, -webkit-transform;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+body .backgroundWhite {
+  background: rgba(204, 204, 204, 0.35);
+  border: 2px solid black;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+body .backgroundBlack {
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.308);
+  -webkit-transform: scale(1.4);
+          transform: scale(1.4);
+}
+
+body .backgroundImg {
+  border: 1px solid white;
+  background-color: rgba(95, 95, 95, 0.308);
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+body .cursorClick {
+  -webkit-animation: click 0.6s ease;
+          animation: click 0.6s ease;
+}
+
 .side-navbar {
   border-right: 2px solid black;
   z-index: 100;
@@ -243,10 +300,6 @@ body .typing-demo {
           transform: rotateZ(360deg);
   -webkit-transition: 1s;
   transition: 1s;
-}
-
-.side-navbar .logo-side-navbar {
-  cursor: pointer;
 }
 
 main .one-container {
@@ -660,7 +713,6 @@ main .profil-foto-buyuk img {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   border-radius: none;
-  pointer-events: none;
 }
 
 main .profil-foto-buyuk .profil-foto-kapa {
@@ -819,14 +871,14 @@ main .great-list {
 
 main .forumlar_1 {
   background-color: #fafafa;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 main .forumlar_1:hover {
   background-color: #ececec;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 main .forumlar_1 {
@@ -1145,6 +1197,34 @@ main .forumlar_1:hover {
   }
   100% {
     background: rgba(192, 181, 86, 0.35);
+  }
+}
+
+@-webkit-keyframes click {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+    background-color: rgba(194, 194, 194, 0.459);
+  }
+  100% {
+  }
+}
+
+@keyframes click {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+    background-color: rgba(194, 194, 194, 0.459);
+  }
+  100% {
   }
 }
 

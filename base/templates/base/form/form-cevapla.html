@@ -10,7 +10,7 @@
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 </head>
 
-<body>
+<body><div class="cursor"></div>
 
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
@@ -237,7 +237,10 @@
     </aside>
 
 
-    <script>
+        <script defer>
+        
+
+
         if (document.querySelector(".soru1")) {
             document.querySelector(".soru1").setAttribute("required", "");
         }
@@ -312,7 +315,6 @@
         if (document.querySelector(".soru18")) {
             document.querySelector(".soru18").setAttribute("required", "");
         }
-        console.log(document.querySelector(".sorular_baslik").innerHTML);
 
 
         if (document.querySelector(".sorular_baslik").innerHTML == "FIFAVOX RolePlay Kayıt Formu") {

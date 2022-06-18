@@ -10,7 +10,7 @@
 <title>{{haber.baslik}} | FIFAVOX</title>
 </head>
 
-<body>
+<body><div class="cursor"></div>
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 
@@ -174,7 +174,10 @@
                 {% endfor %}
             </ul>
         </aside>
-  <script>
+      <script defer>
+        
+
+
       
       let foto=document.getElementsByClassName("{{haber.id}}");
       foto[0].style.border="2px outset white";

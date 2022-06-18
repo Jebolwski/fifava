@@ -10,7 +10,7 @@
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 </head>
 
-<body>
+<body><div class="cursor"></div>
     <aside class="side-navbar col-1">
         <ul class="p-0 text-center">
 
@@ -204,7 +204,7 @@
                     
                     <div class="pb-3">{{ form.soru10 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-0 pb-3" onclick="cevap_ekle()" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-0 pb-3" onclick="cevap_ekle()" ></i>
                 
                 <h4 class="mt-4 mb-5">Metinli Sorular</h4>
                 <div class="formsoru1 soru11">
@@ -259,7 +259,7 @@
                     
                     <div class="pb-3">{{ form.soru18 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-1 pb-3 pt-1" onclick="cevap_ekle1()" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-1 pb-3 pt-1" onclick="cevap_ekle1()" ></i>
                 <h4 class="mt-4 mb-5">Onay Kutuları</h4>
                 <div class="formsoru2 soru19">
                     <label>Onay Kutusu 1</label>
@@ -282,7 +282,7 @@
                     
                     <div class="pb-3">{{ form.onay4 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-2 pt-1" onclick="cevap_ekle2()" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-2 pt-1" onclick="cevap_ekle2()" ></i>
                 <br>
                 <input type="submit" value="Form Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
             </div>
@@ -340,10 +340,8 @@
                 const element = formsoru[i];
                 if(element.classList[1]!="d-none"){
                     sayi++;
-                    console.log(element);
                 }
             }
-            console.log(sayi);
             if(sayi==1){
                 let soru2=document.querySelector(".soru2");
                 soru2.classList.remove("d-none");
@@ -445,7 +443,6 @@
                     sayi++;
                 }
             }
-            console.log(sayi);
             if(sayi==1){
                 let soru2=document.querySelector(".soru20");
                 soru2.classList.remove("d-none");

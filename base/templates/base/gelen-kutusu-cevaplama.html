@@ -4,7 +4,7 @@
 
 </head>
 
-<body>
+<body><div class="cursor"></div>
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 
@@ -182,7 +182,10 @@
             {% endfor %}
         </ul>
     </aside>
-    <script>
+        <script defer>
+        
+
+
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",

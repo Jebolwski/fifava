@@ -175,6 +175,9 @@
                 {% for foru in forum %}
                 <div class="border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-{{foru.cevaba_cevap.id}}" id="-{{foru.id}}">
                     <p style="color: gray;" class="cevaplandi">
+                        {% if soru.profil.user.username == foru.cevaba_cevap.profil.user.username %}
+                        <a href="{% url 'profil' soru.profil.user.username|slugify %}"  class="text-decoration-none">@{{soru.profil.user.username|lower}}</a> adlı kullanıcıya yanıt olarak
+                        {% else %}
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
                         
                         {% if foru.cevaba_cevap %}
@@ -184,6 +187,7 @@
                         <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
                             adlı kullanıcıya yanıt olarak
                         </span>
+                        {% endif %}
                     </p>
 
                     
@@ -204,7 +208,7 @@
                     {% csrf_token %}
                     <p class="text-break">{{foru.cevap}}
                     <input type="checkbox" name="check_{{foru.id}}" onclick="kay()" class="cevaba_cevap_class {{foru.id}}" id="{{foru.id}}" style="visibility: hidden;"  />
-                    <label for="{{foru.id}}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
+                    <label for="{{foru.id}}" ><i class="fa-solid fa-reply" id="reply"></i></label>
                         {% if request.user.is_superuser %}
                         <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil('{{foru.id}}')"></i>
                         {% endif %}
@@ -219,22 +223,22 @@
                         {% if request.user.is_authenticated %}
 
                             {% if request.user in foru.likes.all and request.user.is_authenticated %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
                             {% else %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
                             {% endif %}
 
 
                             {% if request.user in foru.dislikes.all and request.user.is_authenticated %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
                             {% else %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
                             {% endif %}
                         
                         {% else %}
 
-                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">{{foru.total_likes}}</span> 
-                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">{{foru.total_dislikes}}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">{{foru.total_likes}}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">{{foru.total_dislikes}}</span> 
 
                         {% endif %}
                         </div>
@@ -453,18 +457,20 @@
                 let cevaplar = document.querySelector(".cevaplar");
                 let foru = await response.json();
                 cevap.value=""
-                console.log(foru);
                 if (foru.cevaba_cevap!=null){
                          cevaplar.innerHTML+=
                             `
                 <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}"  id="-${foru.id}">
                 <p style="color: gray;" class="cevaplandi">
+                        {% if soru.profil.user.username == '${foru.cevaba_cevap.profil.user.username}' %}
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
+                        {% else %}
                         ve
                         <a class="text-decoration-none">  @${foru.cevaba_cevap_username.toLowerCase()}</a> 
                         <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
                             adlı kullanıcılara yanıt olarak
                         </span>
+                        {% endif %}
                     </p>
                 <hr> 
                 <p>
@@ -482,7 +488,7 @@
                 <form method="post">{% csrf_token %}
                     <p class="text-break">${foru.cevap}
                         <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
+                        <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply"></i></label>
                         {% if request.user.is_superuser %}
                         <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
                         {% endif %}
@@ -496,22 +502,22 @@
                         {% if request.user.is_authenticated %}
 
                             {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
                             {% else %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
                             {% endif %}
 
 
                             {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                             {% else %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                             {% endif %}
 
                         {% else %}
 
-                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
                         
                             {% endif %}
                     </div>
@@ -547,7 +553,7 @@
                         <form method="post">{% csrf_token %}
                             <p class="text-break">${foru.cevap}
                                 <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                                <label for="${foru.id}" style="cursor: pointer;"><i class="fa-solid fa-reply" id="reply"></i></label>
+                                <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply"></i></label>
                                 {% if request.user.is_superuser %}
                                 <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
                                 {% endif %}
@@ -561,23 +567,23 @@
                                 {% if request.user.is_authenticated %}
                                 
                                     {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
                                     {% else %}
-                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
                                     {% endif %}
                                 
                                     {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
-                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer;color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                                     {% else %}
-                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="cursor:pointer" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                                     {% endif %}
                                 
                                 
                                 {% else %}
 
 
-                                    <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style="cursor:pointer"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                                    <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style="cursor:pointer"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
                                 
                                 {% endif %}
                             </div>

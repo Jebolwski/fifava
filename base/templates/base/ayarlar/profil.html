@@ -17,7 +17,7 @@
 </style>
 </head>
 
-<body>
+<body><div class="cursor"></div>
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 {% if request.user.is_authenticated %}
@@ -144,9 +144,9 @@
         {% for message in messages %}
         <div class="message col-6 col-sm-6 col-md-4 col-3 text-center" style="z-index: 100;">{{message}}</div>
         {% endfor %} {%if profil.arka_plan %}
-        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{{profil.arka_plan.url}}"></div>
+        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;" src="{{profil.arka_plan.url}}"></div>
         {% else %}
-        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{% static 'images/default-background.jpg' %}"></div>
+        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;" src="{% static 'images/default-background.jpg' %}"></div>
         {% endif %}
 
         <div class="buyukler">
@@ -157,7 +157,7 @@
             <img src="{% static 'images/default-profile.jpg' %}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" title="profil-foto" onclick="profil_foto_buyu()" > 
             {% endif %}
             <div class="profil-foto-kapa-1" onclick="profil_foto_kapa()"><br/></div>
-            <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="cursor: pointer;" onclick="profil_foto_kapa()"></i>
+            <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="" onclick="profil_foto_kapa()"></i>
             </div>
             <div class="arkaplan-foto-buyuk" style="display: none;">
             {%if profil.arka_plan %}
@@ -165,7 +165,7 @@
             {% else %}
             <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
             {% endif %}
-            <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
+            <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="" onclick="arkaplan_foto_kapa()"></i> 
             <div class="arkaplan-foto-kapa-1" onclick="arkaplan_foto_kapa()">
                 <br>
             </div>
@@ -175,8 +175,8 @@
 
         <div class="profil-rest" style="height: 100vh;">
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 10;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
-            <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;z-index: 10;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
+            <img src="{{profil.resim.url}}" class="profil-foto" style="z-index: 10;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" style="z-index: 10;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
             <div class="biyografi">
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
@@ -212,15 +212,15 @@
                             {% endif %}" class="profil-username">{{profil.username}} {% if durum %}
                             <span class="d-none d-md-inline"> 
                                 {% if durum.onaydurum == "Kabul Et" %}
-                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-check px-2 fa-sm" style=""></i>
                                 {% elif durum.onaydurum == "Bekle" %}
-                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style=""></i>
                                 {% elif durum.onaydurum == "Yasakla" %}
-                                <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
+                                <i class="fa-solid fa-ban" style=""></i> 
                                 {% elif durum.onaydurum == "Reddet" %}
-                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style=""></i>
                                 {% elif durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style=""></i> 
                                 {% endif %} 
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
@@ -246,7 +246,7 @@
                 <div class="cevaplama col-10 offset-1 border p-3 mb-4">
                 <span class="soru_id" style="display: none;"></span>
                     <div class="cevapla_kapa_parent">
-                        <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" style="cursor: pointer;"></i>
+                        <i class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4" onclick="cevapla_kapa()" style=""></i>
                     </div>
                 <br>
                 <img src="../../../static/images/insigne.jpg" class="col-2 col-lg-1 border soru_profil_url rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
@@ -291,15 +291,15 @@
                         </span> 
                             <span class="d-none d-md-inline"> 
                                 {% if forum.onay_durum.onaydurum == "Kabul Et" %}
-                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-check px-2 fa-sm" style=""></i>
                                 {% elif forum.onay_durum.onaydurum == "Bekle" %}
-                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style=""></i>
                                 {% elif forum.onay_durum.onaydurum == "Yasakla" %}
-                                <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
+                                <i class="fa-solid fa-ban" style=""></i> 
                                 {% elif forum.onay_durum.onaydurum == "Reddet" %}
-                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style=""></i>
                                 {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style=""></i> 
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
@@ -321,7 +321,7 @@
                         <div class="gorenler-parent d-none"
                             >
                            <div class="gorenler  col-8 offset-2 border p-3 rounded">
-                            <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
+                            <i class="fa-solid fa-xmark fa-xl mb-4" style="" onclick="gorenleri_kapa(event)"></i>
                             <h4 class="ms-2">Görenler</h4>
                             {% if forum.goruldu.all.count > 0 %}
                             {% for kisiler in forum.goruldu.all %}
@@ -343,36 +343,36 @@
                                     <li><a href="{% url 'forum-sil' forum.id %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
                                 {% endif %}
 
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
-                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
                                     {% if request.user in forum.likes.all %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer;color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                        <i class="begen fa-solid fa-heart fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
                                     {% else %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="cursor:pointer" onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begen fa-solid fa-heart fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
                                     {% endif %}
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
                                 {% else %}
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" style="cursor: pointer;"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" style=""></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment" style="cursor:pointer" title="Yorum"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment"  title="Yorum"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack" style="cursor:pointer" title="Beğenme"></i></a>
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack"  title="Beğenme"></i></a>
                                     <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart" style="cursor:pointer"  title="Beğen"></i></a> 
+                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart"   title="Beğen"></i></a> 
                                     <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
                                 </li>
                                 {% endif %}
@@ -617,7 +617,6 @@
 
         const gorenleri_goster = async (event) =>{
            let gorenler_all = document.querySelectorAll(".gorenler-parent");
-           console.log(gorenler_all);
            gorenler_all.forEach(gorenler => {
                if(!("d-none" in gorenler.classList)){
                     gorenler.classList.add("d-none");
@@ -625,7 +624,6 @@
                
            });
            let div = event.target.parentNode.parentNode.parentNode.querySelector(".gorenler-parent");
-           console.log(div);
            div.classList.remove("d-none");
         }
    
