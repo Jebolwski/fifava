@@ -10,11 +10,16 @@
   cursor: none;
 }
 
+* input {
+  cursor: none;
+}
+
 * .btn {
   cursor: none;
 }
 
 * .btn-outline-dark {
+  cursor: none;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   color: #817952;
@@ -205,14 +210,14 @@ body .typing-demo {
 
 body .cursor {
   position: fixed;
-  height: 28px;
-  width: 28px;
+  height: 24px;
+  width: 24px;
   top: -50px;
   left: -50px;
   border-radius: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  border: 3px solid black;
+  border: 2px solid black;
   z-index: 101;
   pointer-events: none;
   -webkit-transition: 0.2s;
@@ -225,6 +230,18 @@ body .cursor {
           transform: scale(1);
 }
 
+body .cursor-pointer {
+  width: 4px;
+  height: 4px;
+  margin-top: 50%;
+  margin-left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: black;
+  border-radius: 2px;
+  z-index: 110;
+}
+
 body .backgroundWhite {
   background: rgba(204, 204, 204, 0.35);
   border: 2px solid black;
@@ -235,8 +252,8 @@ body .backgroundWhite {
 body .backgroundBlack {
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.308);
-  -webkit-transform: scale(1.4);
-          transform: scale(1.4);
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
 }
 
 body .backgroundImg {
@@ -249,6 +266,10 @@ body .backgroundImg {
 body .cursorClick {
   -webkit-animation: click 0.6s ease;
           animation: click 0.6s ease;
+}
+
+body .cursorPointerNone {
+  display: none;
 }
 
 .side-navbar {

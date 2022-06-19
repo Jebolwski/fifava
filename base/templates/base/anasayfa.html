@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class="cursor"></div>
+    <div class="cursor"><div class="cursor-pointer"></div></div>
     <div class="loading col-12">
         <img src="{% static 'images/logo.png' %}">
     </div>
@@ -715,14 +715,7 @@
             direction: 'alternate',
             loop: false
         });
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: `Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}`,
-                animation: true,
-                placement: "top",
-            });
-        });
-
+        
         const deneme = async(event) => {
             const ad_soyad = event.target.parentNode.querySelector(".ad_soyad");
             const baslik = event.target.parentNode.querySelector(".baslik");

@@ -1,4 +1,6 @@
 let cursor = document.querySelector(".cursor");
+let cursorPointer = document.querySelector(".cursor-pointer");
+console.log(cursorPointer);
 let links = document.querySelectorAll("a");
 let links1 = document.querySelectorAll("input");
 let links2 = document.querySelectorAll("textarea");
@@ -7,8 +9,13 @@ let links4 = document.querySelectorAll("label");
 let links5 = document.querySelectorAll("img");
 
 document.addEventListener("mousemove", (e) => {
-  cursor.style.top = e.clientY + -14 + "px";
-  cursor.style.left = e.clientX + -14 + "px";
+  cursor.style.top = e.clientY + -12 + "px";
+  cursor.style.left = e.clientX + -12 + "px";
+});
+
+document.addEventListener("mousemove", (e) => {
+  cursorPointer.style.top = e.clientY + "px";
+  cursorPointer.style.left = e.clientX + "px";
 });
 
 document.addEventListener("click", () => {
@@ -72,10 +79,13 @@ links4.forEach((link) => {
 links5.forEach((link) => {
   link.addEventListener("mouseover", () => {
     cursor.classList.add("backgroundImg");
+    cursorPointer.classList.add("cursorPointerNone");
+    cursorPointer.classList.add("cursorPointerNone");
   });
 
   link.addEventListener("mouseleave", () => {
     cursor.classList.remove("backgroundImg");
+    cursorPointer.classList.remove("cursorPointerNone");
   });
 });
 

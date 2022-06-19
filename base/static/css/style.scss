@@ -6,10 +6,14 @@
   .nav-item {
     cursor: none;
   }
+  input {
+    cursor: none;
+  }
   .btn {
     cursor: none;
   }
   .btn-outline-dark {
+    cursor: none;
     transition: 0.3s;
     color: rgb(129, 121, 82);
     border: 1px solid rgb(114, 108, 53);
@@ -172,18 +176,29 @@ body {
   }
   .cursor {
     position: fixed;
-    height: 28px;
-    width: 28px;
+    height: 24px;
+    width: 24px;
     top: -50px;
     left: -50px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    border: 3px solid black;
+    border: 2px solid black;
     z-index: 101;
     pointer-events: none;
     transition: 0.2s;
     transition-property: backgorund, transform;
     transform: scale(1);
+  }
+  .cursor-pointer {
+    width: 4px;
+    height: 4px;
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: black;
+    border-radius: 2px;
+    z-index: 110;
   }
   .backgroundWhite {
     background: rgba(204, 204, 204, 0.35);
@@ -193,7 +208,7 @@ body {
   .backgroundBlack {
     border: 1px solid black;
     background-color: rgba(0, 0, 0, 0.308);
-    transform: scale(1.4);
+    transform: scale(1.3);
   }
   .backgroundImg {
     border: 1px solid rgb(255, 255, 255);
@@ -202,6 +217,9 @@ body {
   }
   .cursorClick {
     animation: click 0.6s ease;
+  }
+  .cursorPointerNone {
+    display: none;
   }
 }
 
