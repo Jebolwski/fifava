@@ -1,6 +1,5 @@
 let cursor = document.querySelector(".cursor");
 let cursorPointer = document.querySelector(".cursor-pointer");
-console.log(cursorPointer);
 let links = document.querySelectorAll("a");
 let links1 = document.querySelectorAll("input");
 let links2 = document.querySelectorAll("textarea");
@@ -87,12 +86,4 @@ links5.forEach((link) => {
     cursor.classList.remove("backgroundImg");
     cursorPointer.classList.remove("cursorPointerNone");
   });
-});
-
-document.addEventListener("mouseover", () => {
-  cursor.style.display = "block";
-});
-
-document.addEventListener("mouseleave", () => {
-  cursor.style.display = "none";
 });

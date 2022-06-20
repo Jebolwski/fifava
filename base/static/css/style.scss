@@ -1005,6 +1005,12 @@ main {
   .kesfet-svg-1 {
     display: none;
   }
+  .side-navbar {
+    border-right: 1px solid black;
+  }
+  .haberler {
+    border-left: 1px solid black;
+  }
   main {
     #particles-js {
       #fifava {
@@ -1091,6 +1097,7 @@ main {
     }
   }
   body {
+    cursor: auto;
     aside {
       font-size: 15px;
     }
@@ -1111,6 +1118,26 @@ main {
 }
 
 @media only screen and (max-width: 450px) {
+  * {
+    cursor: auto;
+    .cursor-pointer {
+      display: none;
+      visibility: hidden;
+    }
+    .cursor {
+      visibility: hidden;
+      display: none;
+    }
+  }
+  body {
+    .cursor-pointer {
+      display: none;
+    }
+    .cursor {
+      display: none;
+    }
+  }
+
   #fifava {
     height: 9vh;
   }

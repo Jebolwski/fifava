@@ -1330,6 +1330,12 @@ main .forumlar_1:hover {
   .kesfet-svg-1 {
     display: none;
   }
+  .side-navbar {
+    border-right: 1px solid black;
+  }
+  .haberler {
+    border-left: 1px solid black;
+  }
   main #particles-js #fifava {
     height: 11vh;
   }
@@ -1409,6 +1415,7 @@ main .forumlar_1:hover {
     margin-left: 15%;
   }
   body {
+    cursor: auto;
     overflow-x: hidden;
   }
   body aside {
@@ -1429,6 +1436,23 @@ main .forumlar_1:hover {
 }
 
 @media only screen and (max-width: 450px) {
+  * {
+    cursor: auto;
+  }
+  * .cursor-pointer {
+    display: none;
+    visibility: hidden;
+  }
+  * .cursor {
+    visibility: hidden;
+    display: none;
+  }
+  body .cursor-pointer {
+    display: none;
+  }
+  body .cursor {
+    display: none;
+  }
   #fifava {
     height: 9vh;
   }

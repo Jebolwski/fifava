@@ -181,8 +181,8 @@
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
                         
                         {% if foru.cevaba_cevap %}
-                        ve
-                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-decoration-none">  @{{foru.cevaba_cevap.profil.user.username|lower}}</a> 
+                        
+                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-decoration-none">ve  @{{foru.cevaba_cevap.profil.user.username|lower}}</a> 
                         {% endif %}
                         <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
                             adlı kullanıcıya yanıt olarak
@@ -462,15 +462,12 @@
                             `
                 <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}"  id="-${foru.id}">
                 <p style="color: gray;" class="cevaplandi">
-                        {% if soru.profil.user.username == '${foru.cevaba_cevap.profil.user.username}' %}
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
-                        {% else %}
                         ve
                         <a class="text-decoration-none">  @${foru.cevaba_cevap_username.toLowerCase()}</a> 
                         <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
                             adlı kullanıcılara yanıt olarak
                         </span>
-                        {% endif %}
                     </p>
                 <hr> 
                 <p>
@@ -636,10 +633,10 @@
             if (response.status==200){
                 let cevap = document.getElementById(`-${id}`);
                 let digerleri = document.getElementsByName(`!-${id}`);
-                cevap.style.display="none";
+                cevap.remove();
                 for (let i = 0; i < digerleri.length; i++) {
                     const element = digerleri[i];
-                    element.style.display="none";
+                    element.remove();
                 }
             }
         }
