@@ -1,6 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
+{% extends 'base/ana.html' %} {% load static %} {% block content %}
 <title>Ayarlar | FIFAVOX</title>
-<meta property="og:title" content="FIFAFOX | Ayarlar" />
+   <meta property="og:title" content="FIFAFOX | Ayarlar" />
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
@@ -8,11 +8,11 @@
 <meta property="twitter:title" content="FIFAFOX | Ayarlar" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 
 <body>
-
     <aside class="side-navbar col-1">
             <ul class="p-0 text-center">
                 
@@ -126,53 +126,65 @@
         </aside>
 
     <main class="col-11 col-lg-10 offset-1">
-        
+
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
         {% endfor %}
-        <div class="col-12 col-md-10 offset-md-1 h-50 ">
-            
+        <div class="col-9 col-md-8 offset-1 offset-md-2 h-50 ">
+            <ul class="nav nav-pills pt-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="setting-bar btn active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Genel</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="setting-bar btn" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Gizlilik</button>
+            </ul>
+            <div class="tab-content border-top" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <table style="width: 60vw;height:60vh;margin-left: 50%;transform: translateX(-50%);">
+                    <table style="width: 50vw;height:60vh;margin-left: 50%;transform: translateX(-50%);">
                         <tbody>
                             <tr>
                                 <td rowspan=4 style="width: 40%;text-align: center;"><i class="far fa-user fa-4x mx-5"></i></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Kullanıcı Adı : {{request.user.username}}</h5>
+                                    <h6>Kullanıcı Adı : {{request.user.username}}</h6>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Email : {{request.user.email}}</h5>
+                                    <h6>Email : {{request.user.email}}</h6>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td>
-                                    <h5>Katılma Tarihi : {{request.user.date_joined}}</h5>
+                                    <h6>Katılma Tarihi : {{request.user.date_joined}}</h6>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <hr>
-                <div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                     <a href="{% url 'change_password' %}" class="btn btn-outline-dark btn-lg center mt-5">
-                        Şifre Değiştir
+                    Şifre Değiştir
                     </a>
+
                     <br>
                     <br>
+
                     <a href="{% url 'email-degistir' %}" class="btn btn-outline-dark btn-lg center mt-5">
-                        Email Değiştir
-                    </a>
+            Email Değiştir
+        </a>
                     <br>
                     <br>
-                    <a href="{% url 'profil-foto' request.user.id %}" class="btn btn-outline-dark btn-lg center my-5">
-                        Profili Düzenle
-                    </a>
+
+                    <a href="{% url 'profil-foto' request.user.id %}" class="btn btn-outline-dark btn-lg center mt-5">
+            Profili Düzenle
+        </a>
+
+
                 </div>
+            </div>
         </div>
 
     </main>
@@ -196,20 +208,29 @@
             {% endfor %}
         </ul>
     </aside>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="popover"').popover({
+                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation: true,
+                placement: "top",
+            });
+        });
+    </script>
+</body>
 
-    <script
-      src="https://kit.fontawesome.com/89a5339b98.js"
-      crossorigin="anonymous"
-    ></script>
+</html>
 
-
-    
-    <script defer src="{% static 'js/cursor.js' %}" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap"
-      rel="stylesheet"
-    />
-    {% endblock %}
+{% endblock content %}
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About

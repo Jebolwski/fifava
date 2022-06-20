@@ -78,8 +78,6 @@ links4.forEach((link) => {
 links5.forEach((link) => {
   link.addEventListener("mouseover", () => {
     cursor.classList.add("backgroundImg");
-    cursorPointer.classList.add("cursorPointerNone");
-    cursorPointer.classList.add("cursorPointerNone");
   });
 
   link.addEventListener("mouseleave", () => {
