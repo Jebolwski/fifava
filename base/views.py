@@ -1365,9 +1365,6 @@ def FormAnaliz(request,pk):
       
 
     yuzde=top/bolmesayac
-    for i in range(0,len(array)):
-        if array[i]!=0:
-            print("Soru "+str(i+1)+" katılma yüzdesi",array[i],"%")
     cevaplar = Cevaplar.objects.all().order_by('-guncellenme_tarihi')
     p = Paginator(Cevaplar.objects.all().filter(sorular_id=form.id),1)
     page = request.GET.get('page')
@@ -1582,6 +1579,7 @@ def KayitOnay(request):
                 break
      
     onay = OnayDurum.objects.all().order_by("-onaydurum")
+    print(onay)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)

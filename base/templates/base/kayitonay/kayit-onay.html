@@ -141,11 +141,13 @@
         <h4 class="text-center pt-5 pb-5">Kayıt Onay</h4>
         <form method="POST">
             {% csrf_token %}
-            <table class="center col-11 col-sm-8 col-md-7 mb-5">
+            <table class="center col-11 col-sm-10 col-md-10 mb-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-10" placeholder="Aranacak Kullanıcının Kullanıcı Adı" maxlength="150" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-10" placeholder="Kullanıcı Adı" maxlength="150" name="arama"></td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-10" placeholder="Aranacak Kullanıcının Onay Durumu" maxlength="12" name="arama1"></td>
+                    <td><input type="text" class="arama1 form-control col-10" placeholder="Onay Durumu" maxlength="12" name="arama1"></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
+                    <td><input type="text" class="arama2 form-control col-10" placeholder="Discord Id'si" maxlength="12" name="arama2"></td>
                     <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                 </tr>
             </table>
@@ -154,9 +156,10 @@
                 {% for i in onay %}
 
                 <div class="kisi_div col-10 offset-1 col-lg-8 offset-lg-2 forumlar_1 rounded border border-dark px-3 pt-3 mt-4">
+                    <p class="discord_id d-none">{{i.discord_id}}</p>
                     <ul class="list-unstyled d-flex justify-content-around">
                         <li title="Kullanıcı Adı" class="kullanici_adi"><a href="{% url 'profil' i.kisi|slugify %}" class="text-black" style="text-decoration: underline gray;">{{i.kisi}}</a></li>
-                        <li title="Email" class="d-none d-md-block"><i>{{i.kisi.email}}</i></li>
+                        <li title="Email" class="d-none d-md-block"><i>{{i.kisi.email}} </i></li>
                         
                         <li>
                             <p title="Onay Durumu" class="onay_durumu">
@@ -226,18 +229,15 @@
 
     
         <script defer>
-        
-
-
-        
     
         let kisi_satir = document.querySelectorAll(".kisi_div");
         let arama = document.querySelector(".arama");
-        
         let arama1 = document.querySelector(".arama1");
+        let arama2 = document.querySelector(".arama2");
+        console.log(arama2);
         arama.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase())){
                     kisi.style.display=""
                 }
                 else{
@@ -248,7 +248,7 @@
 
         arama1.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
-                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase())){
                     kisi.style.display="";
                 }
                 else{
@@ -257,6 +257,17 @@
             })
         })
     
+
+        arama2.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase())){
+                    kisi.style.display="";
+                }
+                else{
+                    kisi.style.display="none";
+                }
+            })
+        })
     </script>
 
     {% endblock content %}

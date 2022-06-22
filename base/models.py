@@ -9,7 +9,7 @@ class Kullanici(models.Model):
     oyun_ad_soyad_slug     = models.SlugField(unique=True,null=False,blank=False)
     meslek                 = models.CharField(max_length=40,blank=False,null=False)
     dosya                  = models.ImageField(upload_to="oyuncu",null=True,blank=True)
-    hikaye                 = models.TextField(max_length=5200,blank=False,null=False)
+    hikaye                 = models.TextField(max_length=10000,blank=False,null=False)
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
@@ -54,14 +54,20 @@ ANKET_SECIMLERI = (
 
 
 class OnayDurum(models.Model):
-    kisi                      = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-    onaydurum                 = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
+    kisi                   = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    onaydurum              = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
     
     def __str__(self):
         return str(self.kisi.username)
+
+    def discord_id(self):
+        cevaplar = Cevaplar.objects.get(kayitli_id=self.kisi.id, sorular_id=Sorular.objects.get(baslik="FIFAVOX RolePlay Kayıt Formu").id)
+        print(cevaplar)
+        return cevaplar.soru15_cevap
+
 
 
 class Sorular(models.Model):
@@ -79,7 +85,7 @@ class Sorular(models.Model):
     soru9                  = models.TextField(max_length=200,null=True,blank=True)
     soru10                 = models.TextField(max_length=200,null=True,blank=True)
     soru11                 = models.TextField(max_length=200,null=True,blank=True)
-    soru12                 = models.TextField(max_length=200,null=True,blank=True)
+    soru12                 = models.TextField(max_length=10000,null=True,blank=True)
     soru13                 = models.TextField(max_length=200,null=True,blank=True)
     soru14                 = models.TextField(max_length=200,null=True,blank=True)
     soru15                 = models.TextField(max_length=200,null=True,blank=True)
