@@ -71,6 +71,7 @@ body {
       border: 0;
       position: fixed;
       height: 100%;
+
       background: linear-gradient(
         356deg,
         rgba(62, 62, 62, 0.30575980392156865) 0%,
@@ -419,6 +420,7 @@ main {
     padding: 10px;
     background-color: rgb(129, 121, 82);
     border-radius: 20px;
+    border: 2px solid rgb(99, 93, 65);
     color: white;
   }
   .anasayfa-message {
@@ -430,6 +432,7 @@ main {
     transform: translateX(-50%);
     padding: 10px;
     background-color: rgb(129, 121, 82);
+    border: 2px solid rgb(99, 93, 65);
     border-radius: 20px;
     color: white;
   }
@@ -811,7 +814,6 @@ main {
   50% {
     position: absolute;
     top: 40px;
-    opacity: 0.8;
   }
   75% {
     opacity: 0.5;

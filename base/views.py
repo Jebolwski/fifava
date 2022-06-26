@@ -250,6 +250,13 @@ def Kisiler(request):
     ad_soyad_dizi=[]
     for i in kisiler:
         ad_soyad_dizi.append([i.oyun_ad_soyad])
+
+
+    if request.user.is_authenticated:
+        for i in Kullanici.objects.all().order_by('-guncellenme_tarihi'):
+            if request.user not in i.goruldu.all():
+                i.goruldu.add(request.user.id)
+                
     
     
 
@@ -556,6 +563,12 @@ def Haberlerim(request):
     p = Paginator(haberler,10)
     page = request.GET.get('page')
     haber = p.get_page(page)
+
+
+    if request.user.is_authenticated:
+        for i in Haberler.objects.all().order_by('-guncellenme_tarihi'):
+            if request.user not in i.goruldu.all():
+                i.goruldu.add(request.user.id)
     
     if True:
         haber_bildirim=False
@@ -810,6 +823,11 @@ def Formlar(request):
     p = Paginator(sorular,10)
     page = request.GET.get('page')
     soru = p.get_page(page)
+
+    if request.user.is_authenticated:
+        for i in Sorular.objects.all().order_by('-guncellenme_tarihi'):
+            if request.user not in i.goruldu.all():
+                i.goruldu.add(request.user.id)
     
     if True:
         haber_bildirim=False
@@ -2066,6 +2084,10 @@ def ProfilFotoDuzenle(request,pk):
 
 
 def Forumlar(request):
+    if request.user.is_authenticated:
+        for i in ForumSoru.objects.all().order_by('-guncellenme_tarihi'):
+            if request.user not in i.goruldu.all():
+                i.goruldu.add(request.user.id)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
     cevap_profil_url="";

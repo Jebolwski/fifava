@@ -208,9 +208,9 @@
                     {% csrf_token %}
                     <p class="text-break">{{foru.cevap}}
                     <input type="checkbox" name="check_{{foru.id}}" onclick="kay()" class="cevaba_cevap_class {{foru.id}}" id="{{foru.id}}" style="visibility: hidden;"  />
-                    <label for="{{foru.id}}" ><i class="fa-solid fa-reply" id="reply"></i></label>
+                    <label for="{{foru.id}}" ><i class="fa-solid fa-reply" style="cursor:pointer" id="reply"></i></label>
                         {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil('{{foru.id}}')"></i>
+                        <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil('{{foru.id}}')"></i>
                         {% endif %}
                         </p>
                     <hr>
@@ -485,9 +485,9 @@
                 <form method="post">{% csrf_token %}
                     <p class="text-break">${foru.cevap}
                         <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply"></i></label>
+                        <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply" style="cursor:pointer"></i></label>
                         {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
+                        <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil(${foru.id})"></i>
                         {% endif %}
                     </p>
                 <hr>
@@ -550,9 +550,9 @@
                         <form method="post">{% csrf_token %}
                             <p class="text-break">${foru.cevap}
                                 <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                                <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply"></i></label>
+                                <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply" style="cursor:pointer"></i></label>
                                 {% if request.user.is_superuser %}
-                                <i class="fa-solid fa-trash-can mx-3" onclick="cevap_sil(${foru.id})"></i>
+                                <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil(${foru.id})"></i>
                                 {% endif %}
                             </p>
                         <hr>

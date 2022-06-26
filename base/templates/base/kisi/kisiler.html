@@ -126,7 +126,7 @@
         </aside>
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
+        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
         {% endfor %}
         <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
         <form method="POST">
@@ -266,7 +266,7 @@
             })
         })
 
-
+        
         arama1.addEventListener('keyup',function(){
             kisi_satir.forEach((kisi)=>{
                 if(kisi.querySelector(".kisi_meslek").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kisi_ad").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
@@ -275,6 +275,7 @@
                 else{
                     kisi.style.display="none";
                 }
+                
             })
         })
 

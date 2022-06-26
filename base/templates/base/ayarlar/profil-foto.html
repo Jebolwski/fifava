@@ -128,7 +128,7 @@
     <main class="col-11 col-lg-10 offset-1">
 
         {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-3 text-center">{{message}}</div>
+        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
         {% endfor %}
         <form enctype="multipart/form-data" method="post">
             {% csrf_token %}

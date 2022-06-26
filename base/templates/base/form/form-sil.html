@@ -132,7 +132,7 @@
     <main class="col-11 col-lg-10 offset-1">
       <form method="post">
         {% csrf_token %}
-        <h3 class="text-center pt-5 pb-4" style="font-weight: 400">'{{form.baslik}}' başlıklı formu silmek istediğinize emin misiniz?</h3>
+        <h3 class="text-center pt-5 pb-4" style="font-weight: 300">'{{form.baslik}}' başlıklı formu silmek istediğinize emin misiniz?</h3>
         <table class="center mt-5">
             <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
                 <li><a href="{% url 'formlar' %}" class="btn btn-outline-dark">Vazgeç</a></li>
