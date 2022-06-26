@@ -217,7 +217,7 @@ body {
   z-index: 100;
   left: 0;
   position: fixed;
-
+  height: 100vh;
   ul {
     height: 100vh;
     display: flex;
@@ -1126,8 +1126,10 @@ main {
     }
   }
 
-  #fifava {
-    height: 9vh;
+  #particles-js {
+    #fifava {
+      width: 65vw;
+    }
   }
   .side-navbar {
     ul li a {

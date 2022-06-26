@@ -263,6 +263,7 @@ body .cursorPointerNone {
   z-index: 100;
   left: 0;
   position: fixed;
+  height: 100vh;
 }
 
 .side-navbar ul {
@@ -1435,8 +1436,8 @@ main .forumlar_1:hover {
   body .cursor {
     display: none;
   }
-  #fifava {
-    height: 9vh;
+  #particles-js #fifava {
+    width: 65vw;
   }
   .side-navbar ul li a {
     font-size: 16px;
