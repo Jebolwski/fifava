@@ -1564,6 +1564,7 @@ def CevapSil(request,pk):
 def KayitOnay(request):
     if not request.user.is_superuser:
         return redirect("404")
+    
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1596,8 +1597,7 @@ def KayitOnay(request):
                 oyuncu_bildirim=True
                 break
      
-    onay = OnayDurum.objects.all().order_by("-onaydurum")
-    print(onay)
+    onay = OnayDurum.objects.all().order_by("onaydurum")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
