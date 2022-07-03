@@ -95,6 +95,7 @@ class Sorular(models.Model):
     soru16                 = models.TextField(max_length=200,null=True,blank=True)
     soru17                 = models.TextField(max_length=200,null=True,blank=True)
     soru18                 = models.TextField(max_length=200,null=True,blank=True)
+    soru19                 = models.TextField(max_length=200,null=True,blank=True)
 
     onay1                  = models.CharField(max_length=120,null=True,blank=True)
     onay2                  = models.CharField(max_length=120,null=True,blank=True)
@@ -195,6 +196,7 @@ class Cevaplar(models.Model):
     soru16_cevap           = models.TextField(max_length=200,blank=True,null=True) 
     soru17_cevap           = models.TextField(max_length=500,blank=True,null=True) 
     soru18_cevap           = models.TextField(max_length=200,blank=True,null=True)
+    soru19_cevap           = models.TextField(max_length=2000,blank=True,null=True)
 
     onay1_cevap            = models.BooleanField(default=False)
     onay2_cevap            = models.BooleanField(default=False)

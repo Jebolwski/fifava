@@ -60,6 +60,7 @@ class CevapForm(forms.ModelForm):
             self.fields['soru16_cevap'].widget.attrs.update({'rows':'3','class':'soru16 form-control'})
             self.fields['soru17_cevap'].widget.attrs.update({'rows':'3','class':'soru17 form-control'})
             self.fields['soru18_cevap'].widget.attrs.update({'rows':'3','class':'soru18 form-control'})
+            self.fields['soru19_cevap'].widget.attrs.update({'rows':'3','class':'soru19 form-control'})
             self.fields['onay1_cevap'].widget.attrs.update({'class':'input1 form-check-input','checked':False})
             self.fields['onay2_cevap'].widget.attrs.update({'class':'input2 form-check-input','checked':False})
             self.fields['onay3_cevap'].widget.attrs.update({'class':'input3 form-check-input','checked':False})

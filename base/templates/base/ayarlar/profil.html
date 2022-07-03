@@ -152,7 +152,7 @@
         <div class="buyukler">
             <div class="profil-foto-buyuk" style="display: none;"> 
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" onclick="profil_foto_buyu()" title="profil-foto"> 
+            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-6 offset-md-5 mt-5 pt-5" onclick="profil_foto_buyu()" title="profil-foto"> 
             {%else%}
             <img src="{% static 'images/default-profile.jpg' %}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" title="profil-foto" onclick="profil_foto_buyu()" > 
             {% endif %}
@@ -160,13 +160,14 @@
             <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="cursor: pointer;" onclick="profil_foto_kapa()"></i>
             </div>
             <div class="arkaplan-foto-buyuk" style="display: none;">
-            {%if profil.arka_plan %}
-            <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
-            {% else %}
-            <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
-            {% endif %}
-            <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
-            <div class="arkaplan-foto-kapa-1" onclick="arkaplan_foto_kapa()">
+                {%if profil.arka_plan %}
+                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
+                {% else %}
+                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
+                {% endif %}
+                    <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
+                
+                <div class="arkaplan-foto-kapa-1" onclick="arkaplan_foto_kapa()">
                 <br>
             </div>
             </div>
@@ -242,7 +243,7 @@
                 <p class="profil-katilma d-none d-lg-block col-3">{{profil.user.date_joined}} Tarihinde Katıldı</p>
             </div>
 
-            <div class="cevaplama-parent" >
+            <div class="cevaplama-parent" style="display: none;">
                 <div class="cevaplama col-10 offset-1 border p-3 mb-4">
                 <span class="soru_id" style="display: none;"></span>
                     <div class="cevapla_kapa_parent">
@@ -346,17 +347,17 @@
                                 <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="color: black;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor: pointer;"   onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
                                     {% if request.user in forum.likes.all %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="color: black;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                        <i class="begen fa-solid fa-heart fa-md" style="color: black;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
                                     {% else %}
-                                        <i class="begen fa-solid fa-heart fa-md"  onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begen fa-solid fa-heart fa-md" style="cursor: pointer;"   onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
                                     {% endif %}
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
@@ -436,7 +437,6 @@
             let photo = document.querySelector(".profil-foto-buyuk");
             photo.style.display = "none"
         }
-
 
 
         function arkaplan_foto_buyu() {
@@ -537,8 +537,6 @@
                 }
             }  
    
-        let kutu_parent = document.querySelector(".cevaplama-parent");
-        kutu_parent.style.display="none";
         const cevapla_kapa = async (event) =>{ 
             let kutu_parent = document.querySelector(".cevaplama-parent");
             kutu_parent.style.display="none";
@@ -571,6 +569,7 @@
 
         const cevap_olustur = async () =>{
             let kutu = document.querySelector(".cevaplama");
+            kutu.style.display = "block";
             let soru_id = kutu.querySelector(".soru_id");
             const cevap = document.querySelector(".cevap-textarea");
             let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{

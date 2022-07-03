@@ -315,7 +315,17 @@
                             {% if cevap.soru18_cevap %} {{cevap.soru18_cevap}} {% else %} Cevap Yok {% endif %}
                         </td>
                     </tr>
-                    {% endif %} {% if cevap.sorular.onay1 %}
+                    {% endif %} 
+                    {% if cevap.sorular.soru19 %}
+                    <tr>
+                        <td>{{cevap.sorular.soru19}}</td>
+                        <td>
+                            {% if cevap.soru18_cevap %} {{cevap.soru19_cevap}} {% else %} Cevap Yok {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    
+                    {% if cevap.sorular.onay1 %}
                     <tr>
                         <td>{{cevap.sorular.onay1}}</td>
                         {% if cevap.onay1_cevap %}

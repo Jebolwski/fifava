@@ -279,7 +279,15 @@
         <div class="pt-5">{{ soru.soru18 }}</div>
         <div class="col-12 col-md-8 offset-md-2 mt-5">
             <textarea class="form-control" disabled rows="3"></textarea>
-        </div> {% endif %} {% if soru.onay1 %}
+        </div> {% endif %}
+        
+        {% if soru.soru19 %}
+        <div class="pt-5">{{ soru.soru19 }}</div>
+        <div class="col-12 col-md-8 offset-md-2 mt-5">
+            <textarea class="form-control" disabled rows="3"></textarea>
+        </div> {% endif %}
+        
+        {% if soru.onay1 %}
         <div class="pt-5">{{ soru.onay1 }} <input type="checkbox" disabled class="mx-2"></div>
 
         {% endif %} {% if soru.onay2 %}

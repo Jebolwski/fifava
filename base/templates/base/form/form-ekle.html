@@ -204,7 +204,7 @@
                     
                     <div class="pb-3">{{ form.soru10 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-0 pb-3" onclick="cevap_ekle()" ></i>
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-0 pb-3" onclick="cevap_ekle()" style="cursor: pointer;" ></i>
                 
                 <h4 class="mt-4 mb-5">Metinli Sorular</h4>
                 <div class="formsoru1 soru11">
@@ -259,7 +259,14 @@
                     
                     <div class="pb-3">{{ form.soru18 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-1 pb-3 pt-1" onclick="cevap_ekle1()" ></i>
+
+                <div class="formsoru1 d-none soru19">
+                    <label>Soru 9</label>
+                    
+                    <div class="pb-3">{{ form.soru19 }}</div>
+                </div>
+
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-1 pb-3 pt-1" onclick="cevap_ekle1()" style="cursor: pointer;" ></i>
                 <h4 class="mt-4 mb-5">Onay Kutuları</h4>
                 <div class="formsoru2 soru19">
                     <label>Onay Kutusu 1</label>
@@ -282,7 +289,7 @@
                     
                     <div class="pb-3">{{ form.onay4 }}</div>
                 </div>
-                <i class="fa-solid fa-circle-plus fa-xl fa-xl-2 pt-1" onclick="cevap_ekle2()" ></i>
+                <i class="fa-solid fa-circle-plus fa-xl fa-xl-2 pt-1" onclick="cevap_ekle2()" style="cursor: pointer;" ></i>
                 <br>
                 <input type="submit" value="Form Ekle" class="btn btn-outline-dark mt-3 offset-5 mb-5">
             </div>
@@ -425,9 +432,13 @@
                 let soru2=document.querySelector(".soru18");
                 soru2.classList.remove("d-none");
             }
+            if(sayi==8){
+                let soru2=document.querySelector(".soru19");
+                soru2.classList.remove("d-none");
+            }
 
             let icon = document.querySelector(".fa-xl-1");
-            if(sayi==7){
+            if(sayi==8){
                 icon.setAttribute('disabled', '');
                 icon.style.color="gray";
                 icon.style.cursor="auto";

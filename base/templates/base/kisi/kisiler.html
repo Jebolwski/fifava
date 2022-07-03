@@ -133,9 +133,9 @@
             {% csrf_token %}
             <table class="center col-10 col-sm-8 col-md-6 mb-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-12" maxlength="40" placeholder="Aranacak Kişinin Adı" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-12" maxlength="40" placeholder="Kişinin Adı" name="arama"></td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-12" placeholder="Aranacak Kişinin Mesleği" maxlength="12" name="arama1"></td>
+                    <td><input type="text" class="arama1 form-control col-12" placeholder="Kişinin Mesleği" maxlength="12" name="arama1"></td>
                     {% if user.is_superuser %}
                     <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td>

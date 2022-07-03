@@ -146,9 +146,9 @@
             {% csrf_token %}
             <table class="center col-11 col-sm-8 col-md-6 mb-5 mt-5">
                 <tr>
-                    <td><input type="text" class="arama form-control col-10" maxlength="100" placeholder="Aranacak Forumun Başlığı" name="arama"></td>
+                    <td><input type="text" class="arama form-control col-10" maxlength="100" placeholder="Forumun Başlığı" name="arama"></td>
                     <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-10" maxlength="100" placeholder="Aranacak Forumun Sahibi" name="arama1"></td>
+                    <td><input type="text" class="arama1 form-control col-10" maxlength="100" placeholder="Forumun Sahibi" name="arama1"></td>
                     <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
                     {% if user.is_authenticated %}
                     <td>

@@ -162,6 +162,7 @@ def ForumBegenRenk(request,pk):
     return Response(begen)
 
 
+
 #!ANASAYFANIN İLETİŞİM FONKSİYONLARI
 @api_view(['POST','GET'])
 def IletisimCevaplama(request):
