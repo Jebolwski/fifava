@@ -899,6 +899,12 @@ main .forumlar_1:hover {
   background-color: #ececec;
 }
 
+main .takip-ediliyor:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: #9c1818;
+  border: 1px solid #832525;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;
@@ -1397,6 +1403,10 @@ main .forumlar_1:hover {
   main .profil-edit {
     margin-left: 38vw;
   }
+  main .profil-edit-1 {
+    margin-left: -20px;
+    font-size: 13px;
+  }
   main .card-img-top-1 {
     width: 70%;
     margin-left: 15%;
@@ -1469,6 +1479,10 @@ main .forumlar_1:hover {
   }
   main .profil-edit {
     margin-left: 38vw;
+  }
+  main .profil-edit-1 {
+    margin-left: -30px;
+    font-size: 9px;
   }
 }
 

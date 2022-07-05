@@ -175,6 +175,7 @@
 
 
         <div class="profil-rest" style="height: 100vh;">
+               
             {% if profil.resim %}
             <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 10;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
             <img src="{% static 'images/default-profile.jpg' %}" style="cursor: pointer;z-index: 10;" class="profil-foto" onclick="profil_foto_buyu()" style="z-index: 1;"> {% endif %}
@@ -182,7 +183,7 @@
                 <div class="top">
                     <ul class="list-unstyled d-flex justify-content-start col-9 offset-3">
                         <li>
-                            <h4 data-toggle="popover" title="
+                            <p data-toggle="popover" class="col-md-9 " title="
                             {% if durum.onaydurum == 'Kabul Et' %}
                                 {% if request.user.username == durum.kisi.username %}
                                 Onaylandın
@@ -210,31 +211,55 @@
                             {% elif durum.onaydurum == 'Cevapsız' %}
                             Onaylanmak için kayıt formunu cevaplayın.
                             {% else %}
-                            {% endif %}" class="profil-username">{{profil.username}} {% if durum %}
+                            {% endif %}" class="profil-username"><span class="h4" style="font-weight: 400;">{{profil.username}}</span>  {% if durum %}
                             <span class="d-none d-md-inline"> 
                                 {% if durum.onaydurum == "Kabul Et" %}
-                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-check px-2 fa-lg" style="cursor: pointer;"></i>
                                 {% elif durum.onaydurum == "Bekle" %}
-                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-pause px-2 fa-lg" style="cursor: pointer;"></i>
                                 {% elif durum.onaydurum == "Yasakla" %}
                                 <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
                                 {% elif durum.onaydurum == "Reddet" %}
-                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                <i class="fa-solid fa-circle-xmark px-2 fa-lg" style="cursor: pointer;"></i>
                                 {% elif durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-lg" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
                                 {% endif %} 
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
                             </span>
-                            </h4>
+                             <p style="width: 200px;position: relative;"><i class="takipci_sayisi">{{profil.takipci_sayisi}}</i> Takipçi <span class="ms-2 ms-md-3"><i>{{profil.takip_edilenler_sayisi}}</i> Takip Edilen</span></p>
+                            </p>
                         </li>
+                        
+
+
                         {% if request.user.username == profil.username %}
-                        <li><a href="{% url 'profil-foto' request.user.id %}" class="profil-edit"><i class="fa-solid fa-user-pen fa-lg"></i></a>
-                        </li>
+
+                            <li>
+                                <a href="{% url 'profil-foto' request.user.id %}" class="profil-edit"><i class="fa-solid fa-user-pen fa-lg"></i></a>
+                            </li>
+
+                        {% else %}
+
+                            {% if request.user in profil.takipciler.all %}
+                                    <li><button class="btn btn-outline-dark takip-ediliyor profil-edit-1" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()"  onclick="takip_et()">Takip Ediliyor</button></li>
+                                {% else %}
+
+                                {% if request.user.username != profil.username %}
+                                    {% if request.user.is_authenticated %}
+                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_et()">Takip Et</button></li>
+                                    {% else %}
+                                        <li><a href="{% url 'giris-yap' %}"><button class="btn btn-outline-dark profil-edit-1">Takip Et</button></a></li>
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endif %}
+
                         {% endif %}
                     </ul>
                 </div>
+                
                 {% if profil.biyografi %}
                 <h5 class="profil-biyografi offset-1 "><i class="text-black text-break">{{profil.biyografi}}</i></h5>
                 {% else %}
@@ -242,7 +267,7 @@
                 {% endif %}
                 <p class="profil-katilma d-none d-lg-block col-3">{{profil.user.date_joined}} Tarihinde Katıldı</p>
             </div>
-
+            
             <div class="cevaplama-parent" style="display: none;">
                 <div class="cevaplama col-10 offset-1 border p-3 mb-4">
                 <span class="soru_id" style="display: none;"></span>
@@ -413,8 +438,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     
     <script defer>
+         const takip_et = async () =>{
+            let takip_ediliyor = document.querySelector(".profil-edit-1");
+            let takipci_sayisi = document.querySelector(".takipci_sayisi");
+            let response = await fetch(window.location.origin+"/api/takip-etme/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            id:"{{profil.user.id}}",
+                        })
+                    
+            })
+            if (response.status===200){
+                let data = await response.json();
+                if(data=="Takip Ediliyor"){
+                    takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)+1;
+                    takip_ediliyor.innerHTML="Takip Ediliyor";
+                }
+                else if(data=="Takip Et"){
+                    takip_ediliyor.innerHTML="Takip Et";
+                }
+            }
+            
+        }        
+
         
 
+        function takip_ediliyor(){
+            let takip_ediliyor = document.querySelector(".takip-ediliyor");
+            takip_ediliyor.innerHTML = "Takibi Bırak";      
+        }
+        
+        function takip_ediliyor1(){
+            let takip_ediliyor = document.querySelector(".takip-ediliyor");
+            takip_ediliyor.innerHTML = "Takip Ediliyor";      
+
+        }
 
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({

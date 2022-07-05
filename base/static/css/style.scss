@@ -731,6 +731,11 @@ main {
       background-color: rgb(236, 236, 236);
     }
   }
+  .takip-ediliyor:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: rgb(156, 24, 24);
+    border: 1px solid rgb(131, 37, 37);
+  }
 }
 
 .haberler {
@@ -1081,6 +1086,12 @@ main {
     .profil-edit {
       margin-left: 38vw;
     }
+
+    .profil-edit-1 {
+      margin-left: -20px;
+      font-size: 13px;
+    }
+
     .card-img-top-1 {
       width: 70%;
       margin-left: 15%;
@@ -1166,6 +1177,10 @@ main {
     }
     .profil-edit {
       margin-left: 38vw;
+    }
+    .profil-edit-1 {
+      margin-left: -30px;
+      font-size: 9px;
     }
   }
 }

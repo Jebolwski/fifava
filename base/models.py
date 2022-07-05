@@ -242,6 +242,8 @@ class ProfilFoto(models.Model):
     username = models.CharField(max_length=160,null=True,blank=True)
     username_slug = models.CharField(max_length=160,null=True,blank=True)
     biyografi = models.CharField(max_length=160,null=True,blank=True)
+    takipciler = models.ManyToManyField(User,related_name='takipciler',default=None,blank=True)
+    takip_edilenler = models.ManyToManyField(User,related_name='takip_edilenler',default=None,blank=True)
     resim = models.ImageField(upload_to="profil_foto",null=False,blank=False,default='profil_foto/default-profile.jpg')
     arka_plan = models.ImageField(upload_to="arka_plan",null=True,blank=True)
     olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -250,6 +252,13 @@ class ProfilFoto(models.Model):
     
     def __str__(self):
         return str(self.user)
+
+
+    def takipci_sayisi(self):
+        return self.takipciler.all().count()
+
+    def takip_edilenler_sayisi(self):
+        return self.takip_edilenler.all().count()
 
 
 class ForumSoru(models.Model):

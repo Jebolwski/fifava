@@ -54,7 +54,8 @@ def GirisYap(request):
         if len(User.objects.filter(username=username1))>0:
             username1 = request.POST.get('username')
         else:
-            username1 = User.objects.get(email=username1).username
+            if( len(User.objects.all().filter(email=username1)) > 0):
+                username1 = User.objects.get(email=username1).username
         password = request.POST.get('password')
         
 

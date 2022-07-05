@@ -176,3 +176,21 @@ def IletisimCevaplama(request):
     return Response("Oluşturuldu!")
 
 
+
+
+@api_view(['POST','GET'])
+def TakipEtme(request):
+    if request.method=="POST":
+        profil = ProfilFoto.objects.get(user_id=request.data.get("id"))
+        if request.user in profil.takipciler.all():
+            profil.takipciler.remove(request.user.id)
+            return Response("Takip Et")
+            
+            
+        else:
+            profil.takipciler.add(request.user.id)
+            return Response("Takip Ediliyor")
+
+    
+
+    
