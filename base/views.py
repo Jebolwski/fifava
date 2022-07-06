@@ -1768,6 +1768,8 @@ def Profil(request,my_slug):
     user = User.objects.get(username = profil_user.username)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlari = ForumSoru.objects.filter(profil_id=profil_user.id)
+    takipciler = ProfilFoto.objects.get(username_slug=my_slug).takipciler.all()
+    takip_edilenler = ProfilFoto.objects.get(username_slug=my_slug).takip_edilenler.all()
 
     if True:
         haber_bildirim=False
@@ -1805,10 +1807,10 @@ def Profil(request,my_slug):
     if OnayDurum.objects.all().filter(kisi_id=profil_user.user.id):
         durum = OnayDurum.objects.get(kisi_id=profil_user.user.id)
         context={'durum':durum,'haberler':haberler,'cevap_profil_url':cevap_profil_url,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim,"takipciler":takipciler,"takip_edilenler":takip_edilenler}
     else:
         context={'haberler':haberler,'cevap_profil_url':cevap_profil_url,'user':user,'profil':profil_user,'forumlari':forumlari,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
-            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim,"takipciler":takipciler,"takip_edilenler":takip_edilenler}
     return render(request,"base/ayarlar/profil.html",context)  
 
 

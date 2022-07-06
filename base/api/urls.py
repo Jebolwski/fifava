@@ -23,6 +23,7 @@ urlpatterns = [
 
 
     path("takip-etme/",views.TakipEtme,name="takip-etme"),
+    path("takibi-birak/",views.TakibiBirak,name="takibi-birak"),
 
     
 ]

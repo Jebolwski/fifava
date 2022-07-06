@@ -900,9 +900,66 @@ main .forumlar_1:hover {
 }
 
 main .takip-ediliyor:hover {
-  background-color: rgba(255, 0, 0, 0.5);
+  background-color: rgba(82, 44, 44, 0.438);
   color: #9c1818;
   border: 1px solid #832525;
+}
+
+main .takip-parent {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+main .takip_eminmisin {
+  position: fixed;
+  border-radius: 8px;
+  height: 45vh;
+  background-color: whitesmoke;
+  border: 2px solid gray;
+  z-index: 115;
+  margin-top: 23vh;
+}
+
+main .takipciler-1 {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+main .takipciler-1-1 {
+  position: fixed;
+  border-radius: 8px;
+  height: 45vh;
+  background-color: whitesmoke;
+  border: 2px solid gray;
+  z-index: 115;
+  margin-top: 23vh;
+}
+
+main .takip-edilenler-1 {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+main .takip-edilenler-1-1 {
+  position: fixed;
+  border-radius: 8px;
+  height: 45vh;
+  background-color: whitesmoke;
+  border: 2px solid gray;
+  z-index: 115;
+  margin-top: 23vh;
 }
 
 .haberler {

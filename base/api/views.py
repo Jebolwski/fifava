@@ -96,9 +96,7 @@ def ForumCevapSil(request,pk):
 @api_view(['POST','GET'])
 def ForumCevapGel(request):
     profil = ProfilFoto.objects.get(username=request.data['username'])
-    print(profil)
     forum_soru_cevap = list(ForumSoruCevap.objects.all().filter(profil_id=profil.id).order_by("-guncellenme_tarihi"))
-    print(forum_soru_cevap)
     serializer = ForumYanitSerializer(forum_soru_cevap,many=False)
     return Response(serializer.data)
 
@@ -181,15 +179,30 @@ def IletisimCevaplama(request):
 @api_view(['POST','GET'])
 def TakipEtme(request):
     if request.method=="POST":
-        profil = ProfilFoto.objects.get(user_id=request.data.get("id"))
-        if request.user in profil.takipciler.all():
-            profil.takipciler.remove(request.user.id)
-            return Response("Takip Et")
-            
-            
-        else:
-            profil.takipciler.add(request.user.id)
+        user = User.objects.get(id=request.data.get("user_id"))
+        takip_edilecek = ProfilFoto.objects.get(user_id=request.data.get("id"))
+        takip_edecek = ProfilFoto.objects.get(user_id=request.data.get("user_id"))
+        if user not in takip_edilecek.takipciler.all():
+            takip_edilecek.takipciler.add(user.id)
+            takip_edecek.takip_edilenler.add(request.data.get("id"))
             return Response("Takip Ediliyor")
+        elif user in takip_edilecek.takipciler.all():
+            return Response("Takip Et")
+
+@api_view(['POST','GET'])
+def TakibiBirak(request):
+    if request.method=="POST":
+        user = User.objects.get(id=request.data.get("user_id"))
+        profil = ProfilFoto.objects.get(user_id=request.data.get("id"))
+        takip_edecek = ProfilFoto.objects.get(user_id=request.data.get("user_id"))
+        if user in profil.takipciler.all():
+            profil.takipciler.remove(user.id)
+            takip_edecek.takip_edilenler.remove(request.data.get("id"))
+            return Response("Takip Et")
+    return Response("1")
+            
+            
+            
 
     
 

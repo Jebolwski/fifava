@@ -171,6 +171,50 @@
                 <br>
             </div>
             </div>
+
+            {% if request.user.is_authenticated %}
+            <div class="takip-parent col-12 d-none">
+                <div class="takip_eminmisin p-3 col-9 col-md-6 offset-1 offset-md-2">
+                    <h5>@{{profil.user.username}} adlı kullanıcıyı takip etmeyi bırakmaktan emin misin ? </h5>
+                    <br>
+                    <button class="btn btn-dark center mt-5" onclick="takibi_birak()">Takibi Bırak</button>
+                    <br>
+                    <button class="btn btn-dark center mt-5" onclick="takip_kapa()">İptal Et</button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="takipciler-1 col-12 d-none">
+                <div class="takipciler-1-1 p-3 col-9 col-md-6 offset-1 offset-md-2">
+                    <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                    <h5 class="my-2 ms-3">Takipçiler</h5>
+                    {% if takipciler.all.count > 0 %}
+                    {% for i in takipciler %}
+                    <hr>
+                    <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    {% endfor %}
+                    {% else %}
+                    <hr>
+                    <p class="ms-3 mt-2">Kullanıcının takipçisi yok.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="takip-edilenler-1 col-12 d-none">
+                <div class="takip-edilenler-1-1 p-3 col-9 col-md-6 offset-1 offset-md-2">
+                    <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                    <h5 class="my-2 ms-3">Takip Edilenler</h5>
+                    {% if takip_edilenler.all.count > 0 %}
+                    {% for i in takip_edilenler %}
+                    <hr>
+                    <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    {% endfor %}
+                    {% else %}
+                    <hr>
+                    <p class="ms-3 mt-2">Kullanıcı kimseyi takip etmiyor.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
 
@@ -228,7 +272,7 @@
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
                             </span>
-                             <p style="width: 200px;position: relative;"><i class="takipci_sayisi">{{profil.takipci_sayisi}}</i> Takipçi <span class="ms-2 ms-md-3"><i>{{profil.takip_edilenler_sayisi}}</i> Takip Edilen</span></p>
+                             <p style="width: 200px;position: relative;"><span style="cursor: pointer;" onclick="takipci_goster()"><i class="takipci_sayisi">{{profil.takipci_sayisi}}</i> Takipçi</span> <span class="ms-2 ms-md-3" style="cursor: pointer;" onclick="takip_edilenleri_goster()"><i>{{profil.takip_edilenler_sayisi}}</i> Takip Edilen</span></p>
                             </p>
                         </li>
                         
@@ -248,7 +292,7 @@
 
                                 {% if request.user.username != profil.username %}
                                     {% if request.user.is_authenticated %}
-                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_et()">Takip Et</button></li>
+                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_et()" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()">Takip Et</button></li>
                                     {% else %}
                                         <li><a href="{% url 'giris-yap' %}"><button class="btn btn-outline-dark profil-edit-1">Takip Et</button></a></li>
                                     {% endif %}
@@ -414,7 +458,7 @@
         </div>
     </main>
 
-    <aside style="z-index: 10;opacity: 1;" class="haberler col-1 offset-11 d-none d-lg-block">
+    <aside style="z-index: 110;opacity: 1;" class="haberler col-1 offset-11 d-none d-lg-block">
         <ul>
             <p class="text-center h5">Haberler</p>
             <hr> {% for haber in haberler %}
@@ -438,7 +482,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     
     <script defer>
-         const takip_et = async () =>{
+        function takip_ediliyor(){
+            let takip_ediliyor = document.querySelector(".takip-ediliyor");
+            if(takip_ediliyor.innerHTML="Takip Ediliyor"){
+                takip_ediliyor.innerHTML = "Takibi Bırak";      
+            }
+        }
+        
+        function takipci_goster(){
+            let takipciler = document.querySelector(".takipciler-1");
+            takipciler.classList.remove("d-none");
+        }
+
+        function takip_edilenleri_goster(){
+            let takipciler = document.querySelector(".takip-edilenler-1");
+            takipciler.classList.remove("d-none");
+        }
+
+        const takip_et = async () =>{
             let takip_ediliyor = document.querySelector(".profil-edit-1");
             let takipci_sayisi = document.querySelector(".takipci_sayisi");
             let response = await fetch(window.location.origin+"/api/takip-etme/",{
@@ -450,6 +511,7 @@
                     },
                     body: JSON.stringify({
                             id:"{{profil.user.id}}",
+                            user_id : "{{request.user.id}}"
                         })
                     
             })
@@ -458,24 +520,67 @@
                 if(data=="Takip Ediliyor"){
                     takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)+1;
                     takip_ediliyor.innerHTML="Takip Ediliyor";
+                    takip_ediliyor.classList.add("takip-ediliyor");
+                    takip_ediliyor.addEventListener("click",takip_ediliyor());
                 }
                 else if(data=="Takip Et"){
-                    takip_ediliyor.innerHTML="Takip Et";
+                    let parent = document.querySelector(".takip-parent");
+                    console.log("asd");
+                    parent.classList.remove("d-none");
                 }
+                
             }
+            
             
         }        
 
         
-
-        function takip_ediliyor(){
-            let takip_ediliyor = document.querySelector(".takip-ediliyor");
-            takip_ediliyor.innerHTML = "Takibi Bırak";      
+        function takip_kapa(){
+            
+            let parent = document.querySelector(".takip-parent");
+            parent.classList.add("d-none");
         }
+        
+
+        const takibi_birak = async () =>{
+            let takip_ediliyor = document.querySelector(".profil-edit-1");
+            let takipci_sayisi = document.querySelector(".takipci_sayisi");
+            let response = await fetch(window.location.origin+"/api/takibi-birak/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            id:"{{profil.user.id}}",
+                            user_id : "{{request.user.id}}"
+                        })
+                    
+            })
+            if (response.status===200){
+                let data = await response.json();
+                if(data=="Takip Et"){
+                    let takip_ediliyor = document.querySelector(".profil-edit-1");
+                    takip_ediliyor.innerHTML="Takip Et";
+                    takip_ediliyor.classList.remove("takip-ediliyor");
+                    takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)-1;
+                    let parent = document.querySelector(".takip-parent");
+                    console.log("asd");
+                    parent.classList.add("d-none");
+                }
+            }
+            
+            let btn = document.querySelector("profil-edit-1");
+            
+        }        
+
         
         function takip_ediliyor1(){
             let takip_ediliyor = document.querySelector(".takip-ediliyor");
-            takip_ediliyor.innerHTML = "Takip Ediliyor";      
+            if(takip_ediliyor.innerHTML="Takibi Bırak"){
+                takip_ediliyor.innerHTML = "Takip Ediliyor";      
+            }
 
         }
 
