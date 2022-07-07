@@ -212,6 +212,15 @@
                     {% endif %}
                 </div>
             </div>
+            <div class="takip-edemezsiniz col-12 d-none">
+               <div class="takip-edemezsiniz-1 p-3 col-9 col-md-6 offset-1 offset-md-2" >
+                <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                <h5 class="text-center">Bir kullanıcıyı takip etmek için giriş yapmanız gerekir.</h5>
+                <br>
+                <a href="{% url 'giris-yap' %}"><button class="center mt-5 btn btn-dark">Giriş Yap</button></a>
+               </div> 
+            </div>
+            
         </div>
 
 
@@ -269,7 +278,7 @@
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
                             </span>
-                             <p style="width: 200px;position: relative;"><span style="cursor: pointer;" onclick="takipci_goster()"><i class="takipci_sayisi">{{profil.takipci_sayisi}}</i> Takipçi</span> <span class="ms-2 ms-md-3" style="cursor: pointer;" onclick="takip_edilenleri_goster()"><i>{{profil.takip_edilenler_sayisi}}</i> Takip Edilen</span></p>
+                             <p style="width: 200px;position: relative;"><span style="cursor: pointer;" onclick="takipci_goster()"><b class="takipci_sayisi">{{profil.takipci_sayisi}}</b> Takipçi</span> <span class="ms-2 ms-md-3" style="cursor: pointer;" onclick="takip_edilenleri_goster()"><b>{{profil.takip_edilenler_sayisi}}</b> Takip Edilen</span></p>
                             </p>
                         </li>
                         
@@ -291,7 +300,7 @@
                                     {% if request.user.is_authenticated %}
                                         <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_et()" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()">Takip Et</button></li>
                                     {% else %}
-                                        <li><a href="{% url 'giris-yap' %}"><button class="btn btn-outline-dark profil-edit-1">Takip Et</button></a></li>
+                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_edmezsiniz()" >Takip Et</button></li>
                                     {% endif %}
                                 {% endif %}
 
@@ -540,6 +549,16 @@
             
         }        
 
+        function takip_edmezsiniz(){
+            let div = document.querySelector(".takip-edemezsiniz");
+            div.classList.remove("d-none");
+        }
+
+        function takip_edmezsiniz_kapa(){
+            let div = document.querySelector(".takip-edemezsiniz");
+            div.classList.add("d-none");
+        }
+        
         
         function takip_kapa(){
             

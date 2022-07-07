@@ -787,6 +787,23 @@ main {
     z-index: 115;
     margin-top: 23vh;
   }
+  .takip-edemezsiniz {
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    background-color: rgba(98, 145, 199, 0.336);
+    z-index: 100;
+  }
+  .takip-edemezsiniz-1 {
+    position: fixed;
+    border-radius: 8px;
+    height: 45vh;
+    background-color: whitesmoke;
+    border: 2px solid gray;
+    z-index: 115;
+    margin-top: 23vh;
+  }
 }
 
 .haberler {
