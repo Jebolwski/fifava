@@ -188,15 +188,12 @@
                 <div class="takipciler-1-1 p-3 col-9 col-md-6 offset-1 offset-md-2">
                     <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
                     <h5 class="my-2 ms-3">Takipçiler</h5>
-                    {% if takipciler.all.count > 0 %}
                     {% for i in takipciler %}
-                    <hr>
-                    <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    <div class="{{i.username}}">
+                        <hr>
+                        <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    </div>
                     {% endfor %}
-                    {% else %}
-                    <hr>
-                    <p class="ms-3 mt-2">Kullanıcının takipçisi yok.</p>
-                    {% endif %}
                 </div>
             </div>
 
@@ -483,9 +480,9 @@
     
     <script defer>
         function takip_ediliyor(){
-            let takip_ediliyor = document.querySelector(".takip-ediliyor");
-            if(takip_ediliyor.innerHTML="Takip Ediliyor"){
-                takip_ediliyor.innerHTML = "Takibi Bırak";      
+            let takip_ediliyor1 = document.querySelector(".profil-edit-1");
+            if(takip_ediliyor1.innerHTML=="Takip Ediliyor"){
+                takip_ediliyor1.innerHTML = "Takibi Bırak";      
             }
         }
         
@@ -500,14 +497,14 @@
         }
 
         const takip_et = async () =>{
-            let takip_ediliyor = document.querySelector(".profil-edit-1");
+            let takip123 = document.querySelector(".profil-edit-1");
             let takipci_sayisi = document.querySelector(".takipci_sayisi");
             let response = await fetch(window.location.origin+"/api/takip-etme/",{
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                             id:"{{profil.user.id}}",
@@ -516,16 +513,25 @@
                     
             })
             if (response.status===200){
-                let data = await response.json();
-                if(data=="Takip Ediliyor"){
+                let data1 = await response.text();
+                if(data1=='"Takip Ediliyor"'){
                     takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)+1;
-                    takip_ediliyor.innerHTML="Takip Ediliyor";
-                    takip_ediliyor.classList.add("takip-ediliyor");
-                    takip_ediliyor.addEventListener("click",takip_ediliyor());
+                    takip123.innerHTML="Takip Ediliyor";
+                    if(!("takip-ediliyor" in takip123)){
+                        takip123.classList.add("takip-ediliyor");
+                    }
+                    let div = document.querySelector(".takipciler-1-1");
+                    div.innerHTML+=
+                    ` 
+                    <div class="{{request.user.username}}">
+                        <hr>
+                        <span class="text-black text-decoration-none"><h6 class="ms-3 ">{{request.user.username}}</h6></span>
+                    </div>
+                    `
+                    takip123.addEventListener("click",takip_ediliyor());
                 }
-                else if(data=="Takip Et"){
+                else if(data1=='"Takip Et"'){
                     let parent = document.querySelector(".takip-parent");
-                    console.log("asd");
                     parent.classList.remove("d-none");
                 }
                 
@@ -549,8 +555,8 @@
                 method:"POST",
                 mode: 'same-origin',
                     headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                             id:"{{profil.user.id}}",
@@ -559,14 +565,15 @@
                     
             })
             if (response.status===200){
-                let data = await response.json();
-                if(data=="Takip Et"){
+                let data2 = await response.text();
+                if(data2=='"Takip Et"'){
                     let takip_ediliyor = document.querySelector(".profil-edit-1");
                     takip_ediliyor.innerHTML="Takip Et";
                     takip_ediliyor.classList.remove("takip-ediliyor");
                     takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)-1;
                     let parent = document.querySelector(".takip-parent");
-                    console.log("asd");
+                    let div = document.querySelector(".{{request.user.username}}");
+                    div.remove();
                     parent.classList.add("d-none");
                 }
             }
@@ -577,9 +584,9 @@
 
         
         function takip_ediliyor1(){
-            let takip_ediliyor = document.querySelector(".takip-ediliyor");
-            if(takip_ediliyor.innerHTML="Takibi Bırak"){
-                takip_ediliyor.innerHTML = "Takip Ediliyor";      
+            let takip_ediliyor2 = document.querySelector(".profil-edit-1");
+            if(takip_ediliyor2.innerHTML=="Takibi Bırak"){
+                takip_ediliyor2.innerHTML = "Takip Ediliyor";      
             }
 
         }

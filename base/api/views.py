@@ -188,6 +188,8 @@ def TakipEtme(request):
             return Response("Takip Ediliyor")
         elif user in takip_edilecek.takipciler.all():
             return Response("Takip Et")
+    return Response("Wow")
+    
 
 @api_view(['POST','GET'])
 def TakibiBirak(request):
@@ -195,11 +197,9 @@ def TakibiBirak(request):
         user = User.objects.get(id=request.data.get("user_id"))
         profil = ProfilFoto.objects.get(user_id=request.data.get("id"))
         takip_edecek = ProfilFoto.objects.get(user_id=request.data.get("user_id"))
-        if user in profil.takipciler.all():
-            profil.takipciler.remove(user.id)
-            takip_edecek.takip_edilenler.remove(request.data.get("id"))
-            return Response("Takip Et")
-    return Response("1")
+        profil.takipciler.remove(user.id)
+        takip_edecek.takip_edilenler.remove(request.data.get("id"))
+        return Response("Takip Et")
             
             
             
