@@ -212,10 +212,12 @@
                     {% endif %}
                 </div>
             </div>
+
+
             <div class="takip-edemezsiniz col-12 d-none">
                <div class="takip-edemezsiniz-1 p-3 col-9 col-md-6 offset-1 offset-md-2" >
                 <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
-                <h5 class="text-center">Bir kullanıcıyı takip etmek için giriş yapmanız gerekir.</h5>
+                <h5 class="text-center"><b>Bu ve daha fazlasına erişmek için giriş yapmanız gerekmektedir.</b></h5>
                 <br>
                 <a href="{% url 'giris-yap' %}"><button class="center mt-5 btn btn-dark">Giriş Yap</button></a>
                </div> 
@@ -278,8 +280,13 @@
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
                             </span>
+                            {% if request.user.is_authenticated %}
                              <p style="width: 200px;position: relative;"><span style="cursor: pointer;" onclick="takipci_goster()"><b class="takipci_sayisi">{{profil.takipci_sayisi}}</b> Takipçi</span> <span class="ms-2 ms-md-3" style="cursor: pointer;" onclick="takip_edilenleri_goster()"><b>{{profil.takip_edilenler_sayisi}}</b> Takip Edilen</span></p>
+                             {% else %}
+                             <p style="width: 200px;position: relative;"><span style="cursor: pointer;" onclick="takip_edmezsiniz()"><b class="takipci_sayisi">{{profil.takipci_sayisi}}</b> Takipçi</span> <span class="ms-2 ms-md-3" style="cursor: pointer;" onclick="takip_edmezsiniz()"><b>{{profil.takip_edilenler_sayisi}}</b> Takip Edilen</span></p>
+                            {% endif %}
                             </p>
+
                         </li>
                         
 
@@ -396,7 +403,7 @@
                         </a>    
                         <div class="gorenler-parent d-none"
                             >
-                           <div class="gorenler  col-8 offset-2 border p-3 rounded">
+                           <div class="gorenler col-8 offset-2 border p-3 rounded">
                             <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
                             <h4 class="ms-2">Görenler</h4>
                             {% if forum.goruldu.all.count > 0 %}
@@ -417,14 +424,17 @@
                                 {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
                                     <li><a href="{% url 'forum-sil' forum.id %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
                                 {% endif %}
-
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;" onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
-                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;" title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
+                                {% if request.user.is_authenticated %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% else %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="takip_edmezsiniz()"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% endif %}
+                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;"  title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
                                 <li>
                                     {% if request.user in forum.dislikes.all %}
                                         <i class="begenme fa-solid fa-heart-crack fa-md" style="color: black;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
                                     {% else %}
-                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor: pointer;"   onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor: pointer;"  onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
                                     {% endif %}
                                     <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
@@ -432,22 +442,26 @@
                                     {% if request.user in forum.likes.all %}
                                         <i class="begen fa-solid fa-heart fa-md" style="color: black;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
                                     {% else %}
-                                        <i class="begen fa-solid fa-heart fa-md" style="cursor: pointer;"   onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                        <i class="begen fa-solid fa-heart fa-md" style="cursor: pointer;"  onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
                                     {% endif %}
                                     <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
                                 </li>
                                 {% else %}
-                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" onclick="gorenleri_goster(event)" style="cursor: pointer;"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% if request.user.is_authenticated %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% else %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="takip_edmezsiniz()"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% endif %}
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-comment"  title="Yorum"></i></a>
+                                    <i class="fa-solid fa-comment" onclick="takip_edmezsiniz()" style="cursor: pointer;"  title="Yorum"></i>
                                     <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart-crack"  title="Beğenme"></i></a>
+                                    <i class="fa-solid fa-heart-crack" onclick="takip_edmezsiniz()" style="cursor: pointer;"  title="Beğenme"></i>
                                     <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
                                 </li>
                                 <li>
-                                    <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-heart"   title="Beğen"></i></a> 
+                                    <i class="fa-solid fa-heart" onclick="takip_edmezsiniz()" style="cursor: pointer;" title="Beğen"></i>
                                     <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
                                 </li>
                                 {% endif %}
