@@ -187,8 +187,11 @@
                 adlı kullanıcıya yanıtınız
             </div>
             <br>
-            
+            {% if cevap_profil_url %}
             <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}"  class="col-2 col-lg-1 rounded border ms-1" style="height: 50px;width:50px;">
+            {% else %}
+            <img src="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/default-profile.jpg"  class="col-2 col-lg-1 rounded border ms-1" style="height: 50px;width:50px;">
+            {% endif %}
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
             <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
@@ -246,7 +249,8 @@
                                 {{forum.guncellenme_tarihi}}
                             </div> 
                             <hr>
-                        </a>    
+                        </a>   
+
                         <div class="gorenler-parent d-none"
                             >
                            <div class="gorenler  col-8 offset-2 border p-3 rounded">
