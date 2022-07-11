@@ -880,6 +880,7 @@ main .great-list {
 
 main .forumlar_1 {
   background-color: #fafafa;
+  z-index: 10;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
 }
@@ -892,6 +893,7 @@ main .forumlar_1:hover {
 
 main .forumlar_1 {
   background-color: #fafafa;
+  z-index: 10;
 }
 
 main .forumlar_1:hover {
