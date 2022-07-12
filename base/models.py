@@ -305,3 +305,12 @@ class ForumSoruCevap(models.Model):
 
     def total_dislikes(self):
         return self.dislikes.count()
+
+
+class Hareket(models.Model):
+    hareket = models.TextField(max_length=1000,null=True,blank=True)
+    admin_mi = models.TextField(max_length=1,null=False,blank=False,default=0)
+
+    def __str__(self):
+        return self.hareket
+  

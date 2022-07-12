@@ -89,6 +89,10 @@ urlpatterns = [
     path("cevaplanmis-duzenle/<int:pk>/", views.CevaplanmisDuzenle, name="cevaplanmis-duzenle"),
 
 
+    #!HAREKETLER
+    path("hareketler/",views.Hareketler,name="hareketler"),
+
+
      #!İLETİŞİM
     path("gelen-kutusu-cevaplama/<int:iletisim_id>",views.GelenKutusuCevaplama,name="gelen-kutusu-cevaplama"),
     path("cevap/<int:pk>/",views.CevabaCevap,name="cevaba-cevap"),
