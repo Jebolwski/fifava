@@ -12,7 +12,7 @@
   </head>
   <body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
      <aside class="side-navbar col-1">
-            <ul class="p-0 text-center">
+            <ul class="p-0 text-center list-unstyled">
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>

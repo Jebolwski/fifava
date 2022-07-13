@@ -19,15 +19,14 @@
 
 <body>
     <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    <div class="loading col-12">
+    <!-- <div class="loading col-12">
         <img src="{% static 'images/logo.png' %}">
-    </div>
+    </div> -->
 
     <div class="home">
        
-
         <aside class="side-navbar col-1">
-            <ul class="p-0 text-center h-100">
+            <ul class="p-0 text-center list-unstyled list-unstyled h-100">
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
@@ -129,6 +128,7 @@
                         <p class="d-none d-md-block">Formlar</p>
                     </a>
                 </li>
+                
                 <li>
                     <a href="{% url 'hareketler' %}">
                         {% if form_bildirim %}
@@ -171,13 +171,13 @@
             </ul>
         </aside>
 
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground.png" class="ground">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/house.png" class="house">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/kesfet.png" class="kesfet-svg">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/background.jpg" style="z-index: 40;" class="kesfet-svg-1">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/top.png" class="top-1">
-        <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/background2.jpg" class="full-background">
+        <img src="../../static/images/truck.png" class="truck">
+        <img src="../../static/images/ground.png" class="ground">
+        <img src="../../static/images/house.png" class="house">
+        <img src="../../static/images/kesfet.png" class="kesfet-svg">
+        <img src="../../static/images/background.jpg" style="z-index: 40;" class="kesfet-svg-1">
+        <img src="../../static/images/top.png" class="top-1">
+        <img src="../../static/images/background2.jpg" class="full-background">
         
         <main class="col-11 col-lg-10 ">
             {% for message in messages %}

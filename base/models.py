@@ -310,7 +310,10 @@ class ForumSoruCevap(models.Model):
 class Hareket(models.Model):
     hareket = models.TextField(max_length=1000,null=True,blank=True)
     admin_mi = models.TextField(max_length=1,null=False,blank=False,default=0)
+    olusturulma_tarihi     = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
 
+    
     def __str__(self):
         return self.hareket
   

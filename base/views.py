@@ -109,6 +109,10 @@ def KayitOl(request):
         form = KayitForm(request.POST)
         if form.is_valid():
             form.save()
+            Hareket.objects.create(
+                hareket = request.POST['username'] +" adlı kullanıcı aramıza katıldı.",
+                admin_mi=0,
+            )
             messages.success(request, 'Başarıyla kayıt olundu.')
             ProfilFoto.objects.update_or_create(
                 user=User.objects.get(username = request.POST['username']),
@@ -401,6 +405,10 @@ def KisiEkle(request):
         form = OyuncuForm(data,files=request.FILES)
         if form.is_valid():
             form.save()
+            Hareket.objects.create(
+                hareket = request.POST['oyun_ad_soyad'] +" adlı oyuncu eklendi.",
+                admin_mi=0,
+            )
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
             return redirect('kisiler')
         else:
@@ -657,6 +665,10 @@ def HaberEkle(request):
         resim=request.FILES.get('file'),
         baslik_slug = slugify(request.POST['baslik']),
         )
+        Hareket.objects.create(
+                hareket = request.POST['baslik'] +" başlıklı haber haberlere eklendi.",
+                admin_mi=0,
+            )
         messages.success(request,"Haber başarıyla oluşturuldu.")
         return redirect('haberler')
         context = {'form':form,'haberler':haberler}
@@ -918,6 +930,10 @@ def FormEkle(request):
             form.instance.user=request.user
             form.save()
             messages.success(request,"Anket başarıyla oluşturuldu.")
+            Hareket.objects.create(
+                hareket = request.POST['baslik'] +" başlıklı form formlara eklendi.",
+                admin_mi=0,
+            )
             return redirect("formlar")
         else:
             messages.error(request,"Bir hata oluştu.")
@@ -1507,7 +1523,6 @@ def CevaplanmisDuzenle(request,pk):
 
     return render(request,"base/form/cevaplanmis-duzenle.html",context)
 
-
 @login_required(login_url='giris-yap')
 def CevapDetay(request,pk):
     if True:
@@ -1560,7 +1575,6 @@ def CevapSil(request,pk):
     cevap.delete()
     return redirect("formlar")
 
-
 @login_required(login_url='giris-yap')
 def KayitOnay(request):
     if not request.user.is_superuser:
@@ -1609,8 +1623,6 @@ def KayitOnay(request):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
     return render(request,"base/kayitonay/kayit-onay.html",context)
-
-
 
 @login_required(login_url='giris-yap')
 def KayitOnayFormDuzenle(request,pk):
@@ -1685,7 +1697,6 @@ def KayitOnayFormDuzenle(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}  
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
-
 @login_required(login_url='giris-yap')
 def KayitOnayForm(request,pk):
     if True:
@@ -1758,7 +1769,6 @@ def KayitOnayForm(request,pk):
 
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
-
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
     cevap_profil_url="";
@@ -1813,8 +1823,6 @@ def Profil(request,my_slug):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim,"takipciler":takipciler,"takip_edilenler":takip_edilenler}
     return render(request,"base/ayarlar/profil.html",context)  
 
-
-
 def Profil1(request,pk):
     if True:
         haber_bildirim=False
@@ -1865,7 +1873,6 @@ def Profil1(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/profil.html",context)  
 
-
 def Hareketler(request):
     
     if True:
@@ -1900,13 +1907,10 @@ def Hareketler(request):
                 oyuncu_bildirim=True
                 break
      
-    hareketler_admin = Hareket.objects.all().filter(admin_mi=1)
-    hareketler_normal = Hareket.objects.all().filter(admin_mi=0)
-    
+    hareketler = Hareket.objects.all().order_by("-guncellenme_tarihi")
 
-    context = {hareketler_admin:"hareketler_admin",hareketler_normal:"hareketler_normal"}
+    context = {"hareketler":hareketler}
     return render(request,"base/hareket/hareketler.html",context)  
-
 
 @login_required(login_url='giris-yap')
 def Ayarlar(request):
@@ -2112,6 +2116,12 @@ def ProfilFotoDuzenle(request,pk):
         data['username_slug'] = slugify(User.objects.get(id=pk).username)
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
+            resim_url = foto.resim.url[19:]
+            if resim_url!=request.FILES['resim']:
+                Hareket.objects.create(
+                    hareket = foto.username + " adlı kullanıcı profil fotoğrafını değiştirdi.",
+                    admin_mi=0,
+                )
             form.save()
             messages.success(request,"Profiliniz başarıyla güncellendi.")
             return redirect("profil",slugify(request.user.username))
@@ -2422,10 +2432,16 @@ def ForumEkle(request):
         form = ForumEkleForm(data)
         if form.is_valid():
             form.save()
+            Hareket.objects.create(
+                hareket = request.POST['baslik'] +" başlıklı forum forumlara eklendi.",
+                admin_mi=0,
+            )
             messages.success(request,"Formunuz başarıyla oluşturuldu.")
             return redirect('forumlar')
         else:
             messages.error(request,"Bir hata oluştu.")
+    
+    
     context={'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/forum/forum-ekle.html",context)
