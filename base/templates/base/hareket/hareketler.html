@@ -173,7 +173,7 @@
 
                 {% for hareket in hareketler %}
                 <br>
-                <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded px-3 pt-3 pb-2 mt-3 bg-light">
+                <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded px-3 pt-3 pb-2 my-2 bg-light">
                     <h5>{{hareket.hareket}}</h5>
                     <h6 class="mt-4" style="position: relative;right:10">{{hareket.guncellenme_tarihi}}</h6>
                 </div>
@@ -183,7 +183,7 @@
 
                 {% for hareket in hareketler %}
                     {% if hareket.admin_mi == '0' %}<br>
-                    <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded p-3 mt-3 bg-light">
+                    <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded p-3 my-2 bg-light">
                        <h5>{{hareket.hareket}}</h5> 
                        <h6 class="mt-4 offset-3 offset-md-6 offset-lg-9">{{hareket.guncellenme_tarihi}}</h6>
                     </div>

@@ -66,6 +66,10 @@ def GirisYap(request):
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
                 messages.success(request,"Bu hesap yasaklandı.")
                 return redirect("giris-yap")
+            Hareket.objects.create(
+                hareket = username1+" adlı kullanıcı giriş yaptı.",
+                admin_mi = 1,
+            )
             login(request, person)
             messages.success(request, 'Başarıyla giriş yapıldı.')
             return redirect('anasayfa')
@@ -78,6 +82,10 @@ def GirisYap(request):
 
 
 def CikisYap(request):
+    Hareket.objects.create(
+                hareket = request.user.username+" adlı kullanıcı çıkış yaptı.",
+                admin_mi = 1,
+            )
     logout(request)
     messages.success(request,"Başarıyla çıkış yapıldı.")
     return redirect("anasayfa")
@@ -130,7 +138,6 @@ def KayitOl(request):
         'form': form,'haberler':haberler
     }
     return render(request, 'base/kayit.html', context)
-
 
 
 def Ev(request):
@@ -247,6 +254,7 @@ def NasilKatilabilirim(request):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/nasil-katilabilirim.html",context)
 
+
 #?KİŞİ CRUD
 def Kisiler(request):
     kisiler = Kullanici.objects.all().order_by('-meslek')
@@ -305,6 +313,7 @@ def Kisiler(request):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/kisi/kisiler.html",context)
 
+
 @login_required(login_url='giris-yap')
 def EmailDegistir(request):
     if request.method == 'POST':
@@ -359,6 +368,7 @@ def EmailDegistir(request):
     context={'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/email-degistir.html",context)
+
 
 @login_required(login_url='giris-yap')
 def KisiEkle(request):
@@ -419,6 +429,7 @@ def KisiEkle(request):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/kisi/kisi-ekle.html",context)
 
+
 @login_required(login_url='giris-yap')
 def KisiDuzenle(request,my_slug):
     if not request.user.is_superuser:
@@ -475,6 +486,7 @@ def KisiDuzenle(request,my_slug):
 
     return render(request,"base/kisi/kisi-duzenle.html",context)
 
+
 @login_required(login_url='giris-yap')
 def KisiSil(request,my_slug):
     if not request.user.is_superuser:
@@ -522,6 +534,7 @@ def KisiSil(request,my_slug):
     context = {"haberler":haberler,'kisi':instance,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/kisi/kisi-sil.html",context)
+
 
 def KisiDetay(request,my_slug):
     if True:
@@ -827,6 +840,7 @@ def HaberSil(request,my_slug):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
     return render(request,"base/haber/haber-sil.html",context)
+
 
 #!FORM
 def Formlar(request):
@@ -1769,6 +1783,7 @@ def KayitOnayForm(request,pk):
 
     return render(request,"base/kayitonay/kayit-onay-form.html",context)
 
+
 def Profil(request,my_slug):
     profil_user = ProfilFoto.objects.get(username_slug=my_slug)
     cevap_profil_url="";
@@ -1823,6 +1838,7 @@ def Profil(request,my_slug):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim,"takipciler":takipciler,"takip_edilenler":takip_edilenler}
     return render(request,"base/ayarlar/profil.html",context)  
 
+
 def Profil1(request,pk):
     if True:
         haber_bildirim=False
@@ -1873,6 +1889,7 @@ def Profil1(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/profil.html",context)  
 
+
 def Hareketler(request):
     
     if True:
@@ -1911,6 +1928,7 @@ def Hareketler(request):
 
     context = {"hareketler":hareketler}
     return render(request,"base/hareket/hareketler.html",context)  
+
 
 @login_required(login_url='giris-yap')
 def Ayarlar(request):
@@ -2003,6 +2021,7 @@ def GelenKutusuCevaplama(request,iletisim_id):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/gelen-kutusu-cevaplama.html",context)
 
+
 @login_required(login_url='giris-yap')
 def ProfilFotoView(request,pk):
     onaydurum = OnayDurum.objects.get(kisi_id=pk)
@@ -2063,6 +2082,7 @@ def ProfilFotoView(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/profil-foto.html",context)
 
+
 @login_required(login_url='giris-yap')
 def ProfilFotoDuzenle(request,pk):
     if True:
@@ -2116,12 +2136,10 @@ def ProfilFotoDuzenle(request,pk):
         data['username_slug'] = slugify(User.objects.get(id=pk).username)
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():
-            resim_url = foto.resim.url[19:]
-            if resim_url!=request.FILES['resim']:
-                Hareket.objects.create(
-                    hareket = foto.username + " adlı kullanıcı profil fotoğrafını değiştirdi.",
-                    admin_mi=0,
-                )
+            Hareket.objects.create(
+                hareket = foto.username + " adlı kullanıcı profilini güncelledi.",
+                admin_mi=0,
+            )
             form.save()
             messages.success(request,"Profiliniz başarıyla güncellendi.")
             return redirect("profil",slugify(request.user.username))
@@ -2191,6 +2209,7 @@ def Forumlar(request):
 
     return render(request,"base/forum/forumlar.html",context) 
 
+
 @login_required(login_url='giris-yap')
 def Begenme(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
@@ -2201,6 +2220,7 @@ def Begenme(request,pk):
         forum.dislikes.remove(request.user.id)
     
     return redirect("forum",forum.soru.id)
+
 
 @login_required(login_url='giris-yap')
 def Begenmeme(request,pk):
@@ -2213,6 +2233,7 @@ def Begenmeme(request,pk):
     
     return redirect("forum",forum.soru.id)
 
+
 @login_required(login_url='giris-yap')
 def BegenmeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
@@ -2224,6 +2245,7 @@ def BegenmeForum(request,pk):
     
     return redirect("forumlar")
     
+
 @login_required(login_url='giris-yap')    
 def BegenmemeForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
@@ -2235,6 +2257,7 @@ def BegenmemeForum(request,pk):
     
     return redirect("forumlar")
 
+
 @login_required(login_url='giris-yap')
 def BegenmeProfilForum(request,pk):
     forum = ForumSoru.objects.get(id=pk)
@@ -2245,6 +2268,7 @@ def BegenmeProfilForum(request,pk):
         forum.dislikes.remove(request.user.id)
     
     return redirect("profil",slugify(forum.profil.user.username))
+
 
 @login_required(login_url='giris-yap')
 def BegenmemeProfilForum(request,pk):
@@ -2320,6 +2344,7 @@ def ForumCevapla(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/forum/forum.html",context) 
 
+
 @login_required(login_url='giris-yap')
 def ForumCevapSil(request,pk):
     forum = ForumSoruCevap.objects.get(id=pk)
@@ -2332,6 +2357,7 @@ def ForumCevapSil(request,pk):
     soru.save()
     forum.delete()
     return redirect("forum",forum.soru_id) 
+
 
 @login_required(login_url='giris-yap')
 def ForumSil(request,pk):
