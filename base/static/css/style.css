@@ -992,6 +992,10 @@ main b {
   font-weight: 600;
 }
 
+main .terimler-text {
+  font-size: 24px;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;
@@ -1340,6 +1344,9 @@ main b {
     font-size: 14px;
     text-align: center;
   }
+  .terimler-text {
+    font-size: 20px;
+  }
   #fifava {
     height: 13vh;
   }
@@ -1353,6 +1360,9 @@ main b {
 }
 
 @media only screen and (max-width: 988px) {
+  main .terimler-text {
+    font-size: 18px;
+  }
   main #particles-js #fifava {
     height: 15vh;
   }
@@ -1539,6 +1549,15 @@ main b {
   .side-navbar ul li a {
     font-size: 14px;
   }
+  main .terimler-text {
+    font-size: 24px;
+  }
+  main .terimler-text-1 {
+    margin-top: -40px;
+  }
+  main .terimler-text-2 {
+    margin-top: 120px;
+  }
   main .one-container {
     background-image: url("../images/fifavoxphone.jpg");
     background-size: 100vw 100vh;
@@ -1589,9 +1608,6 @@ main b {
   }
   main .iletisim-sayfa h4 {
     font-size: 14px;
-  }
-  main .terimler-text {
-    margin-top: 80px;
   }
 }
 
