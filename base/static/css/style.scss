@@ -569,7 +569,9 @@ main {
       top: -18vh;
     }
     .profil-edit {
-      margin-left: 42vw;
+      position: absolute;
+      right: 34px;
+      top: 4px;
     }
   }
   .reply-to-comment {
@@ -808,6 +810,10 @@ main {
     border: 2px solid gray;
     z-index: 115;
     margin-top: 20vh;
+  }
+  b {
+    color: #6b6b21;
+    font-weight: 600;
   }
 }
 
@@ -1280,6 +1286,9 @@ main {
       h4 {
         font-size: 14px;
       }
+    }
+    .terimler-text {
+      margin-top: 80px;
     }
   }
 }

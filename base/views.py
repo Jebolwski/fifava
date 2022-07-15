@@ -252,7 +252,85 @@ def NasilKatilabilirim(request):
     
     context={'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
-    return render(request,"base/nasil-katilabilirim.html",context)
+    return render(request,"base/bilgiler/nasil-katilabilirim.html",context)
+
+
+def Bilgiler(request):
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context={'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/bilgiler/bilgiler.html",context)
+
+def Terimler(request):
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    if True:
+        haber_bildirim=False
+        ev_bildirim=False
+        forum_bildirim=False
+        form_bildirim=False
+        oyuncu_bildirim=False
+        iletisim1 = Iletisim.objects.all().order_by('-guncellenme_tarihi')
+        haberler1 = Haberler.objects.all().order_by('-guncellenme_tarihi')
+        forumlar1 = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
+        formlar1 = Sorular.objects.all().order_by('-guncellenme_tarihi')
+        oyuncular1 = Kullanici.objects.all().order_by('-guncellenme_tarihi')
+        for iletisim in iletisim1:
+            if request.user not in iletisim.goruldu.all() and request.user.is_authenticated:
+                ev_bildirim=True
+                break
+        for haber in haberler1:
+            if request.user not in haber.goruldu.all() and request.user.is_authenticated:
+                haber_bildirim=True
+                break
+        for forum in forumlar1:
+            if request.user not in forum.goruldu.all() and request.user.is_authenticated:
+                forum_bildirim=True
+                break
+        for form in formlar1:
+            if request.user not in form.goruldu.all() and request.user.is_authenticated:
+                form_bildirim=True
+                break
+        for oyuncu in oyuncular1:
+            if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
+                oyuncu_bildirim=True
+                break
+    
+    context={'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
+    return render(request,"base/bilgiler/terimler.html",context)
+
 
 
 #?KİŞİ CRUD
@@ -1889,9 +1967,9 @@ def Profil1(request,pk):
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/ayarlar/profil.html",context)  
 
-
+#!HAREKETLER
 def Hareketler(request):
-    
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -1925,8 +2003,12 @@ def Hareketler(request):
                 break
      
     hareketler = Hareket.objects.all().order_by("-guncellenme_tarihi")
+    p = Paginator(hareketler,20)
+    page = request.GET.get('page')
+    hareket = p.get_page(page)
 
-    context = {"hareketler":hareketler}
+    context = {'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+            'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim,'hareketler':hareket}
     return render(request,"base/hareket/hareketler.html",context)  
 
 

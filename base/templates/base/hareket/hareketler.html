@@ -75,9 +75,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class="fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    <a href="{% url 'bilgiler' %}">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <p class="d-none d-md-block">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -122,14 +122,7 @@
                 
                 <li>
                     <a href="{% url 'hareketler' %}">
-                        {% if form_bildirim %}
-                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M162 0C176.892 0 189 10.5519 189 23.5714V141.429C189 154.43 176.892 165 162 165H27C12.0867 165 0 154.43 0 141.429V23.5714C0 10.5519 12.0867 0 27 0H162ZM54 70.7143C46.5328 70.7143 40.5 75.981 40.5 82.5V117.857C40.5 124.376 46.5328 129.643 54 129.643C61.4672 129.643 67.5 124.376 67.5 117.857V82.5C67.5 75.981 61.4672 70.7143 54 70.7143ZM81 117.857C81 124.376 87.0328 129.643 94.5 129.643C101.967 129.643 108 124.376 108 117.857V47.1429C108 40.6239 101.967 35.3571 94.5 35.3571C87.0328 35.3571 81 40.6239 81 47.1429V117.857ZM135 94.2857C127.533 94.2857 121.5 99.5525 121.5 106.071V117.857C121.5 124.376 127.533 129.643 135 129.643C142.467 129.643 148.5 124.376 148.5 117.857V106.071C148.5 99.5525 142.467 94.2857 135 94.2857Z" fill="white"/>
-                        <circle cx="151.5" cy="139.5" r="37.5" fill="#723535"/>
-                        </svg>
-                        {% else %}
                         <i class=" fa-solid fa-person-walking text-dark"></i>
-                        {% endif %}
                         <p class="d-none d-md-block text-dark">Hareketler</p>
                     </a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
@@ -168,12 +161,12 @@
         <div class="message">{{message}}</div>
         {% endfor %}
         
+        <br>
         {% if hareketler %}
             {% if request.user.is_superuser %}
 
                 {% for hareket in hareketler %}
-                <br>
-                <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded px-3 pt-3 pb-2 my-2 bg-light">
+                <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded px-3 pt-3 pb-2 my-3 bg-light">
                     <h5>{{hareket.hareket}}</h5>
                     <h6 class="mt-4" style="position: relative;right:10">{{hareket.guncellenme_tarihi}}</h6>
                 </div>
@@ -182,21 +175,31 @@
             {% else %}
 
                 {% for hareket in hareketler %}
-                    {% if hareket.admin_mi == '0' %}<br>
-                    <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded p-3 my-2 bg-light">
+                    {% if hareket.admin_mi == '0' %}
+                    <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded p-3 my-3 bg-light">
                        <h5>{{hareket.hareket}}</h5> 
-                       <h6 class="mt-4 offset-3 offset-md-6 offset-lg-9">{{hareket.guncellenme_tarihi}}</h6>
+                       <h6 class=" mt-4 offset-3 offset-md-6 offset-lg-9">{{hareket.guncellenme_tarihi}}</h6>
                     </div>
                     {% endif %}
                 {% endfor %}
 
             {% endif %}
-                
+            <p class="offset-1 mt-5">
+            {% if hareketler.has_previous%}
+            <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if hareketler.has_previous%}
+            <a href="?page={{hareketler.previous_page_number}}" class="text-black"><i class="fas fa-chevron-left"></i></a> {% else %}
+            <i class="fas fa-chevron-left disabled" style="color: gray;">
+                </i> {% endif %} {{hareketler.number}} de {{hareketler.paginator.num_pages}} {% if hareketler.has_next %}
+            <a href="?page={{hareketler.next_page_number}}" class="text-black"><i class="fas fa-chevron-right"></i></a>
+            <a href="?page={{hareketler.paginator.num_pages}}" class="text-black"><i class="fas fa-angle-double-right"></i></a> {% else %}
+            <i class="fas fa-chevron-right" style="color: gray;"></i> {% endif %}
+            </p>
         {% else %}
 
             <h5 class="text-center pt-5">Son zamanlarda hareket yok.</h5>
         
         {% endif %}
+        
 
 
         

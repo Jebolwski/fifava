@@ -698,7 +698,9 @@ main .biyografi .top {
 }
 
 main .biyografi .profil-edit {
-  margin-left: 42vw;
+  position: absolute;
+  right: 34px;
+  top: 4px;
 }
 
 main .reply-to-comment {
@@ -983,6 +985,11 @@ main .takip-edemezsiniz-1 {
   border: 2px solid gray;
   z-index: 115;
   margin-top: 20vh;
+}
+
+main b {
+  color: #6b6b21;
+  font-weight: 600;
 }
 
 .haberler {
@@ -1582,6 +1589,9 @@ main .takip-edemezsiniz-1 {
   }
   main .iletisim-sayfa h4 {
     font-size: 14px;
+  }
+  main .terimler-text {
+    margin-top: 80px;
   }
 }
 

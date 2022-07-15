@@ -1,14 +1,13 @@
-﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %}
-<title>Nasıl Katilabilirim | FIFAVOX</title>
- <meta property="og:title" content="FIFAFOX | Nasıl Katilabilirim" />
+ {% extends 'base/ana.html' %} {% load static %} {% block content %}
+    <meta property="og:title" content="FIFAFOX | Haberler" />
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Nasıl Katilabilirim" />
+<meta property="twitter:title" content="FIFAFOX | RP Terimleri" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<title>RP Terimleri | FIFAVOX</title>
 </head>
 
 <body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
@@ -49,9 +48,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class="fa-solid fa-question text-dark"></i>
-                        <p class="d-none d-md-block text-dark">Nasıl Katılabilirim</p>
+                    <a href="{% url 'bilgiler' %}">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <p class="d-none d-md-block">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -68,10 +67,23 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'haberler' %}">
+                     <a href="{% url 'haberler' %}">
                         {% if haber_bildirim %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M177.188 0.8125H47.25C40.7162 0.8125 35.4375 6.10229 35.4375 12.625V136.656C35.4375 139.905 32.7945 142.562 29.5312 142.562C26.268 142.562 23.625 139.905 23.625 136.656V24.4375H11.8125C5.28979 24.4375 0 29.7162 0 36.25V142.562C0 155.612 10.5759 166.188 23.625 166.188H165.375C178.424 166.188 189 155.612 189 142.562V12.625C189 6.10229 183.721 0.8125 177.188 0.8125ZM100.406 142.562H64.9688C61.7203 142.562 59.0625 139.905 59.0625 136.656C59.0625 133.408 61.7203 130.75 64.9688 130.75H100.406C103.668 130.75 106.312 133.394 106.312 136.656C106.312 139.905 103.655 142.562 100.406 142.562ZM100.406 107.125H64.9688C61.7203 107.125 59.0625 104.467 59.0625 101.219C59.0625 97.9703 61.7203 95.3125 64.9688 95.3125H100.406C103.655 95.3125 106.312 97.9703 106.312 101.219C106.312 104.467 103.655 107.125 100.406 107.125ZM159.469 142.562H124.031C120.77 142.562 118.125 139.918 118.125 136.656C118.125 133.394 120.77 130.75 124.031 130.75H159.469C162.73 130.75 165.375 133.394 165.375 136.656C165.375 139.905 162.717 142.562 159.469 142.562ZM159.469 107.125H124.031C120.783 107.125 118.125 104.467 118.125 101.219C118.125 97.9703 120.783 95.3125 124.031 95.3125H159.469C162.717 95.3125 165.375 97.9703 165.375 101.219C165.375 104.467 162.717 107.125 159.469 107.125ZM165.375 65.7812C165.375 69.0297 162.717 71.6875 159.469 71.6875H64.9688C61.7203 71.6875 59.0625 69.0297 59.0625 65.7812V30.3438C59.0625 27.0953 61.7203 24.4375 64.9688 24.4375H159.469C162.717 24.4375 165.375 27.0953 165.375 30.3438V65.7812Z" fill="white"/>
+                        <path d="M177.188 0.8125H47.25C40.7162 0.8125 35.4375 6.10229 35.4375 12.625V136.656C35.4375 139.905 32.7945 
+                        142.562 29.5312 142.562C26.268 142.562 23.625 139.905 23.625 136.656V24.4375H11.8125C5.28979 24.4375 0 29.7162
+                         0 36.25V142.562C0 155.612 10.5759 166.188 23.625 166.188H165.375C178.424 166.188 189 155.612 189 142.562V12.625C189
+                          6.10229 183.721 0.8125 177.188 0.8125ZM100.406 142.562H64.9688C61.7203 142.562 59.0625 139.905 59.0625 136.656C59.0625
+                           133.408 61.7203 130.75 64.9688 130.75H100.406C103.668 130.75 106.312 133.394 106.312 136.656C106.312 139.905 103.655
+                            142.562 100.406 142.562ZM100.406 107.125H64.9688C61.7203 107.125 59.0625 104.467 59.0625 101.219C59.0625 97.9703 
+                            61.7203 95.3125 64.9688 95.3125H100.406C103.655 95.3125 106.312 97.9703 106.312 101.219C106.312 104.467 103.655 
+                            107.125 100.406 107.125ZM159.469 142.562H124.031C120.77 142.562 118.125 139.918 118.125 136.656C118.125 133.394 
+                            120.77 130.75 124.031 130.75H159.469C162.73 130.75 165.375 133.394 165.375 136.656C165.375 139.905 162.717 142.562
+                             159.469 142.562ZM159.469 107.125H124.031C120.783 107.125 118.125 104.467 118.125 101.219C118.125 97.9703 120.783 
+                             95.3125 124.031 95.3125H159.469C162.717 95.3125 165.375 97.9703 165.375 101.219C165.375 104.467 162.717 107.125
+                              159.469 107.125ZM165.375 65.7812C165.375 69.0297 162.717 71.6875 159.469 71.6875H64.9688C61.7203 71.6875 59.0625
+                               69.0297 59.0625 65.7812V30.3438C59.0625 27.0953 61.7203 24.4375 64.9688 24.4375H159.469C162.717 24.4375 165.375
+                                27.0953 165.375 30.3438V65.7812Z" fill="black"/>
                         <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
                         </svg>
                         {% else %}
@@ -96,14 +108,7 @@
                 </li>
                 <li>
                     <a href="{% url 'hareketler' %}">
-                        {% if form_bildirim %}
-                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M162 0C176.892 0 189 10.5519 189 23.5714V141.429C189 154.43 176.892 165 162 165H27C12.0867 165 0 154.43 0 141.429V23.5714C0 10.5519 12.0867 0 27 0H162ZM54 70.7143C46.5328 70.7143 40.5 75.981 40.5 82.5V117.857C40.5 124.376 46.5328 129.643 54 129.643C61.4672 129.643 67.5 124.376 67.5 117.857V82.5C67.5 75.981 61.4672 70.7143 54 70.7143ZM81 117.857C81 124.376 87.0328 129.643 94.5 129.643C101.967 129.643 108 124.376 108 117.857V47.1429C108 40.6239 101.967 35.3571 94.5 35.3571C87.0328 35.3571 81 40.6239 81 47.1429V117.857ZM135 94.2857C127.533 94.2857 121.5 99.5525 121.5 106.071V117.857C121.5 124.376 127.533 129.643 135 129.643C142.467 129.643 148.5 124.376 148.5 117.857V106.071C148.5 99.5525 142.467 94.2857 135 94.2857Z" fill="white"/>
-                        <circle cx="151.5" cy="139.5" r="37.5" fill="#723535"/>
-                        </svg>
-                        {% else %}
                         <i class=" fa-solid fa-person-walking"></i>
-                        {% endif %}
                         <p class="d-none d-md-block">Hareketler</p>
                     </a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
@@ -138,67 +143,67 @@
     </aside>
 
     <main class="col-11 col-lg-10 offset-1">
-        <div class="nasil-katilabilirim col-9 col-md-8 offset-1 offset-md-2">
-
-        <h4 class="text-center pb-4 pt-5"><font color="#77771f" >FIFAVOX RolePlay FiveM sunucusunda oynamak için gerekli koşullar</font></h4> 
-        <p><font color="#77771f" size=3>1-) </font> Kayıt başvurusunda bulunabilmek için en az 50 saat FiveM geçmişiniz olmalı.</p>
-
-        <p><font size=3 color="#77771f">2-)</font> Yaşınız en az 16 ve üzeri olmalı.</p>
-
-        <p><font size=3 color="#77771f">3-)</font> FIFAVOX RolePlay sunucusunun "HARD" RolePlay olduğu bilinerek kayıt işlemi gerçekleştirilmeli.</p>
-
-
-        <h4 class="pt-4 pb-4">FIFAVOX RolePlay FiveM sunucusu kayıt aşamaları:</h4> 
-        <p><font size=3 color="#77771f">1-)</font> <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> sitesi üzerinden <a href="{%url 'kayit-ol'%}" class="text-dark" >hesap oluşturun</a>.</p> 
-
-        <p><font size=3 color="#77771f">2-)</font> <a href="{% url 'formlar' %}" class="text-dark" >fifavox.com/formlar</a> kısmından <a href="/form-cevapla/2/" class="text-dark">FIFAVOX RolePlay Başvuru Formunu</a> eksiksiz bir biçimde doldurun.</p> 
+        {% for message in messages %}
+        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
+        {% endfor %}
         
-        <p><font size=3 color="#77771f">3-)</font> Bu iki işlemin ardından <a href="https://discord.gg/8yn76ANa9n" class="text-dark" target="_blank">https://discord.gg/8yn76ANa9n</a> adresinden FIFAVOX RolePlay Ön Kayıt Discord sunucusuna katılın.</p> 
-        
-        <p><font size=3 color="#77771f">4-)</font> 5 dakikanın ardından Hoşgeldin rolünüz Kayıt Bekleyen rolüyle değişecek.</p> 
-        
-        <p><font size=3 color="#77771f">5-)</font> Rolünüzü aldıktan sonra Kayıt Bekleme odalarından birine girip yetkililer ile internet sitesindeki bilgileri teyit edin.</p> 
-        
-        <p><font size=3 color="#77771f">6-)</font> Ek olarak birkaç soru daha sorulduktan sonra yetkili onay durumunuza karar verecek.</p> 
-        
-        <p><font size=3 color="#77771f">7-)</font> Onaylandıktan sonra yetkili tarafından size ana Discord sunucusunun linki verilecek.</p> 
-        
-        <p><font size=3 color="#77771f">8-)</font> Son olarak <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> web sitesinde onayınızı alacaksınız.</p> 
-        
-        <p><font size=3 color="#77771f">9-)</font> Onay durumunuzu kontrol etmek için  <a href="{% url 'anasayfa' %}" class="text-dark" >fifavox.com</a> sitesinde hesabınıza giriş yaptıktan sonra sol üst tarafta bulunan maymun simgesine basın.</p> 
-        
-        <p><font size=3 color="#77771f">10-)</font> Onaylandınız yazısını görüyorsanız tebrikler artık FIFAVOX RolePlay sunucusunun onaylı bir oyuncususunuz.</p> 
-        
-        <p class="pb-4">Keyifli Roller...</p>
-        </div>
+        <br>
+        <h4 class="text-center mt-4 mb-5">Roleplay Terimleri</h4>
+        <div class="col-10 offset-1">
+            <p><b>Bunny Hopping</b> : Sürekli zıplayarak ilerlemek.</p>
+            <p><b>Retarted Roleplay</b> : Yaptığınız rollerin bir nedeni, sebebi olmadan rol yapmak.</p>
+            <p><b>Smileys IC</b> : Oyun içi /me, /do komutlarında yazılı rol yaparken xd, hahaha, tm, 
+                mrb gibi kısaltma kullanımı. (Yasak)</p>
+            <p><b> Guns Out Of Ass (GOOA)</b> : Olağan dışı yerlerden olağan dışı silahlar çıkarmak. (Örnek: Cebinden uzun namlulu silah çıkarma.)</p>
+            <p><b>Bug Abuse</b> : Server içerisinde bulunan hataları, bugları kullanmak.</p>
+            <p><b>NON-RP</b> : Roleplay yapmamak.</p>
+            <p><b>Revenge Kill (RK)</b> : Eğer biri sizi öldürdüyse, yeni bir karakter açıp ondan intikam alamazsınız.</p>
+            <p><b>Car Surfing</b> : Araçların üzerinde seyahat etmek.</p>
+            <p><b>Car Ramming</b> : Araçla sebepsiz yere insanlara ve araçlara çarpmak.</p>
+            <p><b>Ninja Jacking (NJ)</b> : Rolsüz olarak araç çalmak.</p>
+            <p><b>Refuse Roleplay</b> : Rol yapmayı reddetmek.</p>
+            <p><b>Chicken Running</b>: Çatışma esnasında mermilerden kaçmak için sağ sola koşmak.</p>
+            <p><b>CK</b> : Karakterinizin ölmesi.</p>
+            <p><b>PK</b> : Karakterinizin kısa süreliğine hafıza kaybı yaşaması.</p>
+            <p><b>In Character (IC)</b> : Karakter içi anlamına geliyor. Gerçek dünya ile bir alakanız olmaması gerekiyor. Örneğin gerçekte bir kişiyle arkadaşsanız ve rol esnasında onunla tanışmadıysanız, yolda birbirinizle denk geldiğinizde ismiyle seslenmemelisiniz. Bu ayrıca Metagame hatasına giriyor.</p>
+            <p><b>Out Of Character (OOC)</b> : Karakter dışı olayları kapsar. (Gerçek hayat)</p>
+            <p><b>Random DeathMatch (RDM)</b> : Sebepsiz, rolsüz bir şekilde adam öldürmek.</p>
+            <p><b>Vehicle DeatchMatch (VDM)</b> : Sebepsiz, rolsüz bir şekilde araçla adam ezmek.</p>
+            <p><b>MetaGame (MG)</b> : Rol dışında öğrendiğimiz bilgileri role dahil edip rolün gidişatını bozmak.</p>
+            <p><b>PowerGame (PG)</b> : Gerçek hayatta yapamadığımız eylemleri oyun içerisinde yapmak.</p>
+            <p><b>Mixing IC-OOC</b> : Roleplay’de In Character ve Out Of Character bölümleri var.  IC bölümü, oyun içerisindeki karakterinizin rolü. OOC ise kendi kişiliğiniz oluyor. Eğer rol esnasında IC ve OOC’yi karıştırırsanız kural ihlali yaparsınız. Oyun içerisinde bulunan karakterinizde olmayan bir özelliği kendinizden eklerseniz kural ihlali yaparsınız.</p>
+            <p><b>Random Shooting ( RS )</b> : Rastgele havaya veya başka bir yere sebepsiz sıkmaktır.</p>
+            <p><b>New Life Rule(NLR)</b> : Bir çatışmada veya herhangi bir rol içerisinde bayıldıysanız, kafanızdan vurulduysanız, nabzınız 0 ise ve doktorlar sizin yerel hastaneye sevk edilmeniz gerektiğini söylüyor ise “E” çekmeniz gereklidir. Yerel hastaneye sevk edildiğinizde bundan önceki 20-30 dakikayı unutmanız gereklidir. Herhangi bir rolde sonunda polis ve ems ekibinin geleceğini bilmenize rağmen “E” çekerek rolden kaçarsanız uyarı alırsınız.</p>
+            <p><b>No Value of Life ( NVL )</b> : Karakterinize değer vermeyen, canını yok sayan hareketlerde bulunmanız demektir. Bir adam kafanıza silah dayadığında dediklerini harfiyen yerine getirmeniz gereklidir. Oyun mekaniği nasıl olsa diyerek yüksek bir yerden atlayamaz, en fazla e çeker eşyalarımı kaybederim düşüncesi içerisinde rol yapamazsınız. O an ölüm ile burun buruna olurmuşcasına rol yapmanız gereklidir.</p>
+            <p><b>Fear RP</b> : Korku rolüne girme durumudur. Örneğin; Etrafınızı saran 5 silahlı adama atar içerici konuşma yapamazsınız. (Fear RP bazı karakter hikayelerine göre esnetilebilir, fakat köklü bir hikaye yazmanız gerekmektedir.)</p>
+            <p><b>Combat-Log</b> : Aktif bir rolde oyundan çıkış yapmak.</p>
+    </div>
     </main>
 
+
+
     <aside class="haberler col-1 offset-11 d-none d-lg-block">
-            <ul>
-                <p class="text-center h5">Haberler</p>
-                <hr> {% for haber in haberler %}
-                <li>
+        <ul>
+            <p class="text-center h5">Haberler</p>
+            <hr> {% for haber in haberler %}
+            <li>
 
-                    <table>
-                        <tr>
-                            <td>
-                                {% if haber.resim %}
-                                <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </li>
-                {% endfor %}
-            </ul>
-        </aside>
-
-    <script defer>
-        
-
-
-   
-</script>
+                <table>
+                    <tr>
+                        <td>
+                            {% if haber.resim %}
+                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
+                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+    
+    
 </body>
+
 </html>
-    {% endblock content %}
+{% endblock content %}

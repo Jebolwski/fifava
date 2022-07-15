@@ -49,9 +49,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'nasil-katilabilirim' %}">
-                        <i class="fa-solid fa-question"></i>
-                        <p class="d-none d-md-block">Nasıl Katılabilirim</p>
+                    <a href="{% url 'bilgiler' %}">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <p class="d-none d-md-block">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -96,14 +96,7 @@
                 </li>
                 <li>
                     <a href="{% url 'hareketler' %}">
-                        {% if form_bildirim %}
-                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M162 0C176.892 0 189 10.5519 189 23.5714V141.429C189 154.43 176.892 165 162 165H27C12.0867 165 0 154.43 0 141.429V23.5714C0 10.5519 12.0867 0 27 0H162ZM54 70.7143C46.5328 70.7143 40.5 75.981 40.5 82.5V117.857C40.5 124.376 46.5328 129.643 54 129.643C61.4672 129.643 67.5 124.376 67.5 117.857V82.5C67.5 75.981 61.4672 70.7143 54 70.7143ZM81 117.857C81 124.376 87.0328 129.643 94.5 129.643C101.967 129.643 108 124.376 108 117.857V47.1429C108 40.6239 101.967 35.3571 94.5 35.3571C87.0328 35.3571 81 40.6239 81 47.1429V117.857ZM135 94.2857C127.533 94.2857 121.5 99.5525 121.5 106.071V117.857C121.5 124.376 127.533 129.643 135 129.643C142.467 129.643 148.5 124.376 148.5 117.857V106.071C148.5 99.5525 142.467 94.2857 135 94.2857Z" fill="white"/>
-                        <circle cx="151.5" cy="139.5" r="37.5" fill="#723535"/>
-                        </svg>
-                        {% else %}
                         <i class=" fa-solid fa-person-walking"></i>
-                        {% endif %}
                         <p class="d-none d-md-block">Hareketler</p>
                     </a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
