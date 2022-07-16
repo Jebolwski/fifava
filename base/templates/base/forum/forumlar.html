@@ -159,6 +159,7 @@
         {% for message in messages %}
         <div class="message">{{message}}</div>
         {% endfor %}
+        <br>
         
         <h4 class="pt-5 text-center">Forumlar</h4>
         <form method="POST">
@@ -181,6 +182,7 @@
                 </tr>
             </table>
         </form>
+
         <div class="cevaplama-parent" style="display: none;" >
           <div class="cevaplama col-10 offset-1 border p-3 mb-4">
               <span class="soru_id" style="display: none;"></span>
@@ -224,9 +226,9 @@
                 <br>
                 <a href="{% url 'giris-yap' %}"><button class="center mt-5 btn btn-dark">Giriş Yap</button></a>
                </div> 
-            </div>
+        </div>
               
-        
+        <div class="yenile col-10 offset-1 rounded border border-dark p-2 mt-3 d-none">Görmediğiniz forumlar oluşturuldu. Görmek için sayfayı yenileyin.</div>        
         {% if forumlar %}
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
             {% for forum in forumlar %}
@@ -372,6 +374,30 @@
     
     
     <script defer>
+        let time = 1000*10;
+        setInterval(async () => {
+            console.log("asdsad");
+            let response = await fetch(window.location.origin+`/api/forum-sayisi/`,{
+                method:"POST",
+                headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                },
+            }) 
+            console.log(response.status);
+            if(response.status==200)
+            {   
+                let div = document.querySelector(".yenile");
+                let num = document.querySelectorAll(".forumlar_1");
+                let data = await response.json();
+                console.log(data,num.length);
+                if(data>num.length){
+                    div.classList.remove("d-none");
+                    window.scrollTo(0,0);
+                }
+            }
+        }, time);
+
         window.onbeforeunload = function() {
             var scrollPos;
             if (typeof window.pageYOffset != 'undefined') {

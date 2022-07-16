@@ -16,6 +16,12 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+<style>
+    body{
+        overflow-x: hidden;
+        width: 100vw;
+    }
+</style>
 
 <body>
     <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
@@ -562,22 +568,21 @@
             scrollTrigger: ".card-r",
             opacity: 0,
             duration: 1,
-            x: "100%"
+            z: "40%"
         })
 
         gsap.from(".card-l", {
             scrollTrigger: ".card-l",
             opacity: 0,
             duration: 1,
-            x: "-100%"
+            z: "-40%"
         })
 
         gsap.from(".side-navbar", {
             scrollTrigger: ".side-navbar",
             opacity: 0,
             duration: 1,
-            x: "-100%",
-            ease: "bounce"
+            ease: "slow"
         })
 
         gsap.from(".truck", {
@@ -585,7 +590,6 @@
             opacity: 0,
             duration: 1,
             delay: 1,
-            x: "-5%",
             y: "6%",
             ease: "slow"
         })
@@ -604,7 +608,6 @@
             opacity: 0,
             duration: 1,
             delay: 1,
-            x: "5%",
             y: "6%",
             ease: "slow"
         })
@@ -645,15 +648,14 @@
             scrollTrigger: ".haberler",
             opacity: 0,
             duration: 1,
-            x: "100%",
-            ease: "bounce"
+            ease: "slow"
         })
 
         gsap.from(".ad-soyad", {
             scrollTrigger: ".ad-soyad",
             opacity: 0,
             duration: 1,
-            x: "-100%",
+            y: -10,
             ease: "power1"
         })
 
@@ -661,7 +663,7 @@
             scrollTrigger: ".baslik",
             opacity: 0,
             duration: 1,
-            x: "100%",
+            y: 10,
             ease: "power1"
         })
 
@@ -669,7 +671,7 @@
             scrollTrigger: ".form-aciklama",
             opacity: 0,
             duration: 1,
-            x: "-100%",
+            y: -10,
             ease: "power1"
         })
 
@@ -677,7 +679,7 @@
             scrollTrigger: ".dosya",
             opacity: 0,
             duration: 1,
-            x: "100%",
+            y:10,
             ease: "power1"
         })
 
@@ -692,7 +694,7 @@
             scrollTrigger: ".linkler",
             opacity: 0,
             duration: 0.8,
-            y: "50",
+            y: -52,
             ease: "back"
         })
 

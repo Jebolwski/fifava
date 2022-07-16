@@ -200,6 +200,14 @@ def TakibiBirak(request):
         profil.takipciler.remove(user.id)
         takip_edecek.takip_edilenler.remove(request.data.get("id"))
         return Response("Takip Et")
+
+
+@api_view(['POST'])
+def ForumSayisi(request):
+    if request.method=="POST":
+        cevapSayi = len(ForumSoru.objects.all())
+        return Response(cevapSayi)
+
             
             
             
