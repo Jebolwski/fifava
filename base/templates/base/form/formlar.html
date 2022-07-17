@@ -158,11 +158,15 @@
             </table>
         </form>
 
+        <div class="yenile col-10 col-lg-8 offset-1 offset-lg-2 rounded border border-dark bg-light p-2 my-3 d-none">
+            Görmediğiniz formlar oluşturuldu. Görmek için sayfayı yenileyin.
+        </div>  
+
         {% if formlar %}
         
                 {% for form in formlar %}
                 
-                    <div class="col-10 col-md-8 offset-1 offset-md-2 forumlar_1 border border-dark rounded mt-4">
+                <div class="col-10 col-md-8 offset-1 offset-md-2 forumlar_1 border border-dark rounded mt-4">
                         {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
                             <p class="text-center badge bg-dark col-12">Yeni</p>
                         {% endif %}
@@ -268,6 +272,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
     <script defer>
+
+        let time = 1000*10;
+        setInterval(async () => {
+            let response = await fetch(window.location.origin+`/api/form-sayisi/`,{
+                method:"POST",
+                headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                },
+            }) 
+            if(response.status==200)
+            {   
+                let div = document.querySelector(".yenile");
+                let num = document.querySelectorAll(".forumlar_1");
+                let data = await response.json();
+                if(data>num.length){
+                    div.classList.remove("d-none");
+                    window.scrollTo(0,0);
+                }
+            }
+        }, time);
+
+
+
         window.onbeforeunload = function() {
             var scrollPos;
             if (typeof window.pageYOffset != 'undefined') {

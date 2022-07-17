@@ -152,7 +152,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
+    </aside>
 
 
     <main class="col-11 col-lg-10 offset-1">
@@ -378,7 +378,6 @@
     <script defer>
         let time = 1000*10;
         setInterval(async () => {
-            console.log("asdsad");
             let response = await fetch(window.location.origin+`/api/forum-sayisi/`,{
                 method:"POST",
                 headers: {
@@ -392,7 +391,6 @@
                 let div = document.querySelector(".yenile");
                 let num = document.querySelectorAll(".forumlar_1");
                 let data = await response.json();
-                console.log(data,num.length);
                 if(data>num.length){
                     div.classList.remove("d-none");
                     window.scrollTo(0,0);

@@ -574,6 +574,10 @@ def KisiSil(request,my_slug):
     
     if request.method == 'POST':
         instance.delete()
+        Hareket.objects.create(
+            hareket=instance.oyun_ad_soyad+" isimli oyuncu silindi.",
+            admin_mi=0,
+        )
         messages.success(request,"Oyuncu başarıyla silindi.")
         return redirect('kisiler')
 
@@ -875,9 +879,13 @@ def HaberSil(request,my_slug):
     if not request.user.is_superuser:
         return redirect("404")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    haber = Haberler.objects.get(baslik_slug=my_slug)
+    haber1 = Haberler.objects.get(baslik_slug=my_slug)
     if request.method=="POST":
-        haber.delete()
+        haber1.delete()
+        Hareket.objects.create(
+            hareket=haber1.baslik+" başlıklı haber silindi.",
+            admin_mi=0,
+        )
         messages.success(request,'Haber başarıyla silindi.')
         return redirect('haberler')
 
@@ -914,7 +922,7 @@ def HaberSil(request,my_slug):
                 break
     
     
-    context={'haber':haber,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
+    context={'haber':haber1,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
     return render(request,"base/haber/haber-sil.html",context)
@@ -1127,6 +1135,11 @@ def FormSil(request,pk):
     form=Sorular.objects.get(id=pk)
     if request.method=='POST':
         form.delete()
+        Hareket.objects.create(
+            hareket=form.baslik+" başlıklı form silindi.",
+            admin_mi=0,
+        )
+        messages.success(request,"Form başarıyla silindi.")
         return redirect("formlar")
 
     
@@ -2483,6 +2496,10 @@ def ForumSil(request,pk):
     if request.method=='POST':
         if request.user.is_superuser  or forum.profil.username==request.user.username:
             forum.delete()
+            Hareket.objects.create(
+                hareket=forum.baslik+" başlıklı forum silindi.",
+                admin_mi=0,
+            )
             messages.success(request,"Forum başarıyla silindi.")
             return redirect("forumlar")
         else:

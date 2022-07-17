@@ -13,6 +13,11 @@ urlpatterns = [
     path("forum/cevap/<int:pk>/sil/",views.ForumCevapSil,name="forum_cevap_gel"),
     path("forum-sayisi/",views.ForumSayisi,name="forum_sayisi"),
     
+    #!HABER SAYISI
+    path("haber-sayisi/",views.HaberSayisi,name="haber_sayisi"),
+    path("form-sayisi/",views.FormSayisi,name="form_sayisi"),
+
+
     #!FORUM OTOMATİKLEŞTİRME 
     path("forum/<int:pk>/begen/",views.ForumBegen,name="forum__begen"),
     path("forum/<int:pk>/begenme/",views.ForumBegenme,name="forum_begenme"),

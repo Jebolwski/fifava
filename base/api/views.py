@@ -208,6 +208,20 @@ def ForumSayisi(request):
         cevapSayi = len(ForumSoru.objects.all())
         return Response(cevapSayi)
 
+@api_view(['POST'])
+def HaberSayisi(request):
+    if request.method=="POST":
+        haberSayi = len(Haberler.objects.all())
+        return Response(haberSayi)
+
+
+@api_view(['POST'])
+def FormSayisi(request):
+    if request.method=="POST":
+        haberSayi = len(Sorular.objects.all())
+        return Response(haberSayi)
+
+
             
             
             
