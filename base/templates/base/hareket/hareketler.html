@@ -238,7 +238,7 @@
     
     <script defer>
         const hareket_sil = async (id) =>{
-            let response = await fetch(`http://127.0.0.1:8000/api/hareket/${id}/sil/`,{
+            let response = await fetch(window.location.origin+`/api/hareket/${id}/sil/`,{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json',
