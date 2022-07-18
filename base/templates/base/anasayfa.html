@@ -25,14 +25,14 @@
 
 <body>
     <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    <!-- <div class="loading col-12">
+    <div class="loading col-12">
         <img src="{% static 'images/logo.png' %}">
-    </div> -->
+    </div>
 
     <div class="home">
        
-        <aside class="side-navbar col-1">
-            <ul class="p-0 text-center list-unstyled list-unstyled">
+        <aside class="side-navbar col-1" style="height: 100%;">
+            <ul class="p-0 text-center list-unstyled list-unstyled" style="height: 100vh;">
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>

@@ -16,6 +16,7 @@ urlpatterns = [
     #!HABER SAYISI
     path("haber-sayisi/",views.HaberSayisi,name="haber_sayisi"),
     path("form-sayisi/",views.FormSayisi,name="form_sayisi"),
+    path("hareket/<int:pk>/sil/",views.HareketSil,name="hareket_sil"),
 
 
     #!FORUM OTOMATİKLEŞTİRME 

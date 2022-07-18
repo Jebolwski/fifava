@@ -222,6 +222,13 @@ def FormSayisi(request):
         return Response(haberSayi)
 
 
+
+@api_view(['POST'])
+def HareketSil(request,pk):
+    if request.method=="POST":
+        hareket = Hareket.objects.get(id=pk)
+        hareket.delete()
+        return Response("HAHA")
             
             
             

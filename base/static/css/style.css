@@ -996,6 +996,23 @@ main .terimler-text {
   font-size: 24px;
 }
 
+main .fade {
+  -webkit-animation: fade 0.6s ease;
+          animation: fade 0.6s ease;
+}
+
+main .dot {
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+main .dot:hover {
+  color: darkred;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;
@@ -1330,6 +1347,24 @@ main .terimler-text {
     background-color: rgba(194, 194, 194, 0.459);
   }
   100% {
+  }
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

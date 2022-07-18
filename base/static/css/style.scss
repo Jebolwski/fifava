@@ -818,6 +818,17 @@ main {
   .terimler-text {
     font-size: 24px;
   }
+  .fade {
+    animation: fade 0.6s ease;
+  }
+  .dot {
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      color: darkred;
+      transition: 0.3s;
+    }
+  }
 }
 
 .haberler {
@@ -989,6 +1000,15 @@ main {
     background-color: rgba(194, 194, 194, 0.459);
   }
   100% {
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

@@ -490,6 +490,11 @@ def KisiEkle(request):
     if request.method == 'POST':
         data = request.POST.copy()
         data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        if request.FILES:
+            size = request.FILES.get("dosya").size/(1024*1024)
+            if size>2:
+                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                return redirect('kisi-ekle')
         form = OyuncuForm(data,files=request.FILES)
         if form.is_valid():
             form.save()
