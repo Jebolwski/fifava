@@ -2019,7 +2019,8 @@ def Hareketler(request):
             if request.user not in oyuncu.goruldu.all() and request.user.is_authenticated:
                 oyuncu_bildirim=True
                 break
-     
+    if not request.user.is_superuser:
+        return redirect("404")
     hareketler = Hareket.objects.all().order_by("-guncellenme_tarihi")
     p = Paginator(hareketler,20)
     page = request.GET.get('page')

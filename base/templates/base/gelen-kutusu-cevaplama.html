@@ -108,17 +108,21 @@
                         <p class="d-none d-md-block">Formlar</p>
                     </a>
                 </li>
+                {% if request.user.is_superuser %}
                 <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking"></i>
-                        <p class="d-none d-md-block">Hareketler</p>
+                        <p class="d-none d-md-block">Loglar</p>
                     </a>
-                </li>
+           </li>
+           {% endif %}{% if request.user.is_superuser %}
                 <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking"></i>
-                        <p class="d-none d-md-block">Hareketler</p>
+                        <p class="d-none d-md-block">Loglar</p>
                     </a>
+           </li>
+           {% endif %}/a>
                 </li>{% if user.is_superuser and user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">

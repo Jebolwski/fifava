@@ -103,12 +103,14 @@
                         {% endif %}
                         <p class="d-none d-md-block text-dark">Formlar</p>
                     </a>
-                </li><li>
+                </li>{% if request.user.is_superuser %}
+                <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking"></i>
-                        <p class="d-none d-md-block">Hareketler</p>
+                        <p class="d-none d-md-block">Loglar</p>
                     </a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
+           </li>
+           {% endif %}{% if user.is_superuser and user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">
                         <i class="fa-solid fa-circle-check"></i>

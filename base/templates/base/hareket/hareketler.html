@@ -1,13 +1,13 @@
  {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-<title>Hareketler | FIFAVOX</title>
-   <meta property="og:title" content="FIFAFOX | Hareketler" />
+<title>Loglar | FIFAVOX</title>
+   <meta property="og:title" content="FIFAFOX | Loglar" />
 <meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Forumlar" />
+<meta property="twitter:title" content="FIFAFOX | Loglar" />
 <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
 <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -119,13 +119,15 @@
                         <p class="d-none d-md-block">Formlar</p>
                     </a>
                 </li>
-                
+                {% if request.user.is_superuser %}
                 <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking text-dark"></i>
-                        <p class="d-none d-md-block text-dark">Hareketler</p>
+                        <p class="d-none d-md-block text-dark">Loglar</p>
                     </a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
+                </li>
+                {% endif %}
+                {% if request.user.is_superuser and request.user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">
                         <i class="fa-solid fa-circle-check"></i>

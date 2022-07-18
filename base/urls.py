@@ -92,7 +92,7 @@ urlpatterns = [
 
 
     #!HAREKETLER
-    path("hareketler/",views.Hareketler,name="hareketler"),
+    path("loglar/",views.Hareketler,name="hareketler"),
 
 
      #!İLETİŞİM
