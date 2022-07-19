@@ -19,8 +19,8 @@
     </div>
 
     <div class="home">
-        <aside class="side-navbar col-1">
-            <ul class="p-0 text-center list-unstyled list-unstyled h-100">
+        <aside class="side-navbar col-1" style="height: 100%;">
+            <ul class="p-0 text-center list-unstyled list-unstyled" style="height: 100vh;">
                 {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
@@ -50,9 +50,9 @@
                             <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class=" fa-solid fa-house-user text-dark"></i>
+                        <i class=" fa-solid fa-house-user"></i>
                         {% endif %}
-                        <p class="d-none d-md-block text-dark">Anasayfa</p>
+                        <p class="d-none d-md-block">Anasayfa</p>
                     </a>
                 </li>
                 <li>
@@ -80,7 +80,7 @@
                 <li>
                     <a href="{% url 'bilgiler' %}">
                         <i class="fa-solid fa-circle-question"></i>
-                        <p class="d-none d-md-block">Bilgiler</p>
+                        <p class="d-none d-md-block ">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -123,21 +123,15 @@
                     </a>
                 </li>
                 {% if request.user.is_superuser %}
+                
                 <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking"></i>
                         <p class="d-none d-md-block">Loglar</p>
                     </a>
            </li>
-           {% endif %}{% if request.user.is_superuser %}
-                <li>
-                    <a href="{% url 'hareketler' %}">
-                        <i class=" fa-solid fa-person-walking"></i>
-                        <p class="d-none d-md-block">Loglar</p>
-                    </a>
-           </li>
-           {% endif %}/a>
-                </li>{% if user.is_superuser and user.is_authenticated %}
+           {% endif %}
+           {% if user.is_superuser and user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">
                         <i class="fa-solid fa-circle-check"></i>
@@ -165,7 +159,8 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>        <main class="col-11 col-lg-10">
+      </aside>
+      <main class="col-11 col-lg-10">
             {% for message in messages %}
             <div class="anasayfa-message">{{message}}</div>
             {% endfor %}
