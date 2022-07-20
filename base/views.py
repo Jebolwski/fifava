@@ -555,6 +555,11 @@ def KisiDuzenle(request,my_slug):
     if request.method == 'POST':
         data = request.POST.copy()
         data['oyun_ad_soyad_slug'] = slugify(request.POST['oyun_ad_soyad'])
+        if request.FILES:
+            size = request.FILES.get("dosya").size/(1024*1024)
+            if size>2:
+                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                return redirect('kisi-duzenle',my_slug)
         form = OyuncuForm(instance=instance,data = data,files=request.FILES)
         if form.is_valid():
             form.save()
@@ -759,6 +764,11 @@ def HaberEkle(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     
     if request.method=='POST':
+        if request.FILES:
+            size = request.FILES.get("file").size/(1024*1024)
+            if size>2:
+                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                return redirect('haber-ekle')
         Haberler.objects.create(
         baslik=request.POST['baslik'],
         aciklama=request.POST['aciklama'],
@@ -829,6 +839,11 @@ def HaberDuzenle(request,my_slug):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     instance = Haberler.objects.get(baslik_slug=my_slug)
     if request.method == 'POST':
+            if request.FILES:
+                size = request.FILES.get("file").size/(1024*1024)
+                if size>2:
+                    messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                    return redirect('haber-duzenle',my_slug)
             instance.baslik=request.POST['baslik']
             instance.aciklama=request.POST['aciklama']
             instance.baslik_slug = slugify(request.POST['baslik'])

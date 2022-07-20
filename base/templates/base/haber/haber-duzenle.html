@@ -153,6 +153,9 @@
             </ul>
       </aside>
     <main class="col-11 col-lg-10 offset-1 pt-5">
+        {% for message in messages %}
+        <div class="message col-10 col-md-6 col-lg-4 text-center" style="z-index: 100;">{{message}}</div>
+        {% endfor %}
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <h5 class="text-center mt-3 mb-5">Haberi Düzenele</h5>
