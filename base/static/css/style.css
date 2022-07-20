@@ -78,14 +78,10 @@ body .home {
 }
 
 body .home .side-navbar {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
   border-right: 2px solid whitesmoke;
 }
 
 body .home .haberler {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
   border-left: 2px solid whitesmoke;
 }
 
@@ -275,8 +271,6 @@ body .cursorPointerNone {
   left: 0;
   position: fixed;
   height: 100vh;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
 }
 
 .side-navbar ul {
@@ -1030,6 +1024,17 @@ main .forumlar_2 {
   background-color: #f6f6f6;
 }
 
+main .bilgiler-div {
+  display: -ms-grid;
+  display: grid;
+  background-color: #f0f0f0;
+  border: 2px solid black;
+  border-radius: 8px;
+  place-items: center;
+  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
+          box-shadow: 2px 20px 14px -8px #e8e8e8;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;
@@ -1037,8 +1042,6 @@ main .forumlar_2 {
   right: 0;
   height: 100vh;
   color: white;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
 .haberler img {

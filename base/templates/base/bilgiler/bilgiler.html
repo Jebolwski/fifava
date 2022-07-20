@@ -151,7 +151,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </aside>
+    </aside>
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
@@ -159,15 +159,28 @@
         {% endfor %}
         
         <br>
-        <div style="margin-top: 30vh;display: flex;justify-content: space-evenly;flex-wrap: wrap;align-content: space-around;">
-            <a href="{% url 'nasil-katilabilirim' %}" class="text-dark text-decoration-none terimler-text-1">
-                <i class="fa-solid fa-handshake fa-2x" style="margin-left: 50%;transform:translateX(-50%)"></i>
-                <h4 class="terimler-text ">Nasıl Katılabilirim</h4>
-            </a>
-            <a href="{% url 'terimler' %}" class="terimler-text text-dark text-decoration-none terimler-text-2"><i class="fa-solid fa-chalkboard-user fa-lg" style="margin-left: 50%;transform:translateX(-50%)"></i><h4 class="terimler-text">Roleplay Terimleri</h4></a>
+        <div style="margin-top: 22vh;display: flex;justify-content: space-evenly;flex-wrap: wrap;align-content: space-around;">
+
+            <div class="bilgiler-div col-8 col-md-3 ms-2 p-4">
+                <a href="{% url 'nasil-katilabilirim' %}" class="text-dark text-decoration-none">
+                    <i class="fa-solid fa-handshake fa-2x" style="margin-left: 50%;transform:translateX(-50%)"></i>
+                    <h4 class="text-center mb-4">Nasıl Katılabilirim</h4>
+                    <hr>
+                </a>
+                <p class="text-center mt-3 mb-2">FIFAVOX RolePlay FiveM sunucusunda oynamak için gerekli koşulları öğrenin ve dünyamıza katılın.</p>
+            </div>
+            
+            <div class="bilgiler-div  col-8 col-md-3 ms-2 mt-5 mt-md-0 p-4">
+                <a href="{% url 'terimler' %}" class="text-dark text-decoration-none">
+                    <i class="fa-solid fa-chalkboard-user fa-xl" style="margin-left: 50%;transform:translateX(-50%)"></i>
+                    <h4 class="text-center mb-4">Roleplay Terimleri</h4>
+                    <hr>
+                </a>
+                <p class="text-center mt-3 mb-2">FIFAVOX RolePlay FiveM sunucusunda oynamak için bilmeniz için gereken temel RolePlay terimlerini öğrenin.</p>
+            </div>
+
         </div>
     </main>
-
 
 
     <aside class="haberler col-1 offset-11 d-none d-lg-block">

@@ -68,13 +68,9 @@ body {
   .home {
     background-size: 100vw 100%;
     .side-navbar {
-      border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px;
       border-right: 2px solid whitesmoke;
     }
     .haberler {
-      border-top-left-radius: 15px;
-      border-bottom-left-radius: 15px;
       border-left: 2px solid whitesmoke;
     }
     aside {
@@ -228,8 +224,6 @@ body {
   left: 0;
   position: fixed;
   height: 100vh;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
 
   ul {
     height: 100vh;
@@ -844,6 +838,14 @@ main {
     box-shadow: 3px 11px 18px 0px rgba(212, 212, 212, 1);
     background-color: rgb(246, 246, 246);
   }
+  .bilgiler-div {
+    display: grid;
+    background-color: rgb(240, 240, 240);
+    border: 2px solid black;
+    border-radius: 8px;
+    place-items: center;
+    box-shadow: 2px 20px 14px -8px rgba(232, 232, 232, 1);
+  }
 }
 
 .haberler {
@@ -853,8 +855,6 @@ main {
   right: 0;
   height: 100vh;
   color: white;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
 
   img {
     border: 2px inset rgb(58, 58, 56);
