@@ -153,7 +153,9 @@
                     {% endif %}
                 </li>
             </ul>
-      </aside>
+    </aside>
+
+
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
@@ -179,7 +181,7 @@
         {% if kisiler %}
             <div class="col-10 offset-1" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
                 {% for kisi in kisiler %}
-                        <div class="card kisi_div forumlar_1 col-5 mt-5 mb-4 border border-dark rounded" style="z-index: 100" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
+                        <div class="card kisi_div forumlar_2 col-5 mt-5 mb-4 border border-dark" style="z-index: 100" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
                             {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
                                 <p class="text-center badge bg-dark">Yeni</p>
                             {% endif %}

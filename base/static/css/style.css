@@ -77,6 +77,18 @@ body .home {
   background-size: 100vw 100%;
 }
 
+body .home .side-navbar {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-right: 2px solid whitesmoke;
+}
+
+body .home .haberler {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-left: 2px solid whitesmoke;
+}
+
 body .home aside {
   border: 0;
   position: fixed;
@@ -263,6 +275,8 @@ body .cursorPointerNone {
   left: 0;
   position: fixed;
   height: 100vh;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .side-navbar ul {
@@ -487,6 +501,8 @@ main #particles-js #kesfet {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   font-size: 1.125rem;
+  border-radius: 100px;
+  background-color: rgba(32, 32, 32, 0.149);
 }
 
 main #particles-js #kesfet:hover {
@@ -881,25 +897,19 @@ main .great-list {
 }
 
 main .forumlar_1 {
-  background-color: #fafafa;
+  border-radius: 15px;
+  background-color: #f6f6f6;
   z-index: 10;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
+  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
+          box-shadow: 2px 20px 14px -8px #e8e8e8;
 }
 
 main .forumlar_1:hover {
   background-color: #ececec;
   -webkit-transition: 0.2s ease;
   transition: 0.2s ease;
-}
-
-main .forumlar_1 {
-  background-color: #fafafa;
-  z-index: 10;
-}
-
-main .forumlar_1:hover {
-  background-color: #ececec;
 }
 
 main .takip-ediliyor:hover {
@@ -996,7 +1006,7 @@ main .terimler-text {
   font-size: 24px;
 }
 
-main .fade {
+main .fade-1 {
   -webkit-animation: fade 0.6s ease;
           animation: fade 0.6s ease;
 }
@@ -1013,6 +1023,13 @@ main .dot:hover {
   transition: 0.3s;
 }
 
+main .forumlar_2 {
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 11px 18px 0px #d4d4d4;
+          box-shadow: 3px 11px 18px 0px #d4d4d4;
+  background-color: #f6f6f6;
+}
+
 .haberler {
   border-left: 2px solid black;
   position: fixed;
@@ -1020,6 +1037,8 @@ main .dot:hover {
   right: 0;
   height: 100vh;
   color: white;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
 .haberler img {

@@ -177,7 +177,7 @@
         </div>  
         {% if haberler %}
                 {% for haber in haberler %}
-                <div class="haber forumlar_1 col-10 col-lg-8 offset-1 offset-lg-2 border border-dark rounded mt-4 mb-1">
+                <div class="haber forumlar_1 col-10 col-lg-8 offset-1 offset-lg-2 border border-dark my-5">
                     {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
                         <p class="text-center badge bg-dark col-12">Yeni</p>
                     {% endif %}
