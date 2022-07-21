@@ -46,6 +46,7 @@ urlpatterns = [
 
     #!NASIL KATILABİLİRİM
     path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
+    path("nasil-katilabilirim/",views.NasilKatilabilirim,name="nasil-katilabilirim"),
     path("bilgiler/",views.Bilgiler,name="bilgiler"),
     path("terimler/",views.Terimler,name="terimler"),
     

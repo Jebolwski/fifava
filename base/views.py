@@ -1049,7 +1049,7 @@ def FormEkle(request):
         if form.is_valid():
             form.instance.user=request.user
             form.save()
-            messages.success(request,"Anket başarıyla oluşturuldu.")
+            messages.success(request,"Form başarıyla oluşturuldu.")
             Hareket.objects.create(
                 hareket = request.POST['baslik'] +" başlıklı form formlara eklendi.",
                 admin_mi=0,

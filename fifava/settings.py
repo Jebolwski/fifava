@@ -80,6 +80,17 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'awsdj',
+        'USER': 'admin',
+        'PASSWORD': 'fifavoxpassword1',
+        'HOST': 'awsdj.cvcbs1ltbgmr.eu-central-1.rds.amazonaws.com',
+        'PORT': '3306',
+    }
+}
+
 CSRF_COOKIE_SECURE=True
 
 
