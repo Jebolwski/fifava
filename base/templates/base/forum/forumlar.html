@@ -243,8 +243,12 @@
                             <span class="badge bg-dark">Yeni</span>
                         {% endif %}
                         <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                        <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
-                        <span class="ms-2 soru_username">
+                            {% if forum.profil.resim %}
+                            <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
+                            {% else %}
+                            <img src="../../../static/images/default-profile.jpg" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
+                            {% endif %}
+                            <span class="ms-2 soru_username">
                             {{forum.profil.user.username}}
                         </span> 
                             <span class="d-none d-md-inline"> 

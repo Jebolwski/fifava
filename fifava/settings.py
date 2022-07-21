@@ -73,21 +73,21 @@ WSGI_APPLICATION = 'fifava.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'awsdj',
-        'USER': 'admin',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'fifavoxdatabase',
+        'USER': 'postgres',
         'PASSWORD': 'fifavoxpassword1',
-        'HOST': 'awsdj.cvcbs1ltbgmr.eu-central-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'HOST': 'awsdjango.cvcbs1ltbgmr.eu-central-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
