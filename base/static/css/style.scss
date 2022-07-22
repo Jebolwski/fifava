@@ -138,7 +138,7 @@ body {
   .loading {
     height: 100vh;
     width: 100vw;
-    background-color: rgba(78, 78, 78, 0.35);
+    background-color: rgba(78, 78, 78, 0.25);
     z-index: 100;
     position: fixed;
     display: grid;
@@ -200,7 +200,7 @@ body {
     z-index: 110;
   }
   .backgroundWhite {
-    background: rgba(204, 204, 204, 0.35);
+    background: rgba(204, 204, 204, 0.25);
     border: 2px solid black;
     transform: scale(1.2);
   }
@@ -275,7 +275,7 @@ main {
   .iletisim-sayfa {
     .form-control {
       &:focus {
-        background-color: rgba(143, 143, 143, 0.35);
+        background-color: rgba(143, 143, 143, 0.25);
       }
     }
     h4 {
@@ -311,13 +311,13 @@ main {
     background-image: url("../images/iletisim.png");
     background-size: 100vw 100%;
     input {
-      background-color: rgba(128, 128, 128, 0.35);
+      background-color: rgba(128, 128, 128, 0.25);
     }
     .form-control {
       color: white;
     }
     textarea {
-      background-color: rgba(78, 78, 78, 0.35);
+      background-color: rgba(78, 78, 78, 0.25);
     }
   }
   .iletisim-cevaplari {
@@ -327,7 +327,7 @@ main {
     background-image: url("../images/cevaplama.jpg");
     background-size: 100vw 100%;
     table {
-      background-color: rgba(78, 78, 78, 0.35);
+      background-color: rgba(78, 78, 78, 0.25);
       tr,
       th,
       td {
@@ -347,7 +347,7 @@ main {
     background-image: url("../images/iletisim-cevap-cevap.jpg");
     background-size: 100vw 100%;
     table {
-      background-color: rgba(87, 87, 87, 0.35);
+      background-color: rgba(87, 87, 87, 0.25);
       tr,
       th,
       td {
@@ -405,7 +405,7 @@ main {
       border-radius: 100px;
       background-color: rgba(32, 32, 32, 0.149);
       &:hover {
-        background-color: rgba(78, 78, 78, 0.35);
+        background-color: rgba(78, 78, 78, 0.25);
         color: white;
         transition: 0.3s;
       }
@@ -993,19 +993,19 @@ main {
 
 @keyframes ground_animation1 {
   0% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
   30% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   50% {
     background: rgba(167, 140, 53, 0.363);
   }
   70% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   100% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
 }
 
@@ -1079,7 +1079,7 @@ main {
         transform: translateX(-50%);
         font-size: 1.125rem;
         &:hover {
-          background-color: rgba(78, 78, 78, 0.35);
+          background-color: rgba(78, 78, 78, 0.25);
           color: white;
         }
       }

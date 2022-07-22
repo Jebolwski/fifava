@@ -25,9 +25,9 @@
 
 <body>
     <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    <div class="loading col-12" style="z-index: 110;">
+    <!-- <div class="loading col-12" style="z-index: 110;">
         <img src="{% static 'images/logo.png' %}">
-    </div>
+    </div> -->
 
     <div class="home">
        
@@ -89,12 +89,16 @@
                         <p class="d-none d-md-block">Oyuncular</p>
                     </a>
                 </li>
-                <li>
+                
+                
+
+                <li >
                     <a href="{% url 'bilgiler' %}">
-                        <i class="fa-solid fa-circle-question"></i>
-                        <p class="d-none d-md-block">Bilgiler</p>
+                        <i class="fa-solid fa-circle-question bilgiler"></i>
+                        <p class="d-none d-md-block bilgiler">Bilgiler</p>
                     </a>
                 </li>
+                
                 <li>
                     <a href="{% url 'forumlar' %}">
                         {% if forum_bildirim %}
@@ -141,7 +145,7 @@
                         <i class=" fa-solid fa-person-walking"></i>
                         <p class="d-none d-md-block">Loglar</p>
                     </a>
-           </li>
+                </li>
            {% endif %}
            {% if user.is_superuser and user.is_authenticated %}
                 <li>
@@ -172,7 +176,7 @@
                 </li>
             </ul>
         </aside>
-
+                
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground.png" class="ground">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/house.png" class="house">

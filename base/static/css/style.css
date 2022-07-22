@@ -155,7 +155,7 @@ body .kesfet-svg-1 {
 body .loading {
   height: 100vh;
   width: 100vw;
-  background-color: rgba(78, 78, 78, 0.35);
+  background-color: rgba(78, 78, 78, 0.25);
   z-index: 100;
   position: fixed;
   display: -ms-grid;
@@ -240,7 +240,7 @@ body .cursor-pointer {
 }
 
 body .backgroundWhite {
-  background: rgba(204, 204, 204, 0.35);
+  background: rgba(204, 204, 204, 0.25);
   border: 2px solid black;
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
@@ -341,7 +341,7 @@ main .iletisim-sayfa {
 }
 
 main .iletisim-sayfa .form-control:focus {
-  background-color: rgba(143, 143, 143, 0.35);
+  background-color: rgba(143, 143, 143, 0.25);
 }
 
 main .iletisim-sayfa h4 {
@@ -384,7 +384,7 @@ main .iletisim-sayfa h5 a i:hover {
 }
 
 main .iletisim-sayfa input {
-  background-color: rgba(128, 128, 128, 0.35);
+  background-color: rgba(128, 128, 128, 0.25);
 }
 
 main .iletisim-sayfa .form-control {
@@ -392,7 +392,7 @@ main .iletisim-sayfa .form-control {
 }
 
 main .iletisim-sayfa textarea {
-  background-color: rgba(78, 78, 78, 0.35);
+  background-color: rgba(78, 78, 78, 0.25);
 }
 
 main .iletisim-cevaplari {
@@ -404,7 +404,7 @@ main .iletisim-cevaplari {
 }
 
 main .iletisim-cevaplari table {
-  background-color: rgba(78, 78, 78, 0.35);
+  background-color: rgba(78, 78, 78, 0.25);
 }
 
 main .iletisim-cevaplari table tr,
@@ -426,7 +426,7 @@ main .iletisim-cevaplara-cevaplari {
 }
 
 main .iletisim-cevaplara-cevaplari table {
-  background-color: rgba(87, 87, 87, 0.35);
+  background-color: rgba(87, 87, 87, 0.25);
 }
 
 main .iletisim-cevaplara-cevaplari table tr,
@@ -500,7 +500,7 @@ main #particles-js #kesfet {
 }
 
 main #particles-js #kesfet:hover {
-  background-color: rgba(78, 78, 78, 0.35);
+  background-color: rgba(78, 78, 78, 0.25);
   color: white;
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -1310,37 +1310,37 @@ main .bilgiler-div {
 
 @-webkit-keyframes ground_animation1 {
   0% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
   30% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   50% {
     background: rgba(167, 140, 53, 0.363);
   }
   70% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   100% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
 }
 
 @keyframes ground_animation1 {
   0% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
   30% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   50% {
     background: rgba(167, 140, 53, 0.363);
   }
   70% {
-    background: rgba(192, 158, 45, 0.35);
+    background: rgba(192, 158, 45, 0.25);
   }
   100% {
-    background: rgba(192, 181, 86, 0.35);
+    background: rgba(192, 181, 86, 0.25);
   }
 }
 
@@ -1437,7 +1437,7 @@ main .bilgiler-div {
     font-size: 1.125rem;
   }
   main #particles-js #kesfet:hover {
-    background-color: rgba(78, 78, 78, 0.35);
+    background-color: rgba(78, 78, 78, 0.25);
     color: white;
   }
   main .profil-background {

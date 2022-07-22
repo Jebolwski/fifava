@@ -249,7 +249,8 @@
                             <img src="../../../static/images/default-profile.jpg" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
                             {% endif %}
                             <span class="ms-2 soru_username">
-                            {{forum.profil.user.username}}
+                            <span class="h6">{{forum.profil.user.username}}</span>
+                            
                         </span> 
                             <span class="d-none d-md-inline"> 
                                 {% if forum.onay_durum.onaydurum == "Kabul Et" %}
