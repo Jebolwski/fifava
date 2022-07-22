@@ -249,7 +249,7 @@
                             <img src="../../../static/images/default-profile.jpg" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
                             {% endif %}
                             <span class="ms-2 soru_username">
-                            <span class="h6">{{forum.profil.user.username}}</span>
+                            <span class="h6">{{forum.profil.user.username}} </span>
                             
                         </span> 
                             <span class="d-none d-md-inline"> 
@@ -266,6 +266,7 @@
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
+                                • <span class="ms-1">{{forum.guncellenme_tarihi|timesince}} önce</span>
                             </span>
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
@@ -277,9 +278,8 @@
                                 <hr>
                                 <span class="soru_aciklama text-break">{{forum.soru}}</span>
                                 <hr>
-                                {{forum.guncellenme_tarihi}}
+                                
                             </div> 
-                            <hr>
                         </a>   
 
                         <div class="gorenler-parent d-none"

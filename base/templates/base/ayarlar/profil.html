@@ -391,7 +391,8 @@
                         <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
                         <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
                         <span class="ms-2 soru_username">
-                            {{forum.profil.user.username}}
+                        <span class="h6">{{forum.profil.user.username}}</span>
+                            
                         </span> 
                             <span class="d-none d-md-inline"> 
                                 {% if forum.onay_durum.onaydurum == "Kabul Et" %}
@@ -407,18 +408,17 @@
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
+                                • <span class="ms-1">{{forum.guncellenme_tarihi|timesince}} önce</span>
                             </span>
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
                             <div class="bordered">
                                 <hr>
-                                <span class="soru_baslik text-break">
+                                <span class="soru_baslik h6 text-break">
                                     {{forum.baslik}} 
                                 </span>
                                 <hr>
                                 <span class="soru_aciklama text-break">{{forum.soru}}</span>
-                                <hr>
-                                {{forum.guncellenme_tarihi}}
                             </div> 
                             <hr>
                         </a>    
