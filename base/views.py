@@ -2244,11 +2244,13 @@ def ProfilFotoDuzenle(request,pk):
 
     ins = ProfilFoto.objects.get(user_id=pk)
     form = ProfilFotoForm(instance=ins)
-    
     if request.method=='POST':
         data = request.POST.copy()
         data['user'] = User.objects.get(id=pk)
         data['username'] = User.objects.get(id=pk).username
+        data['username_slug'] = slugify(User.objects.get(id=pk).username)
+        data['takipciler'] = len(ProfilFoto.objects.get(user_id=request.user.id).takipciler.all())
+        data['takip_edilenler'] = len(ProfilFoto.objects.get(user_id=request.user.id).takip_edilenler.all())
         data['username_slug'] = slugify(User.objects.get(id=pk).username)
         form = ProfilFotoForm(instance=ins,data=data,files=request.FILES)
         if form.is_valid():

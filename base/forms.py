@@ -105,6 +105,7 @@ class ProfilFotoForm(forms.ModelForm):
     class Meta:
         model = ProfilFoto
         fields = "__all__"
+        exclude =["takipciler","takip_edilenler"]
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args, **kwargs)
