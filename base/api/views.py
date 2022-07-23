@@ -1,11 +1,12 @@
+from email.message import EmailMessage
 import re
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.api import serializers
 from base.api.serializers import ForumYanitSerializer
-
+from django.core.mail import send_mail
 from base.models import *
-
+from django.conf import settings
 
 #!FORUM CEVABI FONKSİYONLARI
 
@@ -171,6 +172,14 @@ def IletisimCevaplama(request):
         aciklama = data['aciklama'],
         user = User.objects.get(username=data['username']),
     )
+
+    send_mail(
+        data['baslik'],
+        data['aciklama'],
+        settings.EMAIL_HOST_USER,
+        ['point-yo@hotmail.com'],
+    )
+    
     return Response("Oluşturuldu!")
 
 
