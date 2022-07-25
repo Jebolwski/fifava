@@ -210,7 +210,8 @@ def Ev(request):
 def CevabaCevap(request,pk):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     cevaplara_cevap = Iletisim_cevap.objects.all().get(id = pk) 
-    cevaplara_cevap.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        cevaplara_cevap.goruldu.add(request.user.id)
     soru = Iletisim.objects.get(id=cevaplara_cevap.iletisim_id)
     context={'haberler':haberler,'c':cevaplara_cevap,'soru':soru}
     return render(request,"base/cevaba-cevap.html",context)
@@ -345,7 +346,7 @@ def Kisiler(request):
 
     if request.user.is_authenticated:
         for i in Kullanici.objects.all().order_by('-guncellenme_tarihi'):
-            if request.user not in i.goruldu.all():
+            if request.user.is_authenticated and request.user not in i.goruldu.all():
                 i.goruldu.add(request.user.id)
                 
     
@@ -663,7 +664,8 @@ def KisiDetay(request,my_slug):
     
     kisi = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    kisi.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        kisi.goruldu.add(request.user.id)
     context = {'kisi':kisi,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/kisi/kisi-detay.html",context)
@@ -681,7 +683,7 @@ def Haberlerim(request):
 
     if request.user.is_authenticated:
         for i in Haberler.objects.all().order_by('-guncellenme_tarihi'):
-            if request.user not in i.goruldu.all():
+            if request.user.is_authenticated and request.user not in i.goruldu.all():
                 i.goruldu.add(request.user.id)
     
     if True:
@@ -825,7 +827,8 @@ def HaberDetay(request,my_slug):
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     haber = Haberler.objects.get(baslik_slug=my_slug)
-    haber.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        haber.goruldu.add(request.user.id)
     
     context = {'haber':haber,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
@@ -960,7 +963,7 @@ def Formlar(request):
 
     if request.user.is_authenticated:
         for i in Sorular.objects.all().order_by('-guncellenme_tarihi'):
-            if request.user not in i.goruldu.all():
+            if request.user.is_authenticated and request.user not in i.goruldu.all():
                 i.goruldu.add(request.user.id)
     
     if True:
@@ -1102,7 +1105,8 @@ def FormDuzenle(request,pk):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form_instance = Sorular.objects.get(id=pk)
     form = SorularForm(instance=form_instance)
-    form_instance.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        form_instance.goruldu.add(request.user.id)
     if request.method=="POST":
         data = request.POST.copy()
         form = SorularForm(data,instance=form_instance)
@@ -1270,7 +1274,8 @@ def FormDetay(request,pk):
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     soru=Sorular.objects.get(id = pk)
-    soru.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        soru.goruldu.add(request.user.id)
     if OnayDurum.objects.all().filter(kisi_id=request.user.id):
         durum = OnayDurum.objects.get(kisi_id=request.user.id)
         context={'soru':soru,'haberler':haberler,'durum':durum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -1318,7 +1323,8 @@ def FormAnaliz(request,pk):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     form = Sorular.objects.get(id = pk)
     cevap = Cevaplar.objects.all().filter(sorular_id=form.id)
-    form.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        form.goruldu.add(request.user.id)
     if True:
         sorucount=0
         soru1=0
@@ -1979,7 +1985,8 @@ def GelenKutusuCevaplama(request,iletisim_id):
                 break
      
     iletisim= Iletisim.objects.get(id=iletisim_id)
-    iletisim.goruldu.add(request.user.id)
+    if request.user.is_authenticated:
+        iletisim.goruldu.add(request.user.id)
     if request.method=='POST':
         Iletisim_cevap.objects.create(
             user=User.objects.get(id=iletisim.user.id),
@@ -2282,7 +2289,7 @@ def ProfilFotoDuzenle(request,pk):
 def Forumlar(request):
     if request.user.is_authenticated:
         for i in ForumSoru.objects.all().order_by('-guncellenme_tarihi'):
-            if request.user not in i.goruldu.all():
+            if request.user.is_authenticated and request.user not in i.goruldu.all():
                 i.goruldu.add(request.user.id)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     forumlar = ForumSoru.objects.all().order_by('-guncellenme_tarihi')
