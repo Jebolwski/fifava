@@ -408,7 +408,7 @@
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
-                                • <span class="ms-1">{{forum.guncellenme_tarihi|timesince}} önce</span>
+                                • <span class="ms-1">{{forum.guncellenme_tarihi}}</span>
                             </span>
                         </a>
                         <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
