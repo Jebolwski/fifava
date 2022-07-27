@@ -24,8 +24,10 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'storages',
     'rest_framework',
+    'crispy_forms',
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %B %Y %H:%M',
