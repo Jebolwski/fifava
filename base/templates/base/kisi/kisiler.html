@@ -69,7 +69,9 @@
         <div class="oyuncular"></div>
     </main>
     
-    {% block script %}
+    
+{% endblock content %}
+{% block script %}
     <script defer>
         window.onbeforeunload = function() {
             var scrollPos;
@@ -135,10 +137,8 @@
                 
             })
         })
-
+        
+        $(".oyuncular-icon").addClass("text-dark");
+        $(".oyuncular").addClass("text-dark");
     </script>
     {% endblock %}
-</body>
-
-</html>
-{% endblock content %}

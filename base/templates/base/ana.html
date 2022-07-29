@@ -89,15 +89,15 @@
                         <circle cx="151.5" cy="151.5" r="37.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class=" fa-solid fa-headset"></i>
+                        <i class=" fa-solid fa-headset oyuncular-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block">Oyuncular</p>
+                        <p class="d-none d-md-block oyuncular">Oyuncular</p>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'bilgiler' %}">
-                        <i class="fa-solid fa-circle-question text-dark"></i>
-                        <p class="d-none d-md-block text-dark">Bilgiler</p>
+                        <i class="fa-solid fa-circle-question"></i>
+                        <p class="d-none d-md-block">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -174,12 +174,13 @@
                     </a>
                     {% endif %}
                 </li>
-            </ul>
+        </ul>
       </aside>
     </div>
+    
     {% block content %} {% endblock content %}
 
-      <div class="{% block homeClass1 %} {% endblock %}">
+    <div class="{% block homeClass1 %} {% endblock %}">
         <aside class="haberler col-1 offset-11 d-none d-lg-block" style="z-index: 100;">
             <ul>
                 <p class="text-center h5">Haberler</p>
@@ -191,7 +192,7 @@
                             <td>
                                 {% if haber.resim %}
                                 <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
+                                    <img src="{{haber.resim.url}}" title="{{haber.baslik}}" class="shadow-sm" alt="haber"></a>{% endif %}
                             </td>
                         </tr>
                     </table>
@@ -199,7 +200,8 @@
                 {% endfor %}
             </ul>
         </aside>
-      </div>
+    </div>
+
     <script
       src="https://kit.fontawesome.com/89a5339b98.js"
       crossorigin="anonymous"
