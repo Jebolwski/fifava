@@ -28,6 +28,7 @@
     <meta property="twitter:title" content="FIFAFOX Entertainment" />
     <meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
     <meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
+    
     <title>
       {% block title %}
       {% endblock %}
@@ -67,9 +68,9 @@
                             <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class=" fa-solid fa-house-user"></i>
+                        <i class=" fa-solid fa-house-user anasayfa-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block">Anasayfa</p>
+                        <p class="d-none d-md-block anasayfa">Anasayfa</p>
                     </a>
                 </li>
                 <li>
@@ -96,8 +97,8 @@
                 </li>
                 <li>
                     <a href="{% url 'bilgiler' %}">
-                        <i class="fa-solid fa-circle-question"></i>
-                        <p class="d-none d-md-block">Bilgiler</p>
+                        <i class="fa-solid fa-circle-question bilgiler-icon"></i>
+                        <p class="d-none d-md-block bilgiler">Bilgiler</p>
                     </a>
                 </li>
                 <li>
@@ -108,9 +109,9 @@
                         <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class="fa-solid fa-comment-dots"></i>
+                        <i class="fa-solid fa-comment-dots forumlar-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block">Forumlar</p>
+                        <p class="d-none d-md-block forumlar">Forumlar</p>
                     </a>
                 </li>
                 <li>
@@ -121,9 +122,9 @@
                         <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class="fa-solid fa-newspaper"></i>
+                        <i class="fa-solid fa-newspaper haberler-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block">Haberler</p>
+                        <p class="d-none d-md-block haberler">Haberler</p>
                     </a>
                 </li>
                 <li>
@@ -134,43 +135,43 @@
                         <circle cx="151.5" cy="139.5" r="37.5" fill="#723535"/>
                         </svg>
                         {% else %}
-                        <i class=" fa-solid fa-square-poll-vertical"></i>
+                        <i class=" fa-solid fa-square-poll-vertical formlar-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block">Formlar</p>
+                        <p class="d-none d-md-block formlar">Formlar</p>
                     </a>
                 </li>
                 {% if request.user.is_superuser %}
                 <li>
                     <a href="{% url 'hareketler' %}">
-                        <i class=" fa-solid fa-person-walking"></i>
-                        <p class="d-none d-md-block">Loglar</p>
+                        <i class=" fa-solid fa-person-walking loglar-icon"></i>
+                        <p class="d-none d-md-block loglar">Loglar</p>
                     </a>
                 </li>
                 {% endif %}
                 {% if request.user.is_superuser and request.user.is_authenticated %}
                 <li>
                     <a href="{% url 'kayit-onay' %}">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <p class="d-none d-md-block">Kayıt Onay</p>
+                        <i class="fa-solid fa-circle-check kayit-onay-icon"></i>
+                        <p class="d-none d-md-block kayit-onay">Kayıt Onay</p>
                     </a>
                 </li>{% endif %} {% if request.user.is_authenticated %}
                 <li>
                     <a href="{% url 'ayarlar' %}">
-                        <i class="fa-solid fa-gear"></i>
-                        <p class="d-none d-md-block">Ayarlar</p>
+                        <i class="fa-solid fa-gear ayarlar-icon"></i>
+                        <p class="d-none d-md-block ayarlar">Ayarlar</p>
                     </a>
                 </li>
                 {% endif %}
                 <li>
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'cikis-yap' %}">
-                        <i class=" fa-solid fa-arrow-right-from-bracket"></i>
-                        <p class="d-none d-md-block"> Çıkış Yap</p>
+                        <i class=" fa-solid fa-arrow-right-from-bracket cikis-yap-icon"></i>
+                        <p class="d-none d-md-block cikis-yap"> Çıkış Yap</p>
                     </a>
                     {% else %}
                     <a href="{% url 'giris-yap' %}">
-                        <i class=" fa-solid fa-right-to-bracket"></i>
-                        <p class="d-none d-md-block">Giriş Yap</p>
+                        <i class=" fa-solid fa-right-to-bracket giris-yap-icon"></i>
+                        <p class="d-none d-md-block giris-yap">Giriş Yap</p>
                     </a>
                     {% endif %}
                 </li>

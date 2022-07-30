@@ -14,10 +14,7 @@
     </style>
     {% endblock %}
 
-    <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    <!-- <div class="loading col-12" style="z-index: 110;">
-        <img src="{% static 'images/logo.png' %}">
-    </div> -->
+    
     {% block homeClass %}
     home
     {% endblock %}
@@ -27,7 +24,6 @@
     
        
     {% block content %}
-                
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/truck.png" class="truck">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/ground.png" class="ground">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/house.png" class="house">
@@ -35,7 +31,6 @@
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/background.jpg" style="z-index: 40;" class="kesfet-svg-1">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/top.png" class="top-1">
         <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/background2.jpg" class="full-background">
-        
         <main class="col-11 col-lg-10">
             {% for message in messages %}
                 <div class="anasayfa-message" style="z-index: 100;">{{message}}</div>
@@ -387,11 +382,7 @@
 
             {% endif %}
         </main>
-
-        
-
     {% endblock %}
-
 
     {% block script %}
     <script defer>

@@ -198,26 +198,6 @@
         
     </main>
 
-
-    <aside class="haberler col-1 offset-11 d-none d-lg-block">
-        <ul>
-            <p class="text-center h5">Haberler</p>
-            <hr> {% for haber in haberler %}
-            <li>
-
-                <table>
-                    <tr>
-                        <td>
-                            {% if haber.resim %}
-                            <a href="{% url 'haber-detay' haber.baslik|slugify %}">
-                                <img src="{{haber.resim.url}}" title="{{haber.baslik}}" alt="haber"></a>{% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            {% endfor %}
-        </ul>
-    </aside>
     
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
