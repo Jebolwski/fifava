@@ -1,5 +1,5 @@
  {% extends 'base/ana.html' %} {% load static %} 
-{% block title %}Form Ekle | FIFAVOX{% endblock %}
+ {% block title %}Form Ekle | FIFAVOX{% endblock %}
 
 
 {% block content %}
@@ -176,8 +176,17 @@
 
 
     
-    <script defer>
-        $(document).ready(function() {
+        
+        
+        
+
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(".formlar").addClass("text-dark");
+    $(".formlar-icon").addClass("text-dark");
+    $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: `● Maksimum uzunluk 60 karakterdir.`,
                 animation: true,
@@ -329,8 +338,5 @@
                 icon.style.cursor="auto";
             }
         }
-        
-        
-    </script>
-
-    {% endblock content %}
+</script>
+{% endblock %}

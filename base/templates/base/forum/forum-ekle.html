@@ -1,7 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}Forum Ekle | FIFAVOX{% endblock %}
-
-
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}Forum Ekle | FIFAVOX{% endblock %}
+ {% block content %}
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
@@ -36,11 +35,12 @@
         </form>
     </main>
 
-
-  
-        <script defer>
+{% endblock content %}
+{% block script %}
+    <script defer>
         
-
+        $(".forumlar").addClass("text-dark");
+        $(".forumlar-icon").addClass("text-dark");
 
         let baslik = document.getElementById("id_baslik")
         let soru = document.getElementById("id_soru")
@@ -67,5 +67,4 @@
         });
 
     </script>
-
-    {% endblock content %}
+{% endblock %}

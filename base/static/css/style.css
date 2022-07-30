@@ -298,14 +298,14 @@ body .cursorPointerNone {
 }
 
 .side-navbar ul li a img {
-  -webkit-transition: 2s;
-  transition: 2s;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .side-navbar ul li a i,
 .side-navbar ul li a svg {
-  -webkit-transition: 2s;
-  transition: 2s;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .side-navbar ul li a:hover i,
@@ -357,25 +357,24 @@ main .iletisim-sayfa h4:hover {
   transition: 0.2s ease-in;
 }
 
-main .iletisim-sayfa h5 a {
+main .iletisim-sayfa a {
   color: white;
   -webkit-transition: 0.2s ease-in;
   transition: 0.2s ease-in;
 }
 
-main .iletisim-sayfa h5 a:hover {
+main .iletisim-sayfa a:hover {
   color: #d897ad;
   -webkit-transition: 0.2s ease-out;
   transition: 0.2s ease-out;
 }
 
-main .iletisim-sayfa h5 a i {
+main .iletisim-sayfa a i {
+  cursor: pointer;
   color: #d897ad;
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out;
 }
 
-main .iletisim-sayfa h5 a i:hover {
+main .iletisim-sayfa a i:hover {
   -webkit-transform: scale(1.2);
           transform: scale(1.2);
   -webkit-transition: 0.2s ease-in;

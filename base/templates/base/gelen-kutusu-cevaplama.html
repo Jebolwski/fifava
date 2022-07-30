@@ -1,10 +1,7 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}Gelen Kutusu Cevapla | FIFAVOX{% endblock %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}Gelen Kutusu Cevapla | FIFAVOX{% endblock %}
+ {% block content %}
 
-</head>
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
   
 
     <main class="col-11 col-lg-10 offset-1">
@@ -54,10 +51,11 @@
     </main>
 
     
-        <script defer>
         
-
-
+{% endblock content %}
+    <script defer>
+        $(".anasayfa").addClass("text-dark");
+        $(".anasayfa-icon").addClass("text-dark");
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
@@ -65,9 +63,7 @@
                 placement: "top",
             });
         });
+
     </script>
-</body>
 
-</html>
 
-{% endblock content %}

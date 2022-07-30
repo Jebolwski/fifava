@@ -1,20 +1,6 @@
-﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}{{soru.baslik}} | FIFAVOX{% endblock %}
-<meta property="og:title" content="FIFAFOX | {{soru.baslik}}" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | {{soru.baslik}}" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-</head>
-
-
-    <!-- <main class="col-11 col-lg-10 offset-1">
-    <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
-    <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-outline-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
-
+﻿ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}{{soru.baslik}} | FIFAVOX{% endblock %}
+ {% block content %}
     <main class="col-8 col-lg-6 offset-3 text-center">
         <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
         <h5>Sorular</h5>
@@ -187,10 +173,10 @@
 
         <input type="submit" disabled class="btn btn-outline-dark my-4">
     </main>
-
-
-
-
-
-
-    {% endblock content %}
+ {% endblock content %}
+ {% block script %}
+ <script>
+    $(".formlar").addClass("text-dark");
+    $(".formlar-icon").addClass("text-dark");
+ </script>
+ {% endblock %}

@@ -1,15 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-    <meta property="og:title" content="FIFAFOX | Haber Düzenle" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Haber Düzenle" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
+{% extends 'base/ana.html' %} {% load static %} 
 {% block title %}Haber Düzenle | FIFAVOX{% endblock %}
-</head>
-
+{% block content %}
     <main class="col-11 col-lg-10 offset-1 pt-5">
         {% for message in messages %}
         <div class="message col-10 col-md-6 col-lg-4 text-center" style="z-index: 100;">{{message}}</div>
@@ -50,15 +41,11 @@
             </div>
         </form>
     </main>
-
-
-
-
-    
-        <script defer>
-        
-
-
+{% endblock content %}
+{% block script %}
+<script defer>
+        $(".haberler-1").addClass("text-dark");
+        $(".haberler-icon").addClass("text-dark");
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: `● Maksimum uzunluk 100 karakterdir.`,
@@ -87,8 +74,5 @@
                 placement: "right",
             });
         });
-    </script>
-</body>
-
-</html>
-{% endblock content %}
+</script>
+{% endblock script %}

@@ -42,38 +42,21 @@
           {% if request.user.is_authenticated %}
           <li>
             <a href="{% url 'profil' request.user.username|slugify %}"><img src="{% static 'images/logo.png' %}" class="logo-side-navbar col-sm-7 col-md-4 col-9 "></a>
-                </li>
+          </li>
+          {% else %}
+          <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9"></li>
+          {% endif %}
+          <li>
+            <a href="{% url 'anasayfa' %}">
+                {% if ev_bildirim and request.user.is_superuser %}
+                <i class=" fa-solid fa-house-user"></i>
                 {% else %}
-                <li><img src="{% static 'images/logo.png' %}" class="col-sm-7 col-md-4 col-9"></li>
+                <i class=" fa-solid fa-house-user anasayfa-icon"></i>
                 {% endif %}
-                <li>
-                    <a href="{% url 'anasayfa' %}">
-                        {% if ev_bildirim and request.user.is_superuser %}
-                        <svg width="22" height="22" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M94.5 110.688H75.6C70.373 110.688 66.15 115.184 66.15 120.75V148.422C66.15
-                             155.371 60.8639 161 54.3375 161H37.8295C37.3866 161 36.9436 160.969 36.5006 160.937C36.1463
-                              160.969 35.7919 161 35.4375 161H30.7125C24.189 161 18.9 155.371 18.9 148.422V113.203C18.9
-                               112.92 18.9089 112.606 18.9266 112.323V90.4367H9.46477C4.14028 90.4367 0 86.0029 0 
-                               80.3428C0 77.5127 0.887119 74.9971 2.95608 72.7959L78.6712 2.52066C80.7384 0.315082
-                                83.1009 0 85.1681 0C87.2353 0 89.5978 0.630164 91.3992 2.20557L154.183 60.9725C151.672
-                                 60.5951 149.103 60.375 146.475 60.375C119.365 60.375 97.0987 82.4811 94.7067 
-                                 110.688H94.5ZM103.95 115.719C103.95 90.7197 122.998 70.4375 146.475 70.4375C169.952
-                                  70.4375 189 90.7197 189 115.719C189 140.718 169.952 161 146.475 161C122.998 161 
-                                  103.95 140.718 103.95 115.719ZM146.475 145.906C150.403 145.906 153.562 142.542 153.562
-                                   138.359C153.562 134.177 150.403 130.812 146.475 130.812C142.547 130.812 139.387 
-                                   134.177 139.387 138.359C139.387 142.542 142.547 145.906 146.475 145.906ZM141.484
-                                    90.5625V115.719C141.484 118.486 143.876 120.75 146.209 120.75C149.074 120.75 
-                                    150.934 118.486 150.934 115.719V90.5625C150.934 87.7953 149.074 85.5312 146.209 
-                                    85.5312C143.876 85.5312 141.484 87.7953 141.484 90.5625Z" fill="black"/>
-                            <ellipse cx="145.5" cy="115.5" rx="43.5" ry="45.5" fill="#723535"/>
-                        </svg>
-                        {% else %}
-                        <i class=" fa-solid fa-house-user anasayfa-icon"></i>
-                        {% endif %}
-                        <p class="d-none d-md-block anasayfa">Anasayfa</p>
-                    </a>
-                </li>
-                <li>
+                <p class="d-none d-md-block anasayfa">Anasayfa</p>
+            </a>
+          </li>
+          <li>
                     <a href="{% url 'kisiler' %}">
                         {% if oyuncu_bildirim %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,27 +77,27 @@
                         {% endif %}
                         <p class="d-none d-md-block oyuncular">Oyuncular</p>
                     </a>
-                </li>
-                <li>
+          </li>
+          <li>
                     <a href="{% url 'bilgiler' %}">
                         <i class="fa-solid fa-circle-question bilgiler-icon"></i>
                         <p class="d-none d-md-block bilgiler">Bilgiler</p>
                     </a>
-                </li>
-                <li>
-                    <a href="{% url 'forumlar' %}">
-                        {% if forum_bildirim %}
-                        <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M94.5 0.48027C42.3035 0.48027 0.332228 34.8546 0.332228 77.2615C0.332228 95.5783 8.21338 112.322 21.3622 125.508C16.7479 144.102 1.32891 160.676 1.14434 160.861C0.313771 161.691 0.0830582 162.977 0.590627 164.085C1.05168 165.192 2.07494 165.844 3.27465 165.844C27.7302 165.844 45.7627 154.12 55.1758 146.874C67.2209 151.396 80.6539 154.032 94.8215 154.032C147.018 154.032 188.989 119.654 188.989 77.5827C188.989 35.5117 146.696 0.48027 94.5 0.48027ZM46.9178 89.074C40.3655 89.074 35.1053 83.8138 35.1053 77.5937C35.1053 71.3737 40.3655 65.7812 46.9178 65.7812C53.47 65.7812 58.7303 71.0415 58.7303 77.5937C58.7303 84.146 53.7838 89.074 46.9178 89.074ZM94.5 89.074C87.9478 89.074 83.0197 83.8138 83.0197 77.5937C83.0197 71.3737 88.28 65.7812 94.5 65.7812C100.72 65.7812 105.98 71.0415 105.98 77.5937C105.98 84.146 101.071 89.074 94.5 89.074ZM141.418 89.074C134.866 89.074 129.605 83.8138 129.605 77.5937C129.605 71.3737 134.866 65.7812 141.418 65.7812C147.97 65.7812 153.23 71.0415 153.23 77.5937C153.23 84.146 148.284 89.074 141.418 89.074Z" fill="white"/>
-                        <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
-                        </svg>
-                        {% else %}
-                        <i class="fa-solid fa-comment-dots forumlar-icon"></i>
-                        {% endif %}
-                        <p class="d-none d-md-block forumlar">Forumlar</p>
-                    </a>
-                </li>
-                <li>
+          </li>
+          <li>
+            <a href="{% url 'forumlar' %}">
+                {% if forum_bildirim %}
+                <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path  d="M94.5 0.48027C42.3035 0.48027 0.332228 34.8546 0.332228 77.2615C0.332228 95.5783 8.21338 112.322 21.3622 125.508C16.7479 144.102 1.32891 160.676 1.14434 160.861C0.313771 161.691 0.0830582 162.977 0.590627 164.085C1.05168 165.192 2.07494 165.844 3.27465 165.844C27.7302 165.844 45.7627 154.12 55.1758 146.874C67.2209 151.396 80.6539 154.032 94.8215 154.032C147.018 154.032 188.989 119.654 188.989 77.5827C188.989 35.5117 146.696 0.48027 94.5 0.48027ZM46.9178 89.074C40.3655 89.074 35.1053 83.8138 35.1053 77.5937C35.1053 71.3737 40.3655 65.7812 46.9178 65.7812C53.47 65.7812 58.7303 71.0415 58.7303 77.5937C58.7303 84.146 53.7838 89.074 46.9178 89.074ZM94.5 89.074C87.9478 89.074 83.0197 83.8138 83.0197 77.5937C83.0197 71.3737 88.28 65.7812 94.5 65.7812C100.72 65.7812 105.98 71.0415 105.98 77.5937C105.98 84.146 101.071 89.074 94.5 89.074ZM141.418 89.074C134.866 89.074 129.605 83.8138 129.605 77.5937C129.605 71.3737 134.866 65.7812 141.418 65.7812C147.97 65.7812 153.23 71.0415 153.23 77.5937C153.23 84.146 148.284 89.074 141.418 89.074Z" fill="white"/>
+                <circle cx="151.5" cy="140.5" r="37.5" fill="#723535"/>
+                </svg>
+                {% else %}
+                <i class="fa-solid fa-comment-dots forumlar-icon"></i>
+                {% endif %}
+                <p class="d-none d-md-block forumlar">Forumlar</p>
+            </a>
+          </li>
+          <li>
                     <a href="{% url 'haberler' %}">
                         {% if haber_bildirim %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 178" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,10 +107,10 @@
                         {% else %}
                         <i class="fa-solid fa-newspaper haberler-icon"></i>
                         {% endif %}
-                        <p class="d-none d-md-block haberler">Haberler</p>
+                        <p class="d-none d-md-block haberler-1">Haberler</p>
                     </a>
-                </li>
-                <li>
+          </li>
+          <li>
                     <a href="{% url 'formlar' %}">
                         {% if form_bildirim %}
                         <svg class="col-6 col-md-4 col-lg-2" viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,30 +122,30 @@
                         {% endif %}
                         <p class="d-none d-md-block formlar">Formlar</p>
                     </a>
-                </li>
-                {% if request.user.is_superuser %}
-                <li>
+          </li>
+          {% if request.user.is_superuser %}
+          <li>
                     <a href="{% url 'hareketler' %}">
                         <i class=" fa-solid fa-person-walking loglar-icon"></i>
                         <p class="d-none d-md-block loglar">Loglar</p>
                     </a>
-                </li>
-                {% endif %}
-                {% if request.user.is_superuser and request.user.is_authenticated %}
-                <li>
+          </li>
+          {% endif %}
+          {% if request.user.is_superuser and request.user.is_authenticated %}
+          <li>
                     <a href="{% url 'kayit-onay' %}">
                         <i class="fa-solid fa-circle-check kayit-onay-icon"></i>
                         <p class="d-none d-md-block kayit-onay">Kayıt Onay</p>
                     </a>
-                </li>{% endif %} {% if request.user.is_authenticated %}
-                <li>
+          </li>{% endif %} {% if request.user.is_authenticated %}
+          <li>
                     <a href="{% url 'ayarlar' %}">
                         <i class="fa-solid fa-gear ayarlar-icon"></i>
                         <p class="d-none d-md-block ayarlar">Ayarlar</p>
                     </a>
-                </li>
-                {% endif %}
-                <li>
+          </li>
+          {% endif %}
+          <li>
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'cikis-yap' %}">
                         <i class=" fa-solid fa-arrow-right-from-bracket cikis-yap-icon"></i>
@@ -174,7 +157,7 @@
                         <p class="d-none d-md-block giris-yap">Giriş Yap</p>
                     </a>
                     {% endif %}
-                </li>
+          </li>
         </ul>
       </aside>
     </div>

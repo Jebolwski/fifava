@@ -1,7 +1,9 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-
-{% block title %}Oyuncu Sil | FIFAVOX{% endblock %}
-
+ {% extends 'base/ana.html' %} {% load static %} 
+ 
+ 
+ {% block title %}Oyuncu Sil | FIFAVOX{% endblock %}
+ 
+{% block content %}
 
    <main class="col-11 col-lg-10 offset-1">
         <form method="post">
@@ -12,8 +14,6 @@
                 <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
             </ul>
         </form>
-    </main>
-
-
+   </main>
   
-    {% endblock content %}
+{% endblock content %}

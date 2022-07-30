@@ -1,16 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}Formu Cevaplama | FIFAVOX{% endblock %}
-<meta property="og:title" content="FIFAFOX | Formu Cevapla" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Formu Cevapla" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-</head>
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
+ {% extends 'base/ana.html' %} {% load static %}
+ {% block title %}Formu Cevaplama | FIFAVOX{% endblock %}
+ {% block content %}
 
     <main class="col-11 col-lg-10 offset-1">
         <form method="post">
@@ -104,7 +94,12 @@
 
 
 
-        <script defer>
+    
+{% endblock content %}
+{% block script %}
+    <script defer>
+        $(".formlar").addClass("text-dark");
+        $(".formlar-icon").addClass("text-dark");
         if (document.querySelector(".input1")) {
             document.querySelector(".input1").setAttribute("required", "");
         }
@@ -238,4 +233,4 @@
         //     document.querySelector(".input4").disabled = false;
         // }
     </script>
-    {% endblock content %}
+{% endblock %}

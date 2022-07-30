@@ -1,10 +1,10 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
+ {% extends 'base/ana.html' %} {% load static %} 
+ 
+ {% block title %}Oyuncu Ekle | FIFAVOX{% endblock %}
 
-{% block title %}Oyuncu Ekle | FIFAVOX{% endblock %}
 
+{% block content %}
 
-
-  
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 text-center">{{message}}</div>
@@ -80,15 +80,10 @@
         </form>
     </main>
 
+{% endblock content %}
 
-    
-
-    
-    <script defer>
-        
-
-
-
+{% block script %}
+<script defer>
         let dosya = document.querySelector("#id_dosya");
         dosya.classList.add("form-control");
         $(document).ready(function() {
@@ -125,8 +120,5 @@
         });
     
     
-    </script>
-
-
-
-{% endblock content %}
+</script>
+{% endblock %}

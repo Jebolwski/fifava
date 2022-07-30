@@ -1,22 +1,8 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
-<link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
-<link rel="stylesheet" href="{% static 'css/style.css' %}" />
-{% block title %}Forum Sil | FIFAVOX{% endblock %}
-   <meta property="og:title" content="FIFAFOX | Forum Sil" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Forum Sil" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-</head>
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-
-
+ {% extends 'base/ana.html' %} {% load static %} 
+ <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
+ <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+ {% block title %}Forum Sil | FIFAVOX{% endblock %}
+ {% block content %} 
 
     <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
@@ -32,8 +18,4 @@
         </form>
     </main>
 
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
-    {% endblock content %}
+{% endblock content %}

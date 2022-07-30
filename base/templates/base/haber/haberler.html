@@ -28,7 +28,7 @@ Haberler | FIFAVOX
         
         {% if haberler %}
                 {% for haber in haberler %}
-                <div class="haber shadow-sm col-10 col-lg-8 offset-1 offset-lg-2 border rounded-4 my-5 ">
+                <div class="haber shadow-sm col-10 col-lg-8 offset-1 offset-lg-2 border rounded-4 bg-light my-5 ">
                     {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
                         <p class="text-center badge bg-dark col-12">Yeni</p>
                     {% endif %}
@@ -76,7 +76,8 @@ Haberler | FIFAVOX
 {% endblock content %}
 {% block script %}
     <script defer>
-        
+        $(".haberler-1").addClass("text-dark");
+        $(".haberler-icon").addClass("text-dark");
 
         window.onbeforeunload = function() {
             var scrollPos;

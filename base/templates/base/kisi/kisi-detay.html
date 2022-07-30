@@ -1,18 +1,8 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
- <meta property="og:title" content="FIFAFOX | {{kisi.oyun_ad_soyad}}" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | {{kisi.oyun_ad_soyad}}" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
+{% extends 'base/ana.html' %} {% load static %} 
 {% block title %}{{kisi.oyun_ad_soyad}} | FIFAVOX{% endblock %}
-</head>
 
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
+{% block content %}
     {% csrf_token %}
-    
     <main class="col-10 offset-1">
         {% for message in messages %}
             <div class="anasayfa">{{message}}</div>
@@ -39,17 +29,6 @@
                 </div>
             </div>
         </div>
-        
-
-
-
-
-
 
     </main>
-
-
-</body>
-
-</html>
 {% endblock content %}

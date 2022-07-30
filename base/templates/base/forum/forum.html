@@ -1,26 +1,7 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
-<link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
-<link rel="stylesheet" href="{% static 'css/style.css' %}" />
-{% block title %}{{soru.baslik}} | FIFAVOX{% endblock %}
-   <meta property="og:title" content="FIFAFOX | {{soru.baslik}}" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | {{soru.baslik}}" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-</head>
-
-
-
-<body>
-
-
-
-    <main class="col-11 col-lg-10 offset-1">
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}{{soru.baslik}} | FIFAVOX{% endblock %}
+ {% block content %} 
+ <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="anasayfa-message">{{message}}</div>
         {% endfor %}
@@ -28,7 +9,7 @@
 
         <br>
 
-        <div class="soru col-10 col-lg-8 border offset-1 p-4">
+        <div class="soru col-10 col-lg-8 border rounded-4 shadow-sm bg-light offset-1 p-4">
             <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
                 <p>
                     <img src="{{soru.profil.resim.url}}" class="forum-profil-foto border col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2" style="height: 50px;width:50px;"> {{soru.profil.user.username}}
@@ -149,13 +130,12 @@
             <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"  maxlength="200"  disabled> 
             {% endif %}
         </div>
-    </main>
-
-
-    
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
-    <script defer>
+ </main>
+ {% endblock content %}
+ {% block script %}
+ <script defer>
+        $(".forumlar").addClass("text-dark");
+        $(".forumlar-icon").addClass("text-dark");
         window.onbeforeunload = function() {
             var scrollPos;
             if (typeof window.pageYOffset != 'undefined') {
@@ -510,6 +490,5 @@
         
         
 
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
-    {% endblock content %}
+ </script>
+ {% endblock %}

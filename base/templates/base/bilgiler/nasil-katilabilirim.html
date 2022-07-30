@@ -1,19 +1,6 @@
-﻿ {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}Nasıl Katilabilirim | FIFAVOX{% endblock %}
- <meta property="og:title" content="FIFAFOX | Nasıl Katilabilirim" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Nasıl Katilabilirim" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-   
-
+﻿ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}Nasıl Katilabilirim | FIFAVOX{% endblock %}
+ {% block content %}
     <main class="col-11 col-lg-10 offset-1">
         <div class="nasil-katilabilirim col-9 col-md-8 offset-1 offset-md-2">
 
@@ -50,14 +37,11 @@
         </div>
     </main>
 
-    
+ {% endblock content %}
 
-    <script defer>
-        
-
-
-   
-</script>
-</body>
-</html>
-    {% endblock content %}
+ {% block script %}
+    <script>
+        $(".bilgiler").addClass("text-dark");
+        $(".bilgiler-icon").addClass("text-dark");
+    </script>
+ {% endblock script %}

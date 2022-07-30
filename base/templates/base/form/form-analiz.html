@@ -1,22 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
-{% block title %}Form Analiz | FIFAVOX{% endblock %}
-<meta property="og:title" content="FIFAFOX | Form Analiz" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Form Analiz" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-<style>
-    main {
-        scroll-behavior: auto;
-    }
-</style>
-
-
-
-
+ {% extends 'base/ana.html' %} {% load static %}
+ {% block title %}Form Analiz | FIFAVOX{% endblock %}
+ {% block content %}
 
     <main class="col-11 col-lg-10 offset-1">
         <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
@@ -253,4 +237,10 @@
             </div>
     </main>
     
-    {% endblock content %}
+ {% endblock content %}
+ {% block script %}
+ <script>
+    $(".formlar").addClass("text-dark");
+    $(".formlar-icon").addClass("text-dark");
+ </script>
+ {% endblock %}

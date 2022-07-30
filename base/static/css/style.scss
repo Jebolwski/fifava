@@ -238,11 +238,11 @@ body {
     text-align: center;
     font-size: 15px;
     img {
-      transition: 2s;
+      transition: 1s;
     }
     i,
     svg {
-      transition: 2s;
+      transition: 1s;
     }
     transition: 1s;
     &:hover {
@@ -286,7 +286,6 @@ main {
         transition: 0.2s ease-in;
       }
     }
-    h5 {
       a {
         color: white;
         transition: 0.2s ease-in;
@@ -295,8 +294,8 @@ main {
           transition: 0.2s ease-out;
         }
         i {
+          cursor: pointer;
           color: rgb(216, 151, 173);
-          transition: 0.2s ease-out;
           &:hover {
             transform: scale(1.2);
             transition: 0.2s ease-in;
@@ -304,7 +303,6 @@ main {
           }
         }
       }
-    }
     min-height: 100vh;
     height: 100%;
     width: 100vw;
