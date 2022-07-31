@@ -1,5 +1,7 @@
  {% extends 'base/ana.html' %} {% load static %} 
+ 
  {% block title %}Forum Ekle | FIFAVOX{% endblock %}
+ 
  {% block content %}
 
     <main class="col-11 col-lg-10 offset-1">
@@ -35,20 +37,21 @@
         </form>
     </main>
 
-{% endblock content %}
-{% block script %}
-    <script defer>
+ {% endblock content %}
+ 
+ {% block script %}
+     <script defer>
         
         $(".forumlar").addClass("text-dark");
         $(".forumlar-icon").addClass("text-dark");
 
-        let baslik = document.getElementById("id_baslik")
-        let soru = document.getElementById("id_soru")
-        soru.classList.add("form-control")
-        baslik.classList.add("form-control")
+        let baslik = document.getElementById("id_baslik");
+        let soru = document.getElementById("id_soru");
+        soru.classList.add("form-control");
+        baslik.classList.add("form-control");
         baslik.maxLength=100;
         $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
+            $("body").data("toggle","popover").popover({
                 content: `● Maksimum uzunluk 100 karakterdir.`,
                 animation: true,
                 placement: "right",
@@ -66,5 +69,5 @@
             });
         });
 
-    </script>
-{% endblock %}
+     </script>
+ {% endblock script %}

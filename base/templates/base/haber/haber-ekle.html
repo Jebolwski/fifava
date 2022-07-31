@@ -1,17 +1,6 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-    <meta property="og:title" content="FIFAFOX | Haber Ekle" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Haber Ekle" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-{% block title %}Haber Ekle | FIFAVOX{% endblock %}
-</head>
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-   
+ {% extends 'base/ana.html' %} {% load static %}
+ {% block title %}Haber Ekle | FIFAVOX{% endblock %}
+ {% block content %}
 
     <main class="col-11 col-lg-10 offset-1 pt-5">
         {% for message in messages %}
@@ -54,10 +43,11 @@
         </form>
     </main>
 
-
+{% endblock content %}
 
     
-    <script defer>
+{% block script %}    
+<script defer>
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: `● Maksimum uzunluk 100 karakterdir.`,
@@ -88,7 +78,4 @@
         $(".haberler-1").addClass("text-dark");
         $(".haberler-icon").addClass("text-dark");
     </script>
-</body>
-
-</html>
-{% endblock content %}
+{% endblock %}    
