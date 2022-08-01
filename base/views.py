@@ -30,19 +30,16 @@ def Bulunamadi1(request):
     return render(request,'base/hata_bulunamadi/404.html',context)
 
 
-
 def Hata(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
 
 
-
 def Hata1(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
-
 
 
 def GirisYap(request):
