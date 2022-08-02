@@ -51,12 +51,11 @@
         baslik.classList.add("form-control");
         baslik.maxLength=100;
         $(document).ready(function() {
-            $("body").data("toggle","popover").popover({
+            $('[data-toggle="popover"').popover({
                 content: `● Maksimum uzunluk 100 karakterdir.`,
                 animation: true,
-                placement: "right",
                 trigger: 'hover',
-                html: true
+                placement: "right",
             });
         });
 

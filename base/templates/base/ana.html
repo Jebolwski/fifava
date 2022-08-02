@@ -35,7 +35,10 @@
     </title>
   </head>
   <body>
-    <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script> 
+    
+    
     <div class="{% block homeClass %} {% endblock %}">
       <aside class="side-navbar col-1" style="height: 100%;">
         <ul class="p-0 text-center list-unstyled list-unstyled" style="height: 100vh;">
@@ -157,9 +160,7 @@
         </ul>
       </aside>
     </div>
-    
     {% block content %} {% endblock content %}
-
     <div class="{% block homeClass1 %} {% endblock %}">
         <aside class="haberler col-1 offset-11 d-none d-lg-block" style="z-index: 100;">
             <ul>
@@ -182,15 +183,14 @@
         </aside>
     </div>
 
+
     <script
       src="https://kit.fontawesome.com/89a5339b98.js"
       crossorigin="anonymous"
     ></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/cjs/popper.min.js"></script>
     <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js " integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut " crossorigin="anonymous "></script>
     {% block script %}
