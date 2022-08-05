@@ -1,5 +1,6 @@
  {% extends 'base/ana.html' %} {% load static %}
  {% block title %}Haber Ekle | FIFAVOX{% endblock %}
+ {% load crispy_forms_tags %}
  {% block content %}
 
     <main class="col-11 col-lg-10 offset-1 pt-5">
@@ -10,34 +11,40 @@
             {% csrf_token %}
             <div class="col-10 col-sm-8 offset-1 offset-sm-2">
                 <h4 class="text-center pb-5">Haber Ekle</h4>
-                <span>Başlık</span>
-                <ul class="list-unstyled d-grid col-12 center mb-5">
-                    <li>{{form.baslik}}</li>
-                    <li style="position: relative;margin-left: 100%;margin-top: -40px;">
+                <span aria-checked="mt-5">Başlık</span>
+                <div class="row">
+                    <div class="col">
+                        {{form.baslik|as_crispy_field}}
+                    </div>
+                    <div class="col-auto p-0">
                         <span data-toggle="popover" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                    </li>
-                </ul>
-                <span>Açıklama</span>
-                <ul class="list-unstyled d-grid col-12 center mb-5">
-                    <li>{{form.aciklama}}</li>
-                    <li style="position: relative;margin-left: 100%;margin-top: -40px;">
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <label class="mt-5">Açıklama</label>
+                <div class="row">
+                    <div class="col">
+                        {{form.aciklama|as_crispy_field}}
+                    </div>
+                    <div class="col-auto p-0">
                         <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                    </li>
-                </ul>
-                <label for="file">Dosya</label>
-                <ul class="list-unstyled d-grid col-12 center mb-5">
-                    <li><input type="file" id="file" name="file" class="form-control" /></li>
-                    <li style="position: relative;margin-left: 100%;margin-top: -40px;">
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                    </div>
+                </div>
+                <label for="file" class="mt-5">Dosya</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" id="file" name="file" class="form-control" />
+                    </div>
+                    <div class="col-auto p-0">
                         <span data-toggle="popover2" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                    </li>
-                </ul>
-
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                    </div>
+                </div>
                 <input type="submit" value="Ekle" class="btn btn-outline-dark center mt-4">
             </div>
         </form>
@@ -75,7 +82,11 @@
                 placement: "right",
             });
         });
+        
         $(".haberler-1").addClass("text-dark");
+        
         $(".haberler-icon").addClass("text-dark");
+    
+        $(".requiredField").hide();
     </script>
 {% endblock %}    

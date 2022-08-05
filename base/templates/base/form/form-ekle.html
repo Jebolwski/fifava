@@ -1,7 +1,7 @@
  {% extends 'base/ana.html' %} {% load static %} 
  {% block title %}Form Ekle | FIFAVOX{% endblock %}
 
-
+{% load crispy_forms_tags %}
 {% block content %}
     <!-- <main class="col-11 col-lg-10 offset-1">
     <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
@@ -12,22 +12,16 @@
             {% csrf_token %}
             <div>
                 <label class="pt-5">Formun Başlığı</label>
-                <ul class="list-unstyled d-grid col-12 center mb-5">
-                    <li>{{form.baslik}}</li>
-                    {% for eror in form.errors %}
-                    <span>{{eror}}</span>
-                    {% endfor %}
-                    {% if form.baslik.errors %}
-                        <ul class="list-unstyled">
-                            <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.baslik.errors}}</li>
-                        </ul> 
-                    {% endif %}
-                    <li style="position: relative;margin-left: 100%;margin-top: -40px;">
+                <div class="row">
+                    <div class="col">
+                        {{form.baslik|as_crispy_field}}
+                    </div>
+                    <div class="col-auto p-0">
                         <span data-toggle="popover" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                    </li>
-                </ul>
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                    </div>
+                </div>
                 <h4 class="mt-4 mb-5">Şıklı Sorular</h4>
                 <div class="formsoru soru1">
                     <label>Soru 1</label>
@@ -170,15 +164,6 @@
             </div>
         </form>
     </main>
-
-
-
-
-
-    
-        
-        
-        
 
 {% endblock content %}
 
@@ -338,5 +323,7 @@
                 icon.style.cursor="auto";
             }
         }
+
+        $(".requiredField").hide();
 </script>
 {% endblock %}
