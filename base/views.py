@@ -24,16 +24,18 @@ def Bulunamadi(request,exception):
     return render(request,'base/hata_bulunamadi/404.html',context)
 
 
-def Bulunamadi1(request):
-    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    context = {'haberler':haberler}
-    return render(request,'base/hata_bulunamadi/404.html',context)
 
 
 def Hata(request):
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request,'base/hata_bulunamadi/500.html',context)
+
+    
+def Bulunamadi1(request):
+    haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
+    context = {'haberler':haberler}
+    return render(request,'base/hata_bulunamadi/404.html',context)
 
 
 def Hata1(request):
@@ -497,7 +499,7 @@ def KisiEkle(request):
         if form.is_valid():
             form.save()
             Hareket.objects.create(
-                hareket = request.POST['oyun_ad_soyad'] +" adlı oyuncu eklendi.",
+                hareket = request.POST['oyun_ad_soyad'] +" adlı oyuncu "+ request.user.username +" tarafından eklendi.",
                 admin_mi=0,
             )
             messages.success(request,"Oyuncu başarıyla oluşturuldu.")
@@ -2531,7 +2533,7 @@ def ForumSil(request,pk):
         if request.user.is_superuser  or forum.profil.username==request.user.username:
             forum.delete()
             Hareket.objects.create(
-                hareket=forum.baslik+" başlıklı forum silindi.",
+                hareket=forum.baslik+" başlıklı forum "+ request.user.username +" adlı kişi tarafından silindi.",
                 admin_mi=0,
             )
             messages.success(request,"Forum başarıyla silindi.")
@@ -2592,7 +2594,7 @@ def ForumEkle(request):
         if form.is_valid():
             form.save()
             Hareket.objects.create(
-                hareket = request.POST['baslik'] +" başlıklı forum forumlara eklendi.",
+                hareket = request.POST['baslik'] +" başlıklı forum "+ request.user.username +" tarafından forumlara eklendi.",
                 admin_mi=0,
             )
             messages.success(request,"Formunuz başarıyla oluşturuldu.")

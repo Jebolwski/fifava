@@ -125,7 +125,18 @@
                                 Yasaklandı
                                 {% endif %}
                             {% elif durum.onaydurum == 'Cevapsız' %}
-                            Onaylanmak için kayıt formunu cevaplayın.
+                            {% if request.user.username == durum.kisi.username %}
+                                Onaylanmak için kayıt formunu cevaplayın.
+                                {% else %}
+                                Onaysız
+                                {% endif %}
+                            {% elif durum.onaydurum == 'Kalıcı Olarak Reddet' %}
+                            {% if request.user.username == durum.kisi.username %}
+                                Kalıcı Olarak Reddedildin
+                            {% else %}
+                                Kalıcı Olarak Reddedildi
+                            {% endif %}
+                            
                             {% else %}
                             {% endif %}" class="profil-username"><span class="h4 ms-4 ms-md-0" style="font-weight: 400;">{{profil.username}}</span>  {% if durum %}
                             <span class="d-none d-md-inline"> 
@@ -138,7 +149,9 @@
                                 {% elif durum.onaydurum == "Reddet" %}
                                 <i class="fa-solid fa-circle-xmark px-2 fa-lg" style="cursor: pointer;"></i>
                                 {% elif durum.onaydurum == "Cevapsız" %}
-                                <i class="fa-brands fa-creative-commons-nd px-2 fa-lg" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-lg"  style="cursor: pointer;"></i> 
+                                {% elif durum.onaydurum == "Kalıcı Olarak Reddet" %}
+                                <i class="fa-solid fa-square-xmark px-2 fa-lg"  style="cursor: pointer;"></i> 
                                 {% endif %} 
                                 {% else %} 
                                     
@@ -249,6 +262,8 @@
                                 <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
                                 {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
                                 <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                {% elif forum.onay_durum.onaydurum == "Kalıcı Olarak Reddet" %}
+                                <i class="fa-solid fa-square-xmark px-1 fa-sm"></i>  
                                 {% else %} 
                                 - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}

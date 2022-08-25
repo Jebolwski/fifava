@@ -1,3 +1,9 @@
+$btn-color: rgb(114, 108, 53);
+$btn-color-darker:rgb(129, 121, 82);
+$sidebar-color: linear-gradient(177deg, #817952 0%, #615b3d 100%);
+$icon-color :rgb(136, 127, 82);
+$icon-hover-color :rgba(68, 67, 59, 1);
+
 * {
   margin: 0;
   padding: 0;
@@ -7,18 +13,18 @@
   }
   .btn-outline-dark {
     transition: 0.3s;
-    color: rgb(129, 121, 82);
-    border: 1px solid rgb(114, 108, 53);
+    color: $btn-color-darker;
+    border: 1px solid $icon-color;
     &:hover,
     &:checked {
       transition: 0.3s;
-      background-color: rgb(129, 121, 82);
-      border: 1px solid rgb(92, 81, 37);
+      background-color: $icon-hover-color;
+      border: 1px solid $icon-color;
     }
     &:focus {
-      outline: 4px solid rgba(163, 147, 0, 0.5);
-      border: 1px solid rgb(119, 119, 31);
-      background-color: rgb(129, 121, 82);
+      outline: 4px solid $icon-hover-color;
+      border: 1px solid $icon-hover-color;
+      background-color: $btn-color-darker;
       color: white;
     }
   }
@@ -29,17 +35,12 @@
   }
   &::selection {
     color: white;
-    background-color: rgb(114, 108, 53);
+    background-color:  $btn-color;
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background: linear-gradient(
-      177deg,
-      rgb(141, 132, 84) 0%,
-
-      rgb(126, 116, 70) 100%
-    );
-    outline: 1px solid rgb(104, 100, 51);
+    background: $icon-color 50%;
+    outline: 1px solid #686433;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -58,11 +59,7 @@
 body {
   overflow-x: hidden;
   aside {
-    background: linear-gradient(
-      177deg,
-      rgba(129, 121, 82, 1) 0%,
-      rgb(97, 91, 61) 100%
-    );
+    background: $sidebar-color;
     font-size: 15px;
   }
   .home {
@@ -216,6 +213,7 @@ body {
   .cursorPointerNone {
     display: none;
   }
+  
 }
 
 .side-navbar {
@@ -368,10 +366,10 @@ main {
     background-size: cover;
   }
   i {
-    color: rgb(136, 127, 82);
+    color: $icon-color;
     transition: 0.2s;
     &:hover {
-      color: rgba(68, 67, 59, 1);
+      color: $icon-hover-color;
       transition: 0.2s;
     }
   }
@@ -425,7 +423,7 @@ main {
     margin-left: 41.67%;
     transform: translateX(-50%);
     padding: 10px;
-    background-color: rgb(129, 121, 82);
+    background-color: $btn-color-darker;
     border-radius: 20px;
     border: 2px solid rgb(99, 93, 65);
     color: white;
@@ -438,7 +436,7 @@ main {
     margin-left: 50%;
     transform: translateX(-50%);
     padding: 10px;
-    background-color: rgb(129, 121, 82);
+    background-color: $btn-color-darker;
     border: 2px solid rgb(99, 93, 65);
     border-radius: 20px;
     color: white;
@@ -451,7 +449,7 @@ main {
     margin-left: 50%;
     transform: translateX(-50%);
     padding: 10px;
-    background-color: rgb(129, 121, 82);
+    background-color: $btn-color-darker;
     border-radius: 20px;
     color: white;
   }
@@ -480,7 +478,7 @@ main {
       }
       &:hover {
         i {
-          color: rgb(114, 108, 53);
+          color:  $btn-color;
           transition: 0.4s;
         }
       }
@@ -509,24 +507,24 @@ main {
     height: 70vh;
   }
   .setting-bar {
-    color: rgb(114, 108, 53);
-    border: 1px solid rgb(114, 108, 53);
+    color:  $btn-color;
+    border: 1px solid  $btn-color;
     border-bottom: transparent;
     &:hover {
       transition: 0.3s;
-      background-color: rgb(129, 121, 82);
-      border: 1px solid #77771f;
+      background-color: $btn-color-darker;
+      border: 1px solid rgb(119, 119, 31);
       color: white;
     }
     &:focus {
       outline: 4px solid rgba(163, 147, 0, 0.5);
       border: 1px solid rgb(119, 119, 31);
-      background-color: rgb(129, 121, 82);
+      background-color: $btn-color-darker;
       color: white;
     }
     &.active {
       border: 1px solid rgb(119, 119, 31);
-      background-color: rgb(129, 121, 82);
+      background-color: $btn-color-darker;
       color: white;
     }
   }
@@ -653,12 +651,12 @@ main {
   }
   .kisi-detay-foto {
     height: 70vh;
-    border: 3px solid rgb(114, 108, 53);
+    border: 3px solid  $btn-color;
     border-radius: 3px;
   }
   .haber-img {
     width: 50vw;
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     animation-name: haber_border_animation;
     border-radius: 7px;
     animation-duration: 3s;
@@ -714,7 +712,7 @@ main {
     margin-left: 9px;
     height: 260px;
     margin-top: -200px;
-    border: 2px solid rgb(114, 108, 53);
+    border: 2px solid  $btn-color;
   }
   .card-img-top-1 {
     width: 40%;
@@ -844,6 +842,52 @@ main {
     place-items: center;
     box-shadow: 2px 20px 14px -8px rgba(232, 232, 232, 1);
   }
+  .balons{
+    position: absolute;
+    top: 100px;
+    width: 80vw;
+    z-index: 1;
+    svg{
+      width: 75vw;
+
+    }
+  }
+  .yapraks{
+    position: absolute;
+    top: 100px;
+    width: 75vw;
+    z-index: 1;
+    svg{
+      width: 75vw;
+
+    }
+  }
+  .man{
+    margin-left: 72vw;
+    transform: translateX(-30%);
+    position: absolute;
+    z-index: 2;
+    bottom: 10vh;
+    svg{
+      width: 37vw;
+    }
+  }
+  .woman{
+    margin-left: -20vw;
+    transform: translateX(-30%);
+    position: absolute;
+    z-index: 5;
+    svg{
+      width: 32vw;
+    }
+  }
+  .main-svg{
+    position: absolute;
+    width: 100vw;
+    svg{
+      width: 100%;
+    }
+  }
 }
 
 .haberler {
@@ -968,23 +1012,23 @@ main {
 
 @keyframes haber_border_animation {
   0% {
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     border-right: 4px solid rgb(71, 71, 21);
   }
   30% {
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     border-bottom: 4px solid rgb(71, 71, 21);
   }
   50% {
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     border-left: 4px solid rgb(71, 71, 21);
   }
   70% {
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     border-top: 4px solid rgb(71, 71, 21);
   }
   100% {
-    border: 4px solid rgb(114, 108, 53);
+    border: 4px solid  $btn-color;
     border-right: 4px solid rgb(71, 71, 21);
   }
 }
@@ -1087,7 +1131,7 @@ main {
     }
     .kisi-detay-foto {
       height: 35vh;
-      border: 3px solid rgb(114, 108, 53);
+      border: 3px solid  $btn-color;
     }
     .cevaplama-parent {
       width: 91.24vw;
@@ -1096,7 +1140,7 @@ main {
       width: 140px;
       height: 220px;
       margin-top: -205px;
-      border: 2px solid rgb(114, 108, 53);
+      border: 2px solid  $btn-color;
     }
   }
   .side-navbar {
@@ -1157,7 +1201,7 @@ main {
     .haber-img {
       width: 75vw;
       height: 50vh;
-      border: 4px solid rgb(114, 108, 53);
+      border: 4px solid  $btn-color;
       border-right: 3px solid red;
       animation-duration: 3s;
       animation-iteration-count: infinite;

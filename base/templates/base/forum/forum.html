@@ -19,10 +19,13 @@
                         <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i>{% elif soru.onay_durum.onaydurum == "Yasakla" %}
                         <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif soru.onay_durum.onaydurum == "Reddet" %}
                         <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i>{% elif soru.onay_durum.onaydurum == "Cevapsız" %}
-                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i> {% endif %} 
+                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i>{% elif soru.onay_durum.onaydurum == "İkinci Kez Reddet" %}
+                        <i class="fa-solid fa-square-xmark px-1 fa-sm"></i>  
+                        {% endif %} 
                     {% else %}
                     {% endif %}
-                    </span></p>
+                    </span>
+                </p>
             </a>
             <hr>
             <h5>{{soru.baslik}}</h5>

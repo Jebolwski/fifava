@@ -27,7 +27,7 @@ class Haberler(models.Model):
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)
-    goruldu = models.ManyToManyField(User,related_name='goruldu_haber',default=None,blank=True)
+    goruldu                = models.ManyToManyField(User,related_name='goruldu_haber',default=None,blank=True)
 
     def __str__(self):
         return str(self.baslik)
@@ -38,6 +38,7 @@ ONAY_DURUM = (
     ('Kabul Et','Kabul Et'),
     ('Bekle','Bekle'),
     ('Reddet','Reddet'),
+    ('Kalıcı Olarak Reddet','Kalıcı Olarak Reddet'),
     ('Yasakla','Yasakla'),
     ('Cevapsız','Cevapsız'),
 )
@@ -55,7 +56,7 @@ ANKET_SECIMLERI = (
 
 class OnayDurum(models.Model):
     kisi                   = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
-    onaydurum              = models.CharField(max_length=8, choices=ONAY_DURUM,blank=True,null=True) 
+    onaydurum              = models.CharField(max_length=40, choices=ONAY_DURUM,blank=True,null=True) 
     olusturulma_tarihi     = models.DateTimeField(
         auto_now_add=True, blank=True, null=True)
     guncellenme_tarihi     = models.DateTimeField(auto_now=True,blank=True, null=True)

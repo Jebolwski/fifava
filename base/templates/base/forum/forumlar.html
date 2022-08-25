@@ -104,8 +104,9 @@
                                 <i class="fa-solid fa-circle-xmark px-2 fa-sm" ></i>
                                 {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
                                 <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." ></i> 
+                                {% elif forum.onay_durum.onaydurum == "Kalıcı Olarak Reddet" %}
+                                <i class="fa-solid  fa-square-xmark px-2 fa-sm" ></i> 
                                 {% else %} 
-                                - Onaylanmak için Kayıt Formunu Doldur 
                                 {% endif %}
                                 • <span class="ms-1">{{forum.guncellenme_tarihi}}</span>
                             </span>

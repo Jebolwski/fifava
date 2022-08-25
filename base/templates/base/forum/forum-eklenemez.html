@@ -1,58 +1,58 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %} {% load static %}
+{% extends 'base/ana.html' %} {% load static %}
 <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-{% block title %}Forum Oluşturulamaz | FIFAVOX{% endblock %}
+{% block title %}Forum Oluşturulamaz | FIFAVOX{% endblock %} {% block content %}
+{% load static %}
 
+<main class="col-11 col-lg-10 offset-1">
+  {% for message in messages %}
+  <div class="message">{{message}}</div>
+  {% endfor %}
+  <br />
+  <h4 class="text-center mt-5">
+    Forum oluşturamazsınız. Onaylı kullanıcı değilsiniz.
+  </h4>
+  <h5 class="text-center mt-4">Onay durumunuz : {{onaydurum.onaydurum}}</h5>
+  {% if onaydurum.onaydurum == "Cevapsız" %}
+  <h5 class="text-center mt-4">
+    Onaylanmak için
+    <a href="/form-cevapla/1/" class="text-black">cevaplayın</a>.
+  </h5>
+  {% endif %}
+</main>
 
+<script defer>
+  window.onbeforeunload = function () {
+    var scrollPos;
+    if (typeof window.pageYOffset != "undefined") {
+      scrollPos = window.pageYOffset;
+    } else if (
+      typeof document.compatMode != "undefined" &&
+      document.compatMode != "BackCompat"
+    ) {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (typeof document.body != "undefined") {
+      scrollPos = document.body.scrollTop;
+    }
+    document.cookie = "scrollTop=" + scrollPos;
+  };
+  window.onload = function () {
+    if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+      var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+      document.documentElement.scrollTop = parseInt(arr[1]);
+      document.body.scrollTop = parseInt(arr[1]);
+    }
+  };
 
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message">{{message}}</div>
-        {% endfor %}
-        <br>
-        <h4 class="text-center mt-5">Forum oluşturamazsınız. Onaylı kullanıcı değilsiniz.</h4>
-        <h5 class="text-center mt-4">Onay durumunuz : {{onaydurum.onaydurum}}</h5>
-        {% if onaydurum.onaydurum == "Cevapsız" %}
-        <h5 class="text-center mt-4">Onaylanmak için <a href="/form-cevapla/1/" class="text-black">cevaplayın</a>.</h5>
-        {% endif %}
+  let height = window.innerHeight;
 
-    </main>
+  function kesfet_kay() {
+    window.scrollTo({
+      top: height,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+</script>
 
-
-    
-    
-    <script defer>
-        window.onbeforeunload = function() {
-            var scrollPos;
-            if (typeof window.pageYOffset != 'undefined') {
-                scrollPos = window.pageYOffset;
-            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-                scrollPos = document.documentElement.scrollTop;
-            } else if (typeof document.body != 'undefined') {
-                scrollPos = document.body.scrollTop;
-            }
-            document.cookie = "scrollTop=" + scrollPos;
-        }
-        window.onload = function() {
-            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
-                document.documentElement.scrollTop = parseInt(arr[1]);
-                document.body.scrollTop = parseInt(arr[1]);
-            }
-        }
-
-        
-
-        
-        let height = window.innerHeight;
-
-                function kesfet_kay() {
-                    window.scrollTo({
-                        top: height,
-                        left: 0,
-                        behavior: 'smooth'
-                    });
-                }
-    </script>
-
-    {% endblock content %}
+{% endblock content %}

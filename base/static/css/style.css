@@ -13,19 +13,19 @@
   -webkit-transition: 0.3s;
   transition: 0.3s;
   color: #817952;
-  border: 1px solid #726c35;
+  border: 1px solid #887f52;
 }
 
 * .btn-outline-dark:hover, * .btn-outline-dark:checked {
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  background-color: #817952;
-  border: 1px solid #5c5125;
+  background-color: #44433b;
+  border: 1px solid #887f52;
 }
 
 * .btn-outline-dark:focus {
-  outline: 4px solid rgba(163, 147, 0, 0.5);
-  border: 1px solid #77771f;
+  outline: 4px solid #44433b;
+  border: 1px solid #44433b;
   background-color: #817952;
   color: white;
 }
@@ -48,7 +48,7 @@
 
 * ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background: linear-gradient(177deg, #8d8454 0%, #7e7446 100%);
+  background: #887f52 50%;
   outline: 1px solid #686433;
 }
 
@@ -1032,6 +1032,62 @@ main .bilgiler-div {
   place-items: center;
   -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
           box-shadow: 2px 20px 14px -8px #e8e8e8;
+}
+
+main .balons {
+  position: absolute;
+  top: 100px;
+  width: 80vw;
+  z-index: 1;
+}
+
+main .balons svg {
+  width: 75vw;
+}
+
+main .yapraks {
+  position: absolute;
+  top: 100px;
+  width: 75vw;
+  z-index: 1;
+}
+
+main .yapraks svg {
+  width: 75vw;
+}
+
+main .man {
+  margin-left: 72vw;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+  position: absolute;
+  z-index: 2;
+  bottom: 10vh;
+}
+
+main .man svg {
+  width: 37vw;
+}
+
+main .woman {
+  margin-left: -20vw;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+  position: absolute;
+  z-index: 5;
+}
+
+main .woman svg {
+  width: 32vw;
+}
+
+main .main-svg {
+  position: absolute;
+  width: 100vw;
+}
+
+main .main-svg svg {
+  width: 100%;
 }
 
 .haberler {

@@ -1,18 +1,6 @@
-{% extends 'base/ana.html' %} {% load static %} {% block content%}
+{% extends 'base/ana.html' %} {% load static %}
 {% block title %}Email Değiştir | FIFAVOX{% endblock %}
-   <meta property="og:title" content="FIFAFOX | Email Değiştir" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Email Değiştir" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    
-
-
+ {% block content%}
     <main class="col-11 offset-1">
         <form method="POST">
             {% for message in messages %}

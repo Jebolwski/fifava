@@ -1,7 +1,9 @@
 ﻿ {% extends 'base/ana.html' %} {% load static %} 
  {% block title %}{{haber.baslik}} | FIFAVOX{% endblock %}
  {% block content %}
-    <main class="col-11 col-lg-10 offset-1 pt-5">
+ 
+ <main class="col-11 col-lg-10 offset-1 pt-5">
+        
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="col-10 col-lg-8 offset-1 offset-lg-2">

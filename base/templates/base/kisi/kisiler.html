@@ -1,144 +1,210 @@
-﻿{% extends 'base/ana.html' %} {% load static %} 
-{% block title %}Oyuncular | FIFAVOX{% endblock %}
-{% block content %}
-    <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
-        {% endfor %}
-        <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
-        <form method="POST">
-            {% csrf_token %}
-            <table class="center col-10 col-sm-8 col-md-6 mb-5">
-                <tr>
-                    <td><input type="text" class="arama form-control col-12" maxlength="40" placeholder="Kişinin Adı" name="arama"></td>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-12" placeholder="Kişinin Mesleği" maxlength="12" name="arama1"></td>
-                    {% if user.is_superuser %}
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td>
-                        <a href="{% url 'kisi-ekle' %}"> <i class="fa-solid fa-user-plus fa-lg pt-1"></i></a>
-                    </td>
-                    {% endif %}
-                </tr>
-            </table>
-        </form>
-        
-        {% if kisiler %}
-            <div class="col-10 offset-1" style="display: flex;flex-wrap: wrap;justify-content: space-evenly;">
-                {% for kisi in kisiler %}
-                        <div class="card kisi_div rounded-4 col-5 mt-5 mb-4 border bg-light shadow-sm" style="z-index: 100" data-tilt data-tilt-glare data-tilt-max-glare="0.4">
-                            {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
-                                <p class="text-center badge bg-dark">Yeni</p>
-                            {% endif %}
-
-
-                            <h5 class="kisi_ad card-title text-center py-2">{{kisi.oyun_ad_soyad}}</h5>
-                            {% if kisi.dosya %}
-                            <img class="card-img-top card-img-top-1 rounded border" src="{{kisi.dosya.url}}" >
-                            {% else %}
-                            <img class="card-img-top card-img-top-1 rounded col-2 mb-3 border" src="https://galeri7.uludagsozluk.com/254/tommy-vercetti_412774.jpg" >
-                            {% endif %}
-                            <div class="card-footer text-center">
-                                <p class="kisi_meslek card-text text-center">{{kisi.meslek}}</p>
-                            </div>
-                            <p class="text-center card-text d-none d-md-block mt-3" style="margin: 0">{{kisi.olusturulma_tarihi}}</p>
-                            <hr class="d-none d-md-block">
-                            {% if request.user.is_superuser %}
-                            <div>
-                                <ul class="great-list list-unstyled" >
-                                    <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info"></i></a></li>
-                                    <li><a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-pen"></i></a></li>
-                                    <li><a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-user-xmark"></i></a></li>
-                                </ul>
-                            </div>
-                            {% else %}
-                            <div>
-                                <ul class="list-unstyled great-list">
-                                    <li><a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"><i class="fa-solid fa-info fa-lg"></i></a></li>
-                                </ul>
-                            </div>
-                            {% endif %}
-                        </div>
-                    
-                {% endfor %}
-            </div>
-        {% else %}
-            <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
+﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Oyuncular |
+FIFAVOX{% endblock %} {% block content %}
+<!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
+<main class="col-11 col-lg-10 offset-1">
+  {% for message in messages %}
+  <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">
+    {{message}}
+  </div>
+  {% endfor %}
+  <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
+  <form method="POST">
+    {% csrf_token %}
+    <table class="center col-10 col-sm-8 col-md-6 mb-5">
+      <tr>
+        <td>
+          <input
+            type="text"
+            class="arama form-control col-12"
+            maxlength="40"
+            placeholder="Kişinin Adı"
+            name="arama"
+          />
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
+        <td>
+          <input
+            type="text"
+            class="arama1 form-control col-12"
+            placeholder="Kişinin Mesleği"
+            maxlength="12"
+            name="arama1"
+          />
+        </td>
+        {% if user.is_superuser %}
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>
+          <a href="{% url 'kisi-ekle' %}">
+            <i class="fa-solid fa-user-plus fa-lg pt-1"></i
+          ></a>
+        </td>
         {% endif %}
-        <div class="oyuncular"></div>
-    </main>
-    
-    
-{% endblock content %}
-{% block script %}
-    <script defer>
-        window.onbeforeunload = function() {
-            var scrollPos;
-            if (typeof window.pageYOffset != 'undefined') {
-                scrollPos = window.pageYOffset;
-            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-                scrollPos = document.documentElement.scrollTop;
-            } else if (typeof document.body != 'undefined') {
-                scrollPos = document.body.scrollTop;
-            }
-            document.cookie = "scrollTop=" + scrollPos;
-        }
-        window.onload = function() {
-            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
-                document.documentElement.scrollTop = parseInt(arr[1]);
-                document.body.scrollTop = parseInt(arr[1]);
-            }
-        }
+      </tr>
+    </table>
+  </form>
 
-        gsap.registerPlugin(ScrollTrigger);
+  {% if kisiler %}
+  <div
+    class="col-10 offset-1"
+    style="display: flex; flex-wrap: wrap; justify-content: space-evenly"
+  >
+    {% for kisi in kisiler %}
+    <div
+      class="card kisi_div rounded-4 col-5 mt-5 mb-4 border bg-light shadow-sm"
+      style="z-index: 100"
+      data-tilt
+      data-tilt-glare
+      data-tilt-max-glare="0.4"
+    >
+      {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
+      <p class="text-center badge bg-dark">Yeni</p>
+      {% endif %}
 
-        gsap.from(".tr", {
-            scrollTrigger: ".tr",
-            opacity: 0,
-            duration: 1,
-            y:"30",
-            ease: "power1"
-        })
-        gsap.from(".th", {
-            scrollTrigger: ".th",
-            opacity: 0,
-            duration: 1,
-            y:"-40",
-            ease: "power1"
-        })
-    
-        
-        let kisi_satir = document.querySelectorAll(".kisi_div");
-        let arama = document.querySelector(".arama");
-        let arama1 = document.querySelector(".arama1");
-        arama.addEventListener('keyup',function(){
-            kisi_satir.forEach((kisi)=>{
-                
-                if(kisi.querySelector(".kisi_meslek").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kisi_ad").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
-                    kisi.style.display=""
-                }
-                else{
-                    kisi.style.display="none"
-                }
-            })
-        })
+      <h5 class="kisi_ad card-title text-center py-2">
+        {{kisi.oyun_ad_soyad}}
+      </h5>
+      {% if kisi.dosya %}
+      <img
+        class="card-img-top card-img-top-1 rounded border"
+        src="{{kisi.dosya.url}}"
+      />
+      {% else %}
+      <img
+        class="card-img-top card-img-top-1 rounded col-2 border"
+        src="https://fifavox-s3-buckets-1.s3.amazonaws.com/oyuncu/Bilinmiyor_WpdxxKX.jpg"
+      />
+      {% endif %}
+      <div class="card-footer text-center">
+        <p class="kisi_meslek card-text text-center">{{kisi.meslek}}</p>
+      </div>
+      <p class="text-center card-text d-none d-md-block mt-3" style="margin: 0">
+        {{kisi.olusturulma_tarihi}}
+      </p>
+      <hr class="d-none d-md-block" />
+      {% if request.user.is_superuser %}
+      <div>
+        <ul class="great-list list-unstyled">
+          <li>
+            <a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"
+              ><i class="fa-solid fa-info"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"
+              ><i class="fa-solid fa-user-pen"></i
+            ></a>
+          </li>
+          <li>
+            <a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"
+              ><i class="fa-solid fa-user-xmark"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+      {% else %}
+      <div>
+        <ul class="list-unstyled great-list">
+          <li>
+            <a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"
+              ><i class="fa-solid fa-info fa-lg"></i
+            ></a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
 
-        
-        arama1.addEventListener('keyup',function(){
-            kisi_satir.forEach((kisi)=>{
-                if(kisi.querySelector(".kisi_meslek").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kisi_ad").innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
-                    kisi.style.display="";
-                }
-                else{
-                    kisi.style.display="none";
-                }
-                
-            })
-        })
-        
-        $(".oyuncular-icon").addClass("text-dark");
-        $(".oyuncular").addClass("text-dark");
-    </script>
-    {% endblock %}
+    {% endfor %}
+  </div>
+  {% else %}
+  <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
+  {% endif %}
+  <div class="oyuncular"></div>
+</main>
+
+{% endblock content %} {% block script %}
+<script defer>
+  window.onbeforeunload = function () {
+    var scrollPos;
+    if (typeof window.pageYOffset != "undefined") {
+      scrollPos = window.pageYOffset;
+    } else if (
+      typeof document.compatMode != "undefined" &&
+      document.compatMode != "BackCompat"
+    ) {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (typeof document.body != "undefined") {
+      scrollPos = document.body.scrollTop;
+    }
+    document.cookie = "scrollTop=" + scrollPos;
+  };
+  window.onload = function () {
+    if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+      var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+      document.documentElement.scrollTop = parseInt(arr[1]);
+      document.body.scrollTop = parseInt(arr[1]);
+    }
+  };
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".tr", {
+    scrollTrigger: ".tr",
+    opacity: 0,
+    duration: 1,
+    y: "30",
+    ease: "power1",
+  });
+  gsap.from(".th", {
+    scrollTrigger: ".th",
+    opacity: 0,
+    duration: 1,
+    y: "-40",
+    ease: "power1",
+  });
+
+  let kisi_satir = document.querySelectorAll(".kisi_div");
+  let arama = document.querySelector(".arama");
+  let arama1 = document.querySelector(".arama1");
+  arama.addEventListener("keyup", function () {
+    kisi_satir.forEach((kisi) => {
+      if (
+        kisi
+          .querySelector(".kisi_meslek")
+          .innerHTML.toLowerCase()
+          .includes(arama1.value.toLowerCase()) &&
+        kisi
+          .querySelector(".kisi_ad")
+          .innerHTML.toLowerCase()
+          .includes(arama.value.toLowerCase())
+      ) {
+        kisi.style.display = "";
+      } else {
+        kisi.style.display = "none";
+      }
+    });
+  });
+
+  arama1.addEventListener("keyup", function () {
+    kisi_satir.forEach((kisi) => {
+      if (
+        kisi
+          .querySelector(".kisi_meslek")
+          .innerHTML.toLowerCase()
+          .includes(arama1.value.toLowerCase()) &&
+        kisi
+          .querySelector(".kisi_ad")
+          .innerHTML.toLowerCase()
+          .includes(arama.value.toLowerCase())
+      ) {
+        kisi.style.display = "";
+      } else {
+        kisi.style.display = "none";
+      }
+    });
+  });
+
+  $(".oyuncular-icon").addClass("text-dark");
+  $(".oyuncular").addClass("text-dark");
+</script>
+{% endblock %}

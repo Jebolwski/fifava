@@ -37,14 +37,15 @@
                         <li title="Email" class="d-none d-md-block"><a href="mailto:{{i.kisi.email}}" class="text-decoration-none"><i>{{i.kisi.email}} </i></a></li>
                         
                         <li>
-                            <p title="Onay Durumu" class="onay_durumu">
+                            <p title="Onay Durumu" class="onay_durumu aciklama-uzun">
                                 {% if i.onaydurum %} 
                                     {% if i.onaydurum == "Kabul Et" %}
                                         <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
                                         <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}
                                         <i class="fa-solid fa-ban px-2"></i> Yasaklı {% elif i.onaydurum == "Reddet" %}
                                         <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% elif i.onaydurum == "Cevapsız" %}
-                                        <i class="fa-solid fa-comment-slash"></i> Cevaplanmadı 
+                                        <i class="fa-solid fa-comment-slash px-2"></i> Cevaplanmadı {% elif i.onaydurum == "Kalıcı Olarak Reddet" %}
+                                        <i class="fa-solid fa-square-xmark px-2"></i> Kalıcı Olarak Reddedildi
                                     {% endif %} 
                                 {% endif %}
                             </p>
