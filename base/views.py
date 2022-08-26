@@ -256,6 +256,7 @@ def NasilKatilabilirim(request):
 
 
 def Bilgiler(request):
+    return render(request,"base/hata_bulunamadi/404.html")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if True:
         haber_bildirim=False
@@ -1228,8 +1229,14 @@ def FormCevapla(request,pk):
                 onaydurum = OnayDurum.objects.get(kisi_id = request.user.id)
                 onaydurum.onaydurum = "Bekle"
                 onaydurum.save()
+                Hareket.objects.create(hareket=request.user.username+" adlı kullanıcı FIFAVOX RolePlay Kayıt Formunu cevapladı.",admin_mi=1)
+            else:
+                Hareket.objects.create(hareket=request.user.username+" adlı kullanıcı " + form_copy['baslik']+" başlıklı formu cevapladı.",admin_mi=1)
+
             messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
             return redirect('formlar')
+
+
         else:
             messages.error(request,"Bir hata oluştu.")
     context={'form':form,'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
