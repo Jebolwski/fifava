@@ -54,8 +54,8 @@
         
 {% endblock content %}
     <script defer>
-        $(".anasayfa").addClass("text-dark");
-        $(".anasayfa-icon").addClass("text-dark");
+        $(".anasayfa").addClass("active-color");
+        $(".anasayfa-icon").addClass("active-color");
         $(document).ready(function() {
             $('[data-toggle="popover"').popover({
                 content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",

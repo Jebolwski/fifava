@@ -1,11 +1,11 @@
- {% extends 'base/ana.html' %} {% load static %} 
+{% extends 'base/ana.html' %} {% load static %} 
  
- {% block title %}Oyuncu Ekle | FIFAVOX{% endblock %}
+{% block title %} Oyuncu Ekle | FIFAVOX{% endblock %}
 
 {% load crispy_forms_tags %}
 {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1">
+ <main class="col-11 col-lg-10 offset-1">
         {% for message in messages %}
         <div class="message col-8 col-sm-6 col-md-4 text-center">{{message}}</div>
         {% endfor %}
@@ -63,12 +63,12 @@
             </div>
             <input type="submit" value="Oyuncu Ekle" class="center btn btn-outline-dark my-5">
         </form>
-    </main>
+ </main>
 
 {% endblock content %}
 
 {% block script %}
-<script defer>
+ <script defer>
         $(".requiredField").hide();
         $("label").prop("for","id_dosya").hide()
         let dosya = document.querySelector("#id_dosya");
@@ -99,7 +99,7 @@
         });
         $(document).ready(function() {
             $('[data-toggle="popover3"').popover({
-                content: `● Maksimum uzunluk 10000 karakterdir.`,
+                content: `● Maksimum uzunluk 20000 karakterdir.`,
                 animation: true,
                 trigger: 'hover',
                 placement: "right",
@@ -107,5 +107,5 @@
         });
     
     
-</script>
+ </script>
 {% endblock %}
