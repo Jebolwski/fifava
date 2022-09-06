@@ -1,26 +1,59 @@
-﻿{% extends 'base/ana.html' %}  {% load static %}
-{% block title %}Giriş Yap | FIFAVOX{% endblock %}
+﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Giriş Yap •
+FIFAVOX{% endblock %} {% block content %}
+<div class="container shadow-lg rounded-3 p-4 mt-5 bg-light">
+  <h4 class="text-center pt-4 fw-bolder h2">Giriş Yap</h4>
+  <div class="text-center">
+    {% for message in messages %}
+    <div class="message">{{message}}</div>
+    {% endfor %}
+    <form method="POST">
+      {% csrf_token %}
+      <div class="row justify-content-center">
+        <div class="col-10 col-md-6">
+          <p class="text-start mt-5">Kullanıcı Adı veya Email</p>
+          <div class="position-relative">
+            <input
+              type="text"
+              name="username"
+              class="form-control ps-4"
+              placeholder="Kullanıcı adı veya emailinizi giriniz"
+            />
+            <i
+              class="fa-solid fa-user"
+              style="position: absolute; top: 10px; left: 3px"
+            ></i>
+          </div>
+          <p class="text-start mt-4">Şifre</p>
+          <div class="position-relative">
+            <input
+              type="password"
+              name="password"
+              class="form-control ps-4"
+              placeholder="Şifrenizi giriniz"
+            />
+            <i
+              class="fa-solid fa-lock"
+              style="position: absolute; top: 10px; left: 3px"
+            ></i>
+          </div>
+        </div>
+      </div>
 
-{% block content %}
-    <main class="col-11 col-lg-10 offset-1">
-        <h4 class="text-center pt-4">Giriş Yap</h4>
-        <form method="POST">
-            {% csrf_token %}
-            <h5 class="text-center mt-5">Kullanıcı Adı veya Email</h5>
-            <div class="center col-8 col-md-4"><input type="text" name="username" class="form-control"></div>
-            <h5 class="text-center mt-4">Şifre</h5>
-            <div class="center col-8 col-md-4"><input type="password" name="password" class="form-control"></div>
-            <input type="submit" value="Giriş Yap" class="center btn btn-outline-dark mt-5" /> {% for message in messages %}
-            <div class="message">{{message}}</div>
-            {% endfor %}
-            <h5 class="text-center mt-5">Şifreni mi unuttun? <a href="{% url 'password_forgot_reset' %}" class="text-black">Şifre Sıfırla</a></h5>
-            <h5 class="text-center mt-3 ">Hesabın yok mu? <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol
-            </a></h5>
-        </form>
-    </main>
-
-   
-
-
-    
+      <input type="submit" value="Giriş Yap" class="center btn btn-dark mt-5" />
+      {% for message in messages %}
+      <div class="message">{{message}}</div>
+      {% endfor %}
+      <h5 class="text-center mt-5">
+        Şifreni mi unuttun?
+        <a href="{% url 'password_forgot_reset' %}" class="text-black"
+          >Şifre Sıfırla</a
+        >
+      </h5>
+      <h5 class="text-center mt-3">
+        Hesabın yok mu?
+        <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol </a>
+      </h5>
+    </form>
+  </div>
+</div>
 {% endblock content %}

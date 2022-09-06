@@ -1,78 +1,123 @@
-{% extends 'base/ana.html' %} {% load static %} 
-{% block title %}Haber Düzenle | FIFAVOX{% endblock %}
-{% block content %}
-    <main class="col-11 col-lg-10 offset-1 pt-5">
-        {% for message in messages %}
-        <div class="message col-10 col-md-6 col-lg-4 text-center" style="z-index: 100;">{{message}}</div>
-        {% endfor %}
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h5 class="text-center mt-3 mb-5">Haberi Düzenele</h5>
-            <div class="col-10 col-md-8 offset-1 offset-md-2">
-                <span>Başlık</span>
-                <p class="mb-5"><input type="text" name="baslik" class="form-control" maxlength="100" value="{{instance.baslik}}">
-                    <span data-toggle="popover" title="Kurallar" class="profil-username" style="position: relative;margin-left: 100%;top: -38px" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                </p>
-                <span>Açıklama</span>
-                <p class="mb-5">
-                    <textarea name="aciklama" class="form-control" rows="6" maxlength="5000">{{instance.aciklama}}</textarea>
-                   
-                    <span data-toggle="popover1" title="Kurallar" class="profil-username" style="position: relative;margin-left: 100%;top: -165px" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                </p>
-                
-                {% if instance.resim %}
-                <label class="mt-2">Şimdiki Fotoğraf : {{instance.resim}} <input type="checkbox" name="temizle"> Temizle</label>
-                <br>
-                <label for="file" class="mt-2">Değiştir</label>
-                <input type="file" id="file" name="file" class="form-control" />
-                <span data-toggle="popover2" title="Kurallar" class="profil-username" style="position: relative;margin-left: 100%;top: -38px" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                </span> {% else%}
-                <label for="file">Dosya</label>
-                <input type="file" id="file" name="file" class="form-control" />
-                <span data-toggle="popover2" title="Kurallar" class="profil-username" style="position: relative;margin-left: 100%;top: -38px" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span> {% endif %}
-                <input type="submit" value="Ekle" class="btn btn-outline-dark center mt-4">
-            </div>
-        </form>
-    </main>
-{% endblock content %}
-{% block script %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Haber Düzenle |
+FIFAVOX{% endblock %} {% block content %}
+<main class="col-11 col-lg-10 offset-1 pt-5">
+  {% for message in messages %}
+  <div
+    class="message col-10 col-md-6 col-lg-4 text-center"
+    style="z-index: 100"
+  >
+    {{message}}
+  </div>
+  {% endfor %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h5 class="text-center mt-3 mb-5">Haberi Düzenele</h5>
+    <div class="col-10 col-md-8 offset-1 offset-md-2">
+      <span>Başlık</span>
+      <p class="mb-5">
+        <input
+          type="text"
+          name="baslik"
+          class="form-control"
+          maxlength="100"
+          value="{{instance.baslik}}"
+        />
+        <span
+          data-toggle="popover"
+          title="Kurallar"
+          class="profil-username"
+          style="position: relative; margin-left: 100%; top: -38px"
+          data-html="true"
+        >
+          <i class="fa-solid fa-info p-3 fa-sm"></i>
+        </span>
+      </p>
+      <span>Açıklama</span>
+      <p class="mb-5">
+        <textarea
+          name="aciklama"
+          class="form-control"
+          rows="6"
+          maxlength="5000"
+        >
+{{instance.aciklama}}</textarea
+        >
+
+        <span
+          data-toggle="popover1"
+          title="Kurallar"
+          class="profil-username"
+          style="position: relative; margin-left: 100%; top: -165px"
+          data-html="true"
+        >
+          <i class="fa-solid fa-info p-3 fa-sm"></i>
+        </span>
+      </p>
+
+      {% if instance.resim %}
+      <label class="mt-2"
+        >Şimdiki Fotoğraf : {{instance.resim}}
+        <input type="checkbox" name="temizle" /> Temizle</label
+      >
+      <br />
+      <label for="file" class="mt-2">Değiştir</label>
+      <input type="file" id="file" name="file" class="form-control" />
+      <span
+        data-toggle="popover2"
+        title="Kurallar"
+        class="profil-username"
+        style="position: relative; margin-left: 100%; top: -38px"
+        data-html="true"
+      >
+        <i class="fa-solid fa-info p-3 fa-sm"></i>
+      </span>
+      {% else%}
+      <label for="file">Dosya</label>
+      <input type="file" id="file" name="file" class="form-control" />
+      <span
+        data-toggle="popover2"
+        title="Kurallar"
+        class="profil-username"
+        style="position: relative; margin-left: 100%; top: -38px"
+        data-html="true"
+      >
+        <i class="fa-solid fa-info p-3 fa-sm"></i>
+      </span>
+      {% endif %}
+      <input type="submit" value="Ekle" class="btn btn-dark center mt-4" />
+    </div>
+  </form>
+</main>
+{% endblock content %} {% block script %}
 <script defer>
-        $(".haberler-1").addClass("active-color");
-        $(".haberler-icon").addClass("active-color");
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: `● Maksimum uzunluk 100 karakterdir.`,
-                animation: true,
-                placement: "right",
-                trigger: 'hover',
-                html: true
-            });
-        });
+  $(".haberler-1").addClass("active-color");
+  $(".haberler-icon").addClass("active-color");
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 100 karakterdir.`,
+      animation: true,
+      placement: "right",
+      trigger: "hover",
+      html: true,
+    });
+  });
 
+  $(document).ready(function () {
+    $('[data-toggle="popover1"').popover({
+      content: `● Maksimum uzunluk 5000 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
 
-        $(document).ready(function() {
-            $('[data-toggle="popover1"').popover({
-                content: `● Maksimum uzunluk 5000 karakterdir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
-
-        $(document).ready(function() {
-            $('[data-toggle="popover2"').popover({
-                content: `● Kabul edilen dosya türleri jpg ve png dir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
+  $(document).ready(function () {
+    $('[data-toggle="popover2"').popover({
+      content: `● Kabul edilen dosya türleri jpg ve png dir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
 </script>
 {% endblock script %}

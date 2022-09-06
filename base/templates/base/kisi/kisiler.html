@@ -1,18 +1,19 @@
 ﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Oyuncular |
 FIFAVOX{% endblock %} {% block content %}
 <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-<main class="col-11 col-lg-10 offset-1">
+<main class="container-fluid">
   {% for message in messages %}
-  <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">
+  <div class="message text-center">
     {{message}}
   </div>
   {% endfor %}
-  <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
-  <form method="POST">
-    {% csrf_token %}
-    <table class="center col-10 col-sm-8 col-md-6 mb-5">
-      <tr>
-        <td>
+  <h2 class="text-center fw-bolder pt-5 mb-4">Oyuncular</h2>
+  <div class="row justify-content-center">
+    <div class="col">
+      <form method="POST">
+      {% csrf_token %}
+      <div class="row justify-content-evenly">
+        <div class="col-auto">
           <input
             type="text"
             class="arama form-control col-12"
@@ -20,28 +21,32 @@ FIFAVOX{% endblock %} {% block content %}
             placeholder="Kişinin Adı"
             name="arama"
           />
-        </td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-        <td>
-          <input
+        </div>
+        <div class="col-auto">
+          <div class="d-flex align-items-center">
+            <input
             type="text"
             class="arama1 form-control col-12"
             placeholder="Kişinin Mesleği"
             maxlength="12"
             name="arama1"
-          />
-        </td>
-        {% if user.is_superuser %}
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td>
-          <a href="{% url 'kisi-ekle' %}">
-            <i class="fa-solid fa-user-plus fa-lg pt-1"></i
-          ></a>
-        </td>
-        {% endif %}
+            />
+            {% if user.is_superuser %}
+            <a href="{% url 'kisi-ekle' %}" class="ms-2">
+              <i class="fa-solid fa-user-plus btn btn-dark p-2 "></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+        
       </tr>
     </table>
-  </form>
+      </form>
+    </div>
+  </div>
+  
 
   {% if kisiler %}
   <div
@@ -122,7 +127,9 @@ FIFAVOX{% endblock %} {% block content %}
   <div class="oyuncular"></div>
 </main>
 
-{% endblock content %} {% block script %}
+{% endblock content %} 
+
+{% block script %}
 <script defer>
   window.onbeforeunload = function () {
     var scrollPos;

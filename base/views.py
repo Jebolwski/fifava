@@ -63,17 +63,17 @@ def GirisYap(request):
 
         if person is not None:
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
-                messages.success(request,"Bu hesap yasaklandı.")
+                messages.success(request,'<div class="bg-danger message p-2 rounded-3">Bu hesap yasaklandı.</div>')
                 return redirect("giris-yap")
             Hareket.objects.create(
                 hareket = username1+" adlı kullanıcı giriş yaptı.",
                 admin_mi = 1,
             )
             login(request, person)
-            messages.success(request, 'Başarıyla giriş yapıldı.')
+            messages.success(request, '<div class="bg-success message p-2 rounded-3">Başarıyla giriş yapıldı.</div>')
             return redirect('anasayfa')
         else:
-            messages.error(request,'Kullanıcı adı, email veya şifre hatalı.')
+            messages.error(request,'<div class="bg-danger message p-2 rounded-3">Kullanıcı adı, email veya şifre hatalı.</div>')
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)
@@ -86,7 +86,7 @@ def CikisYap(request):
                 admin_mi = 1,
             )
     logout(request)
-    messages.success(request,"Başarıyla çıkış yapıldı.")
+    messages.success(request,'<div class="bg-success message p-2 rounded-3">Başarıyla çıkış yapıldı.</div>')
     return redirect("anasayfa")
 
 
@@ -101,7 +101,7 @@ def KayitOl(request):
         for i in User.objects.all():
             dizi.append(i.email)
         if request.POST['email'] in dizi:
-            messages.error(request, 'Girdiğiniz email kullanımda.')
+            messages.error(request, '<div class="bg-info message p-2 rounded-3">Girdiğiniz email kullanımda.</div>')
             return redirect('kayit-ol')
 
     if request.method == 'POST': 
@@ -109,7 +109,7 @@ def KayitOl(request):
         for i in User.objects.all():
             dizi1.append(i.username.lower())
         if request.POST['username'].lower() in dizi1:
-            messages.error(request, 'Girdiğiniz kullanıcı adı kullanımda.')
+            messages.error(request, '<div class="bg-danger message p-2 rounded-3">Girdiğiniz kullanıcı adı kullanımda.</div>')
             return redirect('kayit-ol')
         
         
@@ -120,7 +120,7 @@ def KayitOl(request):
                 hareket = request.POST['username'] +" adlı kullanıcı aramıza katıldı.",
                 admin_mi=0,
             )
-            messages.success(request, 'Başarıyla kayıt olundu.')
+            messages.success(request, '<div class="bg-success message p-2 rounded-3">Başarıyla kayıt olundu.</div>')
             ProfilFoto.objects.update_or_create(
                 user=User.objects.get(username = request.POST['username']),
                 username=request.POST['username'],
@@ -131,7 +131,7 @@ def KayitOl(request):
             OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
             return redirect('giris-yap')
         else:
-            messages.error(request, "Kayıt başarı ile gerçekleştirilemedi.")
+            messages.error(request, '<div class="bg-danger message p-2 rounded-3">Kayıt başarı ile gerçekleştirilemedi.</div>')
 
     context = {
         'form': form,'haberler':haberler
@@ -193,10 +193,10 @@ def Ev(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request,"Bilgiler başarıyla kaydedildi.")
+            messages.success(request,'<div class="bg-success message p-2 rounded-3">Bilgiler başarıyla kaydedildi.</div>')
             return redirect("anasayfa")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.error(request,'<div class="bg-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     
     
     context={'haberler':haberler,'form':form,'cevaplar':cevaplar,

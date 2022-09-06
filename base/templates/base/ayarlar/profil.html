@@ -178,14 +178,14 @@
                         {% else %}
 
                             {% if request.user in profil.takipciler.all %}
-                                    <li><button class="btn btn-outline-dark takip-ediliyor profil-edit-1" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()"  onclick="takip_et()">Takip Ediliyor</button></li>
+                                    <li><button class="btn btn-dark takip-ediliyor profil-edit-1" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()"  onclick="takip_et()">Takip Ediliyor</button></li>
                                 {% else %}
 
                                 {% if request.user.username != profil.username %}
                                     {% if request.user.is_authenticated %}
-                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_et()" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()">Takip Et</button></li>
+                                        <li><button class="btn btn-dark profil-edit-1" onclick="takip_et()" onmouseover="takip_ediliyor()" onmouseleave="takip_ediliyor1()">Takip Et</button></li>
                                     {% else %}
-                                        <li><button class="btn btn-outline-dark profil-edit-1" onclick="takip_edmezsiniz()" >Takip Et</button></li>
+                                        <li><button class="btn btn-dark profil-edit-1" onclick="takip_edmezsiniz()" >Takip Et</button></li>
                                     {% endif %}
                                 {% endif %}
 
@@ -231,7 +231,7 @@
             <img src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}" class="col-2 col-lg-1 border rounded ms-1" style="min-height: 50px;height: 2.98vh;width: 50px;">
             <span class="ms-2">{{request.user.username}}</span>
             <textarea class="form-control mt-3 cevap-textarea" rows="5" maxlength="260" placeholder="Cevabınız..."></textarea>
-            <input type="submit" class="btn btn-outline-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
+            <input type="submit" class="btn btn-dark center mt-3" onclick="cevap_olustur()" value="Cevapla">
                 </div>  
             </div>
 

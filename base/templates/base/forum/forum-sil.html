@@ -1,21 +1,22 @@
- {% extends 'base/ana.html' %} {% load static %} 
- <link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
- <link rel="stylesheet" href="{% static 'css/style.css' %}" />
- {% block title %}Forum Sil | FIFAVOX{% endblock %}
- {% block content %} 
+{% extends 'base/ana.html' %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% block title %}Forum Sil | FIFAVOX{% endblock %} {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message">{{message}}</div>
-        {% endfor %}
-        <form method="POST">
-            {% csrf_token %}
-            <h4 class="text-center pt-5 pb-4">'{{forum.baslik}}' baslikli forumu silmek istediğinize emin misiniz?</h4>
-            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
-                <li><a href="{% url 'forumlar' %}" class="btn btn-outline-dark">Vazgeç</a></li>
-                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
-            </ul>
-        </form>
-    </main>
+<main class="col-11 col-lg-10 offset-1">
+  {% for message in messages %}
+  <div class="message">{{message}}</div>
+  {% endfor %}
+  <form method="POST">
+    {% csrf_token %}
+    <h4 class="text-center pt-5 pb-4">
+      '{{forum.baslik}}' baslikli forumu silmek istediğinize emin misiniz?
+    </h4>
+    <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
+      <li><a href="{% url 'forumlar' %}" class="btn btn-dark">Vazgeç</a></li>
+      <li><input type="submit" value="Sil" class="btn btn-dark" /></li>
+    </ul>
+  </form>
+</main>
 
 {% endblock content %}

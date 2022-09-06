@@ -1,27 +1,24 @@
- {% extends 'base/ana.html' %}  {% load static %} 
- {% block title %}Form Sil | FIFAVOX{% endblock %}
- {% block content %}
-        
-    <main class="col-11 col-lg-10 offset-1">
-      <form method="post">
-        {% csrf_token %}
-        <h3 class="text-center pt-5 pb-4" style="font-weight: 300">'{{form.baslik}}' başlıklı formu silmek istediğinize emin misiniz?</h3>
-        <table class="center mt-5">
-            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
-                <li><a href="{% url 'formlar' %}" class="btn btn-outline-dark">Vazgeç</a></li>
-                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
-            </ul>
-        </table>
-        
-         
-      </form>  
-    </main>  
-  
- {% endblock content %}
-  {% block script %}
- <script>
-    $(".formlar").addClass("active-color");
-    $(".formlar-icon").addClass("active-color");
- </script>
- {% endblock %}
- 
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Form Sil |
+FIFAVOX{% endblock %} {% block content %}
+
+<main class="col-11 col-lg-10 offset-1">
+  <form method="post">
+    {% csrf_token %}
+    <h3 class="text-center pt-5 pb-4" style="font-weight: 300">
+      '{{form.baslik}}' başlıklı formu silmek istediğinize emin misiniz?
+    </h3>
+    <table class="center mt-5">
+      <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
+        <li><a href="{% url 'formlar' %}" class="btn btn-dark">Vazgeç</a></li>
+        <li><input type="submit" value="Sil" class="btn btn-dark" /></li>
+      </ul>
+    </table>
+  </form>
+</main>
+
+{% endblock content %} {% block script %}
+<script>
+  $(".formlar").addClass("active-color");
+  $(".formlar-icon").addClass("active-color");
+</script>
+{% endblock %}

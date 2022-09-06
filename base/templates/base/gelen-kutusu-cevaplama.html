@@ -1,69 +1,78 @@
- {% extends 'base/ana.html' %} {% load static %} 
- {% block title %}Gelen Kutusu Cevapla | FIFAVOX{% endblock %}
- {% block content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Gelen Kutusu
+Cevapla | FIFAVOX{% endblock %} {% block content %}
 
-  
-
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
-        {% endfor %}
-        <div class="col-8 col-lg-6 offset-2 offset-lg-3">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col">
-                        <h6 class="pt-5">Gönderen</h6>
-                        {% if iletisim.user == None %}
-                        <h6>Kayıtsız Kullanıcı</h6>
-                        {% else %}
-                        <h6>{{iletisim.user}}</h6>
-                        {% endif %}
-                    </div>
-                    <div class="col">
-                        <h6 class="pt-5">Ad Soyad</h6>
-                        <h6>{{iletisim.ad_soyad}}</h6>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h6 class="pt-5">Başlık</h6>
-                        <h6>{{iletisim.baslik}}</h6>
-                    </div>
-                    <div class="col">
-                        <h6 class="pt-5">Açıklama</h6>
-                        <h6>{{iletisim.aciklama}}</h6>
-                    </div>
-                </div>
-
-
-
-                <h5 class="pt-5">Cevap</h5>
-                {% if iletisim.user == None %}
-                <textarea name="cevap" rows="5" placeholder="Kayıtsız kullanıcıya cevap verilemez..." disabled class="form-control col-8"></textarea>
-                <input type="submit" disabled class="btn btn-outline-dark center mt-4" value="İlet">
-                {% else %}
-                <textarea name="cevap" rows="5" placeholder="Cevabınız..." class="form-control col-8"></textarea>
-                <input type="submit" class="btn btn-outline-dark center mt-4" value="İlet">
-                {% endif %}
-            </form>
+<main class="col-11 col-lg-10 offset-1">
+  {% for message in messages %}
+  <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">
+    {{message}}
+  </div>
+  {% endfor %}
+  <div class="col-8 col-lg-6 offset-2 offset-lg-3">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <h6 class="pt-5">Gönderen</h6>
+          {% if iletisim.user == None %}
+          <h6>Kayıtsız Kullanıcı</h6>
+          {% else %}
+          <h6>{{iletisim.user}}</h6>
+          {% endif %}
         </div>
-    </main>
+        <div class="col">
+          <h6 class="pt-5">Ad Soyad</h6>
+          <h6>{{iletisim.ad_soyad}}</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h6 class="pt-5">Başlık</h6>
+          <h6>{{iletisim.baslik}}</h6>
+        </div>
+        <div class="col">
+          <h6 class="pt-5">Açıklama</h6>
+          <h6>{{iletisim.aciklama}}</h6>
+        </div>
+      </div>
 
-    
-        
+      <h5 class="pt-5">Cevap</h5>
+      {% if iletisim.user == None %}
+      <textarea
+        name="cevap"
+        rows="5"
+        placeholder="Kayıtsız kullanıcıya cevap verilemez..."
+        disabled
+        class="form-control col-8"
+      ></textarea>
+      <input
+        type="submit"
+        disabled
+        class="btn btn-dark center mt-4"
+        value="İlet"
+      />
+      {% else %}
+      <textarea
+        name="cevap"
+        rows="5"
+        placeholder="Cevabınız..."
+        class="form-control col-8"
+      ></textarea>
+      <input type="submit" class="btn btn-dark center mt-4" value="İlet" />
+      {% endif %}
+    </form>
+  </div>
+</main>
+
 {% endblock content %}
-    <script defer>
-        $(".anasayfa").addClass("active-color");
-        $(".anasayfa-icon").addClass("active-color");
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation: true,
-                placement: "top",
-            });
-        });
-
-    </script>
-
-
+<script defer>
+  $(".anasayfa").addClass("active-color");
+  $(".anasayfa-icon").addClass("active-color");
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content:
+        "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+      animation: true,
+      placement: "top",
+    });
+  });
+</script>

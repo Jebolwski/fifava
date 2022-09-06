@@ -1,166 +1,237 @@
- {% extends 'base/ana.html' %} {% load static %} {% block content %}
-{% block title %}Form Düzenle | FIFAVOX{% endblock %}
+{% extends 'base/ana.html' %} {% load static %} {% block content %} {% block
+title %}Form Düzenle | FIFAVOX{% endblock %}
 
- <main class="col-6 col-lg-6 offset-3">
-        <h4 class="text-center pt-5">Formu Düzenle</h4>
-        <form method="post">
-            {% csrf_token %}
-            <label class="text-center pt-5">Form Başlığı</label>
-            <div>{{form.baslik}}</div>
+<main class="col-6 col-lg-6 offset-3">
+  <h4 class="text-center pt-5">Formu Düzenle</h4>
+  <form method="post">
+    {% csrf_token %}
+    <label class="text-center pt-5">Form Başlığı</label>
+    <div>{{form.baslik}}</div>
 
+    <h4 class="mt-5">Şıklı Sorular</h4>
+    <label class="pt-5">Soru 1</label>
+    <div>{{form.soru1}}</div>
+    {% if form.soru1.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.oyun_ad_soyad.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <h4 class="mt-5">Şıklı Sorular</h4>
-            <label class="pt-5">Soru 1</label>
-            <div>{{form.soru1}}</div>
-            {% if form.soru1.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 2</label>
+    <div>{{form.soru2}}</div>
+    {% if form.soru2.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru2.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 2</label>
-            <div>{{form.soru2}}</div>
-            {% if form.soru2.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru2.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 3</label>
+    <div>{{form.soru3}}</div>
+    {% if form.soru3.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru3.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 3</label>
-            <div>{{form.soru3}}</div>
-            {% if form.soru3.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru3.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 4</label>
+    <div>{{form.soru4}}</div>
+    {% if form.soru4.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru4.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 4</label>
-            <div>{{form.soru4}}</div>
-            {% if form.soru4.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru4.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 5</label>
+    <div>{{form.soru5}}</div>
+    {% if form.soru5.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru5.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 5</label>
-            <div>{{form.soru5}}</div>
-            {% if form.soru5.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru5.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 6</label>
+    <div>{{form.soru6}}</div>
+    {% if form.soru6.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru6.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 6</label>
-            <div>{{form.soru6}}</div>
-            {% if form.soru6.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru6.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 7</label>
+    <div>{{form.soru7}}</div>
+    {% if form.soru7.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru7.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 8</label>
+    <div>{{form.soru8}}</div>
+    {% if form.soru8.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru8.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 7</label>
-            <div>{{form.soru7}}</div>
-            {% if form.soru7.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru7.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 8</label>
-            <div>{{form.soru8}}</div>
-            {% if form.soru8.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru8.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 9</label>
+    <div>{{form.soru9}}</div>
+    {% if form.soru9.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru9.errors}}
+      </li>
+    </ul>
+    {% endif %}
 
-            <label class="pt-5">Soru 9</label>
-            <div>{{form.soru9}}</div>
-            {% if form.soru9.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru9.errors}}</li>
-            </ul>
-            {% endif %}
+    <label class="pt-5">Soru 10</label>
+    <div>{{form.soru10}}</div>
+    {% if form.soru10.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru10.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <h4 class="mt-4">Metinli Sorular</h4>
+    <label class="pt-5">Soru 11</label>
+    <div>{{form.soru11}}</div>
+    {% if form.soru11.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru11.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 12</label>
+    <div>{{form.soru12}}</div>
+    {% if form.soru12.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru12.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 13</label>
+    <div>{{form.soru13}}</div>
+    {% if form.soru13.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru13.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 14</label>
+    <div>{{form.soru14}}</div>
+    {% if form.soru14.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru14.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 15</label>
+    <div>{{form.soru15}}</div>
+    {% if form.soru15.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru15.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 16</label>
+    <div>{{form.soru16}}</div>
+    {% if form.soru16.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru16.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 17</label>
+    <div>{{form.soru17}}</div>
+    {% if form.soru17.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.oyun_ad_soyad.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <label class="pt-5">Soru 18</label>
+    <div>{{form.soru18}}</div>
+    {% if form.soru18.errors %}
+    <ul class="list-unstyled">
+      <li
+        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
+      >
+        {{form.soru18.errors}}
+      </li>
+    </ul>
+    {% endif %}
+    <h4 class="mt-4">Onay Kutuları</h4>
+    <label class="pt-5">Onay Kutusu 1</label>
+    <div>{{form.onay1}}</div>
+    <label class="pt-5">Onay Kutusu 2</label>
+    <div>{{form.onay2}}</div>
+    <label class="pt-5">Onay Kutusu 3</label>
+    <div>{{form.onay3}}</div>
+    <label class="pt-5">Onay Kutusu 4</label>
+    <div>{{form.onay4}}</div>
 
-            <label class="pt-5">Soru 10</label>
-            <div>{{form.soru10}}</div>
-            {% if form.soru10.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru10.errors}}</li>
-            </ul>
-            {% endif %}
-            <h4 class="mt-4">Metinli Sorular</h4>
-            <label class="pt-5">Soru 11</label>
-            <div>{{form.soru11}}</div>
-            {% if form.soru11.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru11.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 12</label>
-            <div>{{form.soru12}}</div>
-            {% if form.soru12.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru12.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 13</label>
-            <div>{{form.soru13}}</div>
-            {% if form.soru13.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru13.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 14</label>
-            <div>{{form.soru14}}</div>
-            {% if form.soru14.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru14.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 15</label>
-            <div>{{form.soru15}}</div>
-            {% if form.soru15.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru15.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 16</label>
-            <div>{{form.soru16}}</div>
-            {% if form.soru16.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru16.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 17</label>
-            <div>{{form.soru17}}</div>
-            {% if form.soru17.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.oyun_ad_soyad.errors}}</li>
-            </ul>
-            {% endif %}
-            <label class="pt-5">Soru 18</label>
-            <div>{{form.soru18}}</div>
-            {% if form.soru18.errors %}
-            <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.soru18.errors}}</li>
-            </ul>
-            {% endif %}
-            <h4 class="mt-4">Onay Kutuları</h4>
-            <label class="pt-5">Onay Kutusu 1</label>
-            <div>{{form.onay1}}</div>
-            <label class="pt-5">Onay Kutusu 2</label>
-            <div>{{form.onay2}}</div>
-            <label class="pt-5">Onay Kutusu 3</label>
-            <div>{{form.onay3}}</div>
-            <label class="pt-5">Onay Kutusu 4</label>
-            <div>{{form.onay4}}</div>
-
-            <input type="submit" value="Formu Düzenle" class="center btn btn-outline-dark mt-5 mb-5">
-        </form>
+    <input
+      type="submit"
+      value="Formu Düzenle"
+      class="center btn btn-dark mt-5 mb-5"
+    />
+  </form>
 </main>
-
-
-
-
 
 {% endblock content %}

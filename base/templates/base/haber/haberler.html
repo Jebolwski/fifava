@@ -1,193 +1,226 @@
- {% extends 'base/ana.html' %} {% load static %} 
-
-{% block title %}
-Haberler | FIFAVOX
-{% endblock %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %} Haberler |
+FIFAVOX {% endblock %}
 
 <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
 {% block content %}
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
-        {% endfor %}
-        <h4 class="text-center pt-5 mb-5">Haberler</h4>
-        <form method="POST">
-            {% csrf_token %}
-            <table class="center col-10 col-sm-8 col-md-4 mb-5">
-                <tr>
-                    <td><input type="text" class="arama form-control col-10" maxlength="100" placeholder="Haberin Başlığı" name="arama"></td>
-                    <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-outline-dark font-3 mx-2"></td> -->
-                    {% if user.is_superuser %}
-                    <td>
-                        <a href="{% url 'haber-ekle' %}"> <i class="fa-solid fa-circle-plus fa-lg pt-1 mx-3"></i></a>
-                    </td>
-                    {% endif %}
-                </tr>
-            </table>
-        </form>
-        
-        {% if haberler %}
-            
-            {% for haber in haberler %}
-            <div class="haber shadow-sm col-10 col-lg-8 offset-1 offset-lg-2 border rounded-4 bg-light my-5 ">
-                    {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
-                        <p class="text-center badge bg-dark col-12">Yeni</p>
-                    {% endif %}
-                    <div class="p-3">
-                    <p class="haber_baslik text-center">{{haber.baslik}}</p>
-                    <hr>
-                    <p class="text-break">{{haber.aciklama}}</p>
-                    {% if haber.resim %}
-                    <hr>
-                    <img src="{{haber.resim.url}}" class="col-12 border rounded">
-                    {% endif %}
-                    <hr>
-                    {% if request.user.is_superuser %}
-                    <ul class="list-unstyled d-flex justify-content-around">
-                        <li><a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></li>
-                        <li><a href="{% url 'haber-duzenle' haber.baslik|slugify %}"><i class="fa-solid fa-pen-to-square"></i></a></li>
-                        <li><a href="{% url 'haber-sil' haber.baslik|slugify %}"><i class="fa-solid fa-calendar-minus"></i></a></li>
-                    </ul>
-                    <hr>
-                    <div class="d-flex justify-content-around">
-                        <h6>{{haber.olusturulma_tarihi}}</h6>
-                        <div>
-                            <i class="fa-solid fa-eye" onclick="gorenleri_goster(event)"></i>
-                            <span>{{haber.goruldu.all.count}}</span>
-                        </div>
-                    </div>
-                    {% else %}
-                    <ul class="list-unstyled d-flex justify-content-around">
-                        <li><a href="{% url 'haber-detay' haber.baslik|slugify %}"><i class="fa-solid fa-circle-info"></i></a></li>
-                        <li>{{haber.olusturulma_tarihi}}</li>
-                    </ul>
-                    {% endif %}
-                    </div>
+<main class="col-11 col-lg-10 offset-1">
+  {% for message in messages %}
+  <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">
+    {{message}}
+  </div>
+  {% endfor %}
+  <h2 class="text-center pt-5 mb-5 fw-bolder">Haberler</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <input
+            type="text"
+            class="arama form-control col-10"
+            maxlength="100"
+            placeholder="Haberin Başlığı"
+            name="arama"
+          />
+        </td>
+      </div>
+      {% if user.is_superuser %}
+      <div class="col-auto">
+        <a href="{% url 'haber-ekle' %}">
+            <i class="fa-solid fa-circle-plus btn btn-dark p-2 mx-3"></i>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </form>
 
-                    
-                    <div class="gorenler-parent d-none">
-                           <div class="gorenler  col-8 offset-2 border p-3 rounded">
-                            <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
-                            <h4 class="ms-2">Görenler</h4>
-                            {% if haber.goruldu.all.count > 0 %}
-                            {% for kisi in haber.goruldu.all %}
-                                <hr>
-                                <a href="{% url 'profil' kisi.username|slugify %}" target="_blank" class="ms-2 text-black text-decoration-none">{{kisi.username}}</a>
-                            {% endfor %}
-                            {% else %}
-                            <hr>
-                            <p class="ms-3">Haber görülmemiş.</p>
-                            {% endif %}
-                        </div>  
-                    </div>
-            </div>
-            
-            {% endfor %}
+  {% if haberler %} {% for haber in haberler %}
+  <div
+    class="haber shadow-sm col-10 col-lg-8 offset-1 offset-lg-2 border rounded-4 bg-light my-5"
+  >
+    {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
+    <p class="text-center badge bg-dark col-12">Yeni</p>
+    {% endif %}
+    <div class="p-3">
+      <p class="haber_baslik text-center">{{haber.baslik}}</p>
+      <hr />
+      <p class="text-break">{{haber.aciklama}}</p>
+      {% if haber.resim %}
+      <hr />
+      <img src="{{haber.resim.url}}" class="col-12 border rounded" />
+      {% endif %}
+      <hr />
+      {% if request.user.is_superuser %}
+      <ul class="list-unstyled d-flex justify-content-around">
+        <li>
+          <a href="{% url 'haber-detay' haber.baslik|slugify %}"
+            ><i class="fa-solid fa-circle-info"></i
+          ></a>
+        </li>
+        <li>
+          <a href="{% url 'haber-duzenle' haber.baslik|slugify %}"
+            ><i class="fa-solid fa-pen-to-square"></i
+          ></a>
+        </li>
+        <li>
+          <a href="{% url 'haber-sil' haber.baslik|slugify %}"
+            ><i class="fa-solid fa-calendar-minus"></i
+          ></a>
+        </li>
+      </ul>
+      <hr />
+      <div class="d-flex justify-content-around">
+        <h6>{{haber.olusturulma_tarihi}}</h6>
+        <div>
+          <i class="fa-solid fa-eye" onclick="gorenleri_goster(event)"></i>
+          <span>{{haber.goruldu.all.count}}</span>
+        </div>
+      </div>
+      {% else %}
+      <ul class="list-unstyled d-flex justify-content-around">
+        <li>
+          <a href="{% url 'haber-detay' haber.baslik|slugify %}"
+            ><i class="fa-solid fa-circle-info"></i
+          ></a>
+        </li>
+        <li>{{haber.olusturulma_tarihi}}</li>
+      </ul>
+      {% endif %}
+    </div>
 
-            <p class="offset-1 mt-5">
-            {% if haberler.has_previous%}
-            <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if haberler.has_previous%}
-            <a href="?page={{haberler.previous_page_number}}" class="text-black"><i class="fas fa-chevron-left"></i></a> {% else %}
-            <i class="fas fa-chevron-left disabled" style="color: gray;">
-                </i> {% endif %} {{haberler.number}} de {{haberler.paginator.num_pages}} {% if haberler.has_next %}
-            <a href="?page={{haberler.next_page_number}}" class="text-black"><i class="fas fa-chevron-right"></i></a>
-            <a href="?page={{haberler.paginator.num_pages}}" class="text-black"><i class="fas fa-angle-double-right"></i></a> {% else %}
-            <i class="fas fa-chevron-right" style="color: gray;"></i> {% endif %}
-            </p>
-
-
-            
-
-        {% else %}
-
-            <h4 class="mt-4 text-center">Okunacak haber yok...</h4>
-
+    <div class="gorenler-parent d-none">
+      <div class="gorenler col-8 offset-2 border p-3 rounded">
+        <i
+          class="fa-solid fa-xmark fa-xl mb-4"
+          onclick="gorenleri_kapa(event)"
+          style="cursor: pointer"
+        ></i>
+        <h4 class="ms-2">Görenler</h4>
+        {% if haber.goruldu.all.count > 0 %} {% for kisi in haber.goruldu.all %}
+        <hr />
+        <a
+          href="{% url 'profil' kisi.username|slugify %}"
+          target="_blank"
+          class="ms-2 text-black text-decoration-none"
+          >{{kisi.username}}</a
+        >
+        {% endfor %} {% else %}
+        <hr />
+        <p class="ms-3">Haber görülmemiş.</p>
         {% endif %}
-    </main>
-{% endblock content %}
-{% block script %}
-    <script defer>
-        
-        $(".haberler-1").addClass("active-color");
-        $(".haberler-icon").addClass("active-color");
+      </div>
+    </div>
+  </div>
 
-        window.onbeforeunload = function() {
-            var scrollPos;
-            if (typeof window.pageYOffset != 'undefined') {
-                scrollPos = window.pageYOffset;
-            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-                scrollPos = document.documentElement.scrollTop;
-            } else if (typeof document.body != 'undefined') {
-                scrollPos = document.body.scrollTop;
-            }
-            document.cookie = "scrollTop=" + scrollPos;
-        }
-        window.onload = function() {
-            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
-                document.documentElement.scrollTop = parseInt(arr[1]);
-                document.body.scrollTop = parseInt(arr[1]);
-            }
-        }
+  {% endfor %}
 
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from(".tr", {
-            scrollTrigger: ".tr",
-            opacity: 0,
-            duration: 1,
-            y:"30",
-            ease: "power1"
-        })
-        gsap.from(".th", {
-            scrollTrigger: ".th",
-            opacity: 0,
-            duration: 1,
-            y:"-40",
-            ease: "power1"
-        })
-    
-    
-        let kisi_satir = document.querySelectorAll(".haber_baslik");
-        let arama = document.querySelector(".arama");
-        arama.addEventListener('keyup',function(){
-            kisi_satir.forEach((kisi)=>{
-                
-                if(kisi.innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
-                    $(kisi).parent().parent().show();
-                }
-                else{
-                    $(kisi).parent().parent().hide();
-                }
-            })
-        })
-        $(document).ready(function(){
-            
-        
-        let gorenleri_goster = async (event) =>{
-           let gorenler_all = document.querySelectorAll(".gorenler-parent");
-           console.log(gorenler_all);
-            //    gorenler_all.forEach(gorenler => {
-            //        if(!("d-none" in gorenler.classList)){
-            //             gorenler.classList.add("d-none");
-            //        }
+  <p class="offset-1 mt-5">
+    {% if haberler.has_previous%}
+    <a href="?page=1" class="text-black"
+      ><i class="fas fa-angle-double-left"></i
+    ></a>
+    {% endif %} {% if haberler.has_previous%}
+    <a href="?page={{haberler.previous_page_number}}" class="text-black"
+      ><i class="fas fa-chevron-left"></i
+    ></a>
+    {% else %}
+    <i class="fas fa-chevron-left disabled" style="color: gray"> </i> {% endif%} {{haberler.number}} de {{haberler.paginator.num_pages}} 
+    {% if haberler.has_next %}
+    <a href="?page={{haberler.next_page_number}}" class="text-black"
+      ><i class="fas fa-chevron-right"></i
+    ></a>
+    <a href="?page={{haberler.paginator.num_pages}}" class="text-black"
+      ><i class="fas fa-angle-double-right"></i
+    ></a>
+    {% else %} 
+    <i class="fas fa-chevron-right" style="color: gray"></i> 
+    {% endif %}
+  </p>
 
-            //    });
-            let div = event.target.parentNode.parentNode.querySelector(".gorenler-parent");
-            div.classList.remove("d-none");
-            }
-        })
-   
-        const gorenleri_goster = async (event) =>{
-            event.target.parentNode.parentNode.parentNode.parentNode.querySelector(".gorenler-parent").classList.remove("d-none");
-        }
+  {% else %}
 
+  <h4 class="mt-4 text-center">Okunacak haber yok...</h4>
 
+  {% endif %}
+</main>
+{% endblock content %} {% block script %}
+<script defer>
+  $(".haberler-1").addClass("active-color");
+  $(".haberler-icon").addClass("active-color");
 
-        const gorenleri_kapa = async (event) =>{
-            let div = event.target.parentNode.parentNode;
-            div.classList.add("d-none");
-        }
+  window.onbeforeunload = function () {
+    var scrollPos;
+    if (typeof window.pageYOffset != "undefined") {
+      scrollPos = window.pageYOffset;
+    } else if (
+      typeof document.compatMode != "undefined" &&
+      document.compatMode != "BackCompat"
+    ) {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (typeof document.body != "undefined") {
+      scrollPos = document.body.scrollTop;
+    }
+    document.cookie = "scrollTop=" + scrollPos;
+  };
+  window.onload = function () {
+    if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+      var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+      document.documentElement.scrollTop = parseInt(arr[1]);
+      document.body.scrollTop = parseInt(arr[1]);
+    }
+  };
 
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from(".tr", {
+    scrollTrigger: ".tr",
+    opacity: 0,
+    duration: 1,
+    y: "30",
+    ease: "power1",
+  });
+  gsap.from(".th", {
+    scrollTrigger: ".th",
+    opacity: 0,
+    duration: 1,
+    y: "-40",
+    ease: "power1",
+  });
 
-    </script>
+  let kisi_satir = document.querySelectorAll(".haber_baslik");
+  let arama = document.querySelector(".arama");
+  arama.addEventListener("keyup", function () {
+    kisi_satir.forEach((kisi) => {
+      if (kisi.innerHTML.toLowerCase().includes(arama.value.toLowerCase())) {
+        $(kisi).parent().parent().show();
+      } else {
+        $(kisi).parent().parent().hide();
+      }
+    });
+  });
+  $(document).ready(function () {
+    let gorenleri_goster = async (event) => {
+      let gorenler_all = document.querySelectorAll(".gorenler-parent");
+      console.log(gorenler_all);
+      //    gorenler_all.forEach(gorenler => {
+      //        if(!("d-none" in gorenler.classList)){
+      //             gorenler.classList.add("d-none");
+      //        }
+
+      //    });
+      let div =
+        event.target.parentNode.parentNode.querySelector(".gorenler-parent");
+      div.classList.remove("d-none");
+    };
+  });
+
+  const gorenleri_goster = async (event) => {
+    event.target.parentNode.parentNode.parentNode.parentNode
+      .querySelector(".gorenler-parent")
+      .classList.remove("d-none");
+  };
+
+  const gorenleri_kapa = async (event) => {
+    let div = event.target.parentNode.parentNode;
+    div.classList.add("d-none");
+  };
+</script>
 {% endblock %}

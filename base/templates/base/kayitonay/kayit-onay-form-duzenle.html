@@ -1,123 +1,129 @@
- {% extends 'base/ana.html' %} {% load static %} 
- {% block title %}Kullanıcı Onay Anketi | FIFAVOX{% endblock %}
- {% block content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Kullanıcı Onay
+Anketi | FIFAVOX{% endblock %} {% block content %}
 
-    <main class="col-8 col-lg-6 offset-3">
-        {% if cevap %}
-        <div class="text-center">
-            {{form.errors}}
-            <h5 class="pt-5">Fifavox Kayıt Formu</h5>
-            {% if sorular.soru1 %}
-            <div class="pb-3 pt-5">{{ sorular.soru1 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru1_cevap}}</div>
-            {% endif %} {% if sorular.soru2 %}
-            <div class="pb-3 pt-5">{{ sorular.soru2 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru2_cevap}}</div>
-            {% endif %} {% if sorular.soru3 %}
-            <div class="pb-3 pt-5">{{ sorular.soru3 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru3_cevap}}</div>
-            {% endif %} {% if sorular.soru4 %}
-            <div class="pb-3 pt-5">{{ sorular.soru4 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru4_cevap}}</div>
-            {% endif %} {% if sorular.soru5 %}
-            <div class="pb-3 pt-5">{{ sorular.soru5 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru5_cevap}}</div>
-            {% endif %} {% if sorular.soru6 %}
-            <div class="pb-3 pt-5">{{ sorular.soru6 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru6_cevap}}</div>
-            {% endif %} {% if sorular.soru7 %}
-            <div class="pb-3 pt-5">{{ sorular.soru7 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru7_cevap}}</div>
-            {% endif %} {% if sorular.soru8 %}
-            <div class="pb-3 pt-5">{{ sorular.soru8 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru8_cevap}}</div>
-            {% endif %} {% if sorular.soru9 %}
-            <div class="pb-3 pt-5">{{ sorular.soru9 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru9_cevap}}</div>
-            {% endif %} {% if sorular.soru10 %}
-            <div class="pb-3 pt-5">{{ sorular.soru10 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru10_cevap}}</div>
-            {% endif %} {% if sorular.soru11 %}
-            <div class="pb-3 pt-5">{{ sorular.soru11 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru11_cevap}}</div>
-            {% endif %} {% if sorular.soru12 %}
-            <div class="pb-3 pt-5">{{ sorular.soru12 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru12_cevap}}</div>
-            {% endif %} {% if sorular.soru13 %}
-            <div class="pb-3 pt-5">{{ sorular.soru13 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru13_cevap}}</div>
-            {% endif %} {% if sorular.soru14 %}
-            <div class="pb-3 pt-5">{{ sorular.soru14 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru14_cevap}}</div>
-            {% endif %} {% if sorular.soru15 %}
-            <div class="pb-3 pt-5">{{ sorular.soru15 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru15_cevap}}</div>
-            {% endif %} {% if sorular.soru16 %}
-            <div class="pb-3 pt-5">{{ sorular.soru16 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru16_cevap}}</div>
-            {% endif %} {% if sorular.soru17 %}
-            <div class="pb-3 pt-5">{{ sorular.soru17 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru17_cevap}}</div>
-            {% endif %} {% if sorular.soru18 %}
-            <div class="pb-3 pt-5">{{ sorular.soru18 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru18_cevap}}</div>
-            {% endif %}{% if sorular.soru19 %}
-            <div class="pb-3 pt-5">{{ sorular.soru19 }}</div>
-            <div class="col-4 offset-4 pb-2">{{cevap.soru19_cevap}}</div>
-            {% endif %}
-        </div>
-        <div class="text-center mt-5">
-            {% if sorular.onay1 %}
-            <span class="pb-3 pt-5 mx-2">{{ sorular.onay1 }}</span>
-            <span>
-                {% if cevap.onay1_cevap %}
-                <i class="fa-solid fa-check"></i>
-                {% else %}
-                <i class="fa-solid fa-xmark"></i>
-                {% endif %}
-            </span>{% endif %}
-            <br>
-            <br> {% if sorular.onay2 %}
-            <span class="pb-3 pt-5 mx-2">{{ sorular.onay2 }}</span>
-            <span>{% if cevap.onay2_cevap %}
-                <i class="fa-solid fa-check"></i>
-                {% else %}
-                <i class="fa-solid fa-xmark"></i>
-                {% endif %}</span>{% endif %}
-            <br>
-            <br> {% if sorular.onay3 %}
-            <span class="pb-3 pt-5 mx-2">{{ sorular.onay3 }}</span>
-            <span>{% if cevap.onay3_cevap %}
-                <i class="fa-solid fa-check"></i>
-                {% else %}
-                <i class="fa-solid fa-xmark"></i>
-                {% endif %}</span>{% endif %}
-            <br>
-            <br> {% if sorular.onay4 %}
-            <span class="pb-3 pt-5 mx-2">{{ sorular.onay4 }}</span>
-            <span>{% if cevap.onay4_cevap %}
-                <i class="fa-solid fa-check"></i>
-                {% else %}
-                <i class="fa-solid fa-xmark"></i>
-                {% endif %}</span> {% endif %}
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            <h5 class="mt-5 text-center mb-5">{{form.onaydurum}}</h5>
-            <input type="submit" class="btn btn-outline-dark center mb-5" value="Kaydet">
-        </form>
-        
-        {% else %}
-        <h4 class="text-center pt-5">Formu Cevaplamamış...</h4>
-        {% endif %}
+<main class="col-8 col-lg-6 offset-3">
+  {% if cevap %}
+  <div class="text-center">
+    {{form.errors}}
+    <h5 class="pt-5">Fifavox Kayıt Formu</h5>
+    {% if sorular.soru1 %}
+    <div class="pb-3 pt-5">{{ sorular.soru1 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru1_cevap}}</div>
+    {% endif %} {% if sorular.soru2 %}
+    <div class="pb-3 pt-5">{{ sorular.soru2 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru2_cevap}}</div>
+    {% endif %} {% if sorular.soru3 %}
+    <div class="pb-3 pt-5">{{ sorular.soru3 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru3_cevap}}</div>
+    {% endif %} {% if sorular.soru4 %}
+    <div class="pb-3 pt-5">{{ sorular.soru4 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru4_cevap}}</div>
+    {% endif %} {% if sorular.soru5 %}
+    <div class="pb-3 pt-5">{{ sorular.soru5 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru5_cevap}}</div>
+    {% endif %} {% if sorular.soru6 %}
+    <div class="pb-3 pt-5">{{ sorular.soru6 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru6_cevap}}</div>
+    {% endif %} {% if sorular.soru7 %}
+    <div class="pb-3 pt-5">{{ sorular.soru7 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru7_cevap}}</div>
+    {% endif %} {% if sorular.soru8 %}
+    <div class="pb-3 pt-5">{{ sorular.soru8 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru8_cevap}}</div>
+    {% endif %} {% if sorular.soru9 %}
+    <div class="pb-3 pt-5">{{ sorular.soru9 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru9_cevap}}</div>
+    {% endif %} {% if sorular.soru10 %}
+    <div class="pb-3 pt-5">{{ sorular.soru10 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru10_cevap}}</div>
+    {% endif %} {% if sorular.soru11 %}
+    <div class="pb-3 pt-5">{{ sorular.soru11 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru11_cevap}}</div>
+    {% endif %} {% if sorular.soru12 %}
+    <div class="pb-3 pt-5">{{ sorular.soru12 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru12_cevap}}</div>
+    {% endif %} {% if sorular.soru13 %}
+    <div class="pb-3 pt-5">{{ sorular.soru13 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru13_cevap}}</div>
+    {% endif %} {% if sorular.soru14 %}
+    <div class="pb-3 pt-5">{{ sorular.soru14 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru14_cevap}}</div>
+    {% endif %} {% if sorular.soru15 %}
+    <div class="pb-3 pt-5">{{ sorular.soru15 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru15_cevap}}</div>
+    {% endif %} {% if sorular.soru16 %}
+    <div class="pb-3 pt-5">{{ sorular.soru16 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru16_cevap}}</div>
+    {% endif %} {% if sorular.soru17 %}
+    <div class="pb-3 pt-5">{{ sorular.soru17 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru17_cevap}}</div>
+    {% endif %} {% if sorular.soru18 %}
+    <div class="pb-3 pt-5">{{ sorular.soru18 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru18_cevap}}</div>
+    {% endif %}{% if sorular.soru19 %}
+    <div class="pb-3 pt-5">{{ sorular.soru19 }}</div>
+    <div class="col-4 offset-4 pb-2">{{cevap.soru19_cevap}}</div>
+    {% endif %}
+  </div>
+  <div class="text-center mt-5">
+    {% if sorular.onay1 %}
+    <span class="pb-3 pt-5 mx-2">{{ sorular.onay1 }}</span>
+    <span>
+      {% if cevap.onay1_cevap %}
+      <i class="fa-solid fa-check"></i>
+      {% else %}
+      <i class="fa-solid fa-xmark"></i>
+      {% endif %} </span
+    >{% endif %}
+    <br />
+    <br />
+    {% if sorular.onay2 %}
+    <span class="pb-3 pt-5 mx-2">{{ sorular.onay2 }}</span>
+    <span
+      >{% if cevap.onay2_cevap %}
+      <i class="fa-solid fa-check"></i>
+      {% else %}
+      <i class="fa-solid fa-xmark"></i>
+      {% endif %}</span
+    >{% endif %}
+    <br />
+    <br />
+    {% if sorular.onay3 %}
+    <span class="pb-3 pt-5 mx-2">{{ sorular.onay3 }}</span>
+    <span
+      >{% if cevap.onay3_cevap %}
+      <i class="fa-solid fa-check"></i>
+      {% else %}
+      <i class="fa-solid fa-xmark"></i>
+      {% endif %}</span
+    >{% endif %}
+    <br />
+    <br />
+    {% if sorular.onay4 %}
+    <span class="pb-3 pt-5 mx-2">{{ sorular.onay4 }}</span>
+    <span
+      >{% if cevap.onay4_cevap %}
+      <i class="fa-solid fa-check"></i>
+      {% else %}
+      <i class="fa-solid fa-xmark"></i>
+      {% endif %}</span
+    >
+    {% endif %}
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <h5 class="mt-5 text-center mb-5">{{form.onaydurum}}</h5>
+    <input type="submit" class="btn btn-dark center mb-5" value="Kaydet" />
+  </form>
 
-    </main>
-    
- {% endblock content %}
+  {% else %}
+  <h4 class="text-center pt-5">Formu Cevaplamamış...</h4>
+  {% endif %}
+</main>
 
- {% block script %}
- <script>
-    $(".kayit-onay").addClass("active-color");
-    $(".kayit-onay-icon").addClass("active-color");
- </script>
- {% endblock %}
+{% endblock content %} {% block script %}
+<script>
+  $(".kayit-onay").addClass("active-color");
+  $(".kayit-onay-icon").addClass("active-color");
+</script>
+{% endblock %}
