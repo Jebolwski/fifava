@@ -2,9 +2,6 @@
 FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
 <main class="col-11 col-lg-10 offset-1">
-  {% for message in messages %}
-  <div class="message">{{message}}</div>
-  {% endfor %}
   <form method="POST">
     {% csrf_token %}
     <div class="col-10 col-md-6 offset-1 offset-md-3">

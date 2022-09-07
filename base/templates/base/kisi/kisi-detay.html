@@ -2,13 +2,12 @@
 {{kisi.oyun_ad_soyad}} | FIFAVOX {% endblock %} 
 {% block content %} 
 {%csrf_token %}
-<main class="col-10 offset-1">
-  {% for message in messages %}
-  <div class="anasayfa">{{message}}</div>
-  {% endfor %}
-  <h4 class="text-center pt-5">Oyuncu Özeti</h4>
-  <br />
-  <div class="container-fluid mt-2">
+<main class="container-fluid mt-4">
+  
+  <div class="bg-light shadow-lg rounded-3 p-4 ">
+    <h2 class="text-center mt-3">Oyuncu Özeti</h2>
+    <br />
+    <div class="container-fluid mt-2">
     <div class="row">
       <div class="col-10 offset-1 col-lg-5 offset-lg-1">
         {% if kisi.dosya %}
@@ -21,7 +20,7 @@
         {% else %}
         <h5>
           <img
-            class="col-8 offset-2 mt-5 kisi-detay-foto"
+            class="col-8 offset-2 mt-5 kisi-detay-foto shadow-lg"
             src="https://fifavox-s3-buckets-1.s3.amazonaws.com/oyuncu/Bilinmiyor_WpdxxKX.jpg"
           />
         </h5>
@@ -36,6 +35,7 @@
         <h5 class="text-center mt-5 pt-5"><i>Kayıt Tarihi</i></h5>
         <h5 class="text-center">{{kisi.olusturulma_tarihi}}</h5>
       </div>
+    </div>
     </div>
   </div>
 </main>

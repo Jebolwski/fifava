@@ -24,8 +24,10 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/theme-default.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/core.css' %}" />
     {% block style %} {% endblock %}
     <meta property="og:title" content="FIFAFOX" />
     <meta
@@ -101,7 +103,7 @@
       </div>
     </div>
 
-    <div class="topbar px-3">
+    <div class="topbar">
       <div
         class="row align-items-center justify-content-between"
         style="height: 56px"
@@ -117,7 +119,7 @@
           <div class="d-flex align-items-center">
             <input
               type="text"
-              class="search d-none d-sm-inline-block"
+              class="search form-control d-none d-sm-inline-block"
               placeholder="Ara..."
             />
             <div class="search-div d-inline-block d-sm-none">
@@ -132,7 +134,7 @@
           <div class="d-flex">
             <a
               href="{% url 'anasayfa' %}"
-              class="pe-1 text-white"
+              class="text-white"
               data-toggle="tooltip"
               data-placement="right"
               title="Anasayfa"
@@ -141,7 +143,7 @@
             </a>
             <a
               href="{% url 'kisiler' %}"
-              class="ms-5 pe-1 text-white"
+              class="ms-5 text-white"
               data-toggle="tooltip"
               data-placement="right"
               title="Oyuncular"
@@ -150,7 +152,7 @@
             </a>
             <a
               href="{% url 'forumlar' %}"
-              class="ms-5 pe-1 text-white"
+              class="ms-5 text-white"
               data-toggle="tooltip"
               data-placement="right"
               title="Forumlar"
@@ -159,33 +161,47 @@
             </a>
             <a
               href="{% url 'haberler' %}"
-              class="ms-5 pe-1 text-white"
+              class="ms-5 text-white"
               data-toggle="tooltip"
               data-placement="right"
               title="Haberler"
             >
               <i class="fa-solid fa-newspaper"></i>
             </a>
+            <a
+              href="{% url 'formlar' %}"
+              class="ms-5 text-white"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Formlar"
+            >
+              <i class="fa-solid fa-square-poll-vertical formlar-icon"></i>
+            </a>
           </div>
         </div>
         {% if request.user.is_authenticated %}
-        <div class="col-auto d-none d-md-inline-block">
+        <div class="col-auto d-none d-md-inline-block pe-3">
           <div class="topbar-right-parent topbar-right-parent-hover">
-            <div class="topbar-right topbar-right-1">
-              <div>
-                <p>Jebolwski</p>
-              </div>
-              <div class="ms-3">
-                <img
-                  src="https://fifavox-s3-buckets-1.s3.amazonaws.com/profil_foto/ben_FBkCqYi.png"
-                  class="topbar-profile-img"
-                />
-              </div>
-              <div class="profile-hover topbar-right-1 p-3 shadow-lg rounded-3">
+            <div class="position-relative">
+              <a href="{% url 'profil' request.user.username|slugify %}" class="text-white topbar-right topbar-right-1">
                 <div>
+                <p>{{request.user.username}}</p>
+                </div>
+                <div class="ms-3">
+                {% for profile in request.user.profilfoto_set.all %}
+                    <img
+                      src="{{profile.resim.url}}"
+                      class="topbar-profile-img"
+                    />
+                {% endfor %}
+                
+                </div>
+              </a>
+              <div class="profile-hover topbar-right-1 p-3 shadow-lg rounded-3">
+                <a href="{% url 'change_password' %}">
                   <i class="fa-solid fa-lock-open"></i>
                   <span class="ms-2">Şifre Değiştir</span>
-                </div>
+                </a>
                 <hr />
                 <div>
                   <a href="{% url 'cikis-yap' %}">
@@ -200,21 +216,28 @@
           </div>
         </div>
         {% else %}
-        <div class="col-auto d-none d-md-inline-block">
+        <div class="col-auto d-none d-md-inline-block pe-4">
           <a href="{% url 'giris-yap' %}" class="login-btn">Giriş Yap</a>
         </div>
         {% endif %}
         <div
-          class="col-auto bars-icon d-block d-md-none"
+          class="col-auto bars-icon d-block d-md-none pe-5"
           onclick="sidebar_ac()"
         >
           <i class="fa-solid fa-bars fa-lg"></i>
         </div>
       </div>
+      <div class="page-completion"></div>
     </div>
+    {% for message in messages %}
+      {{message|safe}}
+    {% endfor %}
 
-    {% block content %} {% endblock content %}
-
+    {% block content %} 
+    {% endblock content %}
+    <div class="to-top">
+      <i class="fa-solid fa-circle-chevron-up fa-2x"></i>
+    </div>
     <script
       src="https://kit.fontawesome.com/89a5339b98.js"
       crossorigin="anonymous"
@@ -250,12 +273,32 @@
           $(".profile-hover").fadeIn(0);
         },
         function () {
-          console.log("asd");
-          $(".profile-hover").fadeOut(00);
+          $(".profile-hover").fadeOut(0);
         }
       );
 
+      $(".to-top").click(function(){
+        window.scrollTo(0,0);
+      });
+
       $(".message").delay(3000).fadeOut(500);
+      $(window).scroll(function(){
+        if ($(window).scrollTop() > 10) {
+          $(".to-top").fadeIn(400);
+        }
+        else{
+          $(".to-top").fadeOut(400);
+
+        }
+      })
+    
+      if(document.body.offsetHeight - window.innerHeight>0){
+        $(window).scroll(function(){
+          $(".page-completion").show();
+          console.log($(window).scrollTop()/(document.body.offsetHeight - window.innerHeight)*100);
+          $(".page-completion").css("width",$(window).scrollTop()/(document.body.offsetHeight - window.innerHeight)*100+"%");
+        })
+      }
     </script>
     {% block script %} {% endblock %}
   </body>

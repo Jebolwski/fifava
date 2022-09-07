@@ -1,11 +1,8 @@
 ﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Giriş Yap •
 FIFAVOX{% endblock %} {% block content %}
 <div class="container shadow-lg rounded-3 p-4 mt-5 bg-light">
-  <h4 class="text-center pt-4 fw-bolder h2">Giriş Yap</h4>
+  <h2 class="text-center pt-4">Giriş Yap</h2>
   <div class="text-center">
-    {% for message in messages %}
-    <div class="message">{{message}}</div>
-    {% endfor %}
     <form method="POST">
       {% csrf_token %}
       <div class="row justify-content-center">
@@ -15,12 +12,12 @@ FIFAVOX{% endblock %} {% block content %}
             <input
               type="text"
               name="username"
-              class="form-control ps-4"
+              class="form-control ps-5"
               placeholder="Kullanıcı adı veya emailinizi giriniz"
             />
             <i
               class="fa-solid fa-user"
-              style="position: absolute; top: 10px; left: 3px"
+              style="position: absolute; top: 12px; left: 20px"
             ></i>
           </div>
           <p class="text-start mt-4">Şifre</p>
@@ -28,21 +25,19 @@ FIFAVOX{% endblock %} {% block content %}
             <input
               type="password"
               name="password"
-              class="form-control ps-4"
+              class="form-control ps-5"
               placeholder="Şifrenizi giriniz"
             />
             <i
               class="fa-solid fa-lock"
-              style="position: absolute; top: 10px; left: 3px"
+              style="position: absolute; top: 12px; left: 20px"
             ></i>
           </div>
         </div>
       </div>
 
       <input type="submit" value="Giriş Yap" class="center btn btn-dark mt-5" />
-      {% for message in messages %}
-      <div class="message">{{message}}</div>
-      {% endfor %}
+      
       <h5 class="text-center mt-5">
         Şifreni mi unuttun?
         <a href="{% url 'password_forgot_reset' %}" class="text-black"

@@ -1,148 +1,24 @@
-{% extends 'base/ana.html' %} {% load static %} {% block title %} Oyuncu Düzenle
-| FIFAVOX{% endblock %} {% block content %}
-<main class="col-8 offset-2">
-  <h4 class="text-center py-5">Oyuncuyu Düzenle</h4>
-  <form method="post" enctype="multipart/form-data">
+{% extends 'base/ana.html' %} {% load static %} {% block title %} Oyuncu Düzenle • FIFAVOX
+{% endblock %} 
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container-fluid my-3">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <h2 class="text-center py-4">Oyuncuyu Düzenle</h2>
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-
-    <h5 class="text-center mt-2">Ad Soyad</h5>
-    <ul class="list-unstyled d-grid col-6 center mb-5">
-      <li>{{form.oyun_ad_soyad}}</li>
-      <li style="position: relative; margin-left: 100%; margin-top: -40px">
-        <span
-          data-toggle="popover"
-          title="Kurallar"
-          class="profil-username"
-          data-html="true"
-        >
-          <i class="fa-solid fa-info p-3 fa-sm"></i>
-        </span>
-      </li>
-    </ul>
-    {% if form.oyun_ad_soyad.errors %}
-    <ul class="list-unstyled">
-      <li
-        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
-      >
-        {{form.oyun_ad_soyad.errors}}
-      </li>
-    </ul>
-    {% endif %}
-
-    <h5 class="text-center mt-5">Meslek</h5>
-    <ul class="list-unstyled d-grid col-6 center mb-5">
-      <li>{{form.meslek}}</li>
-      <li style="position: relative; margin-left: 100%; margin-top: -40px">
-        <span
-          data-toggle="popover1"
-          title="Kurallar"
-          class="profil-username"
-          data-html="true"
-        >
-          <i class="fa-solid fa-info p-3 fa-sm"></i>
-        </span>
-      </li>
-    </ul>
-    {% if form.meslek.errors %}
-    <ul class="list-unstyled">
-      <li
-        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
-      >
-        {{form.meslek.errors}}
-      </li>
-    </ul>
-    {% endif %}
-
-    <h5 class="text-center mt-5">Dosya</h5>
-    <ul class="list-unstyled d-grid col-6 center">
-      <li>{{form.dosya}}</li>
-      <li style="position: relative; margin-left: 100%; margin-top: -40px">
-        <span
-          data-toggle="popover2"
-          title="Kurallar"
-          class="profil-username"
-          data-html="true"
-        >
-          <i class="fa-solid fa-info p-3 fa-sm"></i>
-        </span>
-      </li>
-    </ul>
-    {% if form.dosya.errors %}
-    <ul class="list-unstyled">
-      <li
-        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
-      >
-        {{form.dosya.errors}}
-      </li>
-    </ul>
-    {% endif %}
-
-    <h5 class="text-center mt-5">Hikaye</h5>
-    <ul class="list-unstyled d-grid col-6 center">
-      <li>{{form.hikaye}}</li>
-      <li style="position: relative; margin-left: 100%; margin-top: -255px">
-        <span
-          data-toggle="popover3"
-          title="Kurallar"
-          class="profil-username"
-          data-html="true"
-        >
-          <i class="fa-solid fa-info p-3 fa-sm"></i>
-        </span>
-      </li>
-    </ul>
-    {% if form.hikaye.errors %}
-    <ul class="list-unstyled">
-      <li
-        class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center"
-      >
-        {{form.hikaye.errors}}
-      </li>
-    </ul>
-    {% endif %}
-    <input
-      type="submit"
-      value="Oyuncuyu Düzenle"
-      class="center btn btn-dark my-5"
-    />
-  </form>
-</main>
-{% endblock content %} {% block script %}
+    {{form|crispy}}
+    <div class="text-center mt-4">
+      <input type="submit" value="Düzenle" class="btn btn-dark">
+    </div>
+    </form>
+  </div>
+</div>
+{% endblock content %} 
+{% block script %}
 <script defer>
   let dosya = document.querySelector("#id_dosya");
   dosya.classList.add("form-control");
-  $(document).ready(function () {
-    $('[data-toggle="popover"').popover({
-      content: `● Maksimum uzunluk 25 karakterdir.`,
-      animation: true,
-      trigger: "hover",
-      placement: "right",
-    });
-  });
-  $(document).ready(function () {
-    $('[data-toggle="popover1"').popover({
-      content: `● Maksimum uzunluk 40 karakterdir.`,
-      animation: true,
-      trigger: "hover",
-      placement: "right",
-    });
-  });
-  $(document).ready(function () {
-    $('[data-toggle="popover2"').popover({
-      content: `● Kabul edilen dosya türleri jpg ve png dir.`,
-      animation: true,
-      trigger: "hover",
-      placement: "right",
-    });
-  });
-
-  $(document).ready(function () {
-    $('[data-toggle="popover3"').popover({
-      content: `● Maksimum uzunluk 20000 karakterdir.`,
-      animation: true,
-      trigger: "hover",
-      placement: "right",
-    });
-  });
+ 
 </script>
 {% endblock %}

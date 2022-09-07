@@ -7,15 +7,11 @@ from django.shortcuts import render,redirect
 
 
 class OyuncuForm(forms.ModelForm):
-    oyun_ad_soyad       = forms.CharField(max_length=40, widget=forms.TextInput(
-        attrs={'class': 'form-control'}))
-    meslek              = forms.CharField(max_length=40, widget=forms.TextInput(
-        attrs={'class': 'form-control'})) 
-    hikaye              = forms.CharField(max_length=20000, widget=forms.Textarea(
-        attrs={'class': 'form-control'})) 
+    
     class Meta:
         model = Kullanici
         fields = '__all__'
+        exclude = ['oyun_ad_soyad_slug','goruldu']
 
 class OnayForm(forms.ModelForm):
     class Meta:

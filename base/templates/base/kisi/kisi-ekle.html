@@ -2,9 +2,7 @@
 FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
 <main class="col-11 col-lg-10 offset-1">
-  {% for message in messages %}
-  <div class="message col-8 col-sm-6 col-md-4 text-center">{{message}}</div>
-  {% endfor %}
+  
   <h4 class="text-center pt-4 pb-5">Oyuncu Ekle</h4>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}

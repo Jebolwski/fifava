@@ -2,8 +2,9 @@
  {% block title %}Form Analiz | FIFAVOX{% endblock %}
  {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1">
-        <h4 class="text-center pt-5 mb-4">{{form.baslik}}</h4>
+    <div class="container-fluid mt-5">
+        <div class="bg-light shadow-lg rounded-3 p-4">
+        <h2 class="text-center pt-5 mb-4">{{form.baslik}}</h2>
         <div class="mt-5">
             <table class="table table-striped text-center">
                 
@@ -30,7 +31,7 @@
                     <td colspan="2">Sitedeki Kullanıcıların Forma Katılım Yüzdesi : {{form.kullanici_cevap_yuzdesi|floatformat:2}}%</td>
                 </tr>
             </table>
-            <p class="offset-1 mt-5">
+            <p class="text-center paginator my-5">
                 {% if cevaplar.has_previous%}
                 <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if cevaplar.has_previous%}
                 <a href="?page={{cevaplar.previous_page_number}}" class="text-black"><i class="fas fa-chevron-left"></i></a> {% else %}
@@ -235,7 +236,8 @@
                 <h4 class="text-center">Form cevaplanmamış.</h4>
                 {% endif %}
             </div>
-    </main>
+        </div>
+    </div>
     
  {% endblock content %}
  {% block script %}

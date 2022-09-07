@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from .forms import CevapForm, OnayForm, OyuncuForm, ProfilFotoForm,SorularForm,KayitForm,HaberForm,IletisimForm,ForumEkleForm
 
 from django.core.paginator import Paginator
-
+import locale
 
 from .models import *
 
@@ -16,6 +16,8 @@ from django.contrib import messages
 
 
 
+
+locale.setlocale(locale.LC_TIME, 'tr')
 
 
 def Bulunamadi(request,exception):
@@ -70,10 +72,10 @@ def GirisYap(request):
                 admin_mi = 1,
             )
             login(request, person)
-            messages.success(request, '<div class="bg-success message p-2 rounded-3">Başarıyla giriş yapıldı.</div>')
+            messages.success(request, '<div class="btn btn-success message p-2 rounded-3">Başarıyla giriş yapıldı.</div>')
             return redirect('anasayfa')
         else:
-            messages.error(request,'<div class="bg-danger message p-2 rounded-3">Kullanıcı adı, email veya şifre hatalı.</div>')
+            messages.error(request,'<div class="btn btn-danger message p-2 rounded-3">Kullanıcı adı, email veya şifre hatalı.</div>')
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     context = {'haberler':haberler}
     return render(request, 'base/giris.html',context)
@@ -86,7 +88,7 @@ def CikisYap(request):
                 admin_mi = 1,
             )
     logout(request)
-    messages.success(request,'<div class="bg-success message p-2 rounded-3">Başarıyla çıkış yapıldı.</div>')
+    messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Başarıyla çıkış yapıldı.</div>')
     return redirect("anasayfa")
 
 
@@ -101,7 +103,7 @@ def KayitOl(request):
         for i in User.objects.all():
             dizi.append(i.email)
         if request.POST['email'] in dizi:
-            messages.error(request, '<div class="bg-info message p-2 rounded-3">Girdiğiniz email kullanımda.</div>')
+            messages.error(request, '<div class="btn btn-info message p-2 rounded-3">Girdiğiniz email kullanımda.</div>')
             return redirect('kayit-ol')
 
     if request.method == 'POST': 
@@ -109,7 +111,7 @@ def KayitOl(request):
         for i in User.objects.all():
             dizi1.append(i.username.lower())
         if request.POST['username'].lower() in dizi1:
-            messages.error(request, '<div class="bg-danger message p-2 rounded-3">Girdiğiniz kullanıcı adı kullanımda.</div>')
+            messages.error(request, '<div class="btn btn-danger message p-2 rounded-3">Girdiğiniz kullanıcı adı kullanımda.</div>')
             return redirect('kayit-ol')
         
         
@@ -120,7 +122,7 @@ def KayitOl(request):
                 hareket = request.POST['username'] +" adlı kullanıcı aramıza katıldı.",
                 admin_mi=0,
             )
-            messages.success(request, '<div class="bg-success message p-2 rounded-3">Başarıyla kayıt olundu.</div>')
+            messages.success(request, '<div class="btn btn-success message p-2 rounded-3">Başarıyla kayıt olundu.</div>')
             ProfilFoto.objects.update_or_create(
                 user=User.objects.get(username = request.POST['username']),
                 username=request.POST['username'],
@@ -131,7 +133,7 @@ def KayitOl(request):
             OnayDurum.objects.update_or_create(kisi = User.objects.get(username = request.POST['username']),onaydurum = "Cevapsız")
             return redirect('giris-yap')
         else:
-            messages.error(request, '<div class="bg-danger message p-2 rounded-3">Kayıt başarı ile gerçekleştirilemedi.</div>')
+            messages.error(request, '<div class="btn btn-danger message p-2 rounded-3">Kayıt başarı ile gerçekleştirilemedi.</div>')
 
     context = {
         'form': form,'haberler':haberler
@@ -515,7 +517,7 @@ def KisiEkle(request):
 
 
 @login_required(login_url='giris-yap')
-def KisiDuzenle(request,my_slug):
+def KisiDuzenle(request,pk):
     if not request.user.is_superuser:
         return redirect("404")
     if True:
@@ -551,7 +553,7 @@ def KisiDuzenle(request,my_slug):
                 break
     
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    instance = Kullanici.objects.get(id=pk)
     form = OyuncuForm(instance=instance)
     if request.method == 'POST':
         data = request.POST.copy()
@@ -560,11 +562,13 @@ def KisiDuzenle(request,my_slug):
             size = request.FILES.get("dosya").size/(1024*1024)
             if size>2:
                 messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
-                return redirect('kisi-duzenle',my_slug)
+                return redirect('kisi-duzenle',pk)
         form = OyuncuForm(instance=instance,data = data,files=request.FILES)
         if form.is_valid():
-            form.save()
-            messages.success(request,"Oyuncu başarıyla düzenlendi.")
+            obj = form.save(commit=False)
+            obj.oyun_ad_soyad_slug = slugify(request.POST.get('oyun_ad_soyad_slug'))
+            obj.save()
+            messages.success(request,'<div class="bg-success message p-2 rounded-3">Oyuncu başarıyla düzenlendi.</div>')
             return redirect("kisiler")
         else:
             messages.error(request,"Bir hata oluştu.")
@@ -577,12 +581,11 @@ def KisiDuzenle(request,my_slug):
 
 
 @login_required(login_url='giris-yap')
-def KisiSil(request,my_slug):
+def KisiSil(request,pk):
     if not request.user.is_superuser:
         return redirect("404")
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
-    instance = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
-    
+    instance = Kullanici.objects.get(id=pk)
     if request.method == 'POST':
         instance.delete()
         Hareket.objects.create(
@@ -629,7 +632,7 @@ def KisiSil(request,my_slug):
     return render(request,"base/kisi/kisi-sil.html",context)
 
 
-def KisiDetay(request,my_slug):
+def KisiDetay(request,pk):
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -662,7 +665,7 @@ def KisiDetay(request,my_slug):
                 oyuncu_bildirim=True
                 break
     
-    kisi = Kullanici.objects.get(oyun_ad_soyad_slug=my_slug)
+    kisi = Kullanici.objects.get(id=pk)
     haberler = Haberler.objects.all().order_by('-olusturulma_tarihi')[:5]
     if request.user.is_authenticated:
         kisi.goruldu.add(request.user.id)

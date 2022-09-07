@@ -65,9 +65,9 @@ urlpatterns = [
     #!OYUNCULAR
     path("oyuncular/", views.Kisiler, name="kisiler"),
     path("oyuncu-ekle/", views.KisiEkle, name="kisi-ekle"),
-    path("oyuncu-duzenle/<slug:my_slug>/", views.KisiDuzenle, name="kisi-duzenle"),
-    path("oyuncu-sil/<slug:my_slug>/", views.KisiSil, name="kisi-sil"),
-    path("oyuncu-detay/<slug:my_slug>/", views.KisiDetay, name="kisi-detay"),
+    path("oyuncu-duzenle/<int:pk>/", views.KisiDuzenle, name="kisi-duzenle"),
+    path("oyuncu-sil/<int:pk>/", views.KisiSil, name="kisi-sil"),
+    path("oyuncu-detay/<int:pk>/", views.KisiDetay, name="kisi-detay"),
 
 
     #!HABERLER

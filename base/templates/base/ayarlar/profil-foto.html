@@ -1,45 +1,37 @@
  {% extends 'base/ana.html' %} {% load static %} 
- {% block title %}Profili Düzenle | FIFAVOX{% endblock %}
+ {% block title %}Profili Düzenle • FIFAVOX{% endblock %}
+ {% load crispy_forms_tags %}
  {% block content %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<meta property="og:title" content="FIFAFOX | Profili Düzenle" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="og:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Profili Düzenle" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin." />
-</head>
 
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
     
 
 
-    <main class="col-11 col-lg-10 offset-1">
-
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
-        {% endfor %}
-        <form enctype="multipart/form-data" method="post">
+    <div class="container-fluid">
+        <div class="bg-light shadow-lg rounded-3 p-4 my-5">
+            <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
-            <h4 class="text-center pt-5">Profili Düzenle</h4>
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2">
-                <p class="pt-5 text-center">Biyografi</p>
+            <h2 class="text-center pt-5">Profili Düzenle</h2>
+            <div class="mt-4">
+                <h5 class="text-center pt-5">Biyografi</h5>
                 <p>{{form.biyografi}}</p>
                 {% if foto.resim %}
-                <p class="pt-5 text-center">Profil Fotoğrafı</p>
-                <img src="{{foto.resim.url}}" class="rounded col-3 center"> {% else %}
-                <p class="mt-5 text-center">Kullanıcı Profil Fotoğrafı</p> {% endif %}
+                <h5 class="pt-5 pb-3 text-center">Profil Fotoğrafı</h5>
+                <div class="text-center">
+                    <img src="{{foto.resim.url}}" class="rounded col-3"> 
+                </div>
+                {% else %}
+                <p class="mt-5 pb-3">Kullanıcı Profil Fotoğrafı</p> 
+                {% endif %}
                 <p style="margin: 0;" class="text-break">{{form.resim}}</p>
                 {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
                 {% else %}
                 <p><i class="text-gray">.jpg, .png, .jpeg</i></p>
                 {% endif %} {% if foto.arka_plan %}
-                <p class="pt-5 text-center">Arka Plan Fotoğrafı</p>
+                <h5 class="text-center pt-5 pb-3">Arka Plan Fotoğrafı</h5>
                 <img src="{{foto.arka_plan.url}}" class="rounded col-4 center"> {% else %}
-                <p class="pt-5 text-center">Kullanıcı Arkaplan Fotoğrafı</p> {% endif %}
+                <h5 class="pt-5 text-center pb-3">Kullanıcı Arkaplan Fotoğrafı</h5> {% endif %}
                 <p style="margin: 0;" class="text-break">{{form.arka_plan}}</p>
                 {% if onaydurum.onaydurum == "Kabul Et" %}
                 <p><i class="text-gray">.gif, .jpg, .png, .jpeg</i></p>
@@ -47,43 +39,38 @@
                 <p><i class="text-gray">.jpg, .png, .jpeg</i></p>
                 {% endif %}
             </div>
-            <input class="center mt-5 mb-5 btn btn-dark" type="submit" value="Düzenle">
-        </form>
-
-
-    </main>
+            <div class="text-center">
+                <input class="mt-5 btn btn-dark" type="submit" value="Düzenle">
+            </div>
+            </form>
+        </div>
+    </div>
 
     
-        <script defer>
-        
-
-
-        let inputa = document.getElementById("id_resim");
-        let inputb = document.getElementById("id_arka_plan");
-        let inputc = document.getElementById("id_biyografi");
-        inputa.classList.add("form-control");
-        inputb.classList.add("form-control");
-        inputc.classList.add("form-control");
-        if ("{{request.user.is_superuser}}"=="True") {
-            inputb.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
-            inputa.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
-        } else {
-            inputb.setAttribute("accept", "image/png, image/jpg, image/jpeg");
-            inputa.setAttribute("accept", "image/png, image/jpg, image/jpeg");
-        }
-
-
-
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation: true,
-                placement: "top",
-            });
-        });
-    </script>
-</body>
-
-</html>
-
+    
 {% endblock content %}
+
+{% block script %}
+<script defer>
+    let inputa = document.getElementById("id_resim");
+    let inputb = document.getElementById("id_arka_plan");
+    let inputc = document.getElementById("id_biyografi");
+    inputa.classList.add("form-control");
+    inputb.classList.add("form-control");
+    inputc.classList.add("form-control");
+    if ("{{request.user.is_superuser}}"=="True") {
+        inputb.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+        inputa.setAttribute("accept", "image/png, image/gif, image/jpg, image/jpeg");
+    } else {
+        inputb.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+        inputa.setAttribute("accept", "image/png, image/jpg, image/jpeg");
+    }
+    $(document).ready(function() {
+        $('[data-toggle="popover"').popover({
+            content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+            animation: true,
+            placement: "top",
+        });
+    });
+    </script>
+{% endblock %}

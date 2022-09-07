@@ -73,7 +73,8 @@ h5::-moz-selection,
 h6::-moz-selection,
 label::-moz-selection,
 span::-moz-selection {
-  background-color: rgba(86, 66, 200, 0.95);
+  color: white;
+  background-color: rgba(122, 105, 214, 0.95);
 }
 
 p::selection,
@@ -85,7 +86,8 @@ h5::selection,
 h6::selection,
 label::selection,
 span::selection {
-  background-color: rgba(86, 66, 200, 0.95);
+  color: white;
+  background-color: rgba(122, 105, 214, 0.95);
 }
 
 @font-face {
@@ -155,18 +157,17 @@ body .topbar .topbar-right-parent .topbar-right:hover {
   transition: 0.2s;
 }
 
-body .topbar .topbar-right-parent .topbar-right .profile-hover {
+body .topbar .topbar-right-parent .profile-hover {
   position: absolute;
   background-color: white;
-  top: 35px;
-  left: -35px;
-  width: 190px;
+  top: 32px;
+  left: -20px;
   z-index: 999999 !important;
-  display: none;
   color: black;
+  display: none;
 }
 
-body .topbar .topbar-right-parent .topbar-right .profile-hover a {
+body .topbar .topbar-right-parent .profile-hover a {
   color: black;
   text-decoration: none;
 }
@@ -239,9 +240,16 @@ body .topbar .login-btn:hover {
   transition: 0.2s;
 }
 
+body .topbar .page-completion {
+  width: 0px;
+  height: 4px;
+  background-color: #373681;
+}
+
 body .sidebar {
   z-index: 99999 !important;
   position: fixed;
+  overflow-y: auto;
   top: 56px;
   width: 100vw;
   background: -webkit-gradient(linear, left bottom, left top, from(#502879), to(#6350c9));
@@ -254,6 +262,10 @@ body .sidebar {
 
 body .sidebar div {
   margin-top: 60px;
+}
+
+body .sidebar h3 {
+  color: white !important;
 }
 
 body .start {
@@ -335,10 +347,74 @@ body .message {
   z-index: 999999 !important;
   -webkit-box-shadow: 0 0 10px #81e081;
           box-shadow: 0 0 10px #81e081;
+  color: white;
 }
 
-body .bg-success {
-  background-color: #81e081 !important;
-  color: #ecf1e4;
+body .form-control:focus,
+body .form-select:focus {
+  border-color: #696cff;
+}
+
+body .input-group:focus-within .form-control,
+body .input-group:focus-within .input-group-text {
+  border-color: #696cff;
+}
+
+body .form-check-input:focus {
+  border-color: #696cff;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+          box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+}
+
+body .form-check-input:disabled {
+  background-color: #eceef1;
+}
+
+body .form-check-input:checked, body .form-check-input[type=checkbox]:indeterminate {
+  background-color: #696cff;
+  border-color: #696cff;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+          box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+}
+
+body .custom-option.checked {
+  border: 1px solid #696cff;
+}
+
+body .form-switch .form-check-input:focus {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23696cff'/%3e%3c/svg%3e");
+}
+
+body .form-switch .form-check-input:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+body .form-control:focus ~ .form-label {
+  border-color: #696cff;
+}
+
+body .form-control:focus ~ .form-label::after {
+  border-color: inherit;
+}
+
+body .form-group {
+  margin-bottom: 1rem;
+}
+
+body .paginator i {
+  background-color: #e0e0e0;
+  padding: 5px 6px;
+  margin: 0 1px;
+  border-radius: 50%;
+  color: #5642c8;
+}
+
+body .to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  color: #5642c8;
+  display: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=main-style.css.map */

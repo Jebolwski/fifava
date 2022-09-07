@@ -4,32 +4,27 @@
 
 
 {% block content %}
-    <main class="col-11 col-lg-10 offset-1">
-        
-        {% for message in messages %}
-        <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">{{message}}</div>
-        {% endfor %}
-        </div>
-        <h4 class="text-center pt-5 pb-5">Kayıt Onay</h4>
-        <form method="POST">
-            {% csrf_token %}
-            <table class="center col-11 col-sm-10 col-md-10 mb-5">
-                <tr>
-                    <td><input type="text" class="arama form-control col-10" placeholder="Kullanıcı Adı" maxlength="150" name="arama"></td>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</td>
-                    <td><input type="text" class="arama1 form-control col-10" placeholder="Onay Durumu" maxlength="12" name="arama1"></td>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</td>
-                    <td><input type="text" class="arama2 form-control col-10" placeholder="Discord Id'si" maxlength="12" name="arama2"></td>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</td>
-                    <td><input type="text" class="arama3 form-control col-10" placeholder="Steam Hex Id'si" maxlength="15" name="arama3"></td>
-                    <!-- <td class="col-1"><input type="submit" value="Ara" class="text-center btn btn-dark font-3 mx-2"></td> -->
-                </tr>
-            </table>
-        </form>
+    <div class="container-fluid">
+        <div class="bg-light rounded-3 p-4 shadow-lg mt-5">
+                <h2 class="text-center pt-5 pb-5">Kayıt Onay</h2>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="arama form-control col-10" placeholder="Kullanıcı Adı" maxlength="150" name="arama">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama1 form-control col-10" placeholder="Onay Durumu" maxlength="12" name="arama1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama2 form-control col-10" placeholder="Discord Id'si" maxlength="12" name="arama2">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama3 form-control col-10" placeholder="Steam Hex Id'si" maxlength="15" name="arama3">
+                    </div>
+                </div>
         
                 {% for i in onay %}
 
-                <div class="kisi_div col-10 offset-1 col-lg-8 offset-lg-2 border rounded-4 shadow-sm bg-light px-3 pt-3 my-5">
+                <div class="kisi_div border rounded-4 shadow-sm bg-light px-3 pt-3 my-5">
                     <p class="discord_id d-none">{{i.discord_id}}</p>
                     <p class="steam_hex_id d-none">{{i.steam_hex_id}}</p>
                     <ul class="list-unstyled d-flex justify-content-around">
@@ -79,8 +74,10 @@
                 </div>
                 
                 {% endfor %}
+        
+        </div>
            
-    </main>
+    </div>
 
   {% endblock content %}
 

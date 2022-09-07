@@ -30,7 +30,8 @@ span {
   }
 
   &::selection {
-    background-color: rgba(86, 66, 200, 0.95);
+    color: white;
+    background-color: rgba(122, 105, 214, 0.95);
   }
 }
 @font-face {
@@ -86,21 +87,21 @@ body {
           background: #5f4ad4;
           transition: 0.2s;
         }
-        .profile-hover {
+        
+      }
+      .profile-hover {
           position: absolute;
           background-color: white;
-          top: 35px;
-          left: -35px;
-          width: 190px;
+          top: 32px;
+          left: -20px;
           z-index: 999999 !important;
-          display: none;
           color: black;
+          display: none;
           a {
             color: black;
             text-decoration: none;
           }
         }
-      }
     }
     .topbar-profile-img {
       margin-top: 4px;
@@ -157,10 +158,17 @@ body {
         transition: 0.2s;
       }
     }
+    .page-completion{
+      width: 0px;
+      height: 4px;
+      background-color: $box-shadow-color;
+      
+    }
   }
   .sidebar {
     z-index: 99999 !important;
     position: fixed;
+    overflow-y: auto;
     top: 56px;
     width: 100vw;
     background: linear-gradient(
@@ -174,6 +182,9 @@ body {
     padding-left: 15%;
     div {
       margin-top: 60px;
+    }
+    h3{
+      color: white !important;
     }
   }
   .start {
@@ -244,9 +255,66 @@ body {
     right: 10px;
     z-index: 999999 !important;
     box-shadow: 0 0 10px rgba(129, 224, 129, 1);
+    color: white;
   }
-  .bg-success {
-    background-color: rgba(129, 224, 129, 1) !important;
-    color: rgb(236, 241, 228);
+  .form-control:focus,
+  .form-select:focus {
+  border-color: #696cff;
+  }
+  
+  .input-group:focus-within .form-control,
+  .input-group:focus-within .input-group-text {
+  border-color: #696cff;
+  }
+  
+  .form-check-input:focus {
+  border-color: #696cff;
+  box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+  }
+  .form-check-input:disabled {
+  background-color: #eceef1;
+  }
+  .form-check-input:checked, .form-check-input[type=checkbox]:indeterminate {
+  background-color: #696cff;
+  border-color: #696cff;
+  box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+  }
+  
+  .custom-option.checked {
+  border: 1px solid #696cff;
+  }
+  
+  .form-switch .form-check-input:focus {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23696cff'/%3e%3c/svg%3e");
+  }
+  .form-switch .form-check-input:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+  }
+  
+  .form-control:focus ~ .form-label {
+  border-color: #696cff;
+  }
+  .form-control:focus ~ .form-label::after {
+  border-color: inherit;
+  }
+  .form-group{
+    margin-bottom: 1rem;
+  }
+  .paginator{
+    i{
+      background-color: rgb(224, 224, 224);
+      padding: 5px 6px;
+      margin: 0 1px;
+      border-radius: 50%;
+      color: $topbar-bg-color;
+    }
+  }
+  .to-top{
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    color: $topbar-bg-color;
+    display: none;
+    cursor: pointer;
   }
 }

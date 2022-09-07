@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 
 class Kullanici(models.Model):
-    oyun_ad_soyad          = models.CharField(max_length=40,blank=False,null=False)
-    oyun_ad_soyad_slug     = models.SlugField(unique=True,null=False,blank=False)
+    oyun_ad_soyad          = models.CharField(max_length=40,blank=False,null=False,verbose_name="Adı Soyadı")
+    oyun_ad_soyad_slug     = models.SlugField(null=False,blank=False)
     meslek                 = models.CharField(max_length=40,blank=False,null=False)
     dosya                  = models.ImageField(upload_to="oyuncu",null=True,blank=True)
     hikaye                 = models.TextField(max_length=20000,blank=False,null=False)
