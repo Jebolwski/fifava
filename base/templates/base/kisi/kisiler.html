@@ -1,71 +1,66 @@
-﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Oyuncular |
+﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Oyuncular •
 FIFAVOX{% endblock %} {% block content %}
 <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-<main class="col-11 col-lg-10 offset-1">
-  {% for message in messages %}
-  <div class="message col-8 col-sm-6 col-md-4 col-lg-3 text-center">
-    {{message}}
-  </div>
-  {% endfor %}
-  <h4 class="text-center pt-5 mb-4">Oyuncular</h4>
-  <form method="POST">
-    {% csrf_token %}
-    <table class="center col-10 col-sm-8 col-md-6 mb-5">
-      <tr>
-        <td>
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+  <h2 class="text-center py-5">Oyuncular</h2>
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="row justify-content-evenly">
+        <div class="col-5 col-md-4">
           <input
             type="text"
-            class="arama form-control col-12"
+            class="arama form-control"
             maxlength="40"
-            placeholder="Kişinin Adı"
+            placeholder="Adı Soyadı"
             name="arama"
           />
-        </td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</td>
-        <td>
-          <input
-            type="text"
-            class="arama1 form-control col-12"
-            placeholder="Kişinin Mesleği"
-            maxlength="12"
-            name="arama1"
-          />
-        </td>
-        {% if user.is_superuser %}
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td>
-          <a href="{% url 'kisi-ekle' %}">
-            <i class="fa-solid fa-user-plus fa-lg pt-1"></i
-          ></a>
-        </td>
-        {% endif %}
-      </tr>
-    </table>
-  </form>
-
+        </div>
+        <div class="col-5 col-md-4">
+          <div class="row align-items-center">
+            <div class="col p-0">
+              <input
+              type="text"
+              class="arama1 form-control col-12"
+              placeholder="Mesleği"
+              maxlength="12"
+              name="arama1"
+              />
+            </div>
+            <div class="col-auto p-0">
+              {% if user.is_superuser %}
+              <a href="{% url 'kisi-ekle' %}" class="ms-2">
+                <i class="fa-solid fa-circle-plus btn btn-primary p-2 mx-3"></i>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+            
+            
+            
+        </div>
+      </div>
+    </div>
+  </div>
   {% if kisiler %}
   <div
-    class="col-10 offset-1"
     style="display: flex; flex-wrap: wrap; justify-content: space-evenly"
   >
     {% for kisi in kisiler %}
     <div
-      class="card kisi_div rounded-4 col-5 mt-5 mb-4 border bg-light shadow-sm"
+      class="rounded-4 col-5 col-md-4 col-lg-2 ms-3 mt-5 mb-4 border bg-light shadow-sm"
       style="z-index: 100"
       data-tilt
       data-tilt-glare
       data-tilt-max-glare="0.4"
     >
-      {% if request.user not in kisi.goruldu.all and request.user.is_authenticated %}
-      <p class="text-center badge bg-dark">Yeni</p>
-      {% endif %}
 
       <h5 class="kisi_ad card-title text-center py-2">
         {{kisi.oyun_ad_soyad}}
       </h5>
       {% if kisi.dosya %}
       <img
-        class="card-img-top card-img-top-1 rounded border"
+        class="img-fluid rounded border"
         src="{{kisi.dosya.url}}"
       />
       {% else %}
@@ -74,55 +69,59 @@ FIFAVOX{% endblock %} {% block content %}
         src="https://fifavox-s3-buckets-1.s3.amazonaws.com/oyuncu/Bilinmiyor_WpdxxKX.jpg"
       />
       {% endif %}
+
       <div class="card-footer text-center">
         <p class="kisi_meslek card-text text-center">{{kisi.meslek}}</p>
       </div>
+
       <p class="text-center card-text d-none d-md-block mt-3" style="margin: 0">
         {{kisi.olusturulma_tarihi}}
       </p>
+
       <hr class="d-none d-md-block" />
       {% if request.user.is_superuser %}
-      <div>
-        <ul class="great-list list-unstyled">
-          <li>
-            <a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"
+      <div class="row justify-content-evenly pb-4">
+        <div class="col-auto">
+            <a href="{% url 'kisi-detay' kisi.id %}"
               ><i class="fa-solid fa-info"></i
             ></a>
-          </li>
-          <li>
-            <a href="{% url 'kisi-duzenle' kisi.oyun_ad_soyad|slugify %}"
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'kisi-duzenle' kisi.id %}"
               ><i class="fa-solid fa-user-pen"></i
             ></a>
-          </li>
-          <li>
-            <a href="{% url 'kisi-sil' kisi.oyun_ad_soyad|slugify %}"
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'kisi-sil' kisi.id %}"
               ><i class="fa-solid fa-user-xmark"></i
             ></a>
-          </li>
-        </ul>
+        </div>
+        
       </div>
       {% else %}
-      <div>
-        <ul class="list-unstyled great-list">
-          <li>
-            <a href="{% url 'kisi-detay' kisi.oyun_ad_soyad|slugify %}"
-              ><i class="fa-solid fa-info fa-lg"></i
-            ></a>
-          </li>
-        </ul>
+      <div class="text-center pb-3">
+        <a href="{% url 'kisi-detay' kisi.id %}"
+        ><i class="fa-solid fa-info fa-lg"></i
+          ></a>
       </div>
       {% endif %}
     </div>
 
     {% endfor %}
   </div>
+  
   {% else %}
+  
   <h4 class="mt-4 text-center">Kayıtlı oyuncu yok...</h4>
+  
   {% endif %}
-  <div class="oyuncular"></div>
-</main>
+  
+</div>
+</div>
 
-{% endblock content %} {% block script %}
+{% endblock content %} 
+
+{% block script %}
 <script defer>
   window.onbeforeunload = function () {
     var scrollPos;

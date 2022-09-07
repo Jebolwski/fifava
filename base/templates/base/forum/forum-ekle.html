@@ -1,79 +1,73 @@
- {% extends 'base/ana.html' %} {% load static %} 
- 
- {% block title %}Forum Ekle | FIFAVOX{% endblock %}
- {% load crispy_forms_tags %}
- {% block content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Forum Ekle |
+FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message">{{message}}</div>
-        {% endfor %}
-        <form method="POST">
-            {% csrf_token %}
-            <div class="col-10 col-md-6 offset-1 offset-md-3">
-
-            
-            <h4 class="text-center pt-5">Forum Ekle</h4>
-            <h5 class="text-center mt-5">Başlık</h5>
-            <div class="row">
-                <div class="col">
-                    {{form.baslik|as_crispy_field}}
-                </div>
-                <div class="col-auto p-0">
-                    <span data-toggle="popover" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                </div>
-            </div>
-            <h5 class="text-center mt-5">Soru</h5>
-            <div class="row">
-                <div class="col">
-                    {{form.soru|as_crispy_field}}
-                </div>
-                <div class="col-auto p-0">
-                    <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                </div>
-            </div>
+<main class="col-11 col-lg-10 offset-1">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="col-10 col-md-6 offset-1 offset-md-3">
+      <h4 class="text-center pt-5">Forum Ekle</h4>
+      <h5 class="text-center mt-5">Başlık</h5>
+      <div class="row">
+        <div class="col">{{form.baslik|as_crispy_field}}</div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
         </div>
+      </div>
+      <h5 class="text-center mt-5">Soru</h5>
+      <div class="row">
+        <div class="col">{{form.soru|as_crispy_field}}</div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover1"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
 
-            <input type="submit" value="Forum Ekle" class="btn btn-outline-dark center my-4">
-        </form>
-    </main>
+    <input type="submit" value="Forum Ekle" class="btn btn-dark center my-4" />
+  </form>
+</main>
 
- {% endblock content %}
- 
- {% block script %}
-     <script defer>
-        
-        $(".forumlar").addClass("active-color");
-        $(".forumlar-icon").addClass("active-color");
+{% endblock content %} {% block script %}
+<script defer>
+  $(".forumlar").addClass("active-color");
+  $(".forumlar-icon").addClass("active-color");
 
-        let baslik = document.getElementById("id_baslik");
-        let soru = document.getElementById("id_soru");
-        soru.classList.add("form-control");
-        baslik.classList.add("form-control");
-        baslik.maxLength=100;
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: `● Maksimum uzunluk 100 karakterdir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
+  let baslik = document.getElementById("id_baslik");
+  let soru = document.getElementById("id_soru");
+  soru.classList.add("form-control");
+  baslik.classList.add("form-control");
+  baslik.maxLength = 100;
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 100 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
 
-        $(document).ready(function() {
-            $('[data-toggle="popover1"').popover({
-                content: `● Maksimum uzunluk 500 karakterdir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
+  $(document).ready(function () {
+    $('[data-toggle="popover1"').popover({
+      content: `● Maksimum uzunluk 500 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
 
-        $(".requiredField").hide();
-
-     </script>
- {% endblock script %}
+  $(".requiredField").hide();
+</script>
+{% endblock script %}

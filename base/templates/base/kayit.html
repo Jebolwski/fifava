@@ -1,73 +1,69 @@
-{% extends 'base/ana.html' %} {% block content %} {% load static %}
-{% block title %}Kayıt Ol | FIFAVOX{% endblock %}
-<meta property="og:title" content="FIFAFOX | Kayıt Ol" />
-<meta property="og:image" content="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/meta_tags.pngg" />
-<meta property="og:description" content="Fifavox'a kaydolun, dünyamızı keşfedin ve eğlenin." />
+{% extends 'base/ana.html' %} 
+{% load static %}
+{% block title %}Kayıt Ol • FIFAVOX{% endblock %}
+{% block content %} 
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="FIFAFOX | Anasayfa" />
-<meta property="twitter:image" content="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/images/meta_tags.png" />
-<meta property="twitter:description" content="Fifavox'a kaydolun, dünyamızı keşfedin ve eğlenin." />
-</head>
 
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
     
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-            <div class="message" style="z-index: 100;">{{message}}</div>
-        {% endfor %}
-        <h4 class="text-center pt-4">Kayıt Ol</h4>
-        <form method="POST">
+    <div class="container mt-4">
+        <div class="bg-light shadow-lg rounded-3 p-5">
+            <h2 class="text-center pt-4">Kayıt Ol</h2>
+            <form method="POST">
             {% csrf_token %}
-            <h6 class="text-center mt-5">Kullanıcı Adı</h6>
-            <div class="center col-8 col-md-4">{{form.username}}</div>
+            <h5 class="mt-5">Kullanıcı Adı</h5>
+            <div>{{form.username}}</div>
             {% if form.username.errors %}
             <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.username.errors}}</li>
+                <li class="mt-4 pt-1 pb-1 alert alert-danger">{{form.username.errors}}</li>
             </ul>
             {% endif %}
-            <h6 class=" text-center mt-5 ">Email</h6>
-            <div class="center col-8 col-md-4 ">{{form.email}}</div>
+            <h5 class="mt-5">Email</h5>
+            <div class="">{{form.email}}</div>
             {% if form.email.errors %}
             <ul class="list-unstyled">
-                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.email.errors}}</li>
+                <li class="mt-4 pt-1 pb-1 alert alert-danger">{{form.email.errors}}</li>
             </ul> {% endif %}
-            <h6 class="text-center mt-5 ">Şifre</h6>
-            <ul class="list-unstyled d-grid col-8 col-md-4 center">
-                <li>{{form.password1}}</li>
-                <li style="position: relative;margin-left: 100%;margin-top: -40px;">
+            <h5 class="mt-5">Şifre</h5>
+            <div class="row">
+                <div class="col">{{form.password1}}</div>
+                <div class="col-auto p-0">
                     <span data-toggle="popover" title="Kurallar" class="profil-username" style="margin: 0;">
                         <i class="fa-solid fa-info p-3 fa-sm"></i>
                     </span>
+                </div>
+            </div>
 
-                </li>
-            </ul>
             {% if form.password1.errors %}
             <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password1.errors}}</li>
             </ul>{% endif %}
-            <h6 class="text-center mt-5 ">Şifre (Tekrar)</h6>
-            <ul class="list-unstyled d-grid col-8 col-md-4 center">
-                <li>{{form.password2}}</li>
-                <li style="position: relative;margin-left: 100%;margin-top: -40px;">
-                    <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
-                        <i class="fa-solid fa-info p-3 fa-sm"></i>
-                    </span>
-                </li>
-            </ul>
+            <h5 class="mt-5">Şifre (Tekrar)</h6>
+            <div class="row">
+                <div class="col">{{form.password2}}</div>
+                <div class="col-auto p-0">
+                        <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                </div>
+            </div>
+
             {% if form.password2.errors %}
             <ul class="list-unstyled">
                 <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password2.errors}}</li>
-            </ul> {% endif %}
+            </ul> 
+            {% endif %}
 
-            <input type="submit" value="Kayıt Ol" class="center btn btn-outline-dark mt-5 mb-5" />
-        </form>
-    </main>
+            <div class="text-center">
+                <input type="submit" value="Kayıt Ol" class="btn btn-success px-5 mt-5 mb-5" />
+            </div>
+            </form>
+        </div>
+    </div>
 
 
-
-  
-      <script defer>
+{% endblock %}
+{% block script %}
+<script defer>
         
 
 
@@ -93,4 +89,4 @@
   </body>
 
 </html>
-{% endblock content %}
+{% endblock %}

@@ -1,92 +1,95 @@
- {% extends 'base/ana.html' %} {% load static %}
- {% block title %}Haber Ekle | FIFAVOX{% endblock %}
- {% load crispy_forms_tags %}
- {% block content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Haber Ekle |
+FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1 pt-5">
-        {% for message in messages %}
-        <div class="message col-10 col-md-6 col-lg-4 text-center" style="z-index: 100;">{{message}}</div>
-        {% endfor %}
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="col-10 col-sm-8 offset-1 offset-sm-2">
-                <h4 class="text-center pb-5">Haber Ekle</h4>
-                <span aria-checked="mt-5">Başlık</span>
-                <div class="row">
-                    <div class="col">
-                        {{form.baslik|as_crispy_field}}
-                    </div>
-                    <div class="col-auto p-0">
-                        <span data-toggle="popover" title="Kurallar" class="profil-username" data-html="true">
-                            <i class="fa-solid fa-info p-3 fa-sm"></i>
-                        </span>
-                    </div>
-                </div>
-                
-                <label class="mt-5">Açıklama</label>
-                <div class="row">
-                    <div class="col">
-                        {{form.aciklama|as_crispy_field}}
-                    </div>
-                    <div class="col-auto p-0">
-                        <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
-                            <i class="fa-solid fa-info p-3 fa-sm"></i>
-                        </span>
-                    </div>
-                </div>
-                <label for="file" class="mt-5">Dosya</label>
-                <div class="row">
-                    <div class="col">
-                        <input type="file" id="file" name="file" class="form-control" />
-                    </div>
-                    <div class="col-auto p-0">
-                        <span data-toggle="popover2" title="Kurallar" class="profil-username" data-html="true">
-                            <i class="fa-solid fa-info p-3 fa-sm"></i>
-                        </span>
-                    </div>
-                </div>
-                <input type="submit" value="Ekle" class="btn btn-outline-dark center mt-4">
-            </div>
-        </form>
-    </main>
+<main class="col-11 col-lg-10 offset-1 pt-5">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-10 col-sm-8 offset-1 offset-sm-2">
+      <h4 class="text-center pb-5">Haber Ekle</h4>
+      <span aria-checked="mt-5">Başlık</span>
+      <div class="row">
+        <div class="col">{{form.baslik|as_crispy_field}}</div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
 
-{% endblock content %}
+      <label class="mt-5">Açıklama</label>
+      <div class="row">
+        <div class="col">{{form.aciklama|as_crispy_field}}</div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover1"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      <label for="file" class="mt-5">Dosya</label>
+      <div class="row">
+        <div class="col">
+          <input type="file" id="file" name="file" class="form-control" />
+        </div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover2"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      <input type="submit" value="Ekle" class="btn btn-dark center mt-4" />
+    </div>
+  </form>
+</main>
 
-    
-{% block script %}    
+{% endblock content %} {% block script %}
 <script defer>
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: `● Maksimum uzunluk 100 karakterdir.`,
-                animation: true,
-                placement: "right",
-                trigger: 'hover',
-                html: true
-            });
-        });
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 100 karakterdir.`,
+      animation: true,
+      placement: "right",
+      trigger: "hover",
+      html: true,
+    });
+  });
 
-        $(document).ready(function() {
-            $('[data-toggle="popover1"').popover({
-                content: `● Maksimum uzunluk 5000 karakterdir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
+  $(document).ready(function () {
+    $('[data-toggle="popover1"').popover({
+      content: `● Maksimum uzunluk 5000 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
 
-        $(document).ready(function() {
-            $('[data-toggle="popover2"').popover({
-                content: `● Kabul edilen dosya türleri jpg ve png dir.`,
-                animation: true,
-                trigger: 'hover',
-                placement: "right",
-            });
-        });
-        
-        $(".haberler-1").addClass("active-color");
-        
-        $(".haberler-icon").addClass("active-color");
-    
-        $(".requiredField").hide();
-    </script>
-{% endblock %}    
+  $(document).ready(function () {
+    $('[data-toggle="popover2"').popover({
+      content: `● Kabul edilen dosya türleri jpg ve png dir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+
+  $(".haberler-1").addClass("active-color");
+
+  $(".haberler-icon").addClass("active-color");
+
+  $(".requiredField").hide();
+</script>
+{% endblock %}

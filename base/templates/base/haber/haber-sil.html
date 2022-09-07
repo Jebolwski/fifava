@@ -1,26 +1,24 @@
-{% extends 'base/ana.html' %} {% load static %} 
-{% block title %}Haber Sil | FIFAVOX{% endblock %}
-{% block content %}
-    
-    <main class="col-11 col-lg-10 offset-1">
-        <form method="post">
-            {% csrf_token %}
-            <h3 class="text-center pt-5 pb-4" style="font-weight: 300;">'{{haber.baslik}}' başlıklı haberi silmek istediğinize emin misiniz?</h3>
-            <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
-                <li><a href="{% url 'haberler' %}" class="btn btn-outline-dark">Vazgeç</a></li>
-                <li><input type="submit" value="Sil" class="btn btn-outline-dark"></li>
-            </ul>
-        </form>
-    </main>
-   
-{% endblock content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Haber Sil |
+FIFAVOX{% endblock %} {% block content %}
 
+<main class="col-11 col-lg-10 offset-1">
+  <form method="post">
+    {% csrf_token %}
+    <h3 class="text-center pt-5 pb-4" style="font-weight: 300">
+      '{{haber.baslik}}' başlıklı haberi silmek istediğinize emin misiniz?
+    </h3>
+    <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
+      <li><a href="{% url 'haberler' %}" class="btn btn-dark">Vazgeç</a></li>
+      <li><input type="submit" value="Sil" class="btn btn-dark" /></li>
+    </ul>
+  </form>
+</main>
 
-{% block script %}
+{% endblock content %} {% block script %}
 <script>
-    $(".haberler-1").addClass("active-color");
-    $(".haberler-icon").addClass("active-color");
-    let foto=document.getElementsByClassName("{{haber.id}}");
-    foto[0].style.border="1px outset white";
+  $(".haberler-1").addClass("active-color");
+  $(".haberler-icon").addClass("active-color");
+  let foto = document.getElementsByClassName("{{haber.id}}");
+  foto[0].style.border = "1px outset white";
 </script>
 {% endblock %}

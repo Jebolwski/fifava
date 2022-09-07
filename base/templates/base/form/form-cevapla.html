@@ -1,240 +1,282 @@
- {% extends 'base/ana.html' %} {% load static %}
- {% block title %}Formu Cevaplama | FIFAVOX{% endblock %}
- {% block content %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Formu Cevaplama
+| FIFAVOX{% endblock %} {% block content %}
 
-    <main class="col-11 col-lg-10 offset-1">
-        <form method="post">
-            {% csrf_token %}
-            <h5 class="text-center sorular_baslik pt-5">{{sorular.baslik}}</h5>
-            <div class="text-center">
-                {{form.errors}}
-                <h5 class="mt-5">Sorular</h5>
-                {% if sorular.soru1 %}
-                <div class="pb-3 pt-5">{{ sorular.soru1 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru1_cevap}}</div>
-                {% endif %} {% if sorular.soru2 %}
-                <div class="pb-3 pt-5">{{ sorular.soru2 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru2_cevap}}</div>
-                {% endif %} {% if sorular.soru3 %}
-                <div class="pb-3 pt-5">{{ sorular.soru3 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru3_cevap}}</div>
-                {% endif %} {% if sorular.soru4 %}
-                <div class="pb-3 pt-5">{{ sorular.soru4 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru4_cevap}}</div>
-                {% endif %} {% if sorular.soru5 %}
-                <div class="pb-3 pt-5">{{ sorular.soru5 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru5_cevap}}</div>
-                {% endif %} {% if sorular.soru6 %}
-                <div class="pb-3 pt-5">{{ sorular.soru6 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru6_cevap}}</div>
-                {% endif %} {% if sorular.soru7 %}
-                <div class="pb-3 pt-5">{{ sorular.soru7 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru7_cevap}}</div>
-                {% endif %} {% if sorular.soru8 %}
-                <div class="pb-3 pt-5">{{ sorular.soru8 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru8_cevap}}</div>
-                {% endif %} {% if sorular.soru9 %}
-                <div class="pb-3 pt-5">{{ sorular.soru9 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru9_cevap}}</div>
-                {% endif %} {% if sorular.soru10 %}
-                <div class="pb-3 pt-5">{{ sorular.soru10 }}</div>
-                <div class="col-8 col-md-4 offset-2 offset-lg-4 pb-2">{{form.soru10_cevap}}</div>
-                {% endif %} {% if sorular.soru11 %}
-                <div class="pb-3 pt-5">{{ sorular.soru11 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru11_cevap}}</div>
-                {% endif %} {% if sorular.soru12 %}
-                <div class="pb-3 pt-5">{{ sorular.soru12 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru12_cevap}}</div>
-                {% endif %} {% if sorular.soru13 %}
-                <div class="pb-3 pt-5">{{ sorular.soru13 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru13_cevap}}</div>
-                {% endif %} {% if sorular.soru14 %}
-                <div class="pb-3 pt-5">{{ sorular.soru14 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru14_cevap}}</div>
-                {% endif %} {% if sorular.soru15 %}
-                <div class="pb-3 pt-5">{{ sorular.soru15 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru15_cevap}}</div>
-                {% endif %} {% if sorular.soru16 %}
-                <div class="pb-3 pt-5">{{ sorular.soru16 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru16_cevap}}</div>
-                {% endif %} {% if sorular.soru17 %}
-                <div class="pb-3 pt-5">{{ sorular.soru17 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru17_cevap}}</div>
-                {% endif %} {% if sorular.soru18 %}
-                <div class="pb-3 pt-5">{{ sorular.soru18 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru18_cevap}}</div>
-                {% endif %} {% if sorular.soru19 %}
-                <div class="pb-3 pt-5">{{ sorular.soru19 }}</div>
-                <div class="col-8 col-md-6 offset-2 offset-md-3 pb-2">{{form.soru19_cevap}}</div>
-                {% endif %}
-            </div>
-            <div class="text-center mt-5">
-                {% if sorular.onay1 %}
-                <span class="pb-3 pt-5 mx-2">{{ sorular.onay1 }}</span>
-                <span>{{form.onay1_cevap}}</span>{% endif %}
-                <br>
-                <br> {% if sorular.onay2 %}
-                <span class="pb-3 pt-5 mx-2">{{ sorular.onay2 }}</span>
-                <span>{{form.onay2_cevap}}</span>{% endif %}
-                <br>
-                <br> {% if sorular.onay3 %}
-                <span class="pb-3 pt-5 mx-2">{{ sorular.onay3 }}</span>
-                <span>{{form.onay3_cevap}}</span>{% endif %}
-                <br>
-                <br> {% if sorular.onay4 %}
-                <span class="pb-3 pt-5 mx-2">{{ sorular.onay4 }}</span>
-                <span>{{form.onay4_cevap}}</span> {% endif %}
-            </div>
+<div class="container-fluid">
+  <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
+    <form method="post">
+      {% csrf_token %}
+      <h2 class="text-center sorular_baslik pt-5">{{sorular.baslik}}</h2>
+      <div>
+      {{form.errors}}
+      <h2 class="mt-5">Sorular</h2>
+      {% if sorular.soru1 %}
+      <div class="pb-3 pt-5">{{ sorular.soru1 }}*</div>
+      <div>
+        {{form.soru1_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru2 %}
+      <div class="pb-3 pt-5">{{ sorular.soru2 }}*</div>
+      <div>
+        {{form.soru2_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru3 %}
+      <div class="pb-3 pt-5">{{ sorular.soru3 }}*</div>
+      <div>
+        {{form.soru3_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru4 %}
+      <div class="pb-3 pt-5">{{ sorular.soru4 }}*</div>
+      <div>
+        {{form.soru4_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru5 %}
+      <div class="pb-3 pt-5">{{ sorular.soru5 }}*</div>
+      <div>
+        {{form.soru5_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru6 %}
+      <div class="pb-3 pt-5">{{ sorular.soru6 }}*</div>
+      <div>
+        {{form.soru6_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru7 %}
+      <div class="pb-3 pt-5">{{ sorular.soru7 }}*</div>
+      <div>
+        {{form.soru7_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru8 %}
+      <div class="pb-3 pt-5">{{ sorular.soru8 }}*</div>
+      <div>
+        {{form.soru8_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru9 %}
+      <div class="pb-3 pt-5">{{ sorular.soru9 }}*</div>
+      <div>
+        {{form.soru9_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru10 %}
+      <div class="pb-3 pt-5">{{ sorular.soru10 }}*</div>
+      <div>
+        {{form.soru10_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru11 %}
+      <div class="pb-3 pt-5">{{ sorular.soru11 }}*</div>
+      <div>
+        {{form.soru11_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru12 %}
+      <div class="pb-3 pt-5">{{ sorular.soru12 }}*</div>
+      <div>
+        {{form.soru12_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru13 %}
+      <div class="pb-3 pt-5">{{ sorular.soru13 }}*</div>
+      <div>
+        {{form.soru13_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru14 %}
+      <div class="pb-3 pt-5">{{ sorular.soru14 }}*</div>
+      <div>
+        {{form.soru14_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru15 %}
+      <div class="pb-3 pt-5">{{ sorular.soru15 }}*</div>
+      <div>
+        {{form.soru15_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru16 %}
+      <div class="pb-3 pt-5">{{ sorular.soru16 }}*</div>
+      <div>
+        {{form.soru16_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru17 %}
+      <div class="pb-3 pt-5">{{ sorular.soru17 }}*</div>
+      <div>
+        {{form.soru17_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru18 %}
+      <div class="pb-3 pt-5">{{ sorular.soru18 }}*</div>
+      <div>
+        {{form.soru18_cevap}}
+      </div>
+      {% endif %} {% if sorular.soru19 %}
+      <div class="pb-3 pt-5">{{ sorular.soru19 }}*</div>
+      <div>
+        {{form.soru19_cevap}}
+      </div>
+      {% endif %}
+      </div>
+      <div class="text-center mt-5">
+      {% if sorular.onay1 %}
+      <span class="pb-3 pt-5 mx-2">{{ sorular.onay1 }}</span>
+      <span>{{form.onay1_cevap}}</span>{% endif %}
+      <br />
+      <br />
+      {% if sorular.onay2 %}
+      <span class="pb-3 pt-5 mx-2">{{ sorular.onay2 }}</span>
+      <span>{{form.onay2_cevap}}</span>{% endif %}
+      <br />
+      <br />
+      {% if sorular.onay3 %}
+      <span class="pb-3 pt-5 mx-2">{{ sorular.onay3 }}</span>
+      <span>{{form.onay3_cevap}}</span>{% endif %}
+      <br />
+      <br />
+      {% if sorular.onay4 %}
+      <span class="pb-3 pt-5 mx-2">{{ sorular.onay4 }}</span>
+      <span>{{form.onay4_cevap}}</span> {% endif %}
+      </div>
 
+      <div class="text-center">
+        <input
+          type="submit"
+          value="Formu Cevapla"
+          class="btn btn-dark mt-5"
+        />
+      </div>
+    </form>
+  </div>
+</div>
 
-
-            <input type="submit" value="Formu Cevapla" class="center btn btn-outline-dark mt-5 mb-5">
-        </form>
-    </main>
-
-
-
-    
-{% endblock content %}
+{% endblock content %} 
 {% block script %}
-    <script defer>
-        $(".formlar").addClass("active-color");
-        $(".formlar-icon").addClass("active-color");
-        if (document.querySelector(".input1")) {
-            document.querySelector(".input1").setAttribute("required", "");
-        }
-        if (document.querySelector(".input2")) {
-            document.querySelector(".input2").setAttribute("required", "");
-        }
+<script defer>
+  $(".formlar").addClass("active-color");
+  $(".formlar-icon").addClass("active-color");
+  if (document.querySelector(".input1")) {
+    document.querySelector(".input1").setAttribute("required", "");
+  }
+  if (document.querySelector(".input2")) {
+    document.querySelector(".input2").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".input3")) {
-            document.querySelector(".input3").setAttribute("required", "");
-        }
+  if (document.querySelector(".input3")) {
+    document.querySelector(".input3").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".input4")) {
-            document.querySelector(".input4").setAttribute("required", "");
-        }
+  if (document.querySelector(".input4")) {
+    document.querySelector(".input4").setAttribute("required", "");
+  }
 
+  if (document.querySelector(".soru1")) {
+    document.querySelector(".soru1").setAttribute("required", "");
+  }
+  if (document.querySelector(".soru2")) {
+    document.querySelector(".soru2").setAttribute("required", "");
+  }
 
+  if (document.querySelector(".soru3")) {
+    document.querySelector(".soru3").setAttribute("required", "");
+  }
 
+  if (document.querySelector(".soru4")) {
+    document.querySelector(".soru4").setAttribute("required", "");
+  }
+  if (document.querySelector(".soru5")) {
+    document.querySelector(".soru5").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru1")) {
-            document.querySelector(".soru1").setAttribute("required", "");
-        }
-        if (document.querySelector(".soru2")) {
-            document.querySelector(".soru2").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru6")) {
+    document.querySelector(".soru6").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru3")) {
-            document.querySelector(".soru3").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru7")) {
+    document.querySelector(".soru7").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru4")) {
-            document.querySelector(".soru4").setAttribute("required", "");
-        }
-        if (document.querySelector(".soru5")) {
-            document.querySelector(".soru5").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru8")) {
+    document.querySelector(".soru8").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru6")) {
-            document.querySelector(".soru6").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru9")) {
+    document.querySelector(".soru9").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru7")) {
-            document.querySelector(".soru7").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru10")) {
+    document.querySelector(".soru10").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru8")) {
-            document.querySelector(".soru8").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru11")) {
+    document.querySelector(".soru11").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru9")) {
-            document.querySelector(".soru9").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru12")) {
+    document.querySelector(".soru12").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru10")) {
-            document.querySelector(".soru10").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru12")) {
+    document.querySelector(".soru12").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru11")) {
-            document.querySelector(".soru11").setAttribute("required", "");
+  if (document.querySelector(".soru13")) {
+    document.querySelector(".soru13").setAttribute("required", "");
+  }
 
-        }
+  if (document.querySelector(".soru14")) {
+    document.querySelector(".soru14").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru12")) {
-            document.querySelector(".soru12").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru15")) {
+    document.querySelector(".soru15").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru12")) {
-            document.querySelector(".soru12").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru16")) {
+    document.querySelector(".soru16").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru13")) {
-            document.querySelector(".soru13").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru17")) {
+    document.querySelector(".soru17").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru14")) {
-            document.querySelector(".soru14").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru18")) {
+    document.querySelector(".soru18").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru15")) {
-            document.querySelector(".soru15").setAttribute("required", "");
-        }
+  if (document.querySelector(".soru19")) {
+    document.querySelector(".soru19").setAttribute("required", "");
+  }
 
-        if (document.querySelector(".soru16")) {
-            document.querySelector(".soru16").setAttribute("required", "");
-        }
+  if (
+    document.querySelector(".sorular_baslik").innerHTML ==
+    "FIFAVOX RolePlay Kayıt Formu"
+  ) {
+    document.querySelector(".soru11").placeholder = "Örneğin : Hakan Can";
+    document.querySelector(".soru12").placeholder =
+      "Örneğin : Hakan Venezuela doğumlu annesi Venezuelalı babası Türk olan bir çocuktu...";
+    document.querySelector(".soru13").placeholder = "Örneğin : 100";
+    document.querySelector(".soru14").placeholder =
+      "Örneğin : 11000011114fe22 (Hex)";
+    document.querySelector(".soru15").placeholder =
+      "Örneğin : 343428240527982592";
+    document.querySelector(".soru16").placeholder = "Örneğin : Eğlence";
+    document.querySelector(".soru17").placeholder =
+      "Örneğin : X sunucusunda rol yaptım, X konular hakkında bilgi sahibiyim bu konularda yardımcı olabilirim, Yok.";
+    document.querySelector(".soru18").placeholder = "Örneğin : 17";
+    document.querySelector(".soru19").placeholder =
+      "Örneğin : RTX 3060, i711800h, 16GB RAM, 1TB SSD";
+  }
 
-        if (document.querySelector(".soru17")) {
-            document.querySelector(".soru17").setAttribute("required", "");
-        }
+  // if (document.querySelector(".input1")) {
+  //      document.querySelector(".input1").style.backgroundColor ="red";
+  //     document.querySelector(".input1").checked = false;
+  //     document.querySelector(".input1").disabled = false;
+  // }
 
-        if (document.querySelector(".soru18")) {
-            document.querySelector(".soru18").setAttribute("required", "");
-        }
+  // if (document.querySelector(".input2")) {
+  //     document.querySelector(".input2").style.backgroundColor ="red";
+  //     document.querySelector(".input2").checked = false;
+  //     document.querySelector(".input2").disabled = false;
+  // }
 
-        if (document.querySelector(".soru19")) {
-            document.querySelector(".soru19").setAttribute("required", "");
-        }
+  // if (document.querySelector(".input3")) {
+  //     document.querySelector(".input3").disabled = false;
+  //     document.querySelector(".input3").checked = false;
+  // }
 
-
-        if (document.querySelector(".sorular_baslik").innerHTML == "FIFAVOX RolePlay Kayıt Formu") {
-            document.querySelector(".soru11").placeholder = "Örneğin : Hakan Can";
-            document.querySelector(".soru12").placeholder = "Örneğin : Hakan Venezuela doğumlu annesi Venezuelalı babası Türk olan bir çocuktu...";
-            document.querySelector(".soru13").placeholder = "Örneğin : 100";
-            document.querySelector(".soru14").placeholder = "Örneğin : 11000011114fe22 (Hex)";
-            document.querySelector(".soru15").placeholder = "Örneğin : 343428240527982592";
-            document.querySelector(".soru16").placeholder = "Örneğin : Eğlence";
-            document.querySelector(".soru17").placeholder = "Örneğin : X sunucusunda rol yaptım, X konular hakkında bilgi sahibiyim bu konularda yardımcı olabilirim, Yok.";
-            document.querySelector(".soru18").placeholder = "Örneğin : 17";
-            document.querySelector(".soru19").placeholder = "Örneğin : RTX 3060, i711800h, 16GB RAM, 1TB SSD";
-        }
-
-
-
-
-
-        // if (document.querySelector(".input1")) {
-        //      document.querySelector(".input1").style.backgroundColor ="red";
-        //     document.querySelector(".input1").checked = false;
-        //     document.querySelector(".input1").disabled = false;
-        // }
-
-        // if (document.querySelector(".input2")) {
-        //     document.querySelector(".input2").style.backgroundColor ="red";
-        //     document.querySelector(".input2").checked = false;
-        //     document.querySelector(".input2").disabled = false;
-        // }
-
-        // if (document.querySelector(".input3")) {
-        //     document.querySelector(".input3").disabled = false;
-        //     document.querySelector(".input3").checked = false;
-        // }
-
-        // if (document.querySelector(".input4")) {
-        //     document.querySelector(".input4").style.backgroundColor ="red";
-        //     document.querySelector(".input4").checked = false;
-        //     document.querySelector(".input4").disabled = false;
-        // }
-    </script>
+  // if (document.querySelector(".input4")) {
+  //     document.querySelector(".input4").style.backgroundColor ="red";
+  //     document.querySelector(".input4").checked = false;
+  //     document.querySelector(".input4").disabled = false;
+  // }
+</script>
 {% endblock %}

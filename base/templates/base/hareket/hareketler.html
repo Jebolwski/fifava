@@ -5,41 +5,20 @@
  {% block content %} 
 
 
-    <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="message">{{message}}</div>
-        {% endfor %}
-        
-        <br>
+    <div class="container-fluid">
+        <div class="bg-light shadow-lg rounded-3 mt-5 p-4">
+        <h2 class="mt-4 mb-5 text-center">Loglar</h2>
         {% if hareketler %}
-            {% if request.user.is_superuser %}
-
-                {% for hareket in hareketler %}
-                <div class="{{hareket.id}} col-10 rounded-4 col-md-8 offset-1 offset-md-2 border shadow-sm px-3 pt-3 pb-2 my-3 bg-light" style="transition: 0.4s;">
+            {% for hareket in hareketler %}
+            <div class="{{hareket.id}} rounded-4 border shadow-sm px-3 pt-3 pb-2 my-3 bg-light" style="transition: 0.4s;">
                     <h5>{{hareket.hareket}}</h5>
                     <!-- {% if request.user.is_superuser %}
                     <i class=" fa-solid fa-xmark fa-xl dot" style="float: right;" onclick="hareket_sil('{{hareket.id}}')"></i>
                     {% endif %} -->
                     <h6 class="mt-4" style="position: relative;right:10">{{hareket.guncellenme_tarihi}}</h6>
-                </div>
-                {% endfor %}
-                
-                {% else %}
-                
-                {% for hareket in hareketler %}
-                {% if hareket.admin_mi == '0' %}
-                <div class="col-10 forumlar_1 col-md-8 offset-1 offset-md-2 border border-dark rounded p-3 my-3 bg-light">
-                    <h5>{{hareket.hareket}}</h5> 
-                    {% if request.user.is_superuser %}
-                    <i class=" fa-solid fa-xmark fa-xl dot" style="float: right;" onclick="hareket_sil('{{hareket.id}}')"></i>
-                    {% endif %}
-                    <h6 class=" mt-4 offset-3 offset-md-6 offset-lg-9">{{hareket.guncellenme_tarihi}}</h6>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-
-            {% endif %}
-            <p class="offset-1 mt-5">
+            </div>
+            {% endfor %}
+            <p class="text-center paginator mt-5">
             {% if hareketler.has_previous%}
             <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if hareketler.has_previous%}
             <a href="?page={{hareketler.previous_page_number}}" class="text-black"><i class="fas fa-chevron-left"></i></a> {% else %}
@@ -49,16 +28,16 @@
             <a href="?page={{hareketler.paginator.num_pages}}" class="text-black"><i class="fas fa-angle-double-right"></i></a> {% else %}
             <i class="fas fa-chevron-right" style="color: gray;"></i> {% endif %}
             </p>
-        {% else %}
+            {% else %}
 
             <h5 class="text-center pt-5">Son zamanlarda hareket yok.</h5>
         
         {% endif %}
-        
+        </div>
 
 
         
-    </main>
+    </div>
 
 
     

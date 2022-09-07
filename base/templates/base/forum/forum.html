@@ -1,315 +1,422 @@
- {% extends 'base/ana.html' %} {% load static %} 
- {% block title %}{{soru.baslik}} | FIFAVOX{% endblock %}
- {% block content %} 
- <main class="col-11 col-lg-10 offset-1">
-        {% for message in messages %}
-        <div class="anasayfa-message">{{message}}</div>
-        {% endfor %}
+{% extends 'base/ana.html' %} {% load static %} {% block title %}{{soru.baslik}}
+• FIFAVOX{% endblock %} {% block content %}
+<div class="container-fluid">
+  <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
+  <div
+    class="soru col-10 col-lg-8 border rounded-4 shadow-sm bg-light offset-1 p-4"
+  >
+    <a
+      href="{% url 'profil' soru.profil.user.username|slugify %}"
+      class="text-black text-decoration-none"
+    >
+      <p>
+        <img
+          src="{{soru.profil.resim.url}}"
+          class="forum-profil-foto border col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2"
+          style="height: 50px; width: 50px"
+        />
+        {{soru.profil.user.username}}
+        <span>
+          {% if soru.onay_durum %} {% if soru.onay_durum.onaydurum == "Kabul Et" %}
+          <i
+            class="fa-solid fa-circle-check px-1 fa-sm"
+            title="Kabul Edildi"
+          ></i
+          >{% elif soru.onay_durum.onaydurum == "Bekle" %}
+          <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i
+          >{% elif soru.onay_durum.onaydurum == "Yasakla" %}
+          <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif soru.onay_durum.onaydurum == "Reddet" %}
+          <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i
+          >{% elif soru.onay_durum.onaydurum == "Cevapsız" %}
+          <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i>{% elif soru.onay_durum.onaydurum == "İkinci Kez Reddet" %}
+          <i class="fa-solid fa-square-xmark px-1 fa-sm"></i>
+          {% endif %} {% else %} {% endif %}
+        </span>
+      </p>
+    </a>
+    <hr />
+    <h5>{{soru.baslik}}</h5>
+    <hr />
+    <p class="text-break">{{soru.soru}}</p>
+    <hr />
+    <p>{{soru.guncellenme_tarihi}}</p>
+  </div>
 
+  <br />
 
-        <br>
+  <div class="cevaplar-parent">
+    <div class="cevaplar">
+      {% if forum %} {% for foru in forum %}
+      <div
+        class="border bg-light col-8 col-lg-6 offset-2 p-3 my-4"
+        name="!-{{foru.cevaba_cevap.id}}"
+        id="-{{foru.id}}"
+      >
+        <p style="color: gray" class="cevaplandi">
+          {% if soru.profil.user.username == foru.cevaba_cevap.profil.user.username %}
+          <a
+            href="{% url 'profil' soru.profil.user.username|slugify %}"
+            class="text-decoration-none"
+            >@{{soru.profil.user.username|lower}}</a
+          >
+          adlı kullanıcıya yanıt olarak {% else %}
+          <a
+            href="{% url 'profil' soru.profil.user.username|slugify %}"
+            class="text-decoration-none"
+            >@{{soru.profil.user.username|lower}}</a
+          >
 
-        <div class="soru col-10 col-lg-8 border rounded-4 shadow-sm bg-light offset-1 p-4">
-            <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                <p>
-                    <img src="{{soru.profil.resim.url}}" class="forum-profil-foto border col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2" style="height: 50px;width:50px;"> {{soru.profil.user.username}}
-                    <span>
-                    {% if soru.onay_durum %} {% if soru.onay_durum.onaydurum == "Kabul Et" %}
-                        <i class="fa-solid fa-circle-check px-1 fa-sm" title="Kabul Edildi"></i>{% elif soru.onay_durum.onaydurum == "Bekle" %}
-                        <i class="fa-solid fa-circle-pause px-1 fa-sm" title="Beklemede"></i>{% elif soru.onay_durum.onaydurum == "Yasakla" %}
-                        <i class="fa-solid fa-ban" title="Yasaklandı"></i> {% elif soru.onay_durum.onaydurum == "Reddet" %}
-                        <i class="fa-solid fa-circle-xmark px-1 fa-sm" title="Reddedildi"></i>{% elif soru.onay_durum.onaydurum == "Cevapsız" %}
-                        <i class="fa-brands fa-creative-commons-nd px-1 fa-sm"></i>{% elif soru.onay_durum.onaydurum == "İkinci Kez Reddet" %}
-                        <i class="fa-solid fa-square-xmark px-1 fa-sm"></i>  
-                        {% endif %} 
-                    {% else %}
-                    {% endif %}
-                    </span>
-                </p>
-            </a>
-            <hr>
-            <h5>{{soru.baslik}}</h5>
-            <hr>
-            <p class="text-break">{{soru.soru}}</p>
-            <hr>
-            <p>{{soru.guncellenme_tarihi}}</p>
+          {% if foru.cevaba_cevap %}
+
+          <a
+            href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}"
+            class="text-decoration-none"
+            >ve @{{foru.cevaba_cevap.profil.user.username|lower}}</a
+          >
+          {% endif %}
+          <span
+            for="{{foru.soru}}"
+            style="
+              overflow: hidden;
+              max-width: 200px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            "
+          >
+            adlı kullanıcıya yanıt olarak
+          </span>
+          {% endif %}
+        </p>
+
+        <hr />
+
+        <p>
+          <a
+            href="{% url 'profil' foru.profil.user.username|slugify %}"
+            class="text-black text-decoration-none"
+          >
+            <img
+              src="{{foru.profil.resim.url}}"
+              class="forum-profil-foto col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2"
+              style="height: 50px; width: 50px" />
+            <span>{{foru.profil.user.username}}</span>
+            <span> </span
+          ></a>
+        </p>
+
+        <hr />
+        <!--!CEVAP CEVAPLAMA-->
+        {% csrf_token %}
+        <p class="text-break">
+          {{foru.cevap}}
+          <input
+            type="checkbox"
+            name="check_{{foru.id}}"
+            onclick="kay()"
+            class="cevaba_cevap_class {{foru.id}}"
+            id="{{foru.id}}"
+            style="visibility: hidden"
+          />
+          <label for="{{foru.id}}"
+            ><i class="fa-solid fa-reply" style="cursor: pointer" id="reply"></i
+          ></label>
+          {% if request.user.is_superuser %}
+          <i
+            class="fa-solid fa-trash-can mx-3"
+            style="cursor: pointer"
+            onclick="cevap_sil('{{foru.id}}')"
+          ></i>
+          {% endif %}
+        </p>
+        <hr />
+
+        <p>{{foru.guncellenme_tarihi}}</p>
+        <hr />
+        {% if user.is_authenticated %}
+        <div class="deneme">
+          {% if request.user.is_authenticated %} {% if request.user in foru.likes.all and request.user.is_authenticated %}
+          <i
+            class="begen fa-solid fa-thumbs-up mx-2"
+            style="color: black"
+            onclick="deneme(event,'{{foru.id}}')"
+          ></i>
+          <span class="begen_sayi">{{foru.total_likes}}</span>
+          {% else %}
+          <i
+            class="begen fa-solid fa-thumbs-up mx-2"
+           
+            onclick="deneme(event,'{{foru.id}}')"
+          ></i>
+          <span class="begen_sayi">{{foru.total_likes}}</span>
+          {% endif %} {% if request.user in foru.dislikes.all and request.user.is_authenticated %}
+          <i
+            class="begenme fa-solid fa-thumbs-down mx-2"
+            style="color: black"
+            onclick="deneme(event,'{{foru.id}}')"
+          ></i>
+          <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+          {% else %}
+          <i
+            class="begenme fa-solid fa-thumbs-down mx-2"
+           
+            onclick="deneme(event,'{{foru.id}}')"
+          ></i>
+          <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+          {% endif %} 
+          {% else %}
+
+          <a href="{% url 'giris-yap' %}"
+            ><i class="begen fa-solid fa-thumbs-up text-black mx-2"></i
+          ></a>
+          <span class="begen_sayi">{{foru.total_likes}}</span>
+          <a href="{% url 'giris-yap' %}"
+            ><i
+              class="begenme fa-solid fa-thumbs-down text-black mx-2"
+            ></i
+          ></a>
+          <span class="begenme_sayi">{{foru.total_dislikes}}</span>
+
+          {% endif %}
         </div>
-         
-        <br>
+        {% else %}
+        <p>
+          <a href="{% url 'giris-yap' %}"
+            ><i class="fa-solid fa-thumbs-up mx-2"></i
+          ></a>
+          {{foru.total_likes}}
+          <a href="{% url 'giris-yap' %}"
+            ><i class="fa-solid fa-thumbs-down mx-2"></i
+          ></a>
+          {{foru.total_dislikes}}
+        </p>
+        {% endif %}
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+  </div>
 
-        <div class="cevaplar-parent">
-            <div class="cevaplar">
-            {% if forum %} 
-                {% for foru in forum %}
-                <div class="border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-{{foru.cevaba_cevap.id}}" id="-{{foru.id}}">
-                    <p style="color: gray;" class="cevaplandi">
-                        {% if soru.profil.user.username == foru.cevaba_cevap.profil.user.username %}
-                        <a href="{% url 'profil' soru.profil.user.username|slugify %}"  class="text-decoration-none">@{{soru.profil.user.username|lower}}</a> adlı kullanıcıya yanıt olarak
-                        {% else %}
-                        <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
-                        
-                        {% if foru.cevaba_cevap %}
-                        
-                        <a href="{% url 'profil' foru.cevaba_cevap.profil.user.username|slugify %}" class="text-decoration-none">ve  @{{foru.cevaba_cevap.profil.user.username|lower}}</a> 
-                        {% endif %}
-                        <span for="{{foru.soru}}" style="overflow: hidden;max-width: 200px;white-space: nowrap;text-overflow: ellipsis;">
-                            adlı kullanıcıya yanıt olarak
-                        </span>
-                        {% endif %}
-                    </p>
+  <span
+    class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu"
+    style="display: none"
+    >Cevaplamak için bir girdi girin.</span
+  >
 
-                    
-                        <hr> 
-                    
-                        <p>
-                        
-                            <a href="{% url 'profil' foru.profil.user.username|slugify %}" class="text-black text-decoration-none">
-                                <img src="{{foru.profil.resim.url}}" class="forum-profil-foto col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2"  style="height: 50px;width:50px;">
-                                <span>{{foru.profil.user.username}}</span>
-                                <span>
-                                
-                            </span></a>
-                        </p>
+  <div class="cevaplama-area">
+    <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
+    {% if request.user.is_authenticated %}
+    <div>
+      <textarea
+        rows="5"
+        maxlength="200"
+        class="cevap-textarea form-control"
+        required
+        name="cevap"
+      ></textarea>
+    </div>
+    <input
+      type="submit"
+      onclick="cevapla()"
+      value="Cevapla"
+      maxlength="200"
+      class="btn btn-dark my-5 offset center"
+    />
+    {% else %}
+    <div>
+      <textarea
+        rows="5"
+        maxlength="200"
+        class="cevap-textarea form-control"
+        required
+        name="cevap"
+        disabled
+      ></textarea>
+    </div>
+    <input
+      type="submit"
+      value="Cevapla"
+      class="btn btn-dark my-5 offset center"
+      maxlength="200"
+      disabled
+    />
+    {% endif %}
+  </div>
+  </div>
+</div>
+{% endblock content %} {% block script %}
+<script defer>
+  $(".forumlar").addClass("active-color");
+  $(".forumlar-icon").addClass("active-color");
+  window.onbeforeunload = function () {
+    var scrollPos;
+    if (typeof window.pageYOffset != "undefined") {
+      scrollPos = window.pageYOffset;
+    } else if (
+      typeof document.compatMode != "undefined" &&
+      document.compatMode != "BackCompat"
+    ) {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (typeof document.body != "undefined") {
+      scrollPos = document.body.scrollTop;
+    }
+    document.cookie = "scrollTop=" + scrollPos;
+  };
+  window.onload = function () {
+    if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+      var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+      document.documentElement.scrollTop = parseInt(arr[1]);
+      document.body.scrollTop = parseInt(arr[1]);
+    }
+  };
 
-                    <hr>
-                    <!--!CEVAP CEVAPLAMA-->
-                    {% csrf_token %}
-                    <p class="text-break">{{foru.cevap}}
-                    <input type="checkbox" name="check_{{foru.id}}" onclick="kay()" class="cevaba_cevap_class {{foru.id}}" id="{{foru.id}}" style="visibility: hidden;"  />
-                    <label for="{{foru.id}}" ><i class="fa-solid fa-reply" style="cursor:pointer" id="reply"></i></label>
-                        {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil('{{foru.id}}')"></i>
-                        {% endif %}
-                        </p>
-                    <hr>
-                    
+  let height = window.innerHeight;
 
-                        <p>{{foru.guncellenme_tarihi}}</p>
-                        <hr>
-                        {% if user.is_authenticated %}
-                        <div class="deneme">
-                        {% if request.user.is_authenticated %}
+  function kesfet_kay() {
+    window.scrollTo({
+      top: height,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
 
-                            {% if request.user in foru.likes.all and request.user.is_authenticated %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span> 
-                            {% else %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begen_sayi">{{foru.total_likes}}</span>
-                            {% endif %}
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content:
+        "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+      animation: true,
+      placement: "top",
+    });
+  });
+  var cevaba_cevap_id = "-1";
+  function kay() {
+    window.scrollTo(0, document.body.clientHeight);
+    document.querySelector(".cevap-textarea").focus();
+    if (event.target.value == "on") {
+      cevaba_cevap_id = event.target.classList[1];
+    }
+  }
 
-
-                            {% if request.user in foru.dislikes.all and request.user.is_authenticated %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="color: black;" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
-                            {% else %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'{{foru.id}}')"></i> <span class="begenme_sayi">{{foru.total_dislikes}}</span>
-                            {% endif %}
-                        
-                        {% else %}
-
-                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">{{foru.total_likes}}</span> 
-                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">{{foru.total_dislikes}}</span> 
-
-                        {% endif %}
-                        </div>
-                    {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
-                            {{foru.total_likes}} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> {{foru.total_dislikes}}</p>
-                    {% endif %}
-                </div>
-                {% endfor %} 
-            {% endif %}
-            </div>
-        </div>
-                
-                   
-        <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevaplamak için bir girdi girin.</span>
-
-        <div class="cevaplama-area">
-            <h4 class="offset-2 mb-2 mt-5">Cevabınız</h4>
-            {% if request.user.is_authenticated %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5" maxlength="200" class="cevap-textarea form-control" required name="cevap"></textarea></div>
-            <input type="submit" onclick="cevapla()" value="Cevapla"  maxlength="200"  class="btn btn-outline-dark my-5 offset center">
-            {% else %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2"><textarea rows="5"  maxlength="200"  class="cevap-textarea form-control" required  name="cevap" disabled></textarea></div>
-            <input type="submit" value="Cevapla" class="btn btn-outline-dark my-5 offset center"  maxlength="200"  disabled> 
-            {% endif %}
-        </div>
- </main>
- {% endblock content %}
- {% block script %}
- <script defer>
-        $(".forumlar").addClass("active-color");
-        $(".forumlar-icon").addClass("active-color");
-        window.onbeforeunload = function() {
-            var scrollPos;
-            if (typeof window.pageYOffset != 'undefined') {
-                scrollPos = window.pageYOffset;
-            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
-                scrollPos = document.documentElement.scrollTop;
-            } else if (typeof document.body != 'undefined') {
-                scrollPos = document.body.scrollTop;
-            }
-            document.cookie = "scrollTop=" + scrollPos;
+  const deneme = async (event, id) => {
+    var begen_sayi = event.target.parentNode.querySelector(".begen_sayi");
+    var begen_icon = event.target.parentNode.querySelector(".begen");
+    var begenme_sayi = event.target.parentNode.querySelector(".begenme_sayi");
+    var begenme_icon = event.target.parentNode.querySelector(".begenme");
+    if (event.target.classList[0] == "begen") {
+      event.preventDefault();
+      let response = await fetch(
+        window.location.origin + `/api/forum/cevap/${id}/begen/`,
+        {
+          method: "POST",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: "{{request.user.username}}",
+          }),
         }
-        window.onload = function() {
-            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
-                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
-                document.documentElement.scrollTop = parseInt(arr[1]);
-                document.body.scrollTop = parseInt(arr[1]);
-            }
+      );
+      if (response.status === 200) {
+        let sayi = await response.json();
+        begen_sayi.innerHTML = sayi;
+        if (begen_icon.style.color == "black") {
+          begen_icon.style.color = "";
+        } else {
+          begen_icon.style.color = "black";
+          begenme_icon.style.color = "";
         }
+      }
 
-
-        let height = window.innerHeight;
-
-        function kesfet_kay() {
-            window.scrollTo({
-                top: height,
-                left: 0,
-                behavior: 'smooth'
-            });
+      let response1 = await fetch(
+        window.location.origin + `/api/forum/cevap/${id}/begenme/`,
+        {
+          method: "GET",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
-
-        $(document).ready(function() {
-            $('[data-toggle="popover"').popover({
-                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
-                animation: true,
-                placement: "top",
-            });
-        });
-        var cevaba_cevap_id = "-1";
-        function kay() {
-            window.scrollTo(0, document.body.clientHeight);
-            document.querySelector(".cevap-textarea").focus();
-            if (event.target.value=="on"){
-                cevaba_cevap_id=event.target.classList[1]; 
-            }
+      );
+      if (response1.status === 200) {
+        let sayi = await response1.json();
+        begenme_sayi.innerHTML = sayi;
+      }
+    }
+    if (event.target.classList[0] == "begenme") {
+      event.preventDefault();
+      let response = await fetch(
+        window.location.origin + `/api/forum/cevap/${id}/begenme/`,
+        {
+          method: "POST",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: "{{request.user.username}}",
+          }),
         }
-
-
-        const deneme = async (event,id) =>{
-            var begen_sayi=event.target.parentNode.querySelector(".begen_sayi");
-            var begen_icon=event.target.parentNode.querySelector(".begen");
-            var begenme_sayi=event.target.parentNode.querySelector(".begenme_sayi");
-            var begenme_icon=event.target.parentNode.querySelector(".begenme");
-            if (event.target.classList[0]=="begen"){
-                event.preventDefault();
-                let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/begen/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
-                    
-                })
-                if(response.status===200){
-                    let sayi = await response.json();
-                    begen_sayi.innerHTML=sayi;
-                    if (begen_icon.style.color=="black"){
-                    begen_icon.style.color="";
-                    }
-                    else{
-                        begen_icon.style.color="black";
-                        begenme_icon.style.color="";
-                    }
-                
-                }
-
-                let response1 = await fetch(window.location.origin+`/api/forum/cevap/${id}/begenme/`,{
-                    method:"GET",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                })
-                if(response1.status===200){
-                    let sayi = await response1.json();
-                    begenme_sayi.innerHTML=sayi;
-                }
-                
-                
-
-
-            
-            
-            }
-            if (event.target.classList[0]=="begenme"){
-                event.preventDefault();
-                let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/begenme/`,{
-                    method:"POST",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            username:"{{request.user.username}}"
-                        })
-                    
-                })
-                if(response.status===200){
-                    let sayi = await response.json();
-                    begenme_sayi.innerHTML=sayi;
-                    if (begenme_icon.style.color=="black"){
-                    begenme_icon.style.color="";
-                    }
-                    else{
-                        begenme_icon.style.color="black";
-                        begen_icon.style.color="";
-                    }
-                }
-
-                let response1 = await fetch(window.location.origin+`/api/forum/cevap/${id}/begen/`,{
-                    method:"GET",
-                    mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                })
-                if(response1.status===200){
-                    let sayi = await response1.json();
-                    begen_sayi.innerHTML=sayi;
-                }
-                
-                
-
-                
-            }
-        
+      );
+      if (response.status === 200) {
+        let sayi = await response.json();
+        begenme_sayi.innerHTML = sayi;
+        if (begenme_icon.style.color == "black") {
+          begenme_icon.style.color = "";
+        } else {
+          begenme_icon.style.color = "black";
+          begen_icon.style.color = "";
         }
-        
+      }
 
-        const cevapla = async () => {
-            const cevap = document.querySelector(".cevap-textarea");
-            if(cevap.value!="" && cevap.value!=null){
-            let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{
-                method:"POST",
-                mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            soru_id:"{{soru.id}}",
-                            cevap:cevap.value,
-                            cevaba_cevap:cevaba_cevap_id,
-                        })
-                    
-            })
-            if (response.status==200){
-                cevaba_cevap_id="-1"
-                let cevaplar = document.querySelector(".cevaplar");
-                let foru = await response.json();
-                cevap.value=""
-                if (foru.cevaba_cevap!=null){
-                         cevaplar.innerHTML+=
-                            `
-                <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}"  id="-${foru.id}">
+      let response1 = await fetch(
+        window.location.origin + `/api/forum/cevap/${id}/begen/`,
+        {
+          method: "GET",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response1.status === 200) {
+        let sayi = await response1.json();
+        begen_sayi.innerHTML = sayi;
+      }
+    }
+  };
+
+  const cevapla = async () => {
+    const cevap = document.querySelector(".cevap-textarea");
+    if (cevap.value != "" && cevap.value != null) {
+      let response = await fetch(
+        window.location.origin + "/api/forum/cevap/{{request.user.id}}/ekle/",
+        {
+          method: "POST",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            soru_id: "{{soru.id}}",
+            cevap: cevap.value,
+            cevaba_cevap: cevaba_cevap_id,
+          }),
+        }
+      );
+      if (response.status == 200) {
+        cevaba_cevap_id = "-1";
+        let cevaplar = document.querySelector(".cevaplar");
+        let foru = await response.json();
+        cevap.value = "";
+        if (foru.cevaba_cevap != null) {
+          cevaplar.innerHTML += `
+                <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${
+                  foru.cevaba_cevap
+                }"  id="-${foru.id}">
                 <p style="color: gray;" class="cevaplandi">
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
                         ve
@@ -322,7 +429,9 @@
                 <p>
                     {% if request.user.is_authenticated %}
                     <a href="{% url 'profil' request.user.username|slugify %}" class="text-black text-decoration-none">
-                        <img src="${foru.url}" class="forum-profil-foto col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2" style="height: 50px;width:50px;">
+                        <img src="${
+                          foru.url
+                        }" class="forum-profil-foto col-2 col-xs-3 col-sm-2 col-lg-1 rounded mx-2" style="height: 50px;width:50px;">
                         <span>${foru.username}</span>
                         <span>
                     
@@ -333,10 +442,18 @@
                 <!--!CEVAP CEVAPLAMA-->
                 <form method="post">{% csrf_token %}
                     <p class="text-break">${foru.cevap}
-                        <input type="checkbox" name="checkbox_${foru.id}" onclick="kay()" class="cevaba_cevap_class ${foru.id}" id="${foru.id}" style="visibility: hidden;" />
-                        <label for="${foru.id}" ><i class="fa-solid fa-reply" id="reply" style="cursor:pointer"></i></label>
+                        <input type="checkbox" name="checkbox_${
+                          foru.id
+                        }" onclick="kay()" class="cevaba_cevap_class ${
+            foru.id
+          }" id="${foru.id}" style="visibility: hidden;" />
+                        <label for="${
+                          foru.id
+                        }" ><i class="fa-solid fa-reply" id="reply" style="cursor:pointer"></i></label>
                         {% if request.user.is_superuser %}
-                        <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil(${foru.id})"></i>
+                        <i class="fa-solid fa-trash-can mx-3" style="cursor:pointer" onclick="cevap_sil(${
+                          foru.id
+                        })"></i>
                         {% endif %}
                     </p>
                 <hr>
@@ -348,35 +465,49 @@
                         {% if request.user.is_authenticated %}
 
                             {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
+                            <i class="begen fa-solid fa-thumbs-up mx-2" style="color:black" onclick="deneme(event,'${
+                              foru.id
+                            }')"></i> <span class="begen_sayi">${
+            foru.total_likes
+          }</span> 
                             {% else %}
-                            <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                            <i class="begen fa-solid fa-thumbs-up mx-2" onclick="deneme(event,'${
+                              foru.id
+                            }')"></i> <span class="begen_sayi">${
+            foru.total_likes
+          }</span>
                             {% endif %}
 
 
                             {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
                             <i class="begenme fa-solid fa-thumbs-down mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                             {% else %}
-                            <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                            <i class="begenme fa-solid fa-thumbs-down mx-2" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                             {% endif %}
 
                         {% else %}
 
-                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2"></i></a> <span class="begen_sayi">${
+                              foru.total_likes
+                            }</span> 
+                            <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2"></i></a> <span class="begenme_sayi">${
+                              foru.total_dislikes
+                            }</span> 
                         
                             {% endif %}
                     </div>
                     {% else %}
-                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"  ></i></a> 
-                            ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
+                        <p><a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-up mx-2"></i></a> 
+                            ${
+                              foru.total_likes
+                            } <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${
+            foru.total_dislikes
+          }</p>
                     {% endif %}
                 </div>
-                `
-                }
-                else{
-                        cevaplar.innerHTML+=
-                         `
+                `;
+        } else {
+          cevaplar.innerHTML += `
                         <div class="cevaplar border bg-light col-8 col-lg-6 offset-2 p-3 my-4" name="!-${foru.cevaba_cevap}" id="-${foru.id}">
                         <p style="color: gray;" class="cevaplandi">
                         <a href="{% url 'profil' soru.profil.user.username|slugify %}" class="text-decoration-none">@{{soru.profil.user.username|lower}}</a>
@@ -415,21 +546,21 @@
                                     {% if request.user in '${foru.likes.all}' and request.user.is_authenticated %}
                                     <i class="begen fa-solid fa-thumbs-up mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span> 
                                     {% else %}
-                                    <i class="begen fa-solid fa-thumbs-up mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
+                                    <i class="begen fa-solid fa-thumbs-up mx-2" onclick="deneme(event,'${foru.id}')"></i> <span class="begen_sayi">${foru.total_likes}</span>
                                     {% endif %}
                                 
                                     {% if request.user in '${foru.dislikes.all}' and request.user.is_authenticated %}
                                     <i class="begenme fa-solid fa-thumbs-down mx-2" style="color:black" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                                     {% else %}
-                                    <i class="begenme fa-solid fa-thumbs-down mx-2" style="" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
+                                    <i class="begenme fa-solid fa-thumbs-down mx-2" onclick="deneme(event,'${foru.id}')"></i> <span class="begenme_sayi">${foru.total_dislikes}</span>
                                     {% endif %}
                                 
                                 
                                 {% else %}
 
 
-                                    <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2" style=""></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
-                                    <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2" style=""></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="begen fa-solid fa-thumbs-up text-black mx-2"></i></a> <span class="begen_sayi">${foru.total_likes}</span> 
+                                    <a href="{% url 'giris-yap' %}"><i class="begenme fa-solid fa-thumbs-down text-black mx-2"></i></a> <span class="begenme_sayi">${foru.total_dislikes}</span> 
                                 
                                 {% endif %}
                             </div>
@@ -438,60 +569,56 @@
                                     ${foru.total_likes} <a href="{% url 'giris-yap' %}"><i class="fa-solid fa-thumbs-down mx-2"></i></a> ${foru.total_dislikes}</p>
                             {% endif %}
                         </div>
-                        `
-                }
-                
-
-                let checkbox = document.getElementsByName(`checkbox_${foru.cevaba_cevap}`)[0];
-                if(checkbox){
-                    checkbox.checked=false;
-                }
-            }
-            }
-            else{
-                gsap.from(".mesajiniz-olustu", {
-                    scrollTrigger: ".mesajiniz-olustu",
-                    display: 'block',
-                    opacity:1,
-                    duration: 4,
-                })
-                gsap.to(".mesajiniz-olustu", {
-                    opacity: 0,
-                    delay:3,
-                    duration:1,
-                    ease:"slow",
-                })
-            }
-        
+                        `;
         }
-        
 
-        const cevap_sil = async (id) =>{
-            let response = await fetch(window.location.origin+`/api/forum/cevap/${id}/sil/`,{
-                method:"POST",
-                mode: 'same-origin',
-                    headers: {
-                        "Accept": "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                            user_id:"{{request.user.id}}",
-                        })
-                    
-            })
-            if (response.status==200){
-                let cevap = document.getElementById(`-${id}`);
-                let digerleri = document.getElementsByName(`!-${id}`);
-                cevap.remove();
-                for (let i = 0; i < digerleri.length; i++) {
-                    const element = digerleri[i];
-                    element.remove();
-                }
-            }
+        let checkbox = document.getElementsByName(
+          `checkbox_${foru.cevaba_cevap}`
+        )[0];
+        if (checkbox) {
+          checkbox.checked = false;
         }
-    
-        
-        
+      }
+    } else {
+      gsap.from(".mesajiniz-olustu", {
+        scrollTrigger: ".mesajiniz-olustu",
+        display: "block",
+        opacity: 1,
+        duration: 4,
+      });
+      gsap.to(".mesajiniz-olustu", {
+        opacity: 0,
+        delay: 3,
+        duration: 1,
+        ease: "slow",
+      });
+    }
+  };
 
- </script>
- {% endblock %}
+  const cevap_sil = async (id) => {
+    let response = await fetch(
+      window.location.origin + `/api/forum/cevap/${id}/sil/`,
+      {
+        method: "POST",
+        mode: "same-origin",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: "{{request.user.id}}",
+        }),
+      }
+    );
+    if (response.status == 200) {
+      let cevap = document.getElementById(`-${id}`);
+      let digerleri = document.getElementsByName(`!-${id}`);
+      cevap.remove();
+      for (let i = 0; i < digerleri.length; i++) {
+        const element = digerleri[i];
+        element.remove();
+      }
+    }
+  };
+</script>
+{% endblock %}
