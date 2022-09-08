@@ -24,6 +24,7 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main-style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/theme-default.css' %}" />
@@ -139,7 +140,8 @@
               data-placement="right"
               title="Anasayfa"
             >
-              <i class="fa-solid fa-home"></i>
+              <i class="fa-solid fa-home"
+              ></i>
             </a>
             <a
               href="{% url 'kisiler' %}"
@@ -232,9 +234,8 @@
     {% for message in messages %}
       {{message|safe}}
     {% endfor %}
-
-    {% block content %} 
-    {% endblock content %}
+      {% block content %} 
+      {% endblock content %}
     <div class="to-top">
       <i class="fa-solid fa-circle-chevron-up fa-2x"></i>
     </div>
@@ -299,6 +300,7 @@
           $(".page-completion").css("width",$(window).scrollTop()/(document.body.offsetHeight - window.innerHeight)*100+"%");
         })
       }
+    
     </script>
     {% block script %} {% endblock %}
   </body>

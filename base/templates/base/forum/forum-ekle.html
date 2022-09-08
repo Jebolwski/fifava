@@ -1,12 +1,13 @@
 {% extends 'base/ana.html' %} {% load static %} {% block title %}Forum Ekle |
 FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
-<main class="col-11 col-lg-10 offset-1">
-  <form method="POST">
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <form method="POST">
     {% csrf_token %}
-    <div class="col-10 col-md-6 offset-1 offset-md-3">
-      <h4 class="text-center pt-5">Forum Ekle</h4>
-      <h5 class="text-center mt-5">Başlık</h5>
+    <div>
+      <h2 class="text-center pt-5">Forum Ekle</h2>
+      <h5 class="mt-5">Başlık*</h5>
       <div class="row">
         <div class="col">{{form.baslik|as_crispy_field}}</div>
         <div class="col-auto p-0">
@@ -20,7 +21,7 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
           </span>
         </div>
       </div>
-      <h5 class="text-center mt-5">Soru</h5>
+      <h5 class="mt-5">Soru*</h5>
       <div class="row">
         <div class="col">{{form.soru|as_crispy_field}}</div>
         <div class="col-auto p-0">
@@ -35,10 +36,12 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
         </div>
       </div>
     </div>
-
-    <input type="submit" value="Forum Ekle" class="btn btn-dark center my-4" />
-  </form>
-</main>
+    <div class="text-center">
+      <input type="submit" value="Forum Ekle" class="btn btn-lg btn-dark my-4" />
+    </div>
+    </form>
+  </div>
+</div>
 
 {% endblock content %} {% block script %}
 <script defer>

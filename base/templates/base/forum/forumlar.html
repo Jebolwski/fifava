@@ -30,11 +30,15 @@
           <div class="col-auto p-0">
             {% if user.is_authenticated %}
               {% if onaydurum.onaydurum == "Kabul Et" %}
-              <a href="{% url 'forum-ekle' %}">
+              <a href="{% url 'forum-ekle' %}" data-toggle="tooltip"
+              data-placement="right"
+              title="Forum Ekle">
                 <i class="fa-solid fa-comment-medical btn btn-primary p-2 mx-3"></i
               ></a>
               {% else %}
-              <a href="{% url 'forum-eklenemez' %}">
+              <a href="{% url 'forum-eklenemez' %}" data-toggle="tooltip"
+              data-placement="right"
+              title="Forum Ekle">
                 <i class="fa-solid fa-comment-medical btn btn-primary p-2 mx-3"></i
               ></a>
               {% endif %}
@@ -48,7 +52,7 @@
 
 
     <div class="cevaplama-parent" style="display: none">
-    <div class="cevaplama col-10 offset-1 border p-3 mb-4">
+      <div class="cevaplama col-10 offset-1 border p-3 mb-4">
       <span class="soru_id" style="display: none"></span>
       <div class="cevapla_kapa_parent">
         <i
@@ -67,7 +71,7 @@
       <div
         class="ms-4"
         style="
-          border-left: 3px solid rgb(114, 108, 53);
+          border-left: 3px solid rgb(120, 75, 179);
           padding-left: 40px;
           margin-top: 20px;
         "
@@ -101,13 +105,15 @@
         maxlength="260"
         placeholder="Cevabınız..."
       ></textarea>
-      <input
+      <div class="text-center">
+        <input
         type="submit"
-        class="btn btn-dark center mt-3"
+        class="btn btn-dark mt-3"
         onclick="cevap_olustur()"
         value="Cevapla"
-      />
-    </div>
+        />
+      </div>
+      </div>
     </div>
 
     <div class="takip-edemezsiniz col-12 d-none">
@@ -128,11 +134,14 @@
     </div>
 
     {% if forumlar %}
-    <span
-    class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu"
-    style="display: none"
-    >Cevabınız oluşturuldu.</span
-    >
+    <div class="row justify-content-center">
+      <div class="col">
+        <span
+        class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu"
+        style="display: none"
+        >Cevabınız oluşturuldu.</span>
+      </div>
+    </div>
     {% for forum in forumlar %}
     <div
     class="{{forum.id}} shadow-sm rounded-4 bg-light col-10 offset-1 border  p-3 my-5"
@@ -218,12 +227,19 @@
       {% if request.user.is_authenticated %} {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
       <li>
         <a href="{% url 'forum-sil' forum.id %}"
-          ><i class="fa-solid fa-trash ms-3" title="Sil"></i
+          
+          ><i class="fa-solid fa-trash ms-3" title="Sil"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Sil"></i
         ></a>
       </li>
       {% endif %} {% if request.user.is_authenticated %}
       <li>
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
           class="fa-solid fa-eye"
           title="Görülme Sayısı"
           style="cursor: pointer"
@@ -233,7 +249,10 @@
       </li>
       {% else %}
       <li>
-        <i
+        <i 
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
           class="fa-solid fa-eye"
           title="Görülme Sayısı"
           style="cursor: pointer"
@@ -244,6 +263,9 @@
       {% endif %}
       <li>
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Cevapla"
           class="fa-solid fa-comment"
           onclick="cevapla(event)"
           style="cursor: pointer"
@@ -257,10 +279,16 @@
           class="begenme fa-solid fa-heart-crack fa-md"
           style="color: black; cursor: pointer"
           onclick="deneme(event,'{{forum.id}}')"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğenme"
           title="Beğenme"
         ></i>
         {% else %}
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğenme"
           class="begenme fa-solid fa-heart-crack fa-md"
           style="cursor: pointer"
           onclick="deneme(event,'{{forum.id}}')"
@@ -272,6 +300,9 @@
       <li>
         {% if request.user in forum.likes.all %}
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğen"
           class="begen fa-solid fa-heart fa-md"
           style="color: black; cursor: pointer"
           onclick="deneme(event,'{{forum.id}}')"
@@ -279,6 +310,9 @@
         ></i>
         {% else %}
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğen"
           class="begen fa-solid fa-heart fa-md"
           style="cursor: pointer"
           onclick="deneme(event,'{{forum.id}}')"
@@ -290,6 +324,9 @@
       {% else %} {% if request.user.is_authenticated %}
       <li>
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
           class="fa-solid fa-eye"
           title="Görülme Sayısı"
           style="cursor: pointer"
@@ -300,6 +337,9 @@
       {% else %}
       <li>
         <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
           class="fa-solid fa-eye"
           title="Görülme Sayısı"
           style="cursor: pointer"

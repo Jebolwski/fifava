@@ -1,18 +1,20 @@
 {% extends 'base/ana.html' %} {% load static %} {% block title %}Haber Sil |
 FIFAVOX{% endblock %} {% block content %}
 
-<main class="col-11 col-lg-10 offset-1">
-  <form method="post">
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
+    <form method="post">
     {% csrf_token %}
     <h3 class="text-center pt-5 pb-4" style="font-weight: 300">
       '{{haber.baslik}}' başlıklı haberi silmek istediğinize emin misiniz?
     </h3>
-    <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2">
-      <li><a href="{% url 'haberler' %}" class="btn btn-dark">Vazgeç</a></li>
-      <li><input type="submit" value="Sil" class="btn btn-dark" /></li>
-    </ul>
-  </form>
-</main>
+    <div class="d-flex justify-content-evenly list-unstyled mt-4">
+      <div><a href="{% url 'haberler' %}" class="btn btn-success">Vazgeç</a></div>
+      <div><input type="submit" value="Sil" class="btn btn-danger" /></div>
+    </div>
+    </form>
+  </div>
+</div>
 
 {% endblock content %} {% block script %}
 <script>

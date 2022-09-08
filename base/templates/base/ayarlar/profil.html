@@ -1,20 +1,17 @@
 ﻿{% extends 'base/ana.html' %} {% load static %} 
-{% block title %}{{profil.username}} | FIFAVOX{% endblock %}
+{% block title %}{{profil.username}} • FIFAVOX{% endblock %}
 {% block content %}
-<body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
-    
-
-    <main class="col-11 col-lg-10 offset-1">
-         {%if profil.arka_plan %}
-        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{{profil.arka_plan.url}}"></div>
-        {% else %}
-        <div class="profil-background"><img class="col-12" onclick="arkaplan_foto_buyu()" style="min-height: 100px;cursor: pointer;" src="{% static 'images/default-background.jpg' %}"></div>
-        {% endif %}
-
-        <div class="buyukler">
+    <div class="container-fluid mt-5">
+        <div class="bg-light shadow-lg rounded-3 mt-5">
+            {%if profil.arka_plan %}
+            <div class="profil-background"><img class="col-12 rounded-3" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
+            {% else %}
+            <div class="profil-background"><img class="col-12 rounded-3" onclick="arkaplan_foto_buyu()" src="{% static 'images/vice-city.jpg' %}"></div>
+            {% endif %}
+            <div class="buyukler">
             <div class="profil-foto-buyuk" style="display: none;"> 
             {% if profil.resim %}
-            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-6 offset-md-5 mt-5 pt-5" onclick="profil_foto_buyu()" title="profil-foto"> 
+            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-6 offset-md-6 mt-5 pt-4" onclick="profil_foto_buyu()" title="profil-foto"> 
             {%else%}
             <img src="{% static 'images/default-profile.jpg' %}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" title="profil-foto" onclick="profil_foto_buyu()" > 
             {% endif %}
@@ -25,7 +22,7 @@
                 {%if profil.arka_plan %}
                     <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
                 {% else %}
-                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/default-background.jpg' %}"></div>
+                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/vice-city.jpg' %}"></div>
                 {% endif %}
                     <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
                 
@@ -47,7 +44,7 @@
             {% endif %}
 
             <div class="takipciler-1 col-12 d-none">
-                <div class="takipciler-1-1 p-3 col-9 col-md-6 offset-1 offset-md-2">
+                <div class="takipciler-1-1 p-3 col-10 col-md-6 offset-1 offset-md-3">
                     <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
                     <h5 class="my-2 ms-3">Takipçiler</h5>
                     {% for i in takipciler %}
@@ -60,7 +57,7 @@
             </div>
 
             <div class="takip-edilenler-1 col-12 d-none">
-                <div class="takip-edilenler-1-1 p-3 col-9 col-md-6 offset-1 offset-md-2">
+                <div class="takip-edilenler-1-1 p-3 col-10 col-md-6 offset-1 offset-md-3">
                     <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
                     <h5 class="my-2 ms-3">Takip Edilenler</h5>
                     {% if takip_edilenler.all.count > 0 %}
@@ -85,10 +82,10 @@
                </div> 
             </div>
             
-        </div>
+            </div>
 
 
-        <div class="profil-rest" style="height: 100vh;">
+            <div class="profil-rest" style="height: 100%;">
                
             {% if profil.resim %}
             <img src="{{profil.resim.url}}" class="profil-foto" style="cursor: pointer;z-index: 10;" onclick="profil_foto_buyu()" style="z-index: 1;"> {%else%}
@@ -194,11 +191,14 @@
                 </div>
                 
                 {% if profil.biyografi %}
-                <h5 class="profil-biyografi offset-1 "><i class="text-black text-break">{{profil.biyografi}}</i></h5>
+                <h5 class="profil-biyografi ms-5"><i class="text-black text-break">{{profil.biyografi}}</i>
+                    <p class=" d-none d-lg-block col-5 mt-4 h6">{{profil.user.date_joined}} Tarihinde Katıldı</p>
+                </h5>
                 {% else %}
-                <h5 class="profil-biyografi offset-1 "><i class="text-black">Kişi hakkında bilgi verilmemiş.</i></h5>
+                <h5 class="profil-biyografi ms-5"><i class="text-black">Kişi hakkında bilgi verilmemiş.</i>
+                    <p class=" d-none d-lg-block col-5 mt-4 h6">{{profil.user.date_joined}} Tarihinde Katıldı</p>
+                </h5>
                 {% endif %}
-                <p class="profil-katilma d-none d-lg-block col-3">{{profil.user.date_joined}} Tarihinde Katıldı</p>
             </div>
             
             <div class="cevaplama-parent" style="display: none;">
@@ -235,10 +235,11 @@
 
             {% if forumlari %}
 
-            <h4 class="text-center my-5">Forumları</h4>
+            <h3 class="text-center my-5">Forumları</h3>
             <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
+            <div class="row justify-content-center">
             {% for forum in forumlari %}
-                <div class="{{forum.id}} border shadow-sm col-10 offset-1 p-3 rounded-4 my-4 bg-light">
+                <div class="{{forum.id}} border shadow-sm  p-3 rounded-4 my-4 bg-light col-10">
                         <span class="soru_id" style="display: none;">{{forum.id}}</span>
                         {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
                             <span class="badge bg-dark">Yeni</span>
@@ -346,19 +347,20 @@
                         </ul>
                 </div>
             {% endfor %}
-
+            </div>
             {% else %}
 
                 <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
 
             {% endif %}
             
+            </div>
         </div>
-    </main>
-
+    </div>
+{% endblock content %}
     
 
-    {% block script %}
+{% block script %}
     <script defer>
         function takip_ediliyor(){
             let takip_ediliyor1 = document.querySelector(".profil-edit-1");
@@ -696,6 +698,5 @@
     
 
     </script>
-    {% endblock %}
+{% endblock %}
 
-{% endblock content %}

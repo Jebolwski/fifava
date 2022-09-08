@@ -1,23 +1,28 @@
 ﻿ {% extends 'base/ana.html' %} {% load static %} 
- {% block title %}{{haber.baslik}} | FIFAVOX{% endblock %}
+ {% block title %}{{haber.baslik}} • FIFAVOX{% endblock %}
  {% block content %}
  
- <main class="col-11 col-lg-10 offset-1 pt-5">
-        
+ <div class="container-fluid mt-5">
+    <div class="bg-light shadow-lg rounded-3 p-4 mt-5">        
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="col-10 col-lg-8 offset-1 offset-lg-2">
-                <h3 class="text-center h4">{{haber.baslik}}</h3>
-                <h4 class="responsive-text text-center h4 mt-5 mb-4" style="font-weight: 400">{{haber.aciklama}}</h4>
+            <div>
+                <h3 class="text-center">{{haber.baslik}}</h3>
+                <h4 class="responsive-text text-center mt-5 mb-4" style="font-weight: 400">{{haber.aciklama}}</h4>
             </div>
             {% if haber.resim %}
-                <p class="text-center" style="overflow: hidden">
-                    <img src="{{haber.resim.url}}"  class="haber-img" >
-                </p>
+            <div class="row justify-content-center">
+                <div class="col-10 col-md-8 col-lg-6">
+                    <img src="{{haber.resim.url}}"  class="haber-img img img-fluid rounded-3 shadow-lg" >
+                </div>
+            </div>
             {% endif %}
-            <p class="offset-4 offset-lg-8"><i>{{haber.olusturulma_tarihi}}</i></p>
+            <div class="mt-4 p-3">
+                <h5><i>{{haber.olusturulma_tarihi}}</i></h5>
+            </div>
         </form>
-    </main>
+    </div>
+ </div>
 {% endblock content %}
 
 {% block script %}
