@@ -213,13 +213,15 @@
         name="cevap"
       ></textarea>
     </div>
-    <input
+    <div class="text-center">
+      <input
       type="submit"
       onclick="cevapla()"
       value="Cevapla"
       maxlength="200"
-      class="btn btn-dark my-5 offset center"
-    />
+      class="btn btn-dark my-5 offset"
+      />
+    </div>
     {% else %}
     <div>
       <textarea
@@ -231,13 +233,15 @@
         disabled
       ></textarea>
     </div>
-    <input
+    <div class="text-center">
+      <input
       type="submit"
       value="Cevapla"
-      class="btn btn-dark my-5 offset center"
+      class="btn btn-dark my-5 offset"
       maxlength="200"
       disabled
-    />
+      />
+    </div>
     {% endif %}
   </div>
   </div>

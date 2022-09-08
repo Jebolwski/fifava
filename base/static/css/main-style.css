@@ -105,13 +105,14 @@ span::selection {
 body .topbar {
   position: -webkit-sticky;
   position: sticky;
+  width: 100%;
   top: 0;
   height: 56px;
   background-color: #5642c8;
   color: white;
   -webkit-box-shadow: 2px 2px 20px #373681;
           box-shadow: 2px 2px 20px #373681;
-  z-index: 999999999 !important;
+  z-index: 10 !important;
 }
 
 body .topbar .topbar-right-parent {
@@ -175,6 +176,7 @@ body .topbar .topbar-right-parent .profile-hover a {
 body .topbar .topbar-profile-img {
   margin-top: 4px;
   width: 32px;
+  height: 32px;
   border-radius: 50%;
 }
 
@@ -279,37 +281,41 @@ body .start h1 {
   z-index: 99999 !important;
 }
 
-body .start .bubble-1 {
-  position: absolute;
-  bottom: 0px;
-  left: -70px;
-  background-color: #373681;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  z-index: 10 !important;
+body .start .div-one {
+  height: calc(100vh - 56px);
 }
 
-body .start .bubble-2 {
-  background-color: #5642c8;
+body .start .div-one img {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  z-index: 10 !important;
+  bottom: 0;
+  left: 5%;
+  width: 85%;
+  min-width: 180px;
 }
 
-body .start .bubble-3 {
-  background-color: #373681;
+body .start .trevor-photo {
   position: absolute;
-  top: 90px;
-  left: 100px;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
   z-index: 10;
+  bottom: 0;
+  left: 8%;
+  width: 20vw;
+  min-width: 200px;
+  height: 100%;
+}
+
+body .start .trevor-photo .bubble-2 {
+  background-color: #5642c8;
+  -webkit-box-shadow: 2px 2px 100px #5642c8;
+          box-shadow: 2px 2px 100px #5642c8;
+  position: absolute;
+  bottom: 10%;
+  left: 0%;
+  min-width: 200px;
+  min-height: 200px;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  z-index: -1;
 }
 
 body .btn {
@@ -415,6 +421,94 @@ body .to-top {
   right: 30px;
   color: #5642c8;
   display: none;
+  z-index: 9999999 !important;
   cursor: pointer;
+}
+
+body .swiper {
+  width: 60vw;
+  height: 30vw;
+  border-radius: .5rem;
+}
+
+body .swiper img {
+  width: 100%;
+  height: 100%;
+}
+
+body .kesfet {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+body .kesfet button {
+  border-radius: 1.8rem;
+  padding: 15px 35px;
+}
+
+body .btn-outline-primary {
+  color: #373681;
+  border: 1px solid #373681;
+}
+
+body .btn-outline-primary:hover {
+  color: white;
+}
+
+body .separator {
+  background-color: #4836b3;
+  width: 10%;
+  border-radius: 5px;
+  height: 5px;
+}
+
+body .div-one-right {
+  position: absolute;
+  right: 30px;
+  top: 28%;
+  width: 59%;
+}
+
+@media only screen and (max-width: 700px) {
+  body .div-one-right {
+    position: absolute;
+    right: 30px;
+    top: 5%;
+    width: 79%;
+  }
+  body .bize-katil {
+    min-height: 40px;
+    position: absolute;
+    right: 40px;
+  }
+  body .separator {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  body .div-one-right {
+    position: absolute;
+    right: 30px;
+    top: 5%;
+    width: 79%;
+  }
+  body .div-one-right h3 {
+    font-size: 1.2rem;
+  }
+  body .div-one-right h4 {
+    font-size: 0.9rem;
+  }
+  body .bize-katil {
+    min-height: 0;
+    position: absolute;
+    right: 40px;
+  }
+  body .separator {
+    width: 20%;
+  }
 }
 /*# sourceMappingURL=main-style.css.map */

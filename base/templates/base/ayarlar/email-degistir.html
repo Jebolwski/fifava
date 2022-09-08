@@ -1,21 +1,25 @@
 {% extends 'base/ana.html' %} {% load static %}
-{% block title %}Email Değiştir | FIFAVOX{% endblock %}
+{% block title %}Email Değiştir • FIFAVOX{% endblock %}
  {% block content%}
-    <main class="col-11 offset-1">
-        <form method="POST">
+    <div class="container-fluid my-5">
+        <div class="bg-light shadow-lg rounded-3 p-4 ">
+            <form method="POST">
              {% csrf_token %}
-            <div class="col-8 col-md-4 offset-2 offset-md-4">
-                <h4 class="text-center pt-5">Email Değiştir</h4>
+            <div>
+                <h2 class="text-center">Email Değiştir</h2>
                 <h5 class="mt-5">Şu anki Email</h5>
-                <input type="email" class="form-control mt-2" name="eski-email" />
+                <input type="email" class="form-control mt-2" name="eski-email" required />
                 <h5 class="mt-4">Yeni Email</h5>
                 <input type="email" class="form-control" name="yeni-email1"  required/>
                 <h5 class="mt-4">Yeni Email (Tekrar)</h5>
                 <input type="email" class="form-control" name="yeni-email2" required />
             </div>
-            <input type="submit" value="Değiştir" class="btn btn-dark center mt-5" />
-        </form>
-    </main>
+            <div class="text-center">
+                <input type="submit" value="Değiştir" class="btn btn-dark mt-5" />
+            </div>
+            </form>
+        </div>
+    </div>
 
         <script defer>
         

@@ -65,7 +65,7 @@ def GirisYap(request):
 
         if person is not None:
             if OnayDurum.objects.get(kisi_id=person.id).onaydurum=="Yasakla":
-                messages.success(request,'<div class="bg-danger message p-2 rounded-3">Bu hesap yasaklandı.</div>')
+                messages.success(request,'<div class="btn btn-danger message p-2 rounded-3">Bu hesap yasaklandı.</div>')
                 return redirect("giris-yap")
             Hareket.objects.create(
                 hareket = username1+" adlı kullanıcı giriş yaptı.",
@@ -195,10 +195,10 @@ def Ev(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request,'<div class="bg-success message p-2 rounded-3">Bilgiler başarıyla kaydedildi.</div>')
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Bilgiler başarıyla kaydedildi.</div>')
             return redirect("anasayfa")
         else:
-            messages.error(request,'<div class="bg-danger message p-2 rounded-3">Bir hata oluştu.</div>')
+            messages.error(request,'<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     
     
     context={'haberler':haberler,'form':form,'cevaplar':cevaplar,
@@ -405,14 +405,14 @@ def EmailDegistir(request):
         if eski_email==request.user.email and yeni_email1==yeni_email2 and eski_email!=yeni_email1:
             request.user.email = yeni_email1
             request.user.save()
-            messages.success(request,'Emailiniz başarıyla değiştirildi.')
+            messages.success(request, '<div class="btn btn-success message p-2 rounded-3">Emailiniz başarıyla değiştirildi.</div>')
             return redirect('ayarlar')
         elif yeni_email1!=yeni_email2:
-            messages.success(request,'Yeni emailler uyuşmuyor...')
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Yeni emailler uyuşmuyor.</div>')
         elif eski_email!=request.user.email:
-            messages.success(request,'Eski emailinizi yanlış girdiniz...')
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Eski emailinizi yanlış girdiniz.</div>')
         else:
-            messages.success(request,'Bir hata oluştu.')
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
 
     if True:
         haber_bildirim=False
@@ -496,7 +496,7 @@ def KisiEkle(request):
         if request.FILES:
             size = request.FILES.get("dosya").size/(1024*1024)
             if size>2:
-                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Girdiğiniz fotoğraf 2 mb`dan küçük olmalı ('+str(round(size,2))+' mb)</div>')
                 return redirect('kisi-ekle')
         form = OyuncuForm(data,files=request.FILES)
         if form.is_valid():
@@ -505,10 +505,10 @@ def KisiEkle(request):
                 hareket = request.POST['oyun_ad_soyad'] +" adlı oyuncu "+ request.user.username +" tarafından eklendi.",
                 admin_mi=0,
             )
-            messages.success(request,"Oyuncu başarıyla oluşturuldu.")
+            messages.success(request, '<div class="btn btn-success message p-2 rounded-3">Oyuncu başarıyla oluşturuldu.</div>')
             return redirect('kisiler')
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
 
     
     context = {'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -561,17 +561,17 @@ def KisiDuzenle(request,pk):
         if request.FILES:
             size = request.FILES.get("dosya").size/(1024*1024)
             if size>2:
-                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                messages.error(request,'<div class="bg-success message p-2 rounded-3">Girdiğiniz fotoğraf 2 mb`dan küçük olmalı ('+str(round(size,2))+' mb).</div>')
                 return redirect('kisi-duzenle',pk)
         form = OyuncuForm(instance=instance,data = data,files=request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.oyun_ad_soyad_slug = slugify(request.POST.get('oyun_ad_soyad_slug'))
             obj.save()
-            messages.success(request,'<div class="bg-success message p-2 rounded-3">Oyuncu başarıyla düzenlendi.</div>')
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Oyuncu başarıyla düzenlendi.</div>')
             return redirect("kisiler")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     
     
     context = {'form':form , 'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
@@ -592,7 +592,7 @@ def KisiSil(request,pk):
             hareket=instance.oyun_ad_soyad+" isimli oyuncu silindi.",
             admin_mi=0,
         )
-        messages.success(request,"Oyuncu başarıyla silindi.")
+        messages.success(request,'<div class="btn btn-danger message p-2 rounded-3">Oyuncu başarıyla silindi.</div>')
         return redirect('kisiler')
 
     if True:
@@ -772,7 +772,7 @@ def HaberEkle(request):
         if request.FILES:
             size = request.FILES.get("file").size/(1024*1024)
             if size>2:
-                messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                messages.error(request,'<div class="btn btn-danger message p-2 rounded-3">Girdiğiniz fotoğraf 2 mb`dan küçük olmalı ('+str(round(size,2))+' mb)</div>')
                 return redirect('haber-ekle')
         Haberler.objects.create(
         baslik=request.POST['baslik'],
@@ -784,7 +784,7 @@ def HaberEkle(request):
                 hareket = request.POST['baslik'] +" başlıklı haber haberlere eklendi.",
                 admin_mi=0,
             )
-        messages.success(request,"Haber başarıyla oluşturuldu.")
+        messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Haber başarıyla oluşturuldu.</div>')
         return redirect('haberler')
         context = {'form':form,'haberler':haberler}
     
@@ -848,7 +848,7 @@ def HaberDuzenle(request,my_slug):
             if request.FILES:
                 size = request.FILES.get("file").size/(1024*1024)
                 if size>2:
-                    messages.error(request,"Girdiğiniz fotoğraf 2 mb'dan küçük olmalı ("+str(round(size,2))+" mb).")
+                    messages.error(request,'<div class="btn btn-danger message p-2 rounded-3">Girdiğiniz fotoğraf 2 mb`dan küçük olmalı ('+str(round(size,2))+' mb)</div>')
                     return redirect('haber-duzenle',my_slug)
             instance.baslik=request.POST['baslik']
             instance.aciklama=request.POST['aciklama']
@@ -859,7 +859,7 @@ def HaberDuzenle(request,my_slug):
             if request.FILES:
                 instance.resim=request.FILES['file']
             instance.save()
-            messages.success(request,"Haber başarıyla düzenlendi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Haber başarıyla düzenlendi.</div>')
             return redirect("haberler")
     
     if True:
@@ -912,7 +912,7 @@ def HaberSil(request,my_slug):
             hareket=haber1.baslik+" başlıklı haber silindi.",
             admin_mi=0,
         )
-        messages.success(request,'Haber başarıyla silindi.')
+        messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Haber başarıyla silindi.</div>')
         return redirect('haberler')
 
     if True:
@@ -1056,14 +1056,14 @@ def FormEkle(request):
         if form.is_valid():
             form.instance.user=request.user
             form.save()
-            messages.success(request,"Form başarıyla oluşturuldu.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Form başarıyla oluşturuldu.</div>')
             Hareket.objects.create(
                 hareket = request.POST['baslik'] +" başlıklı form formlara eklendi.",
                 admin_mi=0,
             )
             return redirect("formlar")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     context={"form":form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
     return render(request,"base/form/form-ekle.html",context)
@@ -1167,7 +1167,7 @@ def FormSil(request,pk):
             hareket=form.baslik+" başlıklı form silindi.",
             admin_mi=0,
         )
-        messages.success(request,"Form başarıyla silindi.")
+        messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Form başarıyla silindi.</div>')
         return redirect("formlar")
 
     
@@ -1236,12 +1236,12 @@ def FormCevapla(request,pk):
             else:
                 Hareket.objects.create(hareket=request.user.username+" adlı kullanıcı " + form_copy['baslik']+" başlıklı formu cevapladı.",admin_mi=1)
 
-            messages.success(request, 'Cevaplarınız başarıyla kaydedildi.')
+            messages.success(request, '<div class="btn btn-success message p-2 rounded-3">Cevaplarınız başarıyla kaydedildi.</div>')
             return redirect('formlar')
 
 
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     context={'form':form,'sorular':sorular,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
 
@@ -1811,10 +1811,10 @@ def KayitOnayFormDuzenle(request,pk):
         form = OnayForm(instance=instance,data=data)
         if form.is_valid():
             form.save()
-            messages.success(request,"Onay durumu güncellendi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Onay durumu güncellendi.</div>')
             return redirect("kayit-onay")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
  
     
     if Cevaplar.objects.all().filter(kayitli_id=kisi.id,sorular_id=sorular.id):
@@ -1884,10 +1884,10 @@ def KayitOnayForm(request,pk):
         form = OnayForm(data)
         if form.is_valid():
             form.save()
-            messages.success(request,"Onay durumu kaydedildi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Onay durumu kaydedildi.</div>')
             return redirect("kayit-onay")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     
     
     if Cevaplar.objects.all().filter(sorular_id=sorular.id):
@@ -2002,7 +2002,7 @@ def GelenKutusuCevaplama(request,iletisim_id):
             cevap=request.POST['cevap'],
             iletisim=iletisim,
         )
-        messages.success(request,"Cevabınız kaydedildi.")
+        messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Cevabınız kaydedildi.</div>')
         return redirect("anasayfa")
     context={'iletisim':iletisim,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
@@ -2067,10 +2067,10 @@ def ProfilFotoView(request,pk):
         form = ProfilFotoForm(data=data,files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request,"Profiliniz güncellendi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Profiliniz güncellendi.</div>')
             return redirect("ayarlar")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     if True:
         haber_bildirim=False
         ev_bildirim=False
@@ -2278,10 +2278,10 @@ def ProfilFotoDuzenle(request,pk):
                 admin_mi=0,
             )
             form.save()
-            messages.success(request,"Profiliniz başarıyla güncellendi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Profiliniz başarıyla güncellendi.</div>')
             return redirect("profil",slugify(request.user.username))
         else:
-            messages.error(request,"Girdileriniz doğru değil, girdiğiniz dosyaların türünü kontrol ediniz.")
+            messages.error(request,'<div class="btn btn-danger message p-2 rounded-3">Girdileriniz doğru değil, girdiğiniz dosyaların türünü kontrol ediniz.</div>')
         
         
             
@@ -2546,10 +2546,10 @@ def ForumSil(request,pk):
                 hareket=forum.baslik+" başlıklı forum "+ request.user.username +" adlı kişi tarafından silindi.",
                 admin_mi=0,
             )
-            messages.success(request,"Forum başarıyla silindi.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Forum başarıyla silindi.</div>')
             return redirect("forumlar")
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
         
     context={'forum':forum,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,
             'forum_bildirim':forum_bildirim,'haberler':haberler,'form_bildirim':form_bildirim,'oyuncu_bildirim':oyuncu_bildirim}
@@ -2607,10 +2607,10 @@ def ForumEkle(request):
                 hareket = request.POST['baslik'] +" başlıklı forum "+ request.user.username +" tarafından forumlara eklendi.",
                 admin_mi=0,
             )
-            messages.success(request,"Formunuz başarıyla oluşturuldu.")
+            messages.success(request,'<div class="btn btn-success message p-2 rounded-3">Formunuz başarıyla oluşturuldu.</div>')
             return redirect('forumlar')
         else:
-            messages.error(request,"Bir hata oluştu.")
+            messages.success(request, '<div class="btn btn-danger message p-2 rounded-3">Bir hata oluştu.</div>')
     
     
     context={'form':form,'haberler':haberler,'ev_bildirim':ev_bildirim,'haber_bildirim':haber_bildirim,

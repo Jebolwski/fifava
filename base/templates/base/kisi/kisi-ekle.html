@@ -1,14 +1,14 @@
 {% extends 'base/ana.html' %} {% load static %} {% block title %} Oyuncu Ekle |
 FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
-<main class="col-11 col-lg-10 offset-1">
-  
-  <h4 class="text-center pt-4 pb-5">Oyuncu Ekle</h4>
-  <form method="post" enctype="multipart/form-data">
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <h2 class="text-center pt-4 pb-5">Oyuncu Ekle</h2>
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <h5 class="text-center mt-2">Ad Soyad</h5>
-    <div class="col-6 center mb-5">
+    <h5 class="mt-2">Ad Soyad*</h5>
+    <div class="mb-5">
       <div class="row">
         <div class="col m-0 p-0">{{form.oyun_ad_soyad|as_crispy_field}}</div>
         <div class="col-auto">
@@ -24,8 +24,8 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
         </div>
       </div>
     </div>
-    <h5 class="text-center mt-5">Meslek</h5>
-    <div class="col-6 center mb-5">
+    <h5 class="mt-5">Meslek*</h5>
+    <div class="mb-5">
       <div class="row">
         <div class="col m-0 p-0">{{form.meslek|as_crispy_field}}</div>
         <div class="col-auto">
@@ -42,8 +42,8 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
       </div>
     </div>
 
-    <h5 class="text-center mt-5">Dosya</h5>
-    <div class="col-6 center mb-5">
+    <h5 class="mt-5">Dosya</h5>
+    <div class="mb-5">
       <div class="row">
         <div class="col m-0 p-0">{{form.dosya|as_crispy_field}}</div>
         <div class="col-auto">
@@ -60,8 +60,8 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
       </div>
     </div>
 
-    <h5 class="text-center mt-5">Hikaye</h5>
-    <div class="col-6 center mb-5">
+    <h5 class="mt-5">Hikaye*</h5>
+    <div class="mb-5">
       <div class="row">
         <div class="col m-0 p-0">{{form.hikaye|as_crispy_field}}</div>
         <div class="col-auto">
@@ -78,8 +78,9 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
       </div>
     </div>
     <input type="submit" value="Oyuncu Ekle" class="center btn btn-dark my-5" />
-  </form>
-</main>
+    </form>
+  </div>
+</div>
 
 {% endblock content %} {% block script %}
 <script defer>
@@ -119,5 +120,6 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
       placement: "right",
     });
   });
+ 
 </script>
 {% endblock %}

@@ -1,12 +1,13 @@
 {% extends 'base/ana.html' %} {% load static %} {% block title %}Haber Ekle |
 FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
 
-<main class="col-11 col-lg-10 offset-1 pt-5">
-  <form method="POST" enctype="multipart/form-data">
+<div class="container-fluid">
+  <div class="bg-light rounded-3 p-4 shadow-lg mt-5">
+    <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="col-10 col-sm-8 offset-1 offset-sm-2">
-      <h4 class="text-center pb-5">Haber Ekle</h4>
-      <span aria-checked="mt-5">Başlık</span>
+    <div>
+      <h2 class="text-center pb-5">Haber Ekle</h2>
+      <h5 aria-checked="mt-5">Başlık*</h5>
       <div class="row">
         <div class="col">{{form.baslik|as_crispy_field}}</div>
         <div class="col-auto p-0">
@@ -21,7 +22,7 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
         </div>
       </div>
 
-      <label class="mt-5">Açıklama</label>
+      <h5 class="mt-5">Açıklama*</h5>
       <div class="row">
         <div class="col">{{form.aciklama|as_crispy_field}}</div>
         <div class="col-auto p-0">
@@ -35,7 +36,7 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
           </span>
         </div>
       </div>
-      <label for="file" class="mt-5">Dosya</label>
+      <h5 for="file" class="mt-5">Dosya</h5>
       <div class="row">
         <div class="col">
           <input type="file" id="file" name="file" class="form-control" />
@@ -51,10 +52,13 @@ FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
           </span>
         </div>
       </div>
-      <input type="submit" value="Ekle" class="btn btn-dark center mt-4" />
+      <div class="text-center">
+        <input type="submit" value="Ekle" class="btn btn-dark btn-lg mt-4" />
+      </div>
     </div>
-  </form>
-</main>
+    </form>
+  </div>
+</div>
 
 {% endblock content %} {% block script %}
 <script defer>

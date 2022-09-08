@@ -1,4 +1,4 @@
-{% extends 'base/ana.html' %} {% load static %} {% block title %} Haberler |
+{% extends 'base/ana.html' %} {% load static %} {% block title %} Haberler •
 FIFAVOX {% endblock %}
 
 <!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
@@ -7,8 +7,6 @@ FIFAVOX {% endblock %}
   <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
   
   <h2 class="text-center py-5">Haberler</h2>
-  <form method="POST">
-    {% csrf_token %}
     <div class="row justify-content-center align-items-center">
       <div class="col-5 col-md-4 p-0">
         <input
@@ -22,17 +20,24 @@ FIFAVOX {% endblock %}
       </div>
       {% if user.is_superuser %}
       <div class="col-auto p-0">
-        <a href="{% url 'haber-ekle' %}">
+        <a href="{% url 'haber-ekle' %}"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Haber Ekle"
+        >
             <i class="fa-solid fa-circle-plus btn btn-primary p-2 mx-3"></i>
         </a>
       </div>
       {% endif %}
     </div>
-  </form>
 
-  {% if haberler %} {% for haber in haberler %}
-  <div
-    class="haber shadow-sm col-10 col-lg-8 offset-1 offset-lg-2 border rounded-4 bg-light my-5"
+  {% if haberler %} 
+  
+  
+  {% for haber in haberler %}
+  <div class="row justify-content-center">
+    <div
+    class="haber shadow-sm col-10 col-lg-8 border rounded-4 bg-light my-5"
   >
     {% if request.user not in haber.goruldu.all and request.user.is_authenticated %}
     <p class="text-center badge bg-dark col-12">Yeni</p>
@@ -50,16 +55,25 @@ FIFAVOX {% endblock %}
       <ul class="list-unstyled d-flex justify-content-around">
         <li>
           <a href="{% url 'haber-detay' haber.baslik|slugify %}"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Detay"
             ><i class="fa-solid fa-circle-info"></i
           ></a>
         </li>
         <li>
           <a href="{% url 'haber-duzenle' haber.baslik|slugify %}"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Düzenle"
             ><i class="fa-solid fa-pen-to-square"></i
           ></a>
         </li>
         <li>
           <a href="{% url 'haber-sil' haber.baslik|slugify %}"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Sil"
             ><i class="fa-solid fa-calendar-minus"></i
           ></a>
         </li>
@@ -106,8 +120,8 @@ FIFAVOX {% endblock %}
         {% endif %}
       </div>
     </div>
+    </div>
   </div>
-
   {% endfor %}
 
   <p class="text-center paginator mt-5">

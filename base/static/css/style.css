@@ -237,6 +237,693 @@ body .cursorPointerNone {
   display: none;
 }
 
+body .one-container {
+  background-image: url("../images/background2.jpg");
+  background-size: 100vw 100vh;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+body .kesfet-sayfa {
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url("../images/background.jpg");
+  background-size: 100vw 100%;
+}
+
+body .iletisim-sayfa {
+  min-height: 100vh;
+  height: 100%;
+  width: 100vw;
+  background-image: url("../images/iletisim.png");
+  background-size: 100vw 100%;
+}
+
+body .iletisim-sayfa .form-control:focus {
+  background-color: rgba(143, 143, 143, 0.25);
+}
+
+body .iletisim-sayfa h4 {
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  font-size: 24px;
+}
+
+body .iletisim-sayfa h4:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+body .iletisim-sayfa a {
+  color: white;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+}
+
+body .iletisim-sayfa a:hover {
+  color: #d897ad;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
+body .iletisim-sayfa a i {
+  cursor: pointer;
+  color: #d897ad;
+}
+
+body .iletisim-sayfa a i:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  color: #afafaf;
+}
+
+body .iletisim-sayfa input {
+  background-color: rgba(128, 128, 128, 0.25);
+}
+
+body .iletisim-sayfa .form-control {
+  color: white;
+}
+
+body .iletisim-sayfa textarea {
+  background-color: rgba(78, 78, 78, 0.25);
+}
+
+body .iletisim-cevaplari {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../images/cevaplama.jpg");
+  background-size: 100vw 100%;
+}
+
+body .iletisim-cevaplari table {
+  background-color: rgba(78, 78, 78, 0.25);
+}
+
+body .iletisim-cevaplari table tr,
+body .iletisim-cevaplari table th,
+body .iletisim-cevaplari table td {
+  color: white;
+}
+
+body .iletisim-cevaplari table tbody tr > td {
+  color: white;
+}
+
+body .iletisim-cevaplara-cevaplari {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../images/iletisim-cevap-cevap.jpg");
+  background-size: 100vw 100%;
+}
+
+body .iletisim-cevaplara-cevaplari table {
+  background-color: rgba(87, 87, 87, 0.25);
+}
+
+body .iletisim-cevaplara-cevaplari table tr,
+body .iletisim-cevaplara-cevaplari table th,
+body .iletisim-cevaplara-cevaplari table td {
+  color: white;
+}
+
+body .iletisim-cevaplara-cevaplari table tbody tr > td {
+  color: white;
+}
+
+body .home-main {
+  height: 200vh;
+}
+
+body .gonderdikleriniz {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../images/gonderdikleriniz.jpg");
+  background-size: cover;
+}
+
+body #particles-js {
+  height: 100vh;
+}
+
+body #particles-js #fifava {
+  position: absolute;
+  margin-top: 22vh;
+  height: 16vh;
+  margin-left: 50vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+body #particles-js #fifava1 {
+  position: absolute;
+  margin-top: 22vh;
+  width: 19vw;
+  margin-left: 50vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+body #particles-js #kesfet {
+  position: absolute;
+  margin-top: 80vh;
+  width: 10vw;
+  min-width: 90px;
+  margin-left: 50vw;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  font-size: 1.125rem;
+  border-radius: 100px;
+  background-color: rgba(32, 32, 32, 0.149);
+}
+
+body #particles-js #kesfet:hover {
+  background-color: rgba(78, 78, 78, 0.25);
+  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body table a {
+  color: black;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body table a:hover {
+  color: #424242;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body p a i {
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+body p a:hover i {
+  color: #726c35;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+body form img {
+  min-width: 100px;
+  width: 25vw;
+}
+
+body .main-center {
+  margin-left: 41.67%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+body .center {
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+body .submit {
+  margin-left: 48%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transform: translateY();
+          transform: translateY();
+}
+
+body .tab-pane {
+  height: 70vh;
+}
+
+body .setting-bar {
+  color: #726c35;
+  border: 1px solid #726c35;
+  border-bottom: transparent;
+}
+
+body .setting-bar:hover {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #817952;
+  border: 1px solid #77771f;
+  color: white;
+}
+
+body .setting-bar:focus {
+  outline: 4px solid rgba(163, 147, 0, 0.5);
+  border: 1px solid #77771f;
+  background-color: #817952;
+  color: white;
+}
+
+body .setting-bar.active {
+  border: 1px solid #77771f;
+  background-color: #817952;
+  color: white;
+}
+
+body .nasil-katilabilirim {
+  -webkit-animation-name: sidenavbarhiddentitle;
+          animation-name: sidenavbarhiddentitle;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
+body .profil-background {
+  height: 25vh;
+  position: relative;
+  z-index: 1;
+}
+
+body .profil-background img {
+  position: absolute;
+  height: 60vh;
+  min-height: 120px;
+  z-index: 0;
+  left: 0;
+  top: 0;
+}
+
+body .profil-rest {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  padding-bottom: 70px;
+  border-top: 2px solid black;
+  background-color: white;
+}
+
+body .profil-foto {
+  position: relative;
+  width: 10.5vw;
+  height: 22vh;
+  margin-left: 7vw;
+  top: -10vh;
+  border-radius: 49%;
+  border: 2px solid black;
+}
+
+body .biyografi .profil-biyografi {
+  position: relative;
+  top: -12vh;
+}
+
+body .biyografi .profil-katilma {
+  position: relative;
+  top: -11vh;
+  left: 5vw;
+}
+
+body .biyografi .top {
+  position: relative;
+  top: -18vh;
+}
+
+body .biyografi .profil-edit {
+  position: absolute;
+  right: 34px;
+  top: 4px;
+}
+
+body .reply-to-comment {
+  display: none;
+}
+
+body .visible {
+  display: block;
+}
+
+body .profil-foto-buyuk {
+  overflow-y: auto;
+  position: fixed;
+  z-index: 10;
+  top: 56px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(106, 168, 184, 0.5);
+}
+
+body .profil-foto-buyuk img {
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: none;
+}
+
+body .profil-foto-buyuk .profil-foto-kapa {
+  z-index: 100;
+  position: absolute;
+  left: 2vw;
+  top: 2vh;
+}
+
+body .profil-foto-buyuk .profil-foto-kapa-1 {
+  z-index: 20;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+body .arkaplan-foto-buyuk {
+  position: fixed;
+  overflow-y: auto;
+  z-index: 10;
+  top: 56px;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(108, 191, 194, 0.5);
+}
+
+body .arkaplan-foto-buyuk img {
+  z-index: 100;
+  margin-top: 20vh;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  border-radius: none;
+}
+
+body .arkaplan-foto-buyuk .arkaplan-foto-kapa {
+  z-index: 100;
+  position: absolute;
+  left: 2vw;
+  top: 2vh;
+}
+
+body .arkaplan-foto-buyuk .arkaplan-foto-kapa-1 {
+  z-index: 20;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+body .fa-reply {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+body .fa-reply:active, body .fa-reply:focus, body .fa-reply:visited, body .fa-reply:hover, body .fa-reply::after {
+  color: black;
+}
+
+body .kisi-detay-foto {
+  height: 70vh;
+  border: 3px solid #373681;
+  border-radius: 0.5rem;
+}
+
+body .cevaplama-parent {
+  position: fixed;
+  height: calc(100vh - 56px);
+  top: 56px;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  overflow-y: auto;
+  background-color: rgba(98, 145, 199, 0.486);
+}
+
+body .cevaplama-parent .cevaplama {
+  margin-top: 3vh;
+  z-index: 11;
+  background-color: whitesmoke;
+  border-radius: 12px;
+}
+
+body .mesajiniz-olustu {
+  position: fixed;
+  top: 80vh;
+  left: 50%;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  border: 5px solid #272727;
+}
+
+body .cevapla_kapa_parent {
+  width: 31px;
+  height: 25px;
+  border-radius: 30px;
+}
+
+body .gorenler {
+  background-color: white;
+  overflow-y: scroll;
+  margin-top: 20vh;
+  height: 60vh;
+}
+
+body .gorenler-parent {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 11;
+  background-color: rgba(98, 145, 199, 0.336);
+}
+
+body .kisiler-foto {
+  width: 13.2vw;
+  margin-left: 9px;
+  height: 260px;
+  margin-top: -200px;
+  border: 2px solid #726c35;
+}
+
+body .card-img-top-1 {
+  width: 40%;
+  margin-left: 30%;
+}
+
+body .great-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  list-style: none;
+}
+
+body .forumlar_1 {
+  border-radius: 15px;
+  background-color: #f6f6f6;
+  z-index: 10;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
+          box-shadow: 2px 20px 14px -8px #e8e8e8;
+}
+
+body .forumlar_1:hover {
+  background-color: #ececec;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+
+body .takip-ediliyor:hover {
+  background-color: rgba(82, 44, 44, 0.438);
+  color: #9c1818;
+  border: 1px solid #832525;
+}
+
+body .takip-parent {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+body .takip_eminmisin {
+  position: fixed;
+  border-radius: 8px;
+  height: 45vh;
+  background-color: whitesmoke;
+  border: 2px solid gray;
+  z-index: 115;
+  margin-top: 23vh;
+}
+
+body .takipciler-1 {
+  overflow-y: auto;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 56px;
+  left: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+body .takipciler-1-1 {
+  overflow-y: auto;
+  position: fixed;
+  border-radius: 8px;
+  height: 60vh;
+  background-color: whitesmoke;
+  border: 2px solid #373681;
+  z-index: 115;
+  margin-top: 20vh;
+}
+
+body .takip-edilenler-1 {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  top: 56px;
+  left: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+body .takip-edilenler-1-1 {
+  overflow-y: auto;
+  position: fixed;
+  border-radius: 8px;
+  background-color: whitesmoke;
+  border: 2px solid #373681;
+  height: 60vh;
+  z-index: 115;
+  margin-top: 20vh;
+}
+
+body .takip-edemezsiniz {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  background-color: rgba(98, 145, 199, 0.336);
+  z-index: 100;
+}
+
+body .takip-edemezsiniz-1 {
+  position: fixed;
+  border-radius: 8px;
+  height: 45vh;
+  background-color: whitesmoke;
+  border: 2px solid gray;
+  z-index: 115;
+  margin-top: 20vh;
+}
+
+body b {
+  color: #6b6b21;
+  font-weight: 600;
+}
+
+body .terimler-text {
+  font-size: 24px;
+}
+
+body .fade-1 {
+  -webkit-animation: fade 0.6s ease;
+          animation: fade 0.6s ease;
+}
+
+body .dot {
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body .dot:hover {
+  color: darkred;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+body .forumlar_2 {
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 11px 18px 0px #d4d4d4;
+          box-shadow: 3px 11px 18px 0px #d4d4d4;
+  background-color: #f6f6f6;
+}
+
+body .bilgiler-div {
+  display: -ms-grid;
+  display: grid;
+  background-color: #f0f0f0;
+  border: 2px solid black;
+  border-radius: 8px;
+  place-items: center;
+  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
+          box-shadow: 2px 20px 14px -8px #e8e8e8;
+}
+
+body .balons {
+  position: absolute;
+  top: 100px;
+  width: 80vw;
+  z-index: 1;
+}
+
+body .balons svg {
+  width: 75vw;
+}
+
+body .yapraks {
+  position: absolute;
+  top: 100px;
+  width: 75vw;
+  z-index: 1;
+}
+
+body .yapraks svg {
+  width: 75vw;
+}
+
+body .man {
+  margin-left: 72vw;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+  position: absolute;
+  z-index: 2;
+  bottom: 10vh;
+}
+
+body .man svg {
+  width: 37vw;
+}
+
+body .woman {
+  margin-left: -20vw;
+  -webkit-transform: translateX(-30%);
+          transform: translateX(-30%);
+  position: absolute;
+  z-index: 5;
+}
+
+body .woman svg {
+  width: 32vw;
+}
+
+body .main-svg {
+  position: absolute;
+  width: 100vw;
+}
+
+body .main-svg svg {
+  width: 100%;
+}
+
 .side-navbar {
   border-right: 2px solid black;
   z-index: 100;
@@ -287,699 +974,6 @@ body .cursorPointerNone {
           transform: rotateZ(360deg);
   -webkit-transition: 1s;
   transition: 1s;
-}
-
-main .one-container {
-  background-image: url("../images/background2.jpg");
-  background-size: 100vw 100vh;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-}
-
-main .kesfet-sayfa {
-  min-height: 100vh;
-  width: 100vw;
-  background-image: url("../images/background.jpg");
-  background-size: 100vw 100%;
-}
-
-main .iletisim-sayfa {
-  min-height: 100vh;
-  height: 100%;
-  width: 100vw;
-  background-image: url("../images/iletisim.png");
-  background-size: 100vw 100%;
-}
-
-main .iletisim-sayfa .form-control:focus {
-  background-color: rgba(143, 143, 143, 0.25);
-}
-
-main .iletisim-sayfa h4 {
-  -webkit-transition: 0.2s ease-in;
-  transition: 0.2s ease-in;
-  font-size: 24px;
-}
-
-main .iletisim-sayfa h4:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  -webkit-transition: 0.2s ease-in;
-  transition: 0.2s ease-in;
-}
-
-main .iletisim-sayfa a {
-  color: white;
-  -webkit-transition: 0.2s ease-in;
-  transition: 0.2s ease-in;
-}
-
-main .iletisim-sayfa a:hover {
-  color: #d897ad;
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out;
-}
-
-main .iletisim-sayfa a i {
-  cursor: pointer;
-  color: #d897ad;
-}
-
-main .iletisim-sayfa a i:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
-  -webkit-transition: 0.2s ease-in;
-  transition: 0.2s ease-in;
-  color: #afafaf;
-}
-
-main .iletisim-sayfa input {
-  background-color: rgba(128, 128, 128, 0.25);
-}
-
-main .iletisim-sayfa .form-control {
-  color: white;
-}
-
-main .iletisim-sayfa textarea {
-  background-color: rgba(78, 78, 78, 0.25);
-}
-
-main .iletisim-cevaplari {
-  min-height: 100vh;
-  height: 100vh;
-  width: 100vw;
-  background-image: url("../images/cevaplama.jpg");
-  background-size: 100vw 100%;
-}
-
-main .iletisim-cevaplari table {
-  background-color: rgba(78, 78, 78, 0.25);
-}
-
-main .iletisim-cevaplari table tr,
-main .iletisim-cevaplari table th,
-main .iletisim-cevaplari table td {
-  color: white;
-}
-
-main .iletisim-cevaplari table tbody tr > td {
-  color: white;
-}
-
-main .iletisim-cevaplara-cevaplari {
-  min-height: 100vh;
-  height: 100vh;
-  width: 100vw;
-  background-image: url("../images/iletisim-cevap-cevap.jpg");
-  background-size: 100vw 100%;
-}
-
-main .iletisim-cevaplara-cevaplari table {
-  background-color: rgba(87, 87, 87, 0.25);
-}
-
-main .iletisim-cevaplara-cevaplari table tr,
-main .iletisim-cevaplara-cevaplari table th,
-main .iletisim-cevaplara-cevaplari table td {
-  color: white;
-}
-
-main .iletisim-cevaplara-cevaplari table tbody tr > td {
-  color: white;
-}
-
-main .home-main {
-  height: 200vh;
-}
-
-main .gonderdikleriniz {
-  height: 100vh;
-  width: 100vw;
-  background-image: url("../images/gonderdikleriniz.jpg");
-  background-size: cover;
-}
-
-main #particles-js {
-  height: 100vh;
-}
-
-main #particles-js #fifava {
-  position: absolute;
-  margin-top: 22vh;
-  height: 16vh;
-  margin-left: 50vw;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-
-main #particles-js #fifava1 {
-  position: absolute;
-  margin-top: 22vh;
-  width: 19vw;
-  margin-left: 50vw;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-
-main #particles-js #kesfet {
-  position: absolute;
-  margin-top: 80vh;
-  width: 10vw;
-  min-width: 90px;
-  margin-left: 50vw;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  font-size: 1.125rem;
-  border-radius: 100px;
-  background-color: rgba(32, 32, 32, 0.149);
-}
-
-main #particles-js #kesfet:hover {
-  background-color: rgba(78, 78, 78, 0.25);
-  color: white;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main table a {
-  color: black;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main table a:hover {
-  color: #424242;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main p a i {
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-main p a:hover i {
-  color: #726c35;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-main form img {
-  min-width: 100px;
-  width: 25vw;
-}
-
-main .main-center {
-  margin-left: 41.67%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-
-main .center {
-  margin-left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-}
-
-main .submit {
-  margin-left: 48%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  -webkit-transform: translateY();
-          transform: translateY();
-}
-
-main .tab-pane {
-  height: 70vh;
-}
-
-main .setting-bar {
-  color: #726c35;
-  border: 1px solid #726c35;
-  border-bottom: transparent;
-}
-
-main .setting-bar:hover {
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  background-color: #817952;
-  border: 1px solid #77771f;
-  color: white;
-}
-
-main .setting-bar:focus {
-  outline: 4px solid rgba(163, 147, 0, 0.5);
-  border: 1px solid #77771f;
-  background-color: #817952;
-  color: white;
-}
-
-main .setting-bar.active {
-  border: 1px solid #77771f;
-  background-color: #817952;
-  color: white;
-}
-
-main .nasil-katilabilirim {
-  -webkit-animation-name: sidenavbarhiddentitle;
-          animation-name: sidenavbarhiddentitle;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-}
-
-main .profil-background {
-  height: 25vh;
-  width: 83.34vw;
-  position: relative;
-  z-index: 1;
-}
-
-main .profil-background img {
-  position: relative;
-  z-index: 0;
-  margin-top: 0;
-}
-
-main .profil-rest {
-  position: relative;
-  z-index: 3;
-  border-top: 2px solid black;
-  background-color: white;
-}
-
-main .profil-foto {
-  position: relative;
-  width: 10.5vw;
-  height: 22vh;
-  margin-left: 7vw;
-  top: -10vh;
-  border-radius: 49%;
-  border: 2px solid black;
-}
-
-main .biyografi .profil-biyografi {
-  position: relative;
-  top: -12vh;
-  left: -2vw;
-}
-
-main .biyografi .profil-katilma {
-  position: relative;
-  top: -11vh;
-  left: 5vw;
-}
-
-main .biyografi .top {
-  position: relative;
-  top: -18vh;
-}
-
-main .biyografi .profil-edit {
-  position: absolute;
-  right: 34px;
-  top: 4px;
-}
-
-main .reply-to-comment {
-  display: none;
-}
-
-main .visible {
-  display: block;
-}
-
-main .profil-foto-buyuk {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(114, 108, 53, 0.5);
-}
-
-main .profil-foto-buyuk img {
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  border-radius: none;
-}
-
-main .profil-foto-buyuk .profil-foto-kapa {
-  z-index: 100;
-  position: absolute;
-  left: 2vw;
-  top: 2vh;
-}
-
-main .profil-foto-buyuk .profil-foto-kapa-1 {
-  z-index: 20;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-main .arkaplan-foto-buyuk {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(114, 108, 53, 0.5);
-}
-
-main .arkaplan-foto-buyuk img {
-  z-index: 100;
-  margin-top: 20vh;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  border-radius: none;
-}
-
-main .arkaplan-foto-buyuk .arkaplan-foto-kapa {
-  z-index: 100;
-  position: absolute;
-  left: 2vw;
-  top: 2vh;
-}
-
-main .arkaplan-foto-buyuk .arkaplan-foto-kapa-1 {
-  z-index: 20;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-main .fa-reply {
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-}
-
-main .fa-reply:active, main .fa-reply:focus, main .fa-reply:visited, main .fa-reply:hover, main .fa-reply::after {
-  color: black;
-}
-
-main .kisi-detay-foto {
-  height: 70vh;
-  border: 3px solid #373681;
-  border-radius: 0.5rem;
-}
-
-main .haber-img {
-  width: 50vw;
-  border: 4px solid #726c35;
-  -webkit-animation-name: haber_border_animation;
-          animation-name: haber_border_animation;
-  border-radius: 7px;
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease-in;
-          animation-timing-function: ease-in;
-}
-
-main .cevaplama-parent {
-  position: fixed;
-  height: 100vh;
-  z-index: 10;
-  width: 82.9vw;
-  overflow-y: auto;
-  top: 0;
-  background-color: rgba(98, 145, 199, 0.486);
-}
-
-main .cevaplama-parent .cevaplama {
-  margin-top: 3vh;
-  z-index: 11;
-  background-color: whitesmoke;
-  border-radius: 12px;
-}
-
-main .mesajiniz-olustu {
-  position: fixed;
-  top: 80vh;
-  left: 0;
-  border: 5px solid #272727;
-}
-
-main .cevapla_kapa_parent {
-  width: 31px;
-  height: 25px;
-  border-radius: 30px;
-}
-
-main .cevapla_kapa_parent:hover {
-  background-color: rgba(114, 102, 35, 0.288);
-}
-
-main .gorenler {
-  background-color: white;
-  overflow-y: scroll;
-  margin-top: 20vh;
-  height: 60vh;
-}
-
-main .gorenler-parent {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  z-index: 11;
-  background-color: rgba(98, 145, 199, 0.336);
-}
-
-main .kisiler-foto {
-  width: 13.2vw;
-  margin-left: 9px;
-  height: 260px;
-  margin-top: -200px;
-  border: 2px solid #726c35;
-}
-
-main .card-img-top-1 {
-  width: 40%;
-  margin-left: 30%;
-}
-
-main .great-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  list-style: none;
-}
-
-main .forumlar_1 {
-  border-radius: 15px;
-  background-color: #f6f6f6;
-  z-index: 10;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
-          box-shadow: 2px 20px 14px -8px #e8e8e8;
-}
-
-main .forumlar_1:hover {
-  background-color: #ececec;
-  -webkit-transition: 0.2s ease;
-  transition: 0.2s ease;
-}
-
-main .takip-ediliyor:hover {
-  background-color: rgba(82, 44, 44, 0.438);
-  color: #9c1818;
-  border: 1px solid #832525;
-}
-
-main .takip-parent {
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  background-color: rgba(98, 145, 199, 0.336);
-  z-index: 100;
-}
-
-main .takip_eminmisin {
-  position: fixed;
-  border-radius: 8px;
-  height: 45vh;
-  background-color: whitesmoke;
-  border: 2px solid gray;
-  z-index: 115;
-  margin-top: 23vh;
-}
-
-main .takipciler-1 {
-  overflow-y: auto;
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  background-color: rgba(98, 145, 199, 0.336);
-  z-index: 100;
-}
-
-main .takipciler-1-1 {
-  overflow-y: auto;
-  position: fixed;
-  border-radius: 8px;
-  height: 60vh;
-  background-color: whitesmoke;
-  border: 2px solid gray;
-  z-index: 115;
-  margin-top: 20vh;
-}
-
-main .takip-edilenler-1 {
-  position: fixed;
-  width: 100vw;
-  height: 100%;
-  top: 0;
-  background-color: rgba(98, 145, 199, 0.336);
-  z-index: 100;
-}
-
-main .takip-edilenler-1-1 {
-  overflow-y: auto;
-  position: fixed;
-  border-radius: 8px;
-  background-color: whitesmoke;
-  border: 2px solid gray;
-  height: 60vh;
-  z-index: 115;
-  margin-top: 20vh;
-}
-
-main .takip-edemezsiniz {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  background-color: rgba(98, 145, 199, 0.336);
-  z-index: 100;
-}
-
-main .takip-edemezsiniz-1 {
-  position: fixed;
-  border-radius: 8px;
-  height: 45vh;
-  background-color: whitesmoke;
-  border: 2px solid gray;
-  z-index: 115;
-  margin-top: 20vh;
-}
-
-main b {
-  color: #6b6b21;
-  font-weight: 600;
-}
-
-main .terimler-text {
-  font-size: 24px;
-}
-
-main .fade-1 {
-  -webkit-animation: fade 0.6s ease;
-          animation: fade 0.6s ease;
-}
-
-main .dot {
-  cursor: pointer;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main .dot:hover {
-  color: darkred;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-main .forumlar_2 {
-  border-radius: 10px;
-  -webkit-box-shadow: 3px 11px 18px 0px #d4d4d4;
-          box-shadow: 3px 11px 18px 0px #d4d4d4;
-  background-color: #f6f6f6;
-}
-
-main .bilgiler-div {
-  display: -ms-grid;
-  display: grid;
-  background-color: #f0f0f0;
-  border: 2px solid black;
-  border-radius: 8px;
-  place-items: center;
-  -webkit-box-shadow: 2px 20px 14px -8px #e8e8e8;
-          box-shadow: 2px 20px 14px -8px #e8e8e8;
-}
-
-main .balons {
-  position: absolute;
-  top: 100px;
-  width: 80vw;
-  z-index: 1;
-}
-
-main .balons svg {
-  width: 75vw;
-}
-
-main .yapraks {
-  position: absolute;
-  top: 100px;
-  width: 75vw;
-  z-index: 1;
-}
-
-main .yapraks svg {
-  width: 75vw;
-}
-
-main .man {
-  margin-left: 72vw;
-  -webkit-transform: translateX(-30%);
-          transform: translateX(-30%);
-  position: absolute;
-  z-index: 2;
-  bottom: 10vh;
-}
-
-main .man svg {
-  width: 37vw;
-}
-
-main .woman {
-  margin-left: -20vw;
-  -webkit-transform: translateX(-30%);
-          transform: translateX(-30%);
-  position: absolute;
-  z-index: 5;
-}
-
-main .woman svg {
-  width: 32vw;
-}
-
-main .main-svg {
-  position: absolute;
-  width: 100vw;
-}
-
-main .main-svg svg {
-  width: 100%;
 }
 
 .haberler {
@@ -1387,15 +1381,9 @@ main .main-svg svg {
     background-color: rgba(78, 78, 78, 0.25);
     color: white;
   }
-  main .profil-background {
-    width: 91.67vw;
-  }
   main .kisi-detay-foto {
     height: 35vh;
     border: 3px solid #373681;
-  }
-  main .cevaplama-parent {
-    width: 91.24vw;
   }
   main .kisiler-foto {
     width: 140px;
@@ -1448,18 +1436,6 @@ main .main-svg svg {
     height: 13vh;
     top: -5vh;
     left: -3vw;
-  }
-  main .haber-img {
-    width: 75vw;
-    height: 50vh;
-    border: 4px solid #726c35;
-    border-right: 3px solid red;
-    -webkit-animation-duration: 3s;
-            animation-duration: 3s;
-    -webkit-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in;
-            animation-timing-function: ease-in;
   }
   main .top {
     margin-top: 8vh;
