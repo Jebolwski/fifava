@@ -1,0 +1,134 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}
+Haber Düzenle • FIFAVOX {% endblock %} {% block content %}
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text-center mt-3 mb-5">Haberi Düzenele</h2>
+    <div>
+      <h5>Başlık*</h5>
+      <div class="row mb-5">
+        <div class="col p-0">
+          <input
+          type="text"
+          name="baslik"
+          class="form-control"
+          maxlength="100"
+          value="{{instance.baslik}}"
+        />
+        </div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      <h5>Açıklama*</h5>
+      <div class="row mb-5">
+        <div class="col p-0">
+          <textarea
+          name="aciklama"
+          class="form-control"
+          rows="6"
+          maxlength="5000"
+        >{{instance.aciklama}}
+        </textarea>
+        </div>
+        <div class="col-auto p-0">
+          <span
+          data-toggle="popover1"
+          title="Kurallar"
+          class="profil-username"
+          data-html="true"
+        >
+          <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+
+      {% if instance.resim %}
+      <label class="mt-2"
+        >Şimdiki Fotoğraf : {{instance.resim}}
+        <input type="checkbox" name="temizle" /> Temizle</label
+      >
+      <h5 for="file" class="mt-2">Değiştir</h5>
+      <div class="row">
+        <div class="col p-0">
+          <input type="file" id="file" name="file" class="form-control" />
+        </div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover2"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      
+      {% else%}
+      <h5 for="file">Dosya</h5>
+      <div class="row">
+        <div class="col p-0">
+          <input type="file" id="file" name="file" class="form-control" />
+        </div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover2"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      
+      {% endif %}
+      <div class="text-center">
+        <input type="submit" value="Ekle" class="btn btn-dark mt-4" />
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+{% endblock content %} {% block script %}
+<script defer>
+  $(".haberler").addClass("active-icon");
+  $(".haberler-icon").addClass("active-icon");
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 100 karakterdir.`,
+      animation: true,
+      placement: "right",
+      trigger: "hover",
+      html: true,
+    });
+  });
+
+  $(document).ready(function () {
+    $('[data-toggle="popover1"').popover({
+      content: `● Maksimum uzunluk 5000 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+
+  $(document).ready(function () {
+    $('[data-toggle="popover2"').popover({
+      content: `● Kabul edilen dosya türleri jpg ve png dir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+</script>
+{% endblock script %}

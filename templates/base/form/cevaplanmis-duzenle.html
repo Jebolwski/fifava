@@ -1,0 +1,153 @@
+ {% extends 'base/ana.html' %}  {% load static %} 
+ {% block content %}
+
+ {% block title %}Düzenle | FIFAVOX{% endblock %}
+  </head>
+  <body><!--<div class="cursor"><div class="cursor-pointer"></div></div>-->
+        <main class="col-6 col-lg-6 offset-3">
+        <form method="POST">
+            {% csrf_token %}
+        {{form}}
+        <input type="submit" name="" id="">
+    </form>
+    <!-- <div class="text-center">
+        <h4 class="text-center pt-5">Formu Düzenle</h4>
+            <form method="post">
+            {% csrf_token %}
+            <p class="text-center pt-5">Anket Başlığı</p>
+        {% for soru in sorular %}
+
+            {% if soru.soru1 %}
+            <div class="pt-5 mb-3">{{soru.soru1}}</div>
+            <label>{{form.soru1_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru2 %}
+            <div class="pt-5 mb-3">{{soru.soru2}}</div>
+            <label>{{form.soru2_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru3 %}
+            <div class="pt-5 mb-3">{{soru.soru3}}</div>
+            <label>{{form.soru3_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru4 %}
+            <div class="pt-5 mb-3">{{soru.soru4}}</div>
+            <label>{{form.soru4_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru5 %}
+            <div class="pt-5 mb-3">{{soru.soru5}}</div>
+            <label>{{form.soru5_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru5 %}
+            <div class="pt-5 mb-3">{{soru.soru5}}</div>
+            <label>{{form.soru5_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru6 %}
+            <div class="pt-5 mb-3">{{soru.soru6}}</div>
+            <label>{{form.soru6_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru7 %}
+            <div class="pt-5 mb-3">{{soru.soru7}}</div>
+            <label>{{form.soru7_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru8 %}
+            <div class="pt-5 mb-3">{{soru.soru8}}</div>
+            <label>{{form.soru8_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru9 %}
+            <div class="pt-5 mb-3">{{soru.soru9}}</div>
+            <label>{{form.soru9_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru10 %}
+            <div class="pt-5 mb-3">{{soru.soru10}}</div>
+            <label>{{form.soru10_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru11 %}
+            <div class="pt-5 mb-3">{{soru.soru11}}</div>
+            <label>{{form.soru11_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru12 %}
+            <div class="pt-5 mb-3">{{soru.soru12}}</div>
+            <label>{{form.soru12_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru13 %}
+            <div class="pt-5 mb-3">{{soru.soru13}}</div>
+            <label>{{form.soru13_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru14 %}
+            <div class="pt-5 mb-3">{{soru.soru14}}</div>
+            <label>{{form.soru14_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru15 %}
+            <div class="pt-5 mb-3">{{soru.soru15}}</div>
+            <label>{{form.soru15_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru16 %}
+            <div class="pt-5 mb-3">{{soru.soru16}}</div>
+            <label>{{form.soru16_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru17 %}
+            <div class="pt-5 mb-3">{{soru.soru17}}</div>
+            <label>{{form.soru17_cevap}}</label>
+            {% endif %}
+
+            {% if soru.soru18 %}
+            <div class="pt-5 mb-3">{{soru.soru18}}</div>
+            <label class="mb-5">{{form.soru18_cevap}}</label>
+            {% endif %}
+
+            {% if soru.onay1 %}
+            <div class="pt-5 mb-3">{{soru.onay1}} <span class="mx-3">{{form.onay1_cevap}}</span></div>
+            {% endif %}
+
+            {% if soru.onay2 %}
+            <div class="pt-5 mb-3">{{soru.onay2}} <span class="mx-3">{{form.onay2_cevap}}</span></div>
+            {% endif %}
+
+            {% if soru.onay3 %}
+            <div class="pt-5 mb-3">{{soru.onay3}} <span class="mx-3">{{form.onay3_cevap}}</span></div>
+            {% endif %}
+
+            {% if soru.onay4 %}
+            <div class="pt-5 mb-3">{{soru.onay4}} <span class="mx-3">{{form.onay4_cevap}}</span></div>
+            {% endif %}
+        {% endfor %}
+        <input type="submit" value="Formu Düzenle" class="center btn btn-dark mt-5 mb-5">
+        </form>
+    </div> -->
+      
+      </main>
+    
+
+          <script defer>
+        
+
+
+       
+    </script>
+        <script defer>
+        
+
+
+       
+    </script>
+  </body>
+</html>
+{% endblock content %}
+ 

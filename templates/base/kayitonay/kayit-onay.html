@@ -1,0 +1,141 @@
+ {% extends 'base/ana.html' %} {% load static %} 
+<link rel="stylesheet" href="{% static 'css/styleparticle.css' %}" />
+{% block title %}Kayıt Onay | FIFAVOX{% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="bg-light rounded-3 p-4 shadow-lg mt-5">
+                <h2 class="text-center pt-5 pb-5">Kayıt Onay</h2>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="arama form-control col-10" placeholder="Kullanıcı Adı" maxlength="150" name="arama">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama1 form-control col-10" placeholder="Onay Durumu" maxlength="12" name="arama1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama2 form-control col-10" placeholder="Discord Id'si" maxlength="12" name="arama2">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="arama3 form-control col-10" placeholder="Steam Hex Id'si" maxlength="15" name="arama3">
+                    </div>
+                </div>
+        
+                {% for i in onay %}
+
+                <div class="kisi_div border rounded-4 shadow-sm bg-light px-3 pt-3 my-5">
+                    <p class="discord_id d-none">{{i.discord_id}}</p>
+                    <p class="steam_hex_id d-none">{{i.steam_hex_id}}</p>
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li title="Kullanıcı Adı" class="kullanici_adi"><a href="{% url 'profil' i.kisi|slugify %}" class="text-black" style="text-decoration: underline gray;">{{i.kisi}}</a></li>
+                        <li title="Email" class="d-none d-md-block"><a href="mailto:{{i.kisi.email}}" class="text-decoration-none"><i>{{i.kisi.email}} </i></a></li>
+                        
+                        <li>
+                            <p title="Onay Durumu" class="onay_durumu aciklama-uzun">
+                                {% if i.onaydurum %} 
+                                    {% if i.onaydurum == "Kabul Et" %}
+                                        <i class="fa-solid fa-circle-check px-2"></i> Kabul Edildi {% elif i.onaydurum == "Bekle" %}
+                                        <i class="fa-solid fa-circle-pause px-2"></i> Beklemede {% elif i.onaydurum == "Yasakla" %}
+                                        <i class="fa-solid fa-ban px-2"></i> Yasaklı {% elif i.onaydurum == "Reddet" %}
+                                        <i class="fa-solid fa-circle-xmark px-2"></i> Reddedildi {% elif i.onaydurum == "Cevapsız" %}
+                                        <i class="fa-solid fa-comment-slash px-2"></i> Cevaplanmadı {% elif i.onaydurum == "Kalıcı Olarak Reddet" %}
+                                        <i class="fa-solid fa-square-xmark px-2"></i> Kalıcı Olarak Reddedildi
+                                    {% endif %} 
+                                {% endif %}
+                            </p>
+                        </li>
+                    </ul>
+                    <hr>
+                    <ul class="list-unstyled d-flex justify-content-around">
+                        <li class="d-none d-md-block">
+                            <p title="Kayıt Tarihi" >{{i.kisi.date_joined}}</p>
+                        </li>
+                        <li class="d-none d-md-block">
+                            {% if i.kisi.last_login %}
+                            <p title="En Son Giriş Tarihi" >{{i.kisi.last_login}}</p>
+                            {% else %}
+                            <p title="En Son Giriş Tarihi">Hiç giriş yapmadı.</p>
+                            {% endif %}
+                        </li>
+                        {% if i.kisi.is_superuser %}
+                        <li>
+                            <p title="Rolü">Yönetici</p>
+                        </li>
+                        {% else %}
+                        <li>
+                            <p title="Rolü">Normal Kullanıcı</p>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="{% url 'kayit-onay-form' i.kisi.id  %}" title="Kayıt Formu"><i class="fa-solid fa-square-poll-vertical fa-lg"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                
+                {% endfor %}
+        
+        </div>
+           
+    </div>
+
+  {% endblock content %}
+
+
+    {% block script %}
+    <script defer>
+        $(".kayit-onay").addClass("active-icon");
+        $(".kayit-onay-icon").addClass("active-icon");
+        let kisi_satir = document.querySelectorAll(".kisi_div");
+        let arama = document.querySelector(".arama");
+        let arama1 = document.querySelector(".arama1");
+        let arama2 = document.querySelector(".arama2");
+        let arama3 = document.querySelector(".arama3");
+
+        arama.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase()) && kisi.querySelector(".steam_hex_id").innerHTML.toLowerCase().includes(arama3.value.toLowerCase())){
+                    kisi.style.display=""
+                }
+                else{
+                    kisi.style.display="none"
+                }
+            })
+        })
+
+        arama1.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase()) && kisi.querySelector(".steam_hex_id").innerHTML.toLowerCase().includes(arama3.value.toLowerCase())){
+                    kisi.style.display="";
+                }
+                else{
+                    kisi.style.display="none";
+                }
+            })
+        })
+
+        arama2.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase()) && kisi.querySelector(".steam_hex_id").innerHTML.toLowerCase().includes(arama3.value.toLowerCase())){
+                    kisi.style.display="";
+                }
+                else{
+                    kisi.style.display="none";
+                }
+            })
+        })
+
+        arama3.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.querySelector(".onay_durumu").innerHTML.toLowerCase().includes(arama1.value.toLowerCase()) && kisi.querySelector(".kullanici_adi").innerHTML.toLowerCase().includes(arama.value.toLowerCase()) && kisi.querySelector(".discord_id").innerHTML.toLowerCase().includes(arama2.value.toLowerCase()) && kisi.querySelector(".steam_hex_id").innerHTML.toLowerCase().includes(arama3.value.toLowerCase())){
+                    kisi.style.display="";
+                }
+                else{
+                    kisi.style.display="none";
+                }
+            })
+        })
+    </script>
+    {% endblock %}
+   
+    <!-- <audio autoplay="" id="leson" src="../../static/music.ogg" type="audio/ogg"> -->

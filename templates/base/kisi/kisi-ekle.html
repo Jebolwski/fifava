@@ -1,0 +1,127 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %} Oyuncu Ekle |
+FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <h2 class="text-center pt-4 pb-5">Oyuncu Ekle</h2>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <h5 class="mt-2">Ad Soyad*</h5>
+    <div class="mb-5">
+      <div class="row">
+        <div class="col m-0 p-0">{{form.oyun_ad_soyad|as_crispy_field}}</div>
+        <div class="col-auto">
+          <span
+            data-toggle="popover"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+            class="m-0 p-0"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <h5 class="mt-5">Meslek*</h5>
+    <div class="mb-5">
+      <div class="row">
+        <div class="col m-0 p-0">{{form.meslek|as_crispy_field}}</div>
+        <div class="col-auto">
+          <span
+            data-toggle="popover1"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+            class="m-0 p-0"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="mt-5">Dosya</h5>
+    <div class="mb-5">
+      <div class="row">
+        <div class="col m-0 p-0">{{form.dosya|as_crispy_field}}</div>
+        <div class="col-auto">
+          <span
+            data-toggle="popover2"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+            class="m-0 p-0"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="mt-5">Hikaye*</h5>
+    <div class="mb-5">
+      <div class="row">
+        <div class="col m-0 p-0">{{form.hikaye|as_crispy_field}}</div>
+        <div class="col-auto">
+          <span
+            data-toggle="popover3"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+            class="m-0 p-0"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="Oyuncu Ekle" class="center btn btn-dark my-5" />
+    </form>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+<script defer>
+  $(".kisiler").addClass("active-icon");
+
+  $(".requiredField").hide();
+  $("label").prop("for", "id_dosya").hide();
+  let dosya = document.querySelector("#id_dosya");
+  dosya.classList.add("form-control");
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 25 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+  $(document).ready(function () {
+    $('[data-toggle="popover1"').popover({
+      content: `● Maksimum uzunluk 40 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+  $(document).ready(function () {
+    $('[data-toggle="popover2"').popover({
+      content: `● Kabul edilen dosya türleri jpg ve png dir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+  $(document).ready(function () {
+    $('[data-toggle="popover3"').popover({
+      content: `● Maksimum uzunluk 20000 karakterdir.`,
+      animation: true,
+      trigger: "hover",
+      placement: "right",
+    });
+  });
+ 
+</script>
+{% endblock %}

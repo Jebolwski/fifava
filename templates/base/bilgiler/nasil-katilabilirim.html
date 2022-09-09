@@ -1,0 +1,46 @@
+﻿ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}Nasıl Katılabilirim | FIFAVOX{% endblock %}
+ {% block content %}
+    <div class="container-fluid my-5">
+        <div class="bg-light rounded-3 p-4 shadow-lg">
+            <h3 class="text-center mb-5">FIFAVOX RolePlay FiveM sunucusunda oynamak için gerekli koşullar</h3> 
+            <h5><button class="btn btn-primary p-2 me-2">1</button> Kayıt başvurusunda bulunabilmek için en az 100 saat FiveM geçmişiniz olmalı.</h5>
+            
+            <h5 class="mt-3"><button class="btn btn-primary p-2 me-2">2</button> Yaşınız en az 17 ve üzeri olmalı.</h5>
+            
+            <h5 class="mt-3"><button class="btn btn-primary p-2 me-2">3</button> FIFAVOX RolePlay sunucusunun "HARD" RolePlay olduğu bilinerek kayıt işlemi gerçekleştirilmeli.</h5>
+            
+            
+            <h2 class="mt-5 mb-4 btn btn-dark">FIFAVOX RolePlay FiveM sunucusu kayıt aşamaları:</h2> 
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">1</button> <a href="{% url 'anasayfa' %}" class="text-dark text-decoration-underline" >fifavox.com</a> sitesi üzerinden <a href="{%url 'kayit-ol'%}" class="text-dark text-decoration-underline" >hesap oluşturun</a>.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">2</button> <a href="{% url 'formlar' %}" class="text-dark text-decoration-underline" >fifavox.com/formlar</a> kısmından <a href="/form-cevapla/1/" class="text-dark text-decoration-underline">FIFAVOX RolePlay Başvuru Formunu</a> eksiksiz bir biçimde doldurun.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">3</button> Bu iki işlemin ardından <a href="https://discord.gg/8yn76ANa9n" class="text-dark" target="_blank">https://discord.gg/8yn76ANa9n</a> adresinden FIFAVOX RolePlay Ön Kayıt Discord sunucusuna katılın.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">4</button> 5 dakikanın ardından Hoşgeldin rolünüz Kayıt Bekleyen rolüyle değişecek.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">5</button> Rolünüzü aldıktan sonra Kayıt Bekleme odalarından birine girip yetkililer ile internet sitesindeki bilgileri teyit edin.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">6</button> Ek olarak birkaç soru daha sorulduktan sonra yetkili onay durumunuza karar verecek.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">7</button> Onaylandıktan sonra yetkili tarafından size ana Discord sunucusunun linki verilecek.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">8</button> Son olarak <a href="{% url 'anasayfa' %}" class="text-dark text-decoration-underline" >fifavox.com</a> web sitesinde onayınızı alacaksınız.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">9</button> Onay durumunuzu kontrol etmek için  <a href="{% url 'anasayfa' %}" class="text-dark text-decoration-underline" >fifavox.com</a> sitesinde hesabınıza giriş yaptıktan sonra sol üst tarafta bulunan maymun simgesine basın.</h5> 
+            
+            <h5 class="mt-4"><button class="btn btn-primary p-2 me-2">10</button> Onaylandınız yazısını görüyorsanız tebrikler artık FIFAVOX RolePlay sunucusunun onaylı bir oyuncususunuz.</h5> 
+            
+            <h4 class="pb-4 pt-4">Keyifli Roller...</h4>
+        </div>
+    </div>
+
+ {% endblock content %}
+
+ {% block script %}
+    <script>
+        $(".bilgiler").addClass("active-icon");
+        $(".bilgiler-icon").addClass("active-icon");
+    </script>
+ {% endblock script %}

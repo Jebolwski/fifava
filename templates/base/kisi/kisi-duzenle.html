@@ -1,0 +1,25 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %} Oyuncu Düzenle • FIFAVOX
+{% endblock %} 
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container-fluid my-3">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <h2 class="text-center py-4">Oyuncuyu Düzenle</h2>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|crispy}}
+    <div class="text-center mt-4">
+      <input type="submit" value="Düzenle" class="btn btn-dark">
+    </div>
+    </form>
+  </div>
+</div>
+{% endblock content %} 
+{% block script %}
+<script defer>
+  let dosya = document.querySelector("#id_dosya");
+  dosya.classList.add("form-control");
+  $(".kisiler").addClass("active-icon");
+
+</script>
+{% endblock %}

@@ -1,0 +1,651 @@
+﻿{% extends 'base/ana.html' %} {% load static %} 
+{% block title %}{{profil.username}} • FIFAVOX{% endblock %}
+{% block style %}
+<style>
+    .profil-foto{
+        margin-top: min(-5vw, -40px);
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="container-fluid mt-5">
+        <div class="bg-light shadow-lg rounded-3 mt-5">
+            {%if profil.arka_plan %}
+            <div class="profil-background"><img class="col-12 rounded-3" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
+            {% else %}
+            <div class="profil-background"><img class="col-12 rounded-3" onclick="arkaplan_foto_buyu()" src="{% static 'images/vice-city.jpg' %}"></div>
+            {% endif %}
+            <div class="buyukler">
+            <div class="profil-foto-buyuk" style="display: none;"> 
+            {% if profil.resim %}
+            <img src="{{profil.resim.url}}" class="col-8 col-lg-4 offset-6 offset-md-6 mt-5 pt-4" onclick="profil_foto_buyu()" title="profil-foto"> 
+            {%else%}
+            <img src="{% static 'images/default-profile.jpg' %}" class="col-8 col-lg-4 offset-5 mt-5 pt-5" title="profil-foto" onclick="profil_foto_buyu()" > 
+            {% endif %}
+            <div class="profil-foto-kapa-1" onclick="profil_foto_kapa()"><br/></div>
+            <i class="fa-solid fa-xmark fa-2x profil-foto-kapa text-white" style="cursor: pointer;" onclick="profil_foto_kapa()"></i>
+            </div>
+            <div class="arkaplan-foto-buyuk" style="display: none;">
+                {%if profil.arka_plan %}
+                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{{profil.arka_plan.url}}"></div>
+                {% else %}
+                    <div class="profil-background"><img class="col-8 col-md-6 offset-6 offset-md-6" title="arkaplan-foto" onclick="arkaplan_foto_buyu()" src="{% static 'images/vice-city.jpg' %}"></div>
+                {% endif %}
+                    <i class="fa-solid fa-xmark fa-2x arkaplan-foto-kapa text-white" style="cursor: pointer;" onclick="arkaplan_foto_kapa()"></i> 
+                
+                <div class="arkaplan-foto-kapa-1" onclick="arkaplan_foto_kapa()">
+                <br>
+            </div>
+            </div>
+
+            {% if request.user.is_authenticated %}
+            <div class="takip-parent col-12 d-none">
+                <div class="takip_eminmisin p-3 col-9 col-md-6 offset-1 offset-md-2">
+                    <h5>@{{profil.user.username}} adlı kullanıcıyı takip etmeyi bırakmaktan emin misin ? </h5>
+                    <br>
+                    <button class="btn btn-dark center mt-5" onclick="takibi_birak()">Takibi Bırak</button>
+                    <br>
+                    <button class="btn btn-dark center mt-5" onclick="takip_kapa()">İptal Et</button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="takipciler-1 col-12 d-none">
+                <div class="takipciler-1-1 p-3 col-10 col-md-6 offset-1 offset-md-3">
+                    <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                    <h5 class="my-2 ms-3">Takipçiler</h5>
+                    {% for i in takipciler %}
+                    <div class="{{i.username}}">
+                        <hr>
+                        <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="takip-edilenler-1 col-12 d-none">
+                <div class="takip-edilenler-1-1 p-3 col-10 col-md-6 offset-1 offset-md-3">
+                    <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                    <h5 class="my-2 ms-3">Takip Edilenler</h5>
+                    {% if takip_edilenler.all.count > 0 %}
+                    {% for i in takip_edilenler %}
+                    <hr>
+                    <a href="{% url 'profil' i.username|slugify %}" target="_blank" class="text-black text-decoration-none"><h6 class="ms-3 ">{{i.username}}</h6></a>
+                    {% endfor %}
+                    {% else %}
+                    <hr>
+                    <p class="ms-3 mt-2">Kullanıcı kimseyi takip etmiyor.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="takip-edemezsiniz col-12 d-none">
+               <div class="takip-edemezsiniz-1 p-3 col-9 col-md-6 offset-1 offset-md-2" >
+                <i class="fa-solid fa-xmark fa-xl mb-4"  onclick="gorenleri_kapa(event)" style="cursor: pointer;"></i>
+                <h5 class="text-center"><b>Bu ve daha fazlasına erişmek için giriş yapmanız gerekmektedir.</b></h5>
+                <br>
+                <a href="{% url 'giris-yap' %}"><button class="center mt-5 btn btn-dark">Giriş Yap</button></a>
+               </div> 
+            </div>
+            
+            </div>
+
+
+            <div class="profil-rest" style="height: 100%;">
+            <div class="px-3">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="d-flex">
+                            <div>
+                                {% if profil.resim %}
+                                <img src="{{profil.resim.url}}" class="profil-foto" onclick="profil_foto_buyu()"> 
+                                {% else %}
+                                <img src="{% static 'images/default-profile.jpg' %}" class="profil-foto" onclick="profil_foto_buyu()"> 
+                                {% endif %}
+                            </div>
+                            <div class="ms-2 ms-md-4">
+                                <p data-toggle="popover"
+                                    title="
+                                    {% if durum.onaydurum == 'Kabul Et' %}
+                                        {% if request.user.username == durum.kisi.username %}
+                                        Onaylandın
+                                        {% else %}
+                                        Onaylandı
+                                        {% endif %}
+                                    {% elif durum.onaydurum == 'Bekle' %}
+                                        {% if request.user.username == durum.kisi.username %}
+                                        Beklemedesin
+                                        {% else %}
+                                        Beklemede
+                                        {% endif %}
+                                    {% elif durum.onaydurum == 'Reddet' %}
+                                        {% if request.user.username == durum.kisi.username %}
+                                        Reddedildin
+                                        {% else %}
+                                        Reddedildi
+                                        {% endif %}
+                                    {% elif durum.onaydurum == 'Yasakla' %}
+                                        {% if request.user.username == durum.kisi.username %}
+                                        Yasaklandın
+                                        {% else %}
+                                        Yasaklandı
+                                        {% endif %}
+                                    {% elif durum.onaydurum == 'Cevapsız' %}
+                                    {% if request.user.username == durum.kisi.username %}
+                                        Onaylanmak için kayıt formunu cevaplayın.
+                                        {% else %}
+                                        Onaysız
+                                        {% endif %}
+                                    {% elif durum.onaydurum == 'Kalıcı Olarak Reddet' %}
+                                    {% if request.user.username == durum.kisi.username %}
+                                        Kalıcı Olarak Reddedildin
+                                    {% else %}
+                                        Kalıcı Olarak Reddedildi
+                                    {% endif %}
+
+                                    {% else %}
+                                    {% endif %}" 
+                                    class="profil-username mt-2"><span class="profile-username">{{profil.username}}</span>  
+                                    {% if durum %}
+                                    <span class="d-inline"> 
+                                        {% if durum.onaydurum == "Kabul Et" %}
+                                        <i class="fa-solid fa-circle-check px-2 profile-follow"></i>
+                                        {% elif durum.onaydurum == "Bekle" %}
+                                        <i class="fa-solid fa-circle-pause px-2 profile-follow"></i>
+                                        {% elif durum.onaydurum == "Yasakla" %}
+                                        <i class="fa-solid fa-ban profile-follow"></i> 
+                                        {% elif durum.onaydurum == "Reddet" %}
+                                        <i class="fa-solid fa-circle-xmark px-2 profile-follow"></i>
+                                        {% elif durum.onaydurum == "Cevapsız" %}
+                                        <i class="fa-brands fa-creative-commons-nd px-2 profile-follow" ></i> 
+                                        {% elif durum.onaydurum == "Kalıcı Olarak Reddet" %}
+                                        <i class="fa-solid fa-square-xmark px-2 profile-follow" ></i> 
+                                        {% endif %} 
+                                        {% else %} 
+                                        - Onaylanmak için Kayıt Formunu Doldur 
+                                        {% endif %}
+                                    </span>
+                            {% if request.user.is_authenticated %}
+                             <p class="profile-follow"><span onclick="takipci_goster()"><b class="takipci_sayisi">{{profil.takipci_sayisi}}</b> Takipçi</span> <span class="ms-2 ms-md-3" onclick="takip_edilenleri_goster()"><b>{{profil.takip_edilenler_sayisi}}</b> Takip Edilen</span></p>
+                             {% else %}
+                             <p class="profile-follow"><span onclick="takip_edmezsiniz()"><b class="takipci_sayisi">{{profil.takipci_sayisi}}</b> Takipçi</span> <span class="ms-2 ms-md-3" onclick="takip_edmezsiniz()"><b>{{profil.takip_edilenler_sayisi}}</b> Takip Edilen</span></p>
+                            {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        {% if request.user.is_authenticated and profil.user.username == request.user.username %}
+                            <a href="{% url 'profil-foto' request.user.id %}" class="profil-edit"><i class="fa-solid fa-user-pen fa-lg profile-username"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            {% if forumlari %}
+            <h3 class="text-center my-5">Forumları</h3>
+            <span class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu" style="display: none;">Cevabınız oluşturuldu.</span>
+                {% for forum in forumlari %}
+                    <div class="row justify-content-center">
+                <div class="{{forum.id}} border shadow-sm p-3 rounded-4 my-4 col-11 bg-light">
+                        <span class="soru_id" style="display: none;">{{forum.id}}</span>
+                        {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
+                            <span class="badge bg-dark">Yeni</span>
+                        {% endif %}
+                        <a href="{% url 'profil' forum.profil.user.username|slugify %}" class="text-black text-decoration-none">
+                        <img src="{{forum.profil.resim.url}}" class="col-2 col-lg-1 border rounded mx-2 soru_profil_url" style="height: 50px;width:50px;">
+                        <span class="ms-2 soru_username">
+                        <span class="h6">{{forum.profil.user.username}}</span>
+                            
+                        </span> 
+                            <span class="d-none d-md-inline"> 
+                                {% if forum.onay_durum.onaydurum == "Kabul Et" %}
+                                <i class="fa-solid fa-circle-check px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Bekle" %}
+                                <i class="fa-solid fa-circle-pause px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Yasakla" %}
+                                <i class="fa-solid fa-ban" style="cursor: pointer;"></i> 
+                                {% elif forum.onay_durum.onaydurum == "Reddet" %}
+                                <i class="fa-solid fa-circle-xmark px-2 fa-sm" style="cursor: pointer;"></i>
+                                {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
+                                <i class="fa-brands fa-creative-commons-nd px-2 fa-sm" title="Onaylanmak için kayıt formunu cevapla." style="cursor: pointer;"></i> 
+                                {% elif forum.onay_durum.onaydurum == "Kalıcı Olarak Reddet" %}
+                                <i class="fa-solid fa-square-xmark px-1 fa-sm"></i>  
+                                {% else %} 
+                                - Onaylanmak için Kayıt Formunu Doldur 
+                                {% endif %}
+                                • <span class="ms-1">{{forum.guncellenme_tarihi}}</span>
+                            </span>
+                        </a>
+                        <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">  
+                            <div class="bordered">
+                                <hr>
+                                <span class="soru_baslik h6 text-break">
+                                    {{forum.baslik}} 
+                                </span>
+                                <hr>
+                                <span class="soru_aciklama text-break">{{forum.soru}}</span>
+                            </div> 
+                            <hr>
+                        </a>    
+                        <div class="gorenler-parent d-none"
+                            >
+                           <div class="gorenler col-8 offset-2 border p-3 rounded">
+                            <i class="fa-solid fa-xmark fa-xl mb-4" style="cursor: pointer;" onclick="gorenleri_kapa(event)"></i>
+                            <h4 class="ms-2">Görenler</h4>
+                            {% if forum.goruldu.all.count > 0 %}
+                            {% for kisiler in forum.goruldu.all %}
+                                <hr>
+                                <a href="{% url 'profil' kisiler.username|slugify %}" target="_blank" class="ms-2 text-black text-decoration-none">{{kisiler.username}}</a>
+                            {% endfor %}
+                            {% else %}
+                            <hr>
+                            <p class="ms-3">Forum görülmemiş.</p>
+                            {% endif %}
+                        </div>  
+                        </div>
+                        <ul class="list-unstyled d-flex justify-content-around">
+                           
+                                {% if request.user.is_authenticated %}
+
+                                {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
+                                    <li><a href="{% url 'forum-sil' forum.id %}"><i class="fa-solid fa-trash ms-3" title="Sil"></i></a></li>
+                                {% endif %}
+                                {% if request.user.is_authenticated %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% else %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="takip_edmezsiniz()"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% endif %}
+                                <li><i class="fa-solid fa-comment" onclick="cevapla(event)" style="cursor: pointer;"  title="Yorum"></i> <span class="cevap_sayi">{{forum.cevap_sayisi}}</span></li>
+                                <li>
+                                    {% if request.user in forum.dislikes.all %}
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="color: red;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğenme"></i> 
+                                    {% else %}
+                                        <i class="begenme fa-solid fa-heart-crack fa-md" style="cursor: pointer;"  onclick="deneme(event,'{{forum.id}}')"  title="Beğenme"></i>
+                                    {% endif %}
+                                    <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span> 
+                                </li>
+                                <li>
+                                    {% if request.user in forum.likes.all %}
+                                        <i class="begen fa-solid fa-heart fa-md" style="color: red;cursor: pointer;" onclick="deneme(event,'{{forum.id}}')" title="Beğen"></i> 
+                                    {% else %}
+                                        <i class="begen fa-solid fa-heart fa-md" style="cursor: pointer;"  onclick="deneme(event,'{{forum.id}}')"  title="Beğen"></i>
+                                    {% endif %}
+                                    <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span> 
+                                </li>
+                                {% else %}
+                                {% if request.user.is_authenticated %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="gorenleri_goster(event)"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% else %}
+                                <li><i class="fa-solid fa-eye" title="Görülme Sayısı" style="cursor: pointer;"  onclick="takip_edmezsiniz()"></i><span class="ms-2">{{forum.goruldu.all.count}}</span></li>
+                                {% endif %}
+                                <li>
+                                    <i class="fa-solid fa-comment" onclick="takip_edmezsiniz()" style="cursor: pointer;"  title="Yorum"></i>
+                                    <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span> 
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-heart-crack" onclick="takip_edmezsiniz()" style="cursor: pointer;"  title="Beğenme"></i>
+                                    <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span> 
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-heart" onclick="takip_edmezsiniz()" style="cursor: pointer;" title="Beğen"></i>
+                                    <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
+                                </li>
+                                {% endif %}
+                        </ul>
+                </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+                <h4 class="pt-5 mt-3 text-center" style="min-height: 25vh;">Okunacak forum yok...</h4>
+
+            {% endif %}
+            
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
+
+{% block script %}
+    <script defer>
+        function takip_ediliyor(){
+            let takip_ediliyor1 = document.querySelector(".profil-edit-1");
+            if(takip_ediliyor1.innerHTML=="Takip Ediliyor"){
+                takip_ediliyor1.innerHTML = "Takibi Bırak";      
+            }
+        }
+        
+        function takipci_goster(){
+            let takipciler = document.querySelector(".takipciler-1");
+            takipciler.classList.remove("d-none");
+        }
+
+        function takip_edilenleri_goster(){
+            let takipciler = document.querySelector(".takip-edilenler-1");
+            takipciler.classList.remove("d-none");
+        }
+
+        const takip_et = async () =>{
+            let takip123 = document.querySelector(".profil-edit-1");
+            let takipci_sayisi = document.querySelector(".takipci_sayisi");
+            let response = await fetch(window.location.origin+"/api/takip-etme/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                            id:"{{profil.user.id}}",
+                            user_id : "{{request.user.id}}"
+                        })
+                    
+            })
+            if (response.status===200){
+                let data1 = await response.text();
+                if(data1=='"Takip Ediliyor"'){
+                    takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)+1;
+                    takip123.innerHTML="Takip Ediliyor";
+                    if(!("takip-ediliyor" in takip123)){
+                        takip123.classList.add("takip-ediliyor");
+                    }
+                    let div = document.querySelector(".takipciler-1-1");
+                    div.innerHTML+=
+                    ` 
+                    <div class="{{request.user.username}}">
+                        <hr>
+                        <span class="text-black text-decoration-none"><h6 class="ms-3 ">{{request.user.username}}</h6></span>
+                    </div>
+                    `
+                    takip123.addEventListener("click",takip_ediliyor());
+                }
+                else if(data1=='"Takip Et"'){
+                    let parent = document.querySelector(".takip-parent");
+                    parent.classList.remove("d-none");
+                }
+                
+            }
+            
+            
+        }        
+
+        function takip_edmezsiniz(){
+            let div = document.querySelector(".takip-edemezsiniz");
+            div.classList.remove("d-none");
+        }
+
+        function takip_edmezsiniz_kapa(){
+            let div = document.querySelector(".takip-edemezsiniz");
+            div.classList.add("d-none");
+        }
+        
+        
+        function takip_kapa(){
+            
+            let parent = document.querySelector(".takip-parent");
+            parent.classList.add("d-none");
+        }
+        
+
+        const takibi_birak = async () =>{
+            let takip_ediliyor = document.querySelector(".profil-edit-1");
+            let takipci_sayisi = document.querySelector(".takipci_sayisi");
+            let response = await fetch(window.location.origin+"/api/takibi-birak/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                            id:"{{profil.user.id}}",
+                            user_id : "{{request.user.id}}"
+                        })
+                    
+            })
+            if (response.status===200){
+                let data2 = await response.text();
+                if(data2=='"Takip Et"'){
+                    let takip_ediliyor = document.querySelector(".profil-edit-1");
+                    takip_ediliyor.innerHTML="Takip Et";
+                    takip_ediliyor.classList.remove("takip-ediliyor");
+                    takipci_sayisi.innerHTML=parseInt(takipci_sayisi.innerHTML)-1;
+                    let parent = document.querySelector(".takip-parent");
+                    let div = document.querySelector(".{{request.user.username}}");
+                    div.remove();
+                    parent.classList.add("d-none");
+                }
+            }
+            
+            let btn = document.querySelector("profil-edit-1");
+            
+        }        
+
+        
+        function takip_ediliyor1(){
+            let takip_ediliyor2 = document.querySelector(".profil-edit-1");
+            if(takip_ediliyor2.innerHTML=="Takibi Bırak"){
+                takip_ediliyor2.innerHTML = "Takip Ediliyor";      
+            }
+
+        }
+
+        $(document).ready(function() {
+            $('[data-toggle="popover"').popover({
+
+                content: "{% if durum.onaydurum != 'Cevapsız' %}Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}{% endif %}",
+                animation: true,
+                placement: "right",
+                trigger: 'hover',
+            });
+        });
+
+        function profil_foto_buyu() {
+            let photo = document.querySelector(".profil-foto-buyuk");
+            photo.style.display = "block"
+
+        }
+
+        function profil_foto_kapa() {
+            let photo = document.querySelector(".profil-foto-buyuk");
+            photo.style.display = "none"
+        }
+
+
+        function arkaplan_foto_buyu() {
+            let photo = document.querySelector(".arkaplan-foto-buyuk");
+            photo.style.display = "block"
+
+        }
+
+        function arkaplan_foto_kapa() {
+            let photo = document.querySelector(".arkaplan-foto-buyuk");
+            photo.style.display = "none"
+        }
+    
+        const deneme = async (event,id) =>{
+            var begen_sayi=event.target.parentNode.parentNode.querySelector(".begen_sayi");
+            var begen_icon=event.target.parentNode.parentNode.querySelector(".begen");
+            var begenme_sayi=event.target.parentNode.parentNode.querySelector(".begenme_sayi");
+            var begenme_icon=event.target.parentNode.parentNode.querySelector(".begenme");
+            if (event.target.classList[0]=="begen"){
+                event.preventDefault();
+                let response = await fetch(window.location.origin+`/api/forum/${id}/begen/`,{
+                    method:"POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRFToken": "{{csrf_token}}"
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begen_sayi.innerHTML=sayi;
+                    if (begen_icon.style.color=="red"){
+                    begen_icon.style.color="";
+                    }
+                    else{
+                        begen_icon.style.color="red";
+                        begenme_icon.style.color="";
+                    }
+                
+                }
+
+                let response1 = await fetch(window.location.origin+`/api/forum/${id}/begenme/`,{
+                    method:"GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begenme_sayi.innerHTML=sayi;
+                }
+                
+               
+            }
+            else if (event.target.classList[0]=="begenme"){
+                event.preventDefault();
+                let response = await fetch(window.location.origin+`/api/forum/${id}/begenme/`,{
+                    method:"POST",
+                    mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            username:"{{request.user.username}}"
+                        })
+                    
+                })
+                if(response.status===200){
+                    let sayi = await response.json();
+                    begenme_sayi.innerHTML=sayi;
+                    if (begenme_icon.style.color=="red"){
+                    begenme_icon.style.color="";
+                    }
+                    else{
+                        begenme_icon.style.color="red";
+                        begen_icon.style.color="";
+                    }
+                }
+
+                let response1 = await fetch(window.location.origin+`/api/forum/${id}/begen/`,{
+                    method:"GET",
+                    mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                })
+                if(response1.status===200){
+                    let sayi = await response1.json();
+                    begen_sayi.innerHTML=sayi;
+                }
+            
+               
+                }
+            }  
+   
+        const cevapla_kapa = async (event) =>{ 
+            let kutu_parent = document.querySelector(".cevaplama-parent");
+            kutu_parent.style.display="none";
+            const cevap = document.querySelector(".cevap-textarea");
+            cevap.value="";
+        }
+        
+        
+        const cevapla = async (event) =>{
+            let kutu = document.querySelector(".cevaplama");
+            let kutu_parent = document.querySelector(".cevaplama-parent");
+            let cevaplanacak = event.target.parentNode.parentNode.parentNode;
+            let soru_username = kutu.querySelector(".soru_username");
+            let at_soru_username = kutu.querySelector(".at_soru_username");
+            let soru_baslik = kutu.querySelector(".soru_baslik");
+            let soru_aciklama = kutu.querySelector(".soru_aciklama");
+            let soru_profil_url = kutu.querySelector(".soru_profil_url");
+            let soru_id = kutu.querySelector(".soru_id");
+            
+            soru_id.innerHTML  =  cevaplanacak.querySelector(".soru_id").innerHTML;
+            soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML;
+            at_soru_username.innerHTML  =  cevaplanacak.querySelector(".soru_username").innerHTML.toLowerCase();
+            soru_baslik.innerHTML  =  cevaplanacak.querySelector(".soru_baslik").innerHTML;
+            soru_aciklama.innerHTML  =  cevaplanacak.querySelector(".soru_aciklama").innerHTML;
+            soru_profil_url.src  =  cevaplanacak.querySelector(".soru_profil_url").src;
+            kutu_parent.style.display="block";
+            
+            
+        }
+
+        const cevap_olustur = async () =>{
+            let kutu = document.querySelector(".cevaplama");
+            kutu.style.display = "block";
+            let soru_id = kutu.querySelector(".soru_id");
+            const cevap = document.querySelector(".cevap-textarea");
+            let response = await fetch(window.location.origin+"/api/forum/cevap/{{request.user.id}}/ekle/",{
+                method:"POST",
+                mode: 'same-origin',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                            soru_id: soru_id.innerHTML,
+                            cevap: cevap.value,
+                            cevaba_cevap:"-1",
+                        })
+                    
+            })
+            if (response.status===200){
+                
+                
+                let divimiz = document.getElementsByClassName(soru_id.innerHTML)[0];
+                let cevap_sayi = divimiz.querySelector(".cevap_sayi");
+                cevap_sayi.innerHTML=String(parseInt(cevap_sayi.innerHTML)+1);
+                
+                cevapla_kapa();
+                gsap.from(".mesajiniz-olustu", {
+                    scrollTrigger: ".mesajiniz-olustu",
+                    display: 'block',
+                    duration: 4,
+                })
+                gsap.to(".mesajiniz-olustu", {
+                    opacity: 0,
+                    delay:3,
+                    duration:1,
+                    ease:"slow",
+                })
+                cevap.value="";
+            
+            }
+            
+        }        
+
+
+        const gorenleri_goster = async (event) =>{
+           let gorenler_all = document.querySelectorAll(".gorenler-parent");
+           gorenler_all.forEach(gorenler => {
+               if(!("d-none" in gorenler.classList)){
+                    gorenler.classList.add("d-none");
+               }
+               
+           });
+           let div = event.target.parentNode.parentNode.parentNode.querySelector(".gorenler-parent");
+           div.classList.remove("d-none");
+        }
+   
+        const gorenleri_kapa = async (event) =>{
+            let div = event.target.parentNode.parentNode;
+            div.classList.add("d-none");
+        }
+    
+
+    </script>
+{% endblock %}
+

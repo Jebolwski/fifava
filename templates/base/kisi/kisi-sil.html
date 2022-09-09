@@ -1,0 +1,25 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Oyuncu Sil |
+FIFAVOX{% endblock %} {% block content %}
+
+<div class="container-fluid mt-4">
+  <div class="bg-light shadow-lg rounded-3 p-4">
+    <form method="post">
+    {% csrf_token %}
+    <h2 class="text-center pt-5">
+      '{{kisi.oyun_ad_soyad}}' adlı kişiyi silmek istediğinize emin misiniz?
+    </h2>
+    <ul class="d-flex justify-content-evenly list-unstyled col-8 offset-2 mt-4">
+      <li><a href="{% url 'kisiler' %}" class="btn btn-success">Vazgeç</a></li>
+      <li><input type="submit" value="Sil" class="btn btn-danger" /></li>
+    </ul>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}
+{% block script %}
+<script>
+  $(".kisiler").addClass("active-icon");
+  
+</script>
+{% endblock %}

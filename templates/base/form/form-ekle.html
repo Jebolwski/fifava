@@ -1,0 +1,341 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Form Ekle |
+FIFAVOX{% endblock %} {% load crispy_forms_tags %} {% block content %}
+<!-- <main class="col-11 col-lg-10 offset-1">
+    <h4 class="text-center pt-4 pb-5">Kişi Ekle</h4>
+    <label class="center">Form Girdi Sayısı <input type="number" class="input mx-1" max="10"> <button class="btn btn-dark mx-1" onclick="olustur()">Oluştur</button></label> -->
+
+<div class="container-fluid">
+  <div class="bg-light shadow-lg rounded-3 p-4 my-5">
+    <form method="post">
+    {% csrf_token %}
+    <div>
+      <h5 class="pt-5">Formun Başlığı</h5>
+      <div class="row">
+        <div class="col">{{form.baslik|as_crispy_field}}</div>
+        <div class="col-auto p-0">
+          <span
+            data-toggle="popover"
+            title="Kurallar"
+            class="profil-username"
+            data-html="true"
+          >
+            <i class="fa-solid fa-info p-3 fa-sm"></i>
+          </span>
+        </div>
+      </div>
+      <h4 class="mt-4 mb-5">Şıklı Sorular</h4>
+      <div class="formsoru soru1">
+        <label>Soru 1</label>
+
+        <div class="pb-3">{{ form.soru1 }}</div>
+      </div>
+      <div class="formsoru d-none soru2">
+        <label>Soru 2</label>
+
+        <div class="pb-3">{{ form.soru2 }}</div>
+      </div>
+      <div class="formsoru d-none soru3">
+        <label>Soru 3</label>
+
+        <div class="pb-3">{{ form.soru3 }}</div>
+      </div>
+      <div class="formsoru d-none soru4">
+        <label>Soru 4</label>
+
+        <div class="pb-3">{{ form.soru4 }}</div>
+      </div>
+      <div class="formsoru d-none soru5">
+        <label>Soru 5</label>
+
+        <div class="pb-3">{{ form.soru5 }}</div>
+      </div>
+      <div class="formsoru d-none soru6">
+        <label>Soru 6</label>
+
+        <div class="pb-3">{{ form.soru6 }}</div>
+      </div>
+      <div class="formsoru d-none soru7">
+        <label>Soru 7</label>
+
+        <div class="pb-3">{{ form.soru7 }}</div>
+      </div>
+      <div class="formsoru d-none soru8">
+        <label>Soru 8</label>
+
+        <div class="pb-3">{{ form.soru8 }}</div>
+      </div>
+      <div class="formsoru d-none soru9">
+        <label>Soru 9</label>
+
+        <div class="pb-3">{{ form.soru9 }}</div>
+      </div>
+      <div class="formsoru d-none soru10">
+        <label>Soru 10</label>
+
+        <div class="pb-3">{{ form.soru10 }}</div>
+      </div>
+      <i
+        class="fa-solid fa-circle-plus fa-xl fa-xl-0 pb-3"
+        onclick="cevap_ekle()"
+        style="cursor: pointer"
+      ></i>
+
+      <h4 class="mt-4 mb-5">Metinli Sorular</h4>
+      <div class="formsoru1 soru11">
+        <label>Soru 1</label>
+
+        <div class="pb-3">{{ form.soru11 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru12">
+        <label>Soru 2</label>
+
+        <div class="pb-3">{{ form.soru12 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru13">
+        <label>Soru 3</label>
+
+        <div class="pb-3">{{ form.soru13 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru14">
+        <label>Soru 4</label>
+
+        <div class="pb-3">{{ form.soru14 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru15">
+        <label>Soru 5</label>
+
+        <div class="pb-3">{{ form.soru15 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru16">
+        <label>Soru 6</label>
+
+        <div class="pb-3">{{ form.soru16 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru17">
+        <label>Soru 7</label>
+
+        <div class="pb-3">{{ form.soru17 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru18">
+        <label>Soru 8</label>
+
+        <div class="pb-3">{{ form.soru18 }}</div>
+      </div>
+
+      <div class="formsoru1 d-none soru19">
+        <label>Soru 9</label>
+
+        <div class="pb-3">{{ form.soru19 }}</div>
+      </div>
+
+      <i
+        class="fa-solid fa-circle-plus fa-xl fa-xl-1 pb-3 pt-1"
+        onclick="cevap_ekle1()"
+        style="cursor: pointer"
+      ></i>
+      <h4 class="mt-4 mb-5">Onay Kutuları</h4>
+      <div class="formsoru2 soru19">
+        <label>Onay Kutusu 1</label>
+
+        <div class="pb-3">{{ form.onay1 }}</div>
+      </div>
+
+      <div class="formsoru2 d-none soru20">
+        <label>Onay Kutusu 2</label>
+
+        <div class="pb-3">{{ form.onay2 }}</div>
+      </div>
+      <div class="formsoru2 d-none soru21">
+        <label>Onay Kutusu 3</label>
+
+        <div class="pb-3">{{ form.onay3 }}</div>
+      </div>
+      <div class="formsoru2 d-none soru22">
+        <label>Onay Kutusu 4</label>
+
+        <div class="pb-3">{{ form.onay4 }}</div>
+      </div>
+      <i
+        class="fa-solid fa-circle-plus fa-xl fa-xl-2 pt-1"
+        onclick="cevap_ekle2()"
+        style="cursor: pointer"
+      ></i>
+      <br />
+      <div class="text-center">
+        <input
+        type="submit"
+        value="Form Ekle"
+        class="btn btn-dark btn-lg mt-3 mb-5"
+        />
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %} {% block script %}
+<script>
+  $(".formlar").addClass("active-icon");
+  $(".formlar-icon").addClass("active-icon");
+  $(document).ready(function () {
+    $('[data-toggle="popover"').popover({
+      content: `● Maksimum uzunluk 60 karakterdir.`,
+      animation: true,
+      placement: "right",
+      trigger: "hover",
+      html: true,
+    });
+  });
+
+  let sayi = 0;
+  let formsoru = document.getElementsByClassName("formsoru");
+  for (let i = 0; i < formsoru.length; i++) {
+    const element = formsoru[i];
+    if (element.classList[1] != "d-none") {
+      sayi++;
+    }
+  }
+
+  function cevap_ekle() {
+    let sayi = 0;
+    let formsoru = document.getElementsByClassName("formsoru");
+    for (let i = 0; i < formsoru.length; i++) {
+      const element = formsoru[i];
+      if (element.classList[1] != "d-none") {
+        sayi++;
+      }
+    }
+    if (sayi == 1) {
+      let soru2 = document.querySelector(".soru2");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 2) {
+      let soru2 = document.querySelector(".soru3");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 3) {
+      let soru2 = document.querySelector(".soru4");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 4) {
+      let soru2 = document.querySelector(".soru5");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 5) {
+      let soru2 = document.querySelector(".soru6");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 6) {
+      let soru2 = document.querySelector(".soru7");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 7) {
+      let soru2 = document.querySelector(".soru8");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 8) {
+      let soru2 = document.querySelector(".soru9");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 9) {
+      let soru2 = document.querySelector(".soru10");
+      soru2.classList.remove("d-none");
+    }
+
+    let icon = document.querySelector(".fa-xl-0");
+    if (sayi == 9) {
+      icon.setAttribute("disabled", "");
+      icon.style.color = "gray";
+      icon.style.cursor = "auto";
+    }
+  }
+
+  function cevap_ekle1() {
+    let sayi = 0;
+    let formsoru = document.getElementsByClassName("formsoru1");
+    for (let i = 0; i < formsoru.length; i++) {
+      const element = formsoru[i];
+      if (element.classList[1] != "d-none") {
+        sayi++;
+      }
+    }
+    if (sayi == 1) {
+      let soru2 = document.querySelector(".soru12");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 2) {
+      let soru2 = document.querySelector(".soru13");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 3) {
+      let soru2 = document.querySelector(".soru14");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 4) {
+      let soru2 = document.querySelector(".soru15");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 5) {
+      let soru2 = document.querySelector(".soru16");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 6) {
+      let soru2 = document.querySelector(".soru17");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 7) {
+      let soru2 = document.querySelector(".soru18");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 8) {
+      let soru2 = document.querySelector(".soru19");
+      soru2.classList.remove("d-none");
+    }
+
+    let icon = document.querySelector(".fa-xl-1");
+    if (sayi == 8) {
+      icon.setAttribute("disabled", "");
+      icon.style.color = "gray";
+      icon.style.cursor = "auto";
+    }
+  }
+
+  function cevap_ekle2() {
+    let sayi = 0;
+    let formsoru = document.getElementsByClassName("formsoru2");
+    for (let i = 0; i < formsoru.length; i++) {
+      const element = formsoru[i];
+      if (element.classList[1] != "d-none") {
+        sayi++;
+      }
+    }
+    if (sayi == 1) {
+      let soru2 = document.querySelector(".soru20");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 2) {
+      let soru2 = document.querySelector(".soru21");
+      soru2.classList.remove("d-none");
+    }
+    if (sayi == 3) {
+      let soru2 = document.querySelector(".soru22");
+      soru2.classList.remove("d-none");
+    }
+    let icon = document.querySelector(".fa-xl-2");
+    if (sayi == 3) {
+      icon.setAttribute("disabled", "");
+      icon.style.color = "gray";
+      icon.style.cursor = "auto";
+    }
+  }
+
+  $(".requiredField").hide();
+</script>
+{% endblock %}

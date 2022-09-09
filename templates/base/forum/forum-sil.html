@@ -1,0 +1,21 @@
+{% extends 'base/ana.html' %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/style-card.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% block title %}Forum Sil | FIFAVOX{% endblock %} {% block content %}
+
+<div  class="container-fluid mt-5">
+  <div class="bg-light shadow-lg rounded-3 mt-5">
+  <form method="POST">
+    {% csrf_token %}
+    <h4 class="text-center pt-5 pb-4">
+      '{{forum.baslik}}' başlıklı forumu silmek istediğinize emin misiniz?
+    </h4>
+    <div class="d-flex justify-content-evenly list-unstyled pb-4">
+      <div><a href="{% url 'forumlar' %}" class="btn btn-success">Vazgeç</a></div>
+      <div><input type="submit" value="Sil" class="btn btn-danger" /></div>
+    </div>
+    </div>
+  </form>
+</main>
+
+{% endblock content %}

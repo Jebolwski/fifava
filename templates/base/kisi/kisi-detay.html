@@ -1,0 +1,45 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}
+{{kisi.oyun_ad_soyad}} | FIFAVOX {% endblock %} 
+{% block content %} 
+{%csrf_token %}
+<main class="container-fluid mt-4">
+  
+  <div class="bg-light shadow-lg rounded-3 p-4 ">
+    <h2 class="text-center mt-3">Oyuncu Özeti</h2>
+    <br />
+    <div class="container-fluid mt-2">
+    <div class="row">
+      <div class="col-10 offset-1 col-lg-5 offset-lg-1">
+        {% if kisi.dosya %}
+        <h5>
+          <img
+            class="col-8 offset-2 mt-5 kisi-detay-foto"
+            src="{{kisi.dosya.url}}"
+          />
+        </h5>
+        {% else %}
+        <h5>
+          <img
+            class="col-8 offset-2 mt-5 kisi-detay-foto shadow-lg"
+            src="https://fifavox-s3-buckets-1.s3.amazonaws.com/oyuncu/Bilinmiyor_WpdxxKX.jpg"
+          />
+        </h5>
+        {% endif %}
+      </div>
+      <div class="col-10 offset-1 col-lg-4 offset-lg-1">
+        <br />
+        <h5 class="text-center mt-5"><i>Adı Soyadı</i></h5>
+        <h4 class="text-center">{{kisi.oyun_ad_soyad}}</h4>
+        <h5 class="text-center mt-5 pt-5"><i>Mesleği</i></h5>
+        <h4 class="text-center">{{kisi.meslek}}</h4>
+        <h5 class="text-center mt-5 pt-5"><i>Kayıt Tarihi</i></h5>
+        <h5 class="text-center">{{kisi.olusturulma_tarihi}}</h5>
+      </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+  $(".kisiler").addClass("active-icon");
+</script>
+{% endblock content %}

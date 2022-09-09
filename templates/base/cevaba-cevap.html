@@ -1,0 +1,63 @@
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}Anasayfa | FIFAVOX{% endblock %}
+ {% block content %} 
+    
+    <main class="col-11 col-lg-10 offset-1">
+
+        
+        <h4 class="pt-5 text-center">İleti Özeti</h4>
+        <h6 class="col-4 offset-1 bg-gray px-4 mt-5">{{soru.user.username}}</h6>
+        <div class="col-4 offset-1 bg-gray p-3 bg-light rounded-4 shadow-sm border">
+            <h5>{{soru.baslik}}</h5>
+            <hr>
+            <h5>{{soru.aciklama}}</h5>
+            <hr>
+            <h6>{{soru.guncellenme_tarihi}}</h6>
+        </div>
+        <h6 class="offset-7 col-4 px-4 mt-2">Yönetici</h6>
+        <div class="offset-7 col-4 p-3 mt-2 bg-light rounded-4 shadow-sm border">
+            <h5>{{c.cevap}}</h5>
+            <hr>
+            <h6>{{c.guncellenme_tarihi}}</h6>
+        </div>
+
+
+    </main>
+    <script defer>
+        
+
+
+        $(window).on("load", function() {
+            $('.loading').fadeOut(800);
+        });
+
+        let height = window.innerHeight;
+
+        function kesfet_kay() {
+            window.scrollTo({
+                top: height,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        anime({
+            targets: '#fifava path',
+            strokeDashoffset: [anime.setDashoffset, 0],
+            easing: 'easeInOutSine',
+            duration: 1700,
+            delay: function(el, i) {
+                return i * 60
+            },
+            direction: 'alternate',
+            loop: false
+        });
+        $(document).ready(function() {
+            $('[data-toggle="popover"').popover({
+                content: "Başvuru Cevap Tarihi  : {{durum.guncellenme_tarihi}}  Kayıt Tarihi : {{request.user.date_joined}}",
+                animation: true,
+                placement: "top",
+            });
+        });
+    </script>
+    {% endblock content %}

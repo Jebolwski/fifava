@@ -1,0 +1,31 @@
+﻿ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}{{haber.baslik}} • FIFAVOX{% endblock %}
+ {% block content %}
+ 
+ <div class="container-fluid mt-5">
+    <div class="bg-light shadow-lg rounded-3 p-4 mt-5">        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <h3 class="text-center">{{haber.baslik}}</h3>
+                <h4 class="responsive-text text-center mt-4 mb-4" style="font-weight: 400">{{haber.aciklama}}</h4>
+            </div>
+            {% if haber.resim %}
+            <img src="{{haber.resim.url}}" class="rounded-3 col-10 col-md-8 col-lg-6 offset-1 offset-md-2 offset-lg-3 shadow-lg">
+            {% endif %}
+            <div class="mt-4 p-3">
+                <h5 class="fw-light"><i>{{haber.olusturulma_tarihi}}</i></h5>
+            </div>
+        </form>
+    </div>
+ </div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(".haberler").addClass("active-icon");
+    $(".haberler-icon").addClass("active-icon");
+    let foto=document.getElementsByClassName("{{haber.id}}");
+    foto[0].style.border="1px outset white";
+</script>
+{% endblock %}

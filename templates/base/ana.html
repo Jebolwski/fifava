@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,minimum-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/logo_bigger.png' %}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/theme-default.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/core.css' %}" />
+    {% block style %} {% endblock %}
+    <meta property="og:title" content="FIFAFOX" />
+    <meta
+      property="og:image"
+      content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png"
+    />
+    <meta
+      property="og:description"
+      content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="FIFAFOX" />
+    <meta
+      property="twitter:image"
+      content="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/meta_tags.png"
+    />
+    <meta
+      property="twitter:description"
+      content="Fifavox'a katılın, dünyamızı keşfedin ve eğlenin."
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'static/font/bold/bold-font.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'static/font/med/med-font.css' %}" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-K89955T21E%22%3E"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-K89955T21E");
+    </script>
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body style="overflow-x: hidden">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <div class="sidebar" style="display: none">
+      <a href="{% url 'anasayfa' %}" class="d-flex align-items-center">
+        <i class="fa-solid fa-lg fa-home"></i>
+        <h3 class="ms-4">Anasayfa</h3>
+      </a>
+      <a href="{% url 'kisiler' %}" class="d-flex align-items-center">
+        <i class="fa-solid fa-lg fa-person"></i>
+        <h3 class="ms-4">Oyuncular</h3>
+      </a>
+      <a href="{% url 'forumlar' %}" class="d-flex align-items-center">
+        <i class="fa-solid fa-lg fa-comment"></i>
+        <h3 class="ms-4">Forumlar</h3>
+      </a>
+      <a href="{% url 'haberler' %}" class="d-flex align-items-center">
+        <i class="fa-solid fa-lg fa-newspaper"></i>
+        <h3 class="ms-4">Haberler</h2>
+      </a>
+      {% if request.user.is_authenticated %}
+      <div class="topbar-right-parent topbar-right-parent-hover sidebar-profile fs-4" style="margin-top: 1.5rem">
+        <div class="position-relative">
+          <div class="text-white topbar-right topbar-right-1">
+            <div>
+                <p>{{request.user.username}}</p>
+            </div>
+            <div class="ms-3">
+                {% for profile in request.user.profilfoto_set.all %}
+                  {% if profile.resim %}
+                    <img
+                    src="{{profile.resim.url}}"
+                    class="topbar-profile-img"
+                    />
+                  {% else %}
+                    <img
+                    src="{% static 'images/default-profile.jpg' %}"
+                    class="topbar-profile-img"
+                    />
+                  
+                  {% endif %}
+                {% endfor %}
+                
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toggle-sidebar-profile" style="display: none;">
+        <a href="{% url 'profil' request.user.username|slugify %}" class="d-flex align-items-center">
+          <i class="fa-solid fa-user fa-lg"></i>
+          <h3 class="ms-4">Profil</h3>
+        </a>
+        <a href="{% url 'change_password' %}" class="d-flex align-items-center">
+          <i class="fa-solid fa-lock-open"></i>
+          <h3 class="ms-4">Şifre Değiştir</h3>
+        </a>
+        <a href="{% url 'cikis-yap' %}" class="d-flex align-items-center">
+          <i
+            class="fa-solid fa-arrow-right-from-bracket fa-lg"
+          ></i>
+          <h3 class="ms-4">Çıkış Yap</h3>
+        </a>
+      </div>
+      {% else %}
+      <div>
+        <a href="{% url 'giris-yap' %}" class="d-flex align-items-center">
+          <i
+            class="fa-solid fa-arrow-right-to-bracket fa-lg"
+          ></i>
+          <h3 class="ms-4">Giriş Yap</h3>
+        </a>
+      </div>
+      {% endif %}
+      <h3 class="fw-bolder mt-5">Bizi Takip Et</h3>
+      <div class="d-flex">
+        <a href="https://www.instagram.com/fifavox/" target="_blank">
+          <i class="fa-brands fa-twitter fa-lg"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UC7Kx4bBm6NhTv4VL9GxF3sg" target="_blank">
+          <i class="fa-brands fa-youtube fa-lg ms-5"></i>
+        </a>
+        <a href="https://www.reddit.com/r/fifavox/" target="_blank">
+          <i class="fa-brands fa-reddit fa-lg ms-5"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="topbar">
+      <div
+        class="row align-items-center justify-content-between"
+        style="height: 56px"
+      >
+        <div class="col-auto">
+          <img
+            src="http://gtatr.com/img/vc/basarim/Kingpin.png"
+            style="width: 35px"
+            class="ms-4"
+          />
+        </div>
+        <div class="col-auto">
+          <div class="d-flex align-items-center">
+            <input
+              type="text"
+              class="search form-control d-none d-sm-inline-block"
+              placeholder="Ara..."
+            />
+            <div class="search-div search-div-sm d-inline-block d-sm-none">
+              <i class="fa-solid fa-search"></i>
+            </div>
+            <div class="search-div  d-none d-sm-inline-block">
+              <i class="fa-solid fa-search"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto links d-none d-md-inline-block">
+          <div class="d-flex">
+            <a
+              href="{% url 'anasayfa' %}"
+              class="text-white anasayfa"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Anasayfa"
+            >
+              <i class="fa-solid fa-home"
+              ></i>
+            </a>
+            <a
+              href="{% url 'kisiler' %}"
+              class="ms-4 ms-lg-5 text-white kisiler"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Oyuncular"
+            >
+              <i class="fa-solid fa-person"></i>
+            </a>
+            <a
+              href="{% url 'forumlar' %}"
+              class="ms-4 ms-lg-5 text-white forumlar"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Forumlar"
+            >
+              <i class="fa-solid fa-comment"></i>
+            </a>
+            <a
+              href="{% url 'haberler' %}"
+              class="ms-4 ms-lg-5 text-white haberler"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Haberler"
+            >
+              <i class="fa-solid fa-newspaper"></i>
+            </a>
+            <a
+              href="{% url 'formlar' %}"
+              class="ms-4 ms-lg-5 text-white formlar"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Formlar"
+            >
+              <i class="fa-solid fa-square-poll-vertical formlar-icon"></i>
+            </a>
+            <div class="ms-4 ms-lg-5"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Diğerleri"
+            >
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+          </div>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="col-auto d-none d-md-inline-block pe-3">
+          <div class="topbar-right-parent topbar-right-parent-hover">
+            <div class="position-relative">
+              <a href="{% url 'profil' request.user.username|slugify %}" class="text-white topbar-right topbar-right-1">
+                <div>
+                <p>{{request.user.username}}</p>
+                </div>
+                <div class="ms-3">
+                {% for profile in request.user.profilfoto_set.all %}
+                    {% if profile.resim %}
+                    <img
+                      src="{{profile.resim.url}}"
+                      class="topbar-profile-img"
+                    />
+                    {% else %}
+                    <img
+                      src="{% static 'images/default-profile.jpg' %}"
+                      class="topbar-profile-img"
+                    />
+                    {% endif %}
+                {% endfor %}
+                
+                </div>
+              </a>
+              <div class="profile-hover topbar-right-1 p-3 shadow-lg rounded-3">
+                <a href="{% url 'change_password' %}">
+                  <i class="fa-solid fa-lock-open"></i>
+                  <span class="ms-2">Şifre Değiştir</span>
+                </a>
+                <hr />
+                <div>
+                  <a href="{% url 'cikis-yap' %}">
+                    <i
+                      class="fa-solid fa-arrow-right-from-bracket text-dark"
+                    ></i>
+                    <span class="mt-2 ms-2 text-dark">Çıkış Yap</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-auto d-none d-md-inline-block pe-4">
+          <a href="{% url 'giris-yap' %}" class="login-btn">Giriş Yap</a>
+        </div>
+        {% endif %}
+        <div
+          class="col-auto bars-icon d-block d-md-none pe-5"
+          onclick="sidebar_ac()"
+        >
+          <i class="fa-solid fa-bars fa-lg"></i>
+        </div>
+      </div>
+      <div class="page-completion"></div>
+    </div>
+
+    <div class="search-div-topbar" style="display: none;">
+      <div class="row align-items-center justify-content-center" style="height: 100%;">
+        <div class="col">
+          <div class="row align-items-center">
+            <div class="col-10">
+              <input type="text" class="form-control" placeholder="Ara...">
+            </div>
+            <div class="col-auto p-0">
+              <div class="search-div">
+                <i class="fa-solid fa-search"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <i class="fa-solid fa-xmark close-search text-danger fa-xl me-2" style="cursor: pointer;"></i>
+        </div>
+      </div>
+    </div>
+    {% for message in messages %}
+      {{message|safe}}
+    {% endfor %}
+      {% block content %} 
+      {% endblock content %}
+    <div class="to-top">
+      <i class="fa-solid fa-circle-chevron-up fa-2x"></i>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/89a5339b98.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/tilt.js' %}"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js "
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut "
+      crossorigin="anonymous "
+    ></script>
+    <script>
+      $(window).resize(function () {
+        if ($(window).width() > 540) {
+          $(".sidebar").hide();
+          $(".hamburger_icon").removeClass("active");
+        }
+      });
+
+      function sidebar_ac() {
+        $(".sidebar").toggle(500);
+        $(".hamburger_icon").toggleClass("active");
+      }
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+
+      $(".topbar-right-1").hover(
+        function () {
+          $(".profile-hover").fadeIn(0);
+        },
+        function () {
+          $(".profile-hover").fadeOut(0);
+        }
+      );
+
+      $(".to-top").click(function(){
+        window.scrollTo(0,0);
+      });
+
+      $(".message").delay(3000).fadeOut(500);
+      $(window).scroll(function(){
+        if ($(window).scrollTop() > 10) {
+          $(".to-top").fadeIn(400);
+        }
+        else{
+          $(".to-top").fadeOut(400);
+
+        }
+      })
+    
+      if(document.body.offsetHeight - window.innerHeight>0){
+        $(window).scroll(function(){
+          $(".page-completion").show();
+          console.log($(window).scrollTop()/(document.body.offsetHeight - window.innerHeight)*100);
+          $(".page-completion").css("width",$(window).scrollTop()/(document.body.offsetHeight - window.innerHeight)*100+"%");
+        })
+      }
+    
+      $(".sidebar-profile").click(function(){
+        $(".toggle-sidebar-profile").toggle(300);
+      })
+
+      $(".search-div-sm").click(function(){
+        $(".topbar").toggle(200);
+        $(".search-div-topbar").toggle(200);
+      })
+
+      $(".close-search").click(function(){
+        $(".topbar").toggle(200);
+        $(".search-div-topbar").toggle(200);
+      })
+
+    </script>
+    {% block script %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,201 @@
+﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}{{soru.baslik}}
+| FIFAVOX{% endblock %} {% block content %}
+<main class="col-8 col-lg-6 offset-3 text-center">
+  <h5 class="pt-5 pb-5">{{soru.baslik}}</h5>
+  <h5>Sorular</h5>
+  {% if soru.soru1 %}
+  <div class="pb-5 pt-5">{{ soru.soru1 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru2 %}
+  <div class="pb-5 pt-5">{{ soru.soru2 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru3 %}
+  <div class="pb-5 pt-5">{{ soru.soru3 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru4 %}
+  <div class="pb-5 pt-5">{{ soru.soru4 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru5 %}
+  <div class="pb-5 pt-5">{{ soru.soru5 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru6 %}
+  <div class="pb-5 pt-5">{{ soru.soru6 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru7 %}
+  <div class="pb-5 pt-5">{{ soru.soru7 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru8 %}
+  <div class="pb-5 pt-5">{{ soru.soru8 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru9 %}
+  <div class="pb-5 pt-5">{{ soru.soru9 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru10 %}
+  <div class="pt-5">{{ soru.soru10 }}</div>
+  <div class="col-12 col-md-6 offset-md-3">
+    <select class="form-control">
+      <option value="----">-----</option>
+      <option value="Kesinlikle Katılmıyorum">Kesinlikle Katılmıyorum</option>
+      <option value="Katılmıyorum">Katılmıyorum</option>
+      <option value="Kararsızım">Kararsızım</option>
+      <option value="Katılıyorum">Katılıyorum</option>
+      <option value="Kesinlikle Katılıyorum">Kesinlikle Katılıyorum</option>
+    </select>
+  </div>
+  {% endif %} {% if soru.soru11 %}
+  <div class="pt-5">{{ soru.soru11 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru12 %}
+  <div class="pt-5">{{ soru.soru12 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru13 %}
+  <div class="pt-5">{{ soru.soru13 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru14 %}
+  <div class="pt-5">{{ soru.soru14 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru15 %}
+  <div class="pt-5">{{ soru.soru15 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru16 %}
+  <div class="pt-5">{{ soru.soru16 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru17 %}
+  <div class="pt-5">{{ soru.soru17 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru18 %}
+  <div class="pt-5">{{ soru.soru18 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.soru19 %}
+  <div class="pt-5">{{ soru.soru19 }}</div>
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
+    <textarea class="form-control" disabled rows="3"></textarea>
+  </div>
+  {% endif %} {% if soru.onay1 %}
+  <div class="pt-5">
+    {{ soru.onay1 }} <input type="checkbox" disabled class="mx-2" />
+  </div>
+
+  {% endif %} {% if soru.onay2 %}
+  <div class="pt-5">
+    {{ soru.onay2 }} <input type="checkbox" disabled class="mx-2" />
+  </div>
+
+  {% endif %} {% if soru.onay3 %}
+  <div class="pt-5">
+    {{ soru.onay3 }} <input type="checkbox" disabled class="mx-2" />
+  </div>
+
+  {% endif %} {% if soru.onay4 %}
+  <div class="pt-5">
+    {{ soru.onay4 }} <input type="checkbox" disabled class="mx-2" />
+  </div>
+
+  {% endif %}
+  <br />
+
+  <input type="submit" disabled class="btn btn-dark my-4" />
+</main>
+{% endblock content %} {% block script %}
+<script>
+  $(".formlar").addClass("active-icon");
+  $(".formlar-icon").addClass("active-icon");
+</script>
+{% endblock %}

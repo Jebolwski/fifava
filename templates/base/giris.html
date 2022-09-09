@@ -1,0 +1,55 @@
+﻿{% extends 'base/ana.html' %} {% load static %} {% block title %}Giriş Yap •
+FIFAVOX{% endblock %} {% block content %}
+<div class="container shadow-lg rounded-3 p-4 mt-5 bg-light">
+  <h2 class="text-center pt-4">Giriş Yap</h2>
+  <div class="text-center">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="row justify-content-center">
+        <div class="col-10 col-md-6">
+          <p class="text-start mt-5">Kullanıcı Adı veya Email</p>
+          <div class="position-relative">
+            <input
+              type="text"
+              name="username"
+              class="form-control ps-5"
+              placeholder="Kullanıcı adı veya emailinizi giriniz"
+            />
+            <i
+              class="fa-solid fa-user"
+              style="position: absolute; top: 12px; left: 20px"
+            ></i>
+          </div>
+          <p class="text-start mt-4">Şifre</p>
+          <div class="position-relative">
+            <input
+              type="password"
+              name="password"
+              class="form-control ps-5"
+              placeholder="Şifrenizi giriniz"
+            />
+            <i
+              class="fa-solid fa-lock"
+              style="position: absolute; top: 12px; left: 20px"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <input type="submit" value="Giriş Yap" class="btn btn-dark mt-5" />
+      </div>
+      
+      <h5 class="text-center mt-5">
+        Şifreni mi unuttun?
+        <a href="{% url 'password_forgot_reset' %}" class="text-black"
+          >Şifre Sıfırla</a
+        >
+      </h5>
+      <h5 class="text-center mt-3">
+        Hesabın yok mu?
+        <a href="{% url 'kayit-ol' %} " class="text-black">Kayıt Ol </a>
+      </h5>
+    </form>
+  </div>
+</div>
+{% endblock content %}

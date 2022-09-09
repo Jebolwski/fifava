@@ -1,0 +1,16 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}Cevaplanmış |
+FIFAVOX{% endblock %} {% block content %}
+
+<div class="container mt-5">
+    <div class="bg-light shadow-lg rounded-3 p-4">
+      <h2 class="text-center pt-3" style="font-weight: 300">
+        Bu formu çoktan doldurmuşsunuz. <br />
+        Başka bir form doldurmak için geri dönün.
+      </h2>
+      <div class="text-center mt-3">
+        <a href="{% url 'formlar' %}" class="btn btn-primary mt-4">Geri Dön</a>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}

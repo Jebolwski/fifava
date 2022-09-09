@@ -1,0 +1,47 @@
+{% extends 'base/ana.html' %} {% load static %} {% block title %}
+Anasayfa • FIFAVOX {% endblock %} {% block content %}
+<div class="start">
+  <div class="position-relative div-one">
+    <div class="trevor-photo">
+      <img src="{% static 'images/trevor.png' %}" >
+      <div class="bubble-2"></div>
+    </div>
+    <div class="div-one-right">
+      <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum id, fugiat animi quibusdam nisi soluta dolorum. Laborum doloremque nobis totam.</h3>
+      <div class="separator my-4"></div>
+      <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam mollitia porro, perferendis aliquam tenetur voluptatum!</h4>
+      <a href="{% url 'nasil-katilabilirim' %}" target="_blank" class="btn btn-outline-primary mt-4 bize-katil" style="border-radius: 1rem;">Bize Katıl</a>
+    </div>
+  </div>
+  
+
+
+  
+</div>
+
+{% endblock %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js" integrity="sha512-Mf/xUqfWvDIr+1B6zfnIDIiG7XHzyP/guXUWgV6PgaQoIFeXkJQR5XWh9fqAiCiRCpemabt3naV4jhDWVnuYDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(".anasayfa").addClass("active-icon");
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".fifavox", {
+      scrollTrigger: ".fifavox",
+      y: 50,
+      opacity:0,
+      duration: 0.5,
+  })
+
+  gsap.from(".slogan", {
+      scrollTrigger: ".slogan",
+      y: 50,
+      opacity:0,
+      delay:0.5,
+      duration: 0.5,
+  })
+
+</script>
+
+{% endblock %}

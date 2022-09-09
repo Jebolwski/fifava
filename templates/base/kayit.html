@@ -1,0 +1,92 @@
+{% extends 'base/ana.html' %} 
+{% load static %}
+{% block title %}Kayıt Ol • FIFAVOX{% endblock %}
+{% block content %} 
+
+
+    
+    <div class="container mt-4">
+        <div class="bg-light shadow-lg rounded-3 p-5">
+            <h2 class="text-center pt-4">Kayıt Ol</h2>
+            <form method="POST">
+            {% csrf_token %}
+            <h5 class="mt-5">Kullanıcı Adı</h5>
+            <div>{{form.username}}</div>
+            {% if form.username.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger">{{form.username.errors}}</li>
+            </ul>
+            {% endif %}
+            <h5 class="mt-5">Email</h5>
+            <div class="">{{form.email}}</div>
+            {% if form.email.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger">{{form.email.errors}}</li>
+            </ul> {% endif %}
+            <h5 class="mt-5">Şifre</h5>
+            <div class="row">
+                <div class="col">{{form.password1}}</div>
+                <div class="col-auto p-0">
+                    <span data-toggle="popover" title="Kurallar" class="profil-username" style="margin: 0;">
+                        <i class="fa-solid fa-info p-3 fa-sm"></i>
+                    </span>
+                </div>
+            </div>
+
+            {% if form.password1.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password1.errors}}</li>
+            </ul>{% endif %}
+            <h5 class="mt-5">Şifre (Tekrar)</h6>
+            <div class="row">
+                <div class="col">{{form.password2}}</div>
+                <div class="col-auto p-0">
+                        <span data-toggle="popover1" title="Kurallar" class="profil-username" data-html="true">
+                            <i class="fa-solid fa-info p-3 fa-sm"></i>
+                        </span>
+                </div>
+            </div>
+
+            {% if form.password2.errors %}
+            <ul class="list-unstyled">
+                <li class="mt-4 pt-1 pb-1 alert alert-danger col-10 col-md-5 center text-center">{{form.password2.errors}}</li>
+            </ul> 
+            {% endif %}
+
+            <div class="text-center">
+                <input type="submit" value="Kayıt Ol" class="btn btn-success px-5 mt-5 mb-5" />
+            </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block script %}
+<script defer>
+        
+
+
+      $(document).ready(function() {
+            $('[data-toggle="popover"').popover({
+                content: `● Parolanız en az 8 karakter içermek zorundadır. <br /><br /> ● Parolanız yaygın olarak kullanılan bir parola olamaz. <br /><br /> ● Parolanız tamamıyla sayısal olamaz.`,
+                animation: true,
+                placement: "right",
+                trigger: 'hover',
+                html:true
+            });
+        });
+
+        $(document).ready(function() {
+            $('[data-toggle="popover1"').popover({
+                content: `● Doğrulama için önceki gibi aynı parolayı girin.`,
+                animation: true,
+                trigger: 'hover',
+                placement: "right",
+            });
+        });
+  </script>
+  </body>
+
+</html>
+{% endblock %}

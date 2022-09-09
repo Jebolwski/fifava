@@ -1,0 +1,673 @@
+﻿{% extends 'base/ana.html' %} {% block title %} Forumlar | FIFAVOX {% endblock%}
+ {% load static %} {% block content %}
+  
+ <div class="container-fluid">
+    <div class="bg-light shadow-lg rounded-3 p-4 mt-5">
+    <h2 class="pt-3 pb-5 text-center">Forumlar</h2>
+      <div class="row justify-content-center align-items-center">
+          <div class="col-12 col-md-10">
+            <div class="row justify-content-center align-items-center">
+              {% if request.user.is_superuser %}
+                <div class="col p-0">
+        <input
+            type="text"
+            class="arama form-control col-10"
+            maxlength="100"
+            placeholder="Başlığı"
+            name="arama"
+          />
+                </div>
+                <div class="col-auto p-0">
+        {% if onaydurum.onaydurum == "Kabul Et" %}
+          <a href="{% url 'forum-ekle' %}" data-toggle="tooltip"
+          data-placement="right"
+          title="Forum Ekle">
+            <i class="fa-solid fa-comment-medical btn btn-primary p-2 mx-3"></i
+          ></a>
+          {% else %}
+          <a href="{% url 'forum-eklenemez' %}" data-toggle="tooltip"
+          data-placement="right"
+          title="Forum Ekle">
+            <i class="fa-solid fa-comment-medical btn btn-primary p-2 mx-3"></i
+          ></a>
+        {% endif %}
+                </div>
+                <div class="col p-0">
+        <input
+          type="text"
+          class="arama1 form-control col-10"
+          maxlength="100"
+          placeholder="Sahibi"
+          name="arama1"
+        />
+                </div>
+              {% else %}
+                <div class="col">
+        <input
+            type="text"
+            class="arama form-control col-10"
+            maxlength="100"
+            placeholder="Başlığı"
+            name="arama"
+          />
+                </div>
+                <div class="col ms-3">
+        <input
+          type="text"
+          class="arama1 form-control col-10"
+          maxlength="100"
+          placeholder="Sahibi"
+          name="arama1"
+        />
+                </div>
+              {% endif %}
+            </div>
+          </div>
+      </div>
+        
+
+
+    <div class="cevaplama-parent" style="display: none">
+      <div class="cevaplama col-10 offset-1 border p-3 mb-4">
+      <span class="soru_id" style="display: none"></span>
+      <div class="cevapla_kapa_parent">
+        <i
+          class="fa-solid fa-xmark cevapla_kapa fa-xl ms-2 mb-4"
+          style="cursor: pointer"
+          onclick="cevapla_kapa()"
+        ></i>
+      </div>
+      <br />
+      <img
+        src="../../../static/images/insigne.jpg"
+        class="col-2 col-lg-1 border soru_profil_url rounded ms-1"
+        style="height: 50px; width: 50px"
+      />
+      <span class="ms-2 soru_username">Yönetici</span>
+      <div
+        class="ms-4"
+        style="
+          border-left: 3px solid rgb(120, 75, 179);
+          padding-left: 40px;
+          margin-top: 20px;
+        "
+      >
+        <hr />
+        <span class="soru_baslik"> merhaba bu benim forum sorum </span>
+        <hr />
+        <span class="soru_aciklama"> merhaba bu benim forum aciklamam </span>
+        <hr />
+        @<span class="at_soru_username">yönetici</span>
+        adlı kullanıcıya yanıtınız
+      </div>
+      <br />
+      {% if cevap_profil_url %}
+      <img
+        src="https://fifavox-s3-buckets-1.s3.eu-central-1.amazonaws.com/{{cevap_profil_url}}"
+        class="col-2 col-lg-1 rounded border ms-1"
+        style="height: 50px; width: 50px"
+      />
+      {% else %}
+      <img
+        src="https://fifavox-s3-buckets-1.s3.amazonaws.com/images/default-profile.jpg"
+        class="col-2 col-lg-1 rounded border ms-1"
+        style="height: 50px; width: 50px"
+      />
+      {% endif %}
+      <span class="ms-2">{{request.user.username}}</span>
+      <textarea
+        class="form-control mt-3 cevap-textarea"
+        rows="5"
+        maxlength="260"
+        placeholder="Cevabınız..."
+      ></textarea>
+      <div class="text-center">
+        <input
+        type="submit"
+        class="btn btn-dark mt-3"
+        onclick="cevap_olustur()"
+        value="Cevapla"
+        />
+      </div>
+      </div>
+    </div>
+
+    <div class="takip-edemezsiniz col-12 d-none">
+    <div class="row justify-content-center">
+      <div class="takip-edemezsiniz-1 p-3 col-9 col-md-6">
+      <i
+        class="fa-solid fa-xmark fa-xl mb-4"
+        onclick="gorenleri_kapa(event)"
+        style="cursor: pointer"
+      ></i>
+      <h5 class="text-center">
+        <b>Bu ve daha fazlasına erişmek için giriş yapmanız gerekmektedir.</b>
+      </h5>
+      <br />
+      <div class="text-center">
+        <a href="{% url 'giris-yap' %}"
+        ><button class="mt-5 btn btn-dark">Giriş Yap</button></a
+        >
+      </div>
+      </div>
+    </div>
+    </div>
+
+    {% if forumlar %}
+    <div class="row justify-content-center">
+      <div class="col">
+        <span
+        class="badge badge-lg bg-dark center mb-4 mesajiniz-olustu"
+        style="display: none"
+        >Cevabınız oluşturuldu.</span>
+      </div>
+    </div>
+    {% for forum in forumlar %}
+    <div
+    class="{{forum.id}} shadow-sm rounded-4 bg-light col-12 border p-3 my-5"
+  >
+    <span class="soru_id" style="display: none">{{forum.id}}</span>
+    {% if request.user not in forum.goruldu.all and request.user.is_authenticated %}
+    <span class="badge bg-dark">Yeni</span>
+    {% endif %}
+    <a
+      href="{% url 'profil' forum.profil.user.username|slugify %}"
+      class="text-black text-decoration-none"
+    >
+      {% if forum.profil.resim %}
+      <img
+        src="{{forum.profil.resim.url}}"
+        class="col-2 col-lg-1 border rounded mx-2 soru_profil_url"
+        style="height: 50px; width: 50px"
+      />
+      {% else %}
+      <img
+        src="../../../static/images/default-profile.jpg"
+        class="col-2 col-lg-1 border rounded mx-2 soru_profil_url"
+        style="height: 50px; width: 50px"
+      />
+      {% endif %}
+      <span class="ms-2 soru_username">
+        <span class="h6">{{forum.profil.user.username}} </span>
+      </span>
+      <span class="d-none d-md-inline">
+        {% if forum.onay_durum.onaydurum == "Kabul Et" %}
+        <i class="fa-solid fa-circle-check px-2 fa-sm"></i>
+        {% elif forum.onay_durum.onaydurum == "Bekle" %}
+        <i class="fa-solid fa-circle-pause px-2 fa-sm"></i>
+        {% elif forum.onay_durum.onaydurum == "Yasakla" %}
+        <i class="fa-solid fa-ban"></i>
+        {% elif forum.onay_durum.onaydurum == "Reddet" %}
+        <i class="fa-solid fa-circle-xmark px-2 fa-sm"></i>
+        {% elif forum.onay_durum.onaydurum == "Cevapsız" %}
+        <i
+          class="fa-brands fa-creative-commons-nd px-2 fa-sm"
+          title="Onaylanmak için kayıt formunu cevapla."
+        ></i>
+        {% elif forum.onay_durum.onaydurum == "Kalıcı Olarak Reddet" %}
+        <i class="fa-solid fa-square-xmark px-2 fa-sm"></i>
+        {% else %} {% endif %} •
+        <span class="ms-1">{{forum.guncellenme_tarihi}}</span>
+      </span>
+    </a>
+    <a href="{% url 'forum' forum.id %}" class="text-dark text-decoration-none">
+      <div class="bordered">
+        <hr />
+        <span class="soru_baslik h6 text-break"> {{forum.baslik}} </span>
+        <hr />
+        <span class="soru_aciklama text-break">{{forum.soru}}</span>
+        <hr />
+      </div>
+    </a>
+
+    <div class="gorenler-parent d-none">
+      <div class="gorenler col-8 offset-2 border p-3 rounded">
+        <i
+          class="fa-solid fa-xmark fa-xl mb-4"
+          onclick="gorenleri_kapa(event)"
+          style="cursor: pointer"
+        ></i>
+        <h4 class="ms-2">Görenler</h4>
+        {% if forum.goruldu.all.count > 0 %} {% for kisiler in forum.goruldu.all %}
+        <hr />
+        <a
+          href="{% url 'profil' kisiler.username|slugify %}"
+          target="_blank"
+          class="ms-2 text-black text-decoration-none"
+          >{{kisiler.username}}</a
+        >
+        {% endfor %} {% else %}
+        <hr />
+        <p class="ms-3">Forum görülmemiş.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <ul class="list-unstyled d-flex justify-content-around">
+      {% if request.user.is_authenticated %} {% if request.user.id == forum.profil.user.id or request.user.is_superuser %}
+      <li>
+        <a href="{% url 'forum-sil' forum.id %}"
+          
+          ><i class="fa-solid fa-trash ms-3" title="Sil"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Sil"></i
+        ></a>
+      </li>
+      {% endif %} {% if request.user.is_authenticated %}
+      <li>
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
+          class="fa-solid fa-eye"
+          title="Görülme Sayısı"
+          style="cursor: pointer"
+          onclick="gorenleri_goster(event)"
+        ></i
+        ><span class="ms-2">{{forum.goruldu.all.count}}</span>
+      </li>
+      {% else %}
+      <li>
+        <i 
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
+          class="fa-solid fa-eye"
+          title="Görülme Sayısı"
+          style="cursor: pointer"
+          onclick="takip_edmezsiniz()"
+        ></i
+        ><span class="ms-2">{{forum.goruldu.all.count}}</span>
+      </li>
+      {% endif %}
+      <li>
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Cevapla"
+          class="fa-solid fa-comment"
+          onclick="cevapla(event)"
+          style="cursor: pointer"
+          title="Yorum"
+        ></i>
+        <span class="cevap_sayi">{{forum.cevap_sayisi}}</span>
+      </li>
+      <li>
+        {% if request.user in forum.dislikes.all %}
+        <i
+          class="begenme fa-solid fa-heart-crack fa-md"
+          style="color: red; cursor: pointer"
+          onclick="deneme(event,'{{forum.id}}')"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğenme"
+          title="Beğenme"
+        ></i>
+        {% else %}
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğenme"
+          class="begenme fa-solid fa-heart-crack fa-md"
+          style="cursor: pointer"
+          onclick="deneme(event,'{{forum.id}}')"
+          title="Beğenme"
+        ></i>
+        {% endif %}
+        <span class="begenme_sayi mx-1">{{forum.dislikes.all.count}}</span>
+      </li>
+      <li>
+        {% if request.user in forum.likes.all %}
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğen"
+          class="begen fa-solid fa-heart fa-md"
+          style="color: red; cursor: pointer"
+          onclick="deneme(event,'{{forum.id}}')"
+          title="Beğen"
+        ></i>
+        {% else %}
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Beğen"
+          class="begen fa-solid fa-heart fa-md"
+          style="cursor: pointer"
+          onclick="deneme(event,'{{forum.id}}')"
+          title="Beğen"
+        ></i>
+        {% endif %}
+        <span class="begen_sayi mx-1">{{forum.likes.all.count}}</span>
+      </li>
+      {% else %} {% if request.user.is_authenticated %}
+      <li>
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
+          class="fa-solid fa-eye"
+          title="Görülme Sayısı"
+          style="cursor: pointer"
+          onclick="gorenleri_goster(event)"
+        ></i
+        ><span class="ms-2">{{forum.goruldu.all.count}}</span>
+      </li>
+      {% else %}
+      <li>
+        <i
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Görenler"
+          class="fa-solid fa-eye"
+          title="Görülme Sayısı"
+          style="cursor: pointer"
+          onclick="takip_edmezsiniz()"
+        ></i
+        ><span class="ms-2">{{forum.goruldu.all.count}}</span>
+      </li>
+      {% endif %}
+      <li>
+        <i
+          class="fa-solid fa-comment"
+          onclick="takip_edmezsiniz()"
+          style="cursor: pointer"
+          title="Yorum"
+        ></i>
+        <span class="begen_sayi mx-1">{{forum.cevap_sayisi}}</span>
+      </li>
+      <li>
+        <i
+          class="fa-solid fa-heart-crack"
+          onclick="takip_edmezsiniz()"
+          style="cursor: pointer"
+          title="Beğenme"
+        ></i>
+        <span class="begen_sayi mx-1">{{forum.dislikes.all.count}}</span>
+      </li>
+      <li>
+        <i
+          class="fa-solid fa-heart"
+          onclick="takip_edmezsiniz()"
+          style="cursor: pointer"
+          title="Beğen"
+        ></i>
+        <span class="begenme_sayi mx-1">{{forum.likes.all.count}}</span>
+      </li>
+      {% endif %}
+    </ul>
+    </div>
+    {% endfor %} {% else %}
+    <h4 class="pt-5 text-center">Okunacak forum yok...</h4>
+    {% endif %}
+    </div>
+ </div>
+{% endblock content %} {% block script %}
+<script defer>
+  $(".forumlar").addClass("active-icon");
+  $(".forumlar-icon").addClass("active-icon");
+
+  window.onbeforeunload = function () {
+    var scrollPos;
+    if (typeof window.pageYOffset != "undefined") {
+      scrollPos = window.pageYOffset;
+    } else if (
+      typeof document.compatMode != "undefined" &&
+      document.compatMode != "BackCompat"
+    ) {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (typeof document.body != "undefined") {
+      scrollPos = document.body.scrollTop;
+    }
+    document.cookie = "scrollTop=" + scrollPos;
+  };
+  window.onload = function () {
+    if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+      var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+      document.documentElement.scrollTop = parseInt(arr[1]);
+      document.body.scrollTop = parseInt(arr[1]);
+    }
+  };
+
+  function takip_edmezsiniz() {
+    let div = document.querySelector(".takip-edemezsiniz");
+    div.classList.remove("d-none");
+  }
+
+  let kisi_satir = document.querySelectorAll(".rounded-4");
+  let arama = document.querySelector(".arama");
+  let arama1 = document.querySelector(".arama1");
+  arama.addEventListener("keyup", function () {
+    kisi_satir.forEach((kisi) => {
+      if (
+        kisi
+          .querySelector(".soru_baslik")
+          .innerHTML.toLowerCase()
+          .includes(arama.value.toLowerCase()) &&
+        kisi
+          .querySelector(".soru_username")
+          .innerHTML.toLowerCase()
+          .includes(arama1.value.toLowerCase())
+      ) {
+        kisi.style.display = "";
+      } else {
+        kisi.style.display = "none";
+      }
+    });
+  });
+  arama1.addEventListener("keyup", function () {
+    kisi_satir.forEach((kisi) => {
+      if (
+        kisi
+          .querySelector(".soru_username")
+          .innerHTML.toLowerCase()
+          .includes(arama1.value.toLowerCase()) &&
+        kisi
+          .querySelector(".soru_baslik")
+          .innerHTML.toLowerCase()
+          .includes(arama.value.toLowerCase())
+      ) {
+        kisi.style.display = "";
+      } else {
+        kisi.style.display = "none";
+      }
+    });
+  });
+
+  let height = window.innerHeight;
+
+  function kesfet_kay() {
+    window.scrollTo({
+      top: height,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+
+  const deneme = async (event, id) => {
+    var begen_sayi =
+      event.target.parentNode.parentNode.querySelector(".begen_sayi");
+    var begen_icon = event.target.parentNode.parentNode.querySelector(".begen");
+    var begenme_sayi =
+      event.target.parentNode.parentNode.querySelector(".begenme_sayi");
+    var begenme_icon =
+      event.target.parentNode.parentNode.querySelector(".begenme");
+    if (event.target.classList[0] == "begen") {
+      event.preventDefault();
+      let response = await fetch(
+        window.location.origin + `/api/forum/${id}/begen/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{csrf_token}}",
+          },
+          body: JSON.stringify({
+            username: "{{request.user.username}}",
+          }),
+        }
+      );
+      if (response.status === 200) {
+        let sayi = await response.json();
+        begen_sayi.innerHTML = sayi;
+        if (begen_icon.style.color == "red") {
+          begen_icon.style.color = "";
+        } else {
+          begen_icon.style.color = "red";
+          begenme_icon.style.color = "";
+        }
+      }
+
+      let response1 = await fetch(
+        window.location.origin + `/api/forum/${id}/begenme/`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response1.status === 200) {
+        let sayi = await response1.json();
+        begenme_sayi.innerHTML = sayi;
+      }
+    } else if (event.target.classList[0] == "begenme") {
+      event.preventDefault();
+      let response = await fetch(
+        window.location.origin + `/api/forum/${id}/begenme/`,
+        {
+          method: "POST",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: "{{request.user.username}}",
+          }),
+        }
+      );
+      if (response.status === 200) {
+        let sayi = await response.json();
+        begenme_sayi.innerHTML = sayi;
+        if (begenme_icon.style.color == "red") {
+          begenme_icon.style.color = "";
+        } else {
+          begenme_icon.style.color = "red";
+          begen_icon.style.color = "";
+        }
+      }
+
+      let response1 = await fetch(
+        window.location.origin + `/api/forum/${id}/begen/`,
+        {
+          method: "GET",
+          mode: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response1.status === 200) {
+        let sayi = await response1.json();
+        begen_sayi.innerHTML = sayi;
+      }
+    }
+  };
+
+  let kutu_parent = document.querySelector(".cevaplama-parent");
+  kutu_parent.style.display = "none";
+  const cevapla_kapa = async (event) => {
+    let kutu_parent = document.querySelector(".cevaplama-parent");
+    kutu_parent.style.display = "none";
+    const cevap = document.querySelector(".cevap-textarea");
+    cevap.value = "";
+  };
+
+  const cevapla = async (event) => {
+    let kutu = document.querySelector(".cevaplama");
+    let kutu_parent = document.querySelector(".cevaplama-parent");
+    let cevaplanacak = event.target.parentNode.parentNode.parentNode;
+    let soru_username = kutu.querySelector(".soru_username");
+    let at_soru_username = kutu.querySelector(".at_soru_username");
+    let soru_baslik = kutu.querySelector(".soru_baslik");
+    let soru_aciklama = kutu.querySelector(".soru_aciklama");
+    let soru_profil_url = kutu.querySelector(".soru_profil_url");
+    let soru_id = kutu.querySelector(".soru_id");
+    soru_id.innerHTML = cevaplanacak.querySelector(".soru_id").innerHTML;
+    soru_username.innerHTML =
+      cevaplanacak.querySelector(".soru_username").innerHTML;
+    at_soru_username.innerHTML = cevaplanacak
+      .querySelector(".soru_username")
+      .innerHTML.toLowerCase();
+    soru_baslik.innerHTML =
+      cevaplanacak.querySelector(".soru_baslik").innerHTML;
+    soru_aciklama.innerHTML =
+      cevaplanacak.querySelector(".soru_aciklama").innerHTML;
+    soru_profil_url.src = cevaplanacak.querySelector(".soru_profil_url").src;
+    kutu_parent.style.display = "block";
+  };
+
+  const cevap_olustur = async () => {
+    let kutu = document.querySelector(".cevaplama");
+    let soru_id = kutu.querySelector(".soru_id");
+    const cevap = document.querySelector(".cevap-textarea");
+    let response = await fetch(
+      window.location.origin + "/api/forum/cevap/{{request.user.id}}/ekle/",
+      {
+        method: "POST",
+        mode: "same-origin",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          soru_id: soru_id.innerHTML,
+          cevap: cevap.value,
+          cevaba_cevap: "-1",
+        }),
+      }
+    );
+    if (response.status === 200) {
+      let divimiz = document.getElementsByClassName(soru_id.innerHTML)[0];
+      let cevap_sayi = divimiz.querySelector(".cevap_sayi");
+      cevap_sayi.innerHTML = String(parseInt(cevap_sayi.innerHTML) + 1);
+
+      cevapla_kapa();
+      gsap.from(".mesajiniz-olustu", {
+        scrollTrigger: ".mesajiniz-olustu",
+        display: "block",
+        duration: 4,
+      });
+      gsap.to(".mesajiniz-olustu", {
+        opacity: 0,
+        delay: 3,
+        duration: 1,
+        ease: "slow",
+      });
+      cevap.value = "";
+    }
+  };
+
+  const gorenleri_goster = async (event) => {
+    let gorenler_all = document.querySelectorAll(".gorenler-parent");
+    gorenler_all.forEach((gorenler) => {
+      if (!("d-none" in gorenler.classList)) {
+        gorenler.classList.add("d-none");
+      }
+    });
+    let div =
+      event.target.parentNode.parentNode.parentNode.querySelector(
+        ".gorenler-parent"
+      );
+    div.classList.remove("d-none");
+  };
+
+  const gorenleri_kapa = async (event) => {
+    let div = event.target.parentNode.parentNode.parentNode;
+    div.classList.add("d-none");
+  };
+</script>
+{% endblock %}

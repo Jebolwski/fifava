@@ -1,0 +1,35 @@
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}
+ Bilgiler | FIFAVOX
+ {% endblock %}
+ {% block content %}
+    <main class="col-11 col-lg-10 offset-1">
+        
+        <br>
+        <div class="row justify-content-around my-5 py-5">
+            <div class="col col-10 col-md-4 border rounded-4 p-4 bg-light shadow-sm">
+                <a href="{% url 'nasil-katilabilirim' %}" class="text-dark text-decoration-none">
+                    <i class="fa-solid fa-handshake fa-2x" style="margin-left: 50%;transform:translateX(-50%)"></i>
+                    <h4 class="text-center mb-4">Nasıl Katılabilirim</h4>
+                    <hr>
+                </a>
+                <p class="text-center mt-3 mb-2">FIFAVOX RolePlay FiveM sunucusunda oynamak için gerekli koşulları öğrenin ve dünyamıza katılın.</p>
+            </div>
+            <div class="col col-10 col-md-4 border rounded-4 p-4 bg-light shadow-sm mt-5 mt-md-0">
+                <a href="{% url 'terimler' %}" class="text-dark text-decoration-none">
+                    <i class="fa-solid fa-chalkboard-user fa-xl" style="margin-left: 50%;transform:translateX(-50%)"></i>
+                    <h4 class="text-center mb-4">Roleplay Terimleri</h4>
+                    <hr>
+                </a>
+                <p class="text-center mt-3 mb-2">FIFAVOX RolePlay FiveM sunucusunda oynamak için bilmeniz gereken temel RolePlay terimlerini öğrenin.</p>
+            </div>
+        </div>
+    </main>
+{% endblock content %}
+
+{% block script %}
+<script>
+    $(".bilgiler").addClass("active-icon");
+    $(".bilgiler-icon").addClass("active-icon");
+</script>
+{% endblock script %}

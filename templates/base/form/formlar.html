@@ -1,0 +1,186 @@
+ {% extends 'base/ana.html' %} {% load static %} 
+ {% block title %}
+ Formlar • FIFAVOX
+ {% endblock title %}
+ {% block content %}
+    <div class="container-fluid mt-5">
+        <div class="bg-light shadow-lg rounded-3 p-4">
+
+        
+        <h2 class="text-center pt-5 mb-5">Formlar</h2>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-8 col-lg-4 p-0">
+                    <input type="text" class="arama form-control col-10" maxlength="60" placeholder="Formun Başlığı" name="arama">
+                </div>
+                <div class="col-auto p-0">
+                    {% if user.is_superuser %}
+                        <a href="{% url 'form-ekle' %}"  
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Form Ekle"
+                ><i class="fa-solid fa-circle-plus fa-xl pt-1 mx-3"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% if formlar %}
+        
+                {% for form in formlar %}
+                
+                <div class="shadow-sm rounded-4 border bg-light mt-5">
+                        {% if request.user not in form.goruldu.all and request.user.is_authenticated %}
+                            <p class="text-center badge bg-dark col-12">Yeni</p>
+                        {% endif %}
+                        <ul class="d-flex list-unstyled justify-content-around">
+                            <li class="form-baslik text-break text-center mt-3">{{form.baslik}}</li>
+                        </ul>
+                        <hr>
+                        <ul class="d-flex list-unstyled justify-content-around">
+                            <li>{{form.metinli_soru_sayisi}} Metinli Soru</li>
+                            <li>{{form.sikli_soru_sayisi}} Şıklı Soru</li>
+                        </ul>
+                        <hr>
+                        <p class="text-center">{{form.guncellenme_tarihi}}</p>
+                        <hr>
+                        <ul class="d-flex list-unstyled justify-content-around">
+                            <li><a href="{% url 'form-detay' form.id %}"><i class="fa-solid fa-circle-info"  data-toggle="tooltip"
+              data-placement="right"
+              title="Detay"></i></a></li>
+                            {% if user.is_superuser %}
+                                <li><a href="{% url 'form-analiz' form.id %}"><i class="fa-solid fa-chart-line"  data-toggle="tooltip"
+              data-placement="right"
+              title="Analiz"></i></a></li>
+                                <li><a href="{% url 'form-sil' form.id %}"><i class="fa-solid fa-minus"  data-toggle="tooltip"
+              data-placement="right"
+              title="Sil"></i></a></li>
+                            {% endif %}
+                            {% if user.is_authenticated%}
+                                <li><a href="{% url 'form-cevapla' form.id %}"><i class="fa-solid fa-reply"  data-toggle="tooltip"
+              data-placement="right"
+              title="Cevapla"></i></a></li>
+                            {% else %}
+                                <li><i class="fa-solid fa-xmark" title="Cevaplamak için giriş yapın..."  data-toggle="tooltip"
+              data-placement="right"
+              title="Cevaplamak için giriş yapın"></i></li>
+                            {% endif %}
+                        </ul>
+                </div>
+                {% endfor %}
+            
+        <p class="text-center paginator mt-5">
+            {% if formlar.has_previous%}
+            <a href="?page=1" class="text-black"><i class="fas fa-angle-double-left"></i></a> {% endif %} {% if formlar.has_previous%}
+            <a href="?page={{formlar.previous_page_number}}" class="text-black"><i class="fas fa-chevron-left"></i></a> {% else %}
+            <i class="fas fa-chevron-left disabled" style="color: gray;">
+                </i> {% endif %} {{formlar.number}} de {{formlar.paginator.num_pages}} {% if formlar.has_next %}
+            <a href="?page={{formlar.next_page_number}}" class="text-black"><i class="fas fa-chevron-right"></i></a>
+            <a href="?page={{formlar.paginator.num_pages}}" class="text-black"><i class="fas fa-angle-double-right"></i></a> {% else %}
+            <i class="fas fa-chevron-right" style="color: gray;"></i> {% endif %}
+        </p>
+        {% else %}
+        <h4 class="text-center mt-4 mb-5">Form yok...</h4>
+        {% endif %} {% if not formlar %}
+        <hr> {% endif %}
+        </div>
+        <!-- <h4 class="mt-5 text-center">Cevaplananlar</h4>
+        {% if cevap %}
+        <table class="table table-striped table-hover  mt-5">
+          <thead class="text-center">
+            <tr>
+              <th>Başlık</th>
+              <th>Tarih</th>
+              <th>Detay</th>
+              <th>Düzenle</th>
+              <th>Sil</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for c in cevap %}
+            <tr class="text-center">
+              <td>{{c.baslik}}</td>
+              <td>{{c.guncellenme_tarihi}}</td>
+              <td><a href="{% url 'cevap-detay' c.id %}"><i class="fa-solid fa-circle-info"></i></a></td>
+              <td><a href="{% url 'cevaplanmis-duzenle' c.id %}"><i class="fa-solid fa-pen"></i></a></td>
+              <td><a href="{% url 'cevap-sil' c.id %}"><i class="fa-solid fa-minus"></i></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        {% if user.is_authenticated%}
+        <h5 class="mt-5 text-center">Cevapladığınız anket yok...</h5>
+        {% else %}
+        <h5 class="mt-5 text-center">Cevaplamak için giriş yapın...</h5>
+        {% endif %}
+        {% endif %} -->
+    
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script defer>
+
+        $(".formlar").addClass("active-icon");
+        $(".formlar-icon").addClass("active-icon");
+
+
+
+
+        window.onbeforeunload = function() {
+            var scrollPos;
+            if (typeof window.pageYOffset != 'undefined') {
+                scrollPos = window.pageYOffset;
+            } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+                scrollPos = document.documentElement.scrollTop;
+            } else if (typeof document.body != 'undefined') {
+                scrollPos = document.body.scrollTop;
+            }
+            document.cookie = "scrollTop=" + scrollPos;
+        }
+        window.onload = function() {
+            if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+                var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+                document.documentElement.scrollTop = parseInt(arr[1]);
+                document.body.scrollTop = parseInt(arr[1]);
+            }
+        }
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".tr", {
+            scrollTrigger: ".tr",
+            opacity: 0,
+            duration: 1,
+            y:"30",
+            ease: "power1"
+        })
+        gsap.from(".th", {
+            scrollTrigger: ".th",
+            opacity: 0,
+            duration: 1,
+            y:"-40",
+            ease: "power1"
+        })
+    
+        let height = window.innerHeight;
+        let kisi_satir = document.querySelectorAll(".form-baslik");
+        let arama = document.querySelector(".arama");
+        arama.addEventListener('keyup',function(){
+            kisi_satir.forEach((kisi)=>{
+                if(kisi.innerHTML.toLowerCase().includes(arama.value.toLowerCase())){
+                    kisi.parentNode.parentNode.style.display=""
+                }
+                else{
+                    kisi.parentNode.parentNode.style.display="none"
+                }
+            })
+        })
+
+
+        function kesfet_kay() {
+            window.scrollTo({
+                top: height,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+{% endblock script %}
