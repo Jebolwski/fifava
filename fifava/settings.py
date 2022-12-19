@@ -82,17 +82,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'fifavoxdatabase',
-#         'USER': 'postgres',
-#         'PASSWORD': 'fifavoxpassword1',
-#         'HOST': 'awsdjango.cvcbs1ltbgmr.eu-central-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
 CSRF_COOKIE_SECURE=True
 
 
@@ -154,6 +143,6 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "fifavoxteam@gmail.com"
-EMAIL_HOST_PASSWORD = 'ujqxewmwvgriknem'
+EMAIL_HOST_PASSWORD = '############'
 
 # SECURE_SSL_REDIRECT = True 
