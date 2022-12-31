@@ -88,7 +88,7 @@ DATABASES = {
 #         'NAME': 'fifavoxdatabase',
 #         'USER': 'postgres',
 #         'PASSWORD': '###',
-#         'HOST': 'awsdjango.cvcbs1ltbgmr.eu-central-1.rds.amazonaws.com',
+#         'HOST': '###',
 #         'PORT': '5432',
 #     }
 # }
